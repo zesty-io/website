@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableOfContent test toc test 1`] = `
+<div
+  class="MuiStack-root css-1a8uuxu-MuiStack-root"
+  data-testid="table-of-contents"
+>
+  <span
+    class="MuiTypography-root MuiTypography-button css-1armj8x-MuiTypography-root"
+  >
+    On this Page
+  </span>
+  <div
+    class="MuiStack-root css-p8ma2d-MuiStack-root"
+  >
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1wfumw2-MuiTypography-root-MuiLink-root"
+      href="#"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#understanding-content-zestyio"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#content-editing"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#visual-layout"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#versioning"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#environment"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#publishing"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#workflow-requests"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#multi-language-support"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
+      href="#api-access"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      />
+    </a>
+  </div>
+</div>
+`;

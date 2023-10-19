@@ -362,7 +362,6 @@ const Topbar = () => {
           alt="Zesty.io Logo"
           height={40}
         />
-          
       </Box>
       <Box display={'flex'} alignItems={'center'}>
         <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>

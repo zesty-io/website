@@ -1,4 +1,3 @@
-
 export { default as LogoGridSimpleCentered } from './LogoGridSimpleCentered';
 export { default as Partners } from './Partners';
 export { default as WithBoxedLogos } from './WithBoxedLogos';

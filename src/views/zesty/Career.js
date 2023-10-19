@@ -38,7 +38,7 @@ import { Jobs } from 'blocks/lists';
 import { Newsletter } from 'blocks/newsletters';
 import { About, CompanyValues } from 'blocks/contentBlocks';
 
-function Career({ content }) {
+function Career() {
   const theme = useTheme();
   return (
     <>

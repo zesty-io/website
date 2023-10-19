@@ -3,19 +3,7 @@
  * */
 
 import React from 'react';
-import {
-  Box,
-  Button,
-  Card,
-  cardClasses,
-  Container,
-  Divider,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 /**
  * Helper Imports
@@ -127,7 +115,7 @@ const CaseStudies = ({ content, theme, isMobile, FillerContent }) => {
               background: 'transparent',
             }}
           >
-            {content.case_studies?.data?.map((e, i) => {
+            {content.case_studies?.data?.map((e) => {
               return (
                 <CustomButton
                   active={active?.title === e?.title ? true : false}

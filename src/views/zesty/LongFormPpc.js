@@ -55,20 +55,18 @@ import FillerContent from 'components/globals/FillerContent';
 
 // Components Imports
 
-import LogoGridSimpleCentered from 'blocks/logoGrid/LogoGridSimpleCentered';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustrationAndSearchBar';
 import NewsletterWithImage from 'components/marketing/LongFormPpc/NewsletterWithImage';
 import SimpleCentered from 'components/marketing/LongFormPpc/SimpleCentered';
 import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
-import ContactUsForm from 'components/marketing/LongFormPpc/ContactUsForm';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
-import Features from 'components/marketing/LongFormPpc/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
-import PpcShortForm from 'components/marketing/LongFormPpc/PpcShortForm';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
-import { Container, Grid, Paper, Divider } from '@mui/material'
+import { Container, Grid, Divider } from '@mui/material';
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -77,29 +75,12 @@ function LongFormPpc({ content }) {
     return <ExploreZesty content={content} />;
   }
   const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const scrollToContactUs = () => {
     document
       .getElementById('contact-us')
       .scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const formContent = {
-    leadDetail: 'Adwords',
-    businessType: 'Direct',
-    leadSource: 'Advertisement',
-    selectedValue: 2,
-    hideSelect: true,
-    hideMessage: true,
-    ctaText: content.cta_footer_cta || FillerContent.cta,
-    modalTitle: 'Thank you for submitting your information.',
-    modalMessage: 'Our team will be in touch soon to discuss next steps.',
-    displayMsgUnderButton: ' ',
-    additionalTextfield: { company: true, jobTitle: true },
-    customButtonStyle: { display: 'flex', justifyContent: 'center' },
-    phoneNumber: true,
   };
 
   const headerProps = {
@@ -112,8 +93,32 @@ function LongFormPpc({ content }) {
     cta_right_text: content.cta_right_text || FillerContent.cta,
     cta_right_url:
       (content.cta_right_url &&
-        zestyLink(content.navigationTree, content.cta_right_url)) ||
-      zestyLink(content.navigationTree, FillerContent.contact_zuid),
+        zestyLink(content?.navigationTree, content.cta_right_url)) ||
+      zestyLink(content?.navigationTree, FillerContent.contact_zuid),
+    cta_left_text: content.cta_left_text || '',
+    cta_left_url:
+      (content.cta_left_url === '0' && '/join/') ||
+      content.cta_left_url?.data[0]?.meta.web.uri ||
+      '/join/',
+  };
+
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const feature_data =
+    content?.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0]?.url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const techStackData = {
+    text_content: content.integrations_description,
+    logos: content.integrations_logos?.data,
+    cta_text: content.intergration_cta_text || FillerContent.cta,
+    cta_link: content.integration_cta_link || FillerContent.href,
   };
 
   return (
@@ -149,9 +154,10 @@ function LongFormPpc({ content }) {
 
       {/* Who Zesty works with */}
       <Box sx={{ py: 10 }}>
-        <LogoGridSimpleCentered
-          title={content.logos_h3 || FillerContent.header}
-          imageCollection={content.logos?.data || [FillerContent.image]}
+        <SimpleCardLogo
+          logoItems={content?.logos?.data}
+          heading_text={content.logos_h3}
+          maxWidth={1300}
         />
       </Box>
 
@@ -163,7 +169,7 @@ function LongFormPpc({ content }) {
           }
           image={
             (content._what_is_image?.data &&
-              content._what_is_image?.data[0].url) ||
+              content._what_is_image?.data[0]?.url) ||
             FillerContent.image
           }
         />
@@ -182,11 +188,9 @@ function LongFormPpc({ content }) {
         />
       ) : (
         <Features
-          FillerContent={FillerContent}
-          isDarkMode={isDarkMode}
+          features_header={content.features_header}
+          data={feature_data}
           content={content}
-          theme={theme}
-          isMobile={isMobile}
         />
       )}
 
@@ -206,46 +210,58 @@ function LongFormPpc({ content }) {
         />
       </Box>
 
-      {router.asPath.includes('/ppc/headless-cms/') ? null : (
-        <TechStack
-          FillerContent={FillerContent}
-          content={content}
-          theme={theme}
-          isMobile={isMobile}
-        />
+      {router.asPath.includes('/ppc/headless-cms/') ? (
+        <></>
+      ) : (
+        <TechStack {...techStackData} content={content} />
       )}
 
       {/* Form */}
       <Container>
-        <Grid container>
-            <Grid item md={5} xs={12}>
-              <Typography id="contact-us" variant="h4" style={{marginTop: '30px'}}>Arrange a Demo</Typography>
-              <br />
-              <Divider />
-             
-              <Typography variant="body1">
-                <p>Input your info and we will reach out immediately to arrange a personalized demo with you and your team.</p>
-                <ul>
-                  <li>Tell us about your project</li>
-                  <li>Learn industry best practices</li>
-                  <li>Speak with a Solutions Engineer</li>
-                  <li>Explore the ease of data transfer</li>
-                  <li>Walk away with tailored Zesty platform</li>
-                </ul>
-                
-              </Typography>
-            </Grid>
-            <Grid item md={7} xs={12}>
-              <Paper elevation={2}>
-                <ZohoFormEmbed 
-                  url='https://forms.zohopublic.com/zestyio/form/SalessignupformPPCCRM/formperma/G9oQMOrpqmdcg7rMbZ3tqucS8d9-92oA5HYh6fO96fM'
-                  height="600px"
-                  />
-              </Paper>
-            </Grid>
+        <Grid sx={{ py: 10 }} container>
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              flexDirection: 'column',
+            }}
+            item
+            md={5}
+            xs={12}
+          >
+            <Typography
+              id="contact-us"
+              variant="h4"
+              style={{ marginTop: '30px' }}
+            >
+              Arrange a Demo
+            </Typography>
+            <br />
+            <Divider />
+
+            <Typography variant="body1">
+              <p>
+                Input your info and we will reach out immediately to arrange a
+                personalized demo with you and your team.
+              </p>
+              <ul>
+                <li>Tell us about your project</li>
+                <li>Learn industry best practices</li>
+                <li>Speak with a Solutions Engineer</li>
+                <li>Explore the ease of data transfer</li>
+                <li>Walk away with tailored Zesty platform</li>
+              </ul>
+            </Typography>
           </Grid>
-        </Container>
-        {/*
+          <Grid item md={7} xs={12}>
+            <ZohoFormEmbed
+              formURL="https://forms.zohopublic.com/zestyio/form/SalessignupformPPCCRM/formperma/G9oQMOrpqmdcg7rMbZ3tqucS8d9-92oA5HYh6fO96fM"
+              height="650px"
+            />
+          </Grid>
+        </Grid>
+      </Container>
+      {/*
         // the original form was commented out to use the zoho embed form url above
       {router.asPath.includes('/ppc/content-management-system/') ? (
         <PpcShortForm theme={theme} content={content} />

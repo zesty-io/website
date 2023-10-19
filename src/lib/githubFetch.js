@@ -1,16 +1,14 @@
-export async function githubFetch(settings){
-    const TOKEN = process.env.NEXT_PUBLIC_GITHUB_AUTH;
-    const ENDPOINT = 'https://api.github.com/graphql';
+export async function githubFetch(settings) {
+  const TOKEN = process.env.GITHUB_AUTH;
+  const ENDPOINT = 'https://api.github.com/graphql';
 
-    const HEADERS = {
-      'Content-Type': 'application/json',
-      Authorization: 'bearer ' + TOKEN,
-    };
+  const HEADERS = {
+    'Content-Type': 'application/json',
+    Authorization: 'bearer ' + TOKEN,
+  };
 
-   
-
-    const body = {
-      query: `
+  const body = {
+    query: `
       {
         organization(login: ${settings.organization}) {
           repository(name: "manager-ui") {
@@ -24,6 +22,7 @@ export async function githubFetch(settings){
                 }
               }
               nodes {
+                id
                 category {
                   name
                   emojiHTML
@@ -46,12 +45,26 @@ export async function githubFetch(settings){
             columns(last: ${settings.columns}) {
               nodes {
                 name,
-                cards(last: ${settings.cards} ) {
+                cards(first: ${settings.cards} ) {
                   totalCount
                   nodes {
                     id,
                     note,
                     url
+                    isArchived
+                    state
+                    content {
+								        ... on Issue {
+									  title
+									  bodyHTML
+									  labels(first: 10) {
+										nodes {
+											color
+											name
+									  	  }
+									    }
+							  	   }
+						    	  }
                   }
                 }
               }
@@ -60,14 +73,13 @@ export async function githubFetch(settings){
         }
       }    
       `,
-    };
+  };
 
-    const githubResponse = await fetch(ENDPOINT, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify(body),
-    });
+  const githubResponse = await fetch(ENDPOINT, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify(body),
+  });
 
-    return await githubResponse.json();
-
+  return await githubResponse.json();
 }

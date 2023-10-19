@@ -97,7 +97,7 @@ function EventsAndWebinar({ content }) {
             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
           ></path>
         </Box>
-        <Container py={1}>
+        <Container zIndex={3} position="relative" py={1}>
           <Newsletter
             title={content.cta_title || FillerContent.header}
             description={content.cta_description || FillerContent.description}

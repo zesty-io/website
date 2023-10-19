@@ -11,6 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 import Main from 'layouts/Main';
+import MarketingMain from 'layouts/Main/MarketingMain';
 import Container from 'components/Container';
 
 import { Hero, OverviewSection } from './components';
@@ -43,7 +44,7 @@ const IndexView = () => {
 
   return (
     <Box id="js--blocks__index">
-      <Main>
+      <MarketingMain>
         <Box>
           <Container>
             <Hero />
@@ -123,7 +124,7 @@ const IndexView = () => {
             </Zoom>
           </NoSsr>
         </Box>
-      </Main>
+      </MarketingMain>
     </Box>
   );
 };

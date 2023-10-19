@@ -1,2 +1,1 @@
-export { default } from './HeroJarallax'
-
+export { default } from './HeroJarallax';

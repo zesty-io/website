@@ -3,12 +3,11 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 import Container from 'components/Container';
 
@@ -52,17 +51,19 @@ const HeroWithIllustrationAndSearchBar = ({
             <Box marginBottom={4}>
               <Grid paddingLeft={rowReverse ? 0 : 0} item xs={12} md={9}>
                 <MuiMarkdown
-                  overrides={{
-                    h2: {
-                      component: 'h2',
-                      props: {
-                        style: { fontSize: 32, lineHeight: 1.2 },
+                  options={{
+                    overrides: {
+                      h2: {
+                        component: 'h2',
+                        props: {
+                          style: { fontSize: 32, lineHeight: 1.2 },
+                        },
                       },
-                    },
-                    p: {
-                      component: 'p',
-                      props: {
-                        style: { fontSize: 20 },
+                      p: {
+                        component: 'p',
+                        props: {
+                          style: { fontSize: 20 },
+                        },
                       },
                     },
                   }}

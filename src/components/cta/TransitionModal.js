@@ -1,8 +1,5 @@
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
 
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
@@ -22,8 +19,13 @@ const style = {
   fontFamily: 'Mulish',
 };
 
-export default function TransitionsModal({ title='Thank you', message='Have a great day', open, setOpen }) {
-  const handleOpen = () => setOpen(true);
+export default function TransitionsModal({
+  title = 'Thank you',
+  message = 'Have a great day',
+  open,
+  setOpen,
+}) {
+  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (

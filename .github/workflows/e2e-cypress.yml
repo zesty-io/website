@@ -1,0 +1,39 @@
+name: Zesty Website E2E Cypress 
+on:
+  pull_request:
+    branches: [stage,accounts,production,dev]
+  workflow_dispatch:
+jobs:
+  end-to-end-tests-cypress:
+    runs-on: ubuntu-latest
+    env:
+      PRODUCTION: 'true'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v1
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Setup custom host for mylocal
+        run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
+
+      - name: Install dependencies 
+        run: pnpm install 
+
+      - name: Write the cypress.env.json file 📝
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
+
+      - name: Run E2E test
+        run: pnpm run test:e2e:ci:prod
+
+      - name: Save screenshots 🖼
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots

@@ -1,20 +1,16 @@
 import MarketplaceSinglePageContainer from 'components/marketplace/MarketplaceSinglePageContainer';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from 'layouts/Main/Main';
-import { fetchPage } from 'lib/api';
-import EntityType from 'views/marketplace/EntityType';
+import { fetchPage, fetcher } from 'lib/api';
 import Extension from 'views/marketplace/Extension';
-import Tag from 'views/marketplace/Tag';
 import CustomContainer from 'components/Container';
-import AppBar from 'components/console/AppBar';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
-import { setCookies } from 'cookies-next';
-import { useTheme } from '@emotion/react';
-import { TitleBar } from 'components/marketplace/TitleBar';
+import { setCookie } from 'cookies-next';
 import MainApps from 'components/marketplace/landing/MainApps';
+import { useEffect, useState } from 'react';
+import { getIsAuthenticated } from 'utils';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -22,21 +18,16 @@ const ALTNAME = {
   EXTENSION: 'Extension',
 };
 
-const renderMarketplaceViewByAltName = (altName) => {
-  if (altName === ALTNAME.TAG) {
-    return <Tag />;
-  } else if (altName === ALTNAME.ENTITY_TYPE) {
-    return <EntityType />;
-  }
-};
-
 const slug = ({ marketEntityTypes, marketTags, ...props }) => {
-  const theme = useTheme();
-  const router = useRouter();
+  const [pathname, setPathname] = useState('');
   const seoTitle = props?.meta?.web?.seo_meta_title,
     seoDescription = props?.meta?.web?.seo_meta_description;
 
-  if (window.location.pathname === '/marketplace/register/') {
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
+
+  if (pathname === '/marketplace/register/') {
     return (
       <>
         <Head>
@@ -44,9 +35,10 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:title" content={seoTitle} />
           <meta property="og:description" content={seoDescription} />
         </Head>
-        <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
-
+        <Main
+          customRouting={props.navigationCustom}
+          flyoutNavigation={props.flyoutNavigation}
+        >
           <CustomContainer>
             <RegisterPage />
           </CustomContainer>
@@ -55,7 +47,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
     );
   }
 
-  if (window.location.pathname === '/marketplace/installed/') {
+  if (pathname === '/marketplace/installed/') {
     return (
       <>
         <Head>
@@ -63,8 +55,10 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:title" content={seoTitle} />
           <meta property="og:description" content={seoDescription} />
         </Head>
-        <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
+        <Main
+          customRouting={props.navigationCustom}
+          flyoutNavigation={props.flyoutNavigation}
+        >
           <CustomContainer>
             <InstalledPage />
           </CustomContainer>
@@ -81,8 +75,10 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:title" content={seoTitle} />
           <meta property="og:description" content={seoDescription} />
         </Head>
-        <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
+        <Main
+          customRouting={props.navigationCustom}
+          flyoutNavigation={props.flyoutNavigation}
+        >
           <CustomContainer>
             <Extension {...props} />
           </CustomContainer>
@@ -98,9 +94,10 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
       </Head>
-      <Main customRouting={props.navigationCustom}>
-        <AppBar url={router.asPath} />
-
+      <Main
+        customRouting={props.navigationCustom}
+        flyoutNavigation={props.flyoutNavigation}
+      >
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}
         >
@@ -152,6 +149,8 @@ export const getMarketplaceData = async (url) => {
 };
 
 export async function getServerSideProps({ req, res }) {
+  const isAuthenticated = getIsAuthenticated(res);
+
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=600, stale-while-revalidate=3600',
@@ -159,7 +158,7 @@ export async function getServerSideProps({ req, res }) {
 
   // set instance zuid cookie
   if (req.query?.instanceZUID) {
-    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
+    setCookie('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
   const data = await getMarketplaceData(req.url);
@@ -167,9 +166,19 @@ export async function getServerSideProps({ req, res }) {
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
-  const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
-  const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
+  // const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
+  // const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
+
+  const entityTypes = await fetcher({
+    url: `${extensionsURL}/-/gql/entity_types.json`,
+    fallback: [],
+  });
+  const tags = await fetcher({
+    url: `${extensionsURL}/-/gql/tags.json`,
+    fallback: [],
+  });
   const navigationCustom = (await fetchPage('/')).navigationCustom;
+  const flyoutNavigation = (await fetchPage('/')).flyoutNavigation;
 
   // partial fix for register page not rendering
   const isRegisterPage = req.url === '/marketplace/register/';
@@ -184,9 +193,14 @@ export async function getServerSideProps({ req, res }) {
   return {
     props: {
       ...data,
-      marketEntityTypes: await entityTypes.json(),
-      marketTags: await tags.json(),
+      marketEntityTypes: entityTypes,
+      marketTags: tags,
       navigationCustom: navigationCustom,
+      flyoutNavigation: flyoutNavigation,
+      zesty: {
+        isAuthenticated,
+        templateUrl: process.env.TEMPLATE_URL,
+      },
     },
   };
 }

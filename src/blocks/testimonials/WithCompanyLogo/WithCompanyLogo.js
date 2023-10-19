@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
 
-const WithCompanyLogo = ({ header, content, logo }) => {
+const WithCompanyLogo = ({ header, content, logo, name, title }) => {
   const theme = useTheme();
 
   return (
@@ -55,26 +55,23 @@ const WithCompanyLogo = ({ header, content, logo }) => {
           >
             <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
           </Typography>
-          {/* <Typography variant={'h6'} component={'p'} align={'center'}>
-            First class templates.
-            <br />
-            These guys know what they're doing: great code quality, clear naming
-            conventions and clear code structure.
-            <br />
-            Plain awesome and a pleasure to work with.
-          </Typography>
           <Box marginTop={{ xs: 2, sm: 4 }}>
-            <Typography
-              variant={'h6'}
-              sx={{ fontWeight: 700 }}
-              align={'center'}
-            >
-              Jhon Anderson
-            </Typography>
-            <Typography color="text.secondary" align={'center'}>
-              MUI lover
-            </Typography>
-          </Box> */}
+            {name && (
+              <Typography
+                variant={'h6'}
+                sx={{ fontWeight: 700 }}
+                align={'center'}
+              >
+                {name}
+              </Typography>
+            )}
+
+            {title && (
+              <Typography color="text.secondary" align={'center'}>
+                {title}
+              </Typography>
+            )}
+          </Box>
         </Box>
       </Container>
     </Box>

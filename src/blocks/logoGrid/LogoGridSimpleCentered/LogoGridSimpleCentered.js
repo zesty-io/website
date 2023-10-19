@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
-import FillerContent from 'components/globals/FillerContent';
 import { useMediaQuery } from '@mui/material';
 
 const mock = [
@@ -26,7 +25,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
 
   return (
     <Container>
-      <Box sx={{ padding: isMobile ? '1rem 0' : '5rem 0' }}>
+      <Box sx={{ py: '1rem' }}>
         <Box marginBottom={4}>
           {title && (
             <Typography
@@ -36,6 +35,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
               component={'h3'}
               fontWeight={700}
               fontSize={'24px'}
+              color={theme.palette.zesty.zestyZambezi}
             >
               {title}
             </Typography>
@@ -58,7 +58,21 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
         >
           {images?.map((item, i) => (
             <Box marginTop={2} key={i}>
-              <Box component="img" src={item} alt="..." />
+              <Box
+                component="img"
+                src={item}
+                alt="..."
+                sx={{
+                  filter:
+                    theme.palette.mode !== 'light'
+                      ? `${
+                          imageCollection[i]?.customer_name === 'Phoenix Suns'
+                            ? 'invert(0)'
+                            : 'brightness(0%)'
+                        } invert(1)`
+                      : '',
+                }}
+              />
             </Box>
           ))}
         </Box>

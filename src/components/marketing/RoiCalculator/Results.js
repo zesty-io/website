@@ -2,7 +2,6 @@
  *  MUI Imports
  */
 import { Box, Typography, Button } from '@mui/material';
-import { useState } from 'react';
 
 const Results = ({
   theme,

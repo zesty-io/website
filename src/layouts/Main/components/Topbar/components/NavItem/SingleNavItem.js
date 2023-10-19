@@ -1,47 +1,50 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography'
 import Link from '@mui/material/Link';
+import { useRouter } from 'next/router';
+import { Box, useTheme } from '@mui/material';
 
-const SingleNavItem = ({ title, id, url, colorInvert = false }) => {
+const SingleNavItem = ({ title, url, colorInvert = false }) => {
+  const { asPath } = useRouter();
   const theme = useTheme();
-  const [activeLink, setActiveLink] = useState('');
-  useEffect(() => {
-    setActiveLink(window && window.location ? window.location.pathname : '');
-  }, []);
-
-  const hasActiveLink = activeLink === url;
-
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  const hasActiveLink = url === '/' ? asPath === url : asPath.startsWith(url);
+  const linkColor = colorInvert
+    ? 'common.white'
+    : theme.palette.mode === 'light'
+    ? '#475467'
+    : '#fff';
 
   return (
-    <Box>
-      <Box
-        display={'flex'}
-        alignItems={'center'}
-        aria-describedby={id}
-        sx={{ cursor: 'pointer' }}
-       
+    <Box
+      display="flex"
+      alignItems="center"
+      height="100%"
+      sx={(theme) => ({
+        fontWeight: 600,
+        '&:hover': {
+          color: theme.palette.zesty.zestyOrange,
+          boxShadow: `inset 0 -3px ${theme.palette.zesty.zestyOrange}`,
+        },
+        transition: 'color .2s,box-shadow .2s',
+      })}
+    >
+      <Link
+        fontWeight={hasActiveLink ? 700 : 400}
+        color={linkColor}
+        href={url}
+        underline="none"
+        sx={(theme) => ({
+          fontWeight: 600,
+        })}
+        title={title}
       >
-        <Link
-          fontWeight={hasActiveLink ? 700 : 400}
-          color={linkColor}
-          href={url}
-          underline='none'
-        >
-          {title}
-        </Link>
-       
-      </Box>
+        {title}
+      </Link>
     </Box>
   );
 };
 
 SingleNavItem.propTypes = {
   title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   colorInvert: PropTypes.bool,
 };

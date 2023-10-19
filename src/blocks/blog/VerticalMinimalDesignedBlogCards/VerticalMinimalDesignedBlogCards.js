@@ -53,20 +53,20 @@ const mock = [
 const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, cards, author }) => {
   const theme = useTheme();
   const cardsData = cards || mock;
-      const scrollTo = (id) => {
-        setTimeout(() => {
-          const element = document.querySelector(`#${id}`);
-          if (!element) {
-            return;
-          }
+  const scrollTo = (id) => {
+    setTimeout(() => {
+      const element = document.querySelector(`#${id}`);
+      if (!element) {
+        return;
+      }
 
-          window.scrollTo({
-            left: 0,
-            top: element.offsetTop,
-            behavior: 'smooth',
-          });
-        });
-      };
+      window.scrollTo({
+        left: 0,
+        top: element.offsetTop,
+        behavior: 'smooth',
+      });
+    });
+  };
 
   // Pagination
   const [currentPage, setcurrentPage] = React.useState(1);

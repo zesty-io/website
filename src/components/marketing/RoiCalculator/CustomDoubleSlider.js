@@ -1,7 +1,7 @@
 /**
  *  MUI Imports
  */
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';

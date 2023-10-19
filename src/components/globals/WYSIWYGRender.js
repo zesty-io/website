@@ -15,6 +15,38 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
   }
 
   let inlineStyles = `
+        p iframe {
+          width: 100%;
+          maxWidth: 900px;
+          height: 400px;
+        }
+        .wysiwyg > pre  {
+          padding:20px;
+          background:#F5F2F0;
+          width:100%;
+          maxWidth:900px;
+          overflow:auto;
+          font-size:14px;
+          border-radius:10px;
+        }
+
+        .wysiwyg blockquote {
+          padding: 10px 20px 10px 40px;
+          backgorund: #e7e7e7;
+          margin: 0px;
+          overflow: scroll;
+        }
+        .wysiwyg blockquote.code {
+          
+          border-radius: 5px;
+          border: 2px #333 solid;
+          background: black;
+          
+        }
+        .wysiwyg blockquote.code p code {
+          color: limegreen !important;
+          font-weight: bold;
+        }
         .wysiwyg ul {
             padding-left: 0px;
             margin-left: 0px;
@@ -30,9 +62,22 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
         .wysiwyg , .wysiwyg  p {
           color: ${theme.palette.text.secondary};
+          font-size: 1.1rem;
+          line-height: 150%;
+        }
+        .wysiwyg , .wysiwyg  h2 {
+          color: ${theme.palette.text.secondary};
+          font-size: 26px;
+          line-height: 120%;
+        }
+        .wysiwyg , .wysiwyg  h3 {
+          color: ${theme.palette.text.secondary};
+          font-size: 22px;
+          line-height: 120%;
         }
         .wysiwyg strong, .wysiwyg h1, .wysiwyg h2, .wysiwyg h3,.wysiwyg h4,.wysiwyg h5,.wysiwyg h6 {
           color: ${theme.palette.text.primary} !important;
+          line-height:1;
         }
 
         @media only screen and (max-width: 600px) {
@@ -146,13 +191,13 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
 
 
-        @media only screen and (max-width: 600px) {
-          .wysiwyg table tr{
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-          }
-        }
+        // @media only screen and (max-width: 600px) {
+        //   .wysiwyg table tr{
+        //       display: flex;
+        //       flex-direction: column;
+        //       align-items: center;
+        //   }
+        // }
 
        .wysiwyg.normal-bullets ul li{
             list-style-type: disc;

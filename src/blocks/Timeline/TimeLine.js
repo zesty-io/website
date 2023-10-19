@@ -1,10 +1,10 @@
 // MUI imports
 import { Box, Container, Grid, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 // Local Assets Imports
-import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
-import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
+// import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
+// import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
 import curve from '../../../public/assets/images/headless-cms/curve.svg';
 import curve_dark from '../../../public/assets/images/headless-cms/curve-dark.svg';
 import curve_mobile from '../../../public/assets/images/headless-cms/curve-mobile.svg';
@@ -20,13 +20,12 @@ const TimeLine = ({
     <Box
       sx={{
         background: theme.palette.zesty.zestyDarkBlue,
-        mt: 25,
+        mt: 10,
         position: 'relative',
-        borderRadius: 5,
       }}
       component="section"
     >
-      <Box
+      {/* <Box
         sx={{
           position: 'absolute',
           left: 0,
@@ -36,13 +35,13 @@ const TimeLine = ({
         component="img"
         alt=""
         src={chevron_left.src}
-      />
+      /> */}
       <Container>
         <Box
           sx={{
             position: 'absolute',
 
-            ml: isMobile ? 5 : 4.2,
+            ml: isMobile ? 0 : -0.9,
             mt: -14.4,
           }}
           component="img"
@@ -56,19 +55,8 @@ const TimeLine = ({
           }
         />
 
-        <Box
-          sx={{
-            position: 'absolute',
-            right: 0,
-            top: '5%',
-            width: isMobile ? 264 : 'auto',
-          }}
-          component="img"
-          alt=""
-          src={chevron_right.src}
-        />
         <Box sx={{ color: 'white', mt: -5 }}>
-          <Box sx={{ position: 'relative' }} component="ul">
+          <Box sx={{ position: 'relative' }}>
             {/* Content One */}
             <Box
               sx={{
@@ -83,34 +71,36 @@ const TimeLine = ({
               }}
               component="li"
             >
-              <Box sx={{ ml: 4, mt: isMobile ? 0 : 15 }}>
+              <Box sx={{ ml: 4, mt: isMobile ? 0 : 10 }}>
                 <MuiMarkdown
-                  overrides={{
-                    h2: {
-                      component: Typography,
-                      props: {
-                        component: 'h2',
-                        variant: 'h3',
-                        sx: {
-                          textAlign: isMobile ? 'center' : 'left',
-                          fontWeight: 'bold',
-                          background: theme.palette.zesty.zestyOrangeLinear,
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text',
-                          color: 'transparent',
+                  options={{
+                    overrides: {
+                      h2: {
+                        component: Typography,
+                        props: {
+                          component: 'h3',
+                          variant: 'h3',
+                          sx: {
+                            textAlign: isMobile ? 'center' : 'left',
+                            fontWeight: 'bold',
+                            background: theme.palette.zesty.zestyOrangeLinear,
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            color: 'transparent',
+                          },
                         },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h4',
-                        component: 'p',
-                        sx: {
-                          marginTop: 2,
-                          textAlign: isMobile ? 'center' : 'left',
-                          fontSize: isMobile ? 25 : 32,
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h4',
+                          component: 'p',
+                          sx: {
+                            marginTop: 2,
+                            textAlign: isMobile ? 'center' : 'left',
+                            fontSize: isMobile ? 25 : 32,
+                          },
                         },
                       },
                     },
@@ -121,14 +111,15 @@ const TimeLine = ({
               </Box>
             </Box>
             {/* Content Loop */}
-            {timelineData.data.map((item) => (
+            {timelineData.data.map((item, index) => (
               <Box
+                key={index}
                 sx={{
                   py: isMobile ? 3 : 0,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
-                  minHeight: 400,
+                  minHeight: index === 3 ? 600 : 400,
                   listStyleType: 'none',
                   borderLeft: `2px solid ${
                     isMobile
@@ -153,9 +144,8 @@ const TimeLine = ({
                     top: isMobile ? '32%' : '22%',
                   },
                 }}
-                component="li"
               >
-                <Grid container spacing={2}>
+                <Grid sx={{ mt: index === 3 ? -10 : 0 }} container spacing={2}>
                   <Grid
                     sx={{
                       display: 'flex',
@@ -168,30 +158,32 @@ const TimeLine = ({
                   >
                     <Box sx={{ ml: 4 }}>
                       <MuiMarkdown
-                        overrides={{
-                          h3: {
-                            component: Typography,
-                            props: {
-                              variant: 'h4',
-                              component: 'h2',
-                              sx: {
-                                fontWeight: 'bold',
-                                background:
-                                  theme.palette.zesty.zestyOrangeLinear,
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text',
-                                color: 'transparent',
+                        options={{
+                          overrides: {
+                            h3: {
+                              component: Typography,
+                              props: {
+                                variant: 'h4',
+                                component: 'h2',
+                                sx: {
+                                  fontWeight: 'bold',
+                                  background:
+                                    theme.palette.zesty.zestyOrangeLinear,
+                                  WebkitBackgroundClip: 'text',
+                                  WebkitTextFillColor: 'transparent',
+                                  backgroundClip: 'text',
+                                  color: 'transparent',
+                                },
                               },
                             },
-                          },
-                          p: {
-                            component: Typography,
-                            props: {
-                              variant: 'h4',
-                              component: 'p',
-                              sx: {
-                                mt: 2,
+                            p: {
+                              component: Typography,
+                              props: {
+                                variant: 'h4',
+                                component: 'p',
+                                sx: {
+                                  mt: 2,
+                                },
                               },
                             },
                           },

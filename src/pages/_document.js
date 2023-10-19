@@ -4,41 +4,60 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import createEmotionServer from '@emotion/server/create-instance';
+import Script from 'next/script';
 
 const getCache = () => {
   const cache = createCache({ key: 'css', prepend: true });
   cache.compat = true;
-
   return cache;
 };
 
+const GOOGLE_FONT = `https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap`;
+const Mulish = '/fonts/Mulish-Regular.woff2';
+const fetchUrl =
+  process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
+  'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
+
 export default class MyDocument extends Document {
   render() {
-    const fetchUrl =
-      process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
-      'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
     return (
       <Html lang="en">
         <Head>
-          <script src={fetchUrl} />
           <link
+            rel="icon"
+            href="https://brand.zesty.io/favicon.png"
+            type="image/png"
+          />
+          <link
+            href="https://fonts.gstatic.com"
+            rel="preconnect"
+            crossOrigin="anonymous"
+          />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+          <link href={GOOGLE_FONT} rel="stylesheet" />
+
+          <link
+            rel="preload"
+            href={Mulish}
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `@font-face{font-family:'Mulish';font-style:normal;font-weight:600;font-display:swap;src:url('${Mulish}') format('woff2');}`,
+            }}
+          />
+          <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
-            href="https://unpkg.com/aos@next/dist/aos.css"
           />
         </Head>
         <body>
-          <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-          <script>AOS.init();</script>
-          <noscript>
-            <iframe
-              src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH3C8"
-              height="0"
-              width="0"
-              style={{ display: 'none', visibility: 'hidden' }}
-            ></iframe>
-          </noscript>
           <Main />
           <NextScript />
+          <Script strategy="beforeInteractive" src={fetchUrl} />
         </body>
       </Html>
     );
@@ -79,12 +98,11 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // Take precedence over the CacheProvider in our custom _app.js
-      enhanceComponent: (Component) => (props) =>
-        (
-          <CacheProvider value={cache}>
-            <Component {...props} />
-          </CacheProvider>
-        ),
+      enhanceComponent: (Component) => (props) => (
+        <CacheProvider value={cache}>
+          <Component {...props} />
+        </CacheProvider>
+      ),
     });
 
   const initialProps = await Document.getInitialProps(ctx);

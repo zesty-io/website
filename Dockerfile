@@ -1,15 +1,22 @@
-FROM node:16.4.2
+FROM node:18.18-alpine3.18
+
+RUN npm install -g pnpm
 
 WORKDIR /usr/src/app
 
+COPY package*.json ./
+
+RUN pnpm install --prod --prefer-offline --ignore-scripts  && pnpm store prune
+
 COPY . ./
-RUN npm install
 
 EXPOSE 8080
 
 ENV HOST=0.0.0.0
 ENV PORT=8080
+ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN npm run build
+RUN pnpm run build
 
-CMD [ "npm", "start" ]
+CMD [ "pnpm", "start" ]
+

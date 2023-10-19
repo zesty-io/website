@@ -4,7 +4,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 const Articles = ({ theme, articles, FillerContent, title }) => {
   return (
-    <Box sx={{ py: 10 }} component="section">
+    <Box sx={{ pt: 15, pb: 20 }} component="section">
       <Container>
         <Box
           sx={{
@@ -25,7 +25,7 @@ const Articles = ({ theme, articles, FillerContent, title }) => {
           />
           <Typography
             sx={{ fontWeight: 'bold', color: theme.palette.zesty.zestyZambezi }}
-            variant="h3"
+            variant="h4"
             component="h2"
           >
             {title || FillerContent.header}
@@ -40,8 +40,8 @@ const Articles = ({ theme, articles, FillerContent, title }) => {
           />
         </Box>
         <Grid container spacing={4} sx={{ mt: 4 }}>
-          {articles.map((item) => (
-            <Grid item xs={12} sm={6} lg={4}>
+          {articles.map((item,idx) => (
+            <Grid key={idx} item xs={12} sm={6} lg={4}>
               <Box
                 sx={{
                   backgroundImage: `url(${

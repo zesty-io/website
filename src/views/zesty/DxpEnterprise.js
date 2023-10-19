@@ -41,29 +41,76 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-import React from 'react';
+/**
+ * React Imports
+ */
+import FillerContent from 'components/globals/FillerContent';
+
+/**
+ * Component Imports
+ */
+import Hero from 'components/marketing/DxpEnterprise/Hero';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import WhyZesty from 'components/marketing/DxpEnterprise/WhyZesty';
+import Integration from 'components/marketing/DxpEnterprise/Integration';
+import TopBrands from 'blocks/caseStudies/TopBrands';
 
 function DxpEnterprise({ content }) {
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isWideScreen = useMediaQuery(theme.breakpoints.between(2000, 99999));
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  const pageData = {
+    content,
+    FillerContent,
+    theme,
+    isMedium,
+    isLarge,
+    isWideScreen,
+    isDarkMode,
+  };
+
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const feature_data =
+    content?.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <Hero {...pageData} />
+      <Features
+        textHighlight="Zesty’s enterprise"
+        features_header={content.features_header}
+        data={feature_data}
+        header_size={32}
+      />
+      <WhyZesty {...pageData} />
+      <TopBrands
+        textHighlight={'our customers'}
+        backgroundColor={
+          isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.common.white
+        }
+        title={content.case_studies_title || FillerContent.description}
+        {...pageData}
+      />
+      <Integration {...pageData} />
     </>
   );
 }

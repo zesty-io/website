@@ -2,12 +2,8 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 
-
-
-
 const PartnersColor = (partnerLogos) => {
-
-const logos = partnerLogos.partnerLogos   ;
+  const logos = partnerLogos.partnerLogos;
 
   return (
     <Grid container spacing={0}>
@@ -21,7 +17,7 @@ const logos = partnerLogos.partnerLogos   ;
         >
           <Grid item xs={6}>
             <Avatar
-              src={item?.url }
+              src={item?.url}
               sx={{
                 width: { xs: 60, md: 80 },
                 height: { xs: 60, md: 80 },

@@ -1,9 +1,9 @@
 /**
  * MUI Imports
  */
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 /**
@@ -104,14 +104,16 @@ const Hero = ({
                   </Typography>
 
                   <MuiMarkdown
-                    overrides={{
-                      p: {
-                        component: Typography,
-                        props: {
-                          variant: 'h6',
-                          component: 'p',
-                          sx: {
-                            color: theme.palette.common.white,
+                    options={{
+                      overrides: {
+                        p: {
+                          component: Typography,
+                          props: {
+                            variant: 'h6',
+                            component: 'p',
+                            sx: {
+                              color: theme.palette.common.white,
+                            },
                           },
                         },
                       },
@@ -165,7 +167,7 @@ const Hero = ({
                             component="img"
                             src={
                               item.image?.data[0].url ||
-                              FillterContent.logos[0].url
+                              FillerContent.logos[0].url
                             }
                           />
                         </Box>

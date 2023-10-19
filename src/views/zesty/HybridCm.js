@@ -65,34 +65,48 @@ import FillerContent from 'components/globals/FillerContent';
 /*
  * Components Imports
  */
-import Hero from 'components/marketing/HybridCms/Hero';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import About from 'components/marketing/HybridCms/About';
-import Hybrid from 'components/marketing/HybridCms/Hybrid';
-import TimeLine from '../../blocks/Timeline/TimeLine';
-import Bottom from 'components/marketing/HybridCms/Bottom';
-import TopBrands from '../../blocks/caseStudies/TopBrands';
-import Articles from '../../blocks/blog/Articles/Articles';
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import ImageWithContentsCta from 'blocks/zesty/Cta/ImageWithContentsCta';
+import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
+import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 
 function HybridCm({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isXL = useMediaQuery(theme.breakpoints.between(2000, 99999));
   const isDarkMode = theme.palette.mode === 'dark';
 
-  const HeroProps = {
-    eyebrow: content.hero_eyebrow || FillerContent.header,
-    header: content.hero_title || FillerContent.description,
-    subHeader: content.hero_description || FillerContent.description,
-    mainImage:
-      content.hero_graphic?.data[0]?.url || FillerContent.photos[0].src,
-    bgImage: isDarkMode
-      ? 'https://brand.zesty.io/zesty-io-logo-light.png' ||
-        FillerContent.photos[0].src
-      : 'https://brand.zesty.io/zesty-io-logo.svg' ||
-        FillerContent.photos[0].src,
-    primaryCta: content.hero_cta_primary,
-    secondaryCta: content.hero_cta_secondary,
-    isMobile,
-    theme,
+  const COLORS = [
+    {
+      backgroundColor: theme.palette.zesty.pureWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+    {
+      backgroundColor: theme.palette.zesty.zestyWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+    {
+      backgroundColor: theme.palette.zesty.zestyDarkBlue,
+      textColor: theme.palette.common.white,
+    },
+    {
+      backgroundColor: theme.palette.zesty.pureWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+  ];
+
+  const heroProps = {
+    mainTitle: content.hero_eyebrow,
+    title: content.hero_title,
+    description: content.hero_description,
+    image: content.hero_graphic?.data && content.hero_graphic?.data[0]?.url,
+    cta_left: content.hero_cta_primary,
+    cta_right: content.hero_cta_secondary,
+    cta_right_url: content.hero_cta_secondary_url?.data[0]?.meta?.web?.url,
+    bgImage: true,
   };
 
   const pageData = {
@@ -101,6 +115,7 @@ function HybridCm({ content }) {
     isDarkMode,
     content,
     FillerContent,
+    isXL,
   };
 
   React.useEffect(() => {
@@ -110,51 +125,60 @@ function HybridCm({ content }) {
   }, []);
 
   const timelineData = {
-    header: content.hybrid_cms_features_header,
-    data: [
+    header_content: content.hybrid_cms_features_header,
+    column_data: [
       {
-        description: content.hybrid_cms_feature_1 || FillerContent.description,
-        image:
-          content.hybrid_cms_feature_1_image?.data[0].url ||
-          FillerContent.photos[0].src,
+        content: content.hybrid_cms_feature_1,
+        image: content.hybrid_cms_feature_1_image?.data[0]?.url,
       },
       {
-        description: content.hybrid_cms_feature_2 || FillerContent.description,
-        image:
-          content.hybrid_cms_feature_2_image?.data[0].url ||
-          FillerContent.photos[0].src,
+        content: content.hybrid_cms_feature_2,
+        image: content.hybrid_cms_feature_2_image?.data[0]?.url,
       },
       {
-        description: content.hybrid_cms_feature_3 || FillerContent.description,
-        image:
-          content.hybrid_cms_feature_3_image?.data[0].url ||
-          FillerContent.photos[0].src,
+        content: content.hybrid_cms_feature_3,
+        image: content.hybrid_cms_feature_3_image?.data[0]?.url,
       },
       {
-        description: content.hybrid_cms_feature_4 || FillerContent.description,
-        image:
-          content.hybrid_cms_feature_4_image?.data[0].url ||
-          FillerContent.photos[0].src,
+        content: content.hybrid_cms_feature_4,
+        image: content.hybrid_cms_feature_4_image?.data[0]?.url,
       },
     ],
   };
 
+  const hybridProps = {
+    header: content.hybrid_interface,
+    primaryCtaText: content.hybrid_interface_cta_text,
+    mainImage: content.hybrid_interface_graphic?.data[0]?.url,
+  };
+
+  const bottomProps = {
+    mainImage: content.bottom_cta_graphic.data[0].url,
+    header: content.bottom_cta_header,
+    primaryCtaText: content.bottom_cta_primary,
+    secondaryCtaText: content.bottom_cta_secondary,
+  };
+
+  const caseStudiesProps = {
+    header: content.case_study_title,
+    g2BadgesData: content.g2_badges?.data,
+    caseStudiesData: content.case_studies?.data,
+  };
+
   return (
     <>
-      <Hero {...HeroProps} />
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <About {...pageData} />
-      <Hybrid {...pageData} />
-      <TimeLine timelineData={timelineData} {...pageData} />
-      <TopBrands
-        sx={{ pt: 5 }}
-        title={content.case_study_title}
-        {...pageData}
-      />
-      <Bottom {...pageData} />
-      <Articles
+      <CenteredContents {...hybridProps} />
+      {/* <TimeLine timelineData={timelineData} {...pageData} /> */}
+      <AlternateColumns alternateColors={COLORS} {...timelineData} />
+      <CaseStudyCards {...caseStudiesProps} />
+      <ImageWithContentsCta {...bottomProps} sx={{ pt: 20, pb: 10 }} />
+      <SimpleVerticalBlogCards
+        cards={content.related_content_articles?.data}
         title={content.related_content_header}
-        articles={content.related_content_articles?.data}
-        {...pageData}
+        isCtaButton={false}
+        gridMd={4}
       />
     </>
   );

@@ -5,7 +5,7 @@
  * Label: Headless localization 
  * Name: headless_localization 
  * Model ZUID: 6-ee89a9ecc8-n5f7nv
- * File Created On: Tue Jul 05 2022 21:46:15 GMT+0800 (Philippine Standard Time)
+ * File Created On: Wed Jul 27 2022 18:58:43 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 
@@ -39,21 +39,107 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material/styles';
 
-function HeadlessLocalization({content}) {
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
+
+function HeadlessLocalization({ content }) {
+  const theme = useTheme();
+
+  const heroProps = {
+    title: content.header_and_description,
+    image: content.header_graphic?.data[0]?.url,
+    cta_left: content.header_primary_cta?.data[0]?.button_text,
+    cta_right: content.header_secondary_cta?.data[0]?.button_text,
+    cta_right_url:
+      content.header_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+  };
+
+  const alternateColumnsData = [
+    {
+      content: content?.how_1,
+      image: content?.how_1_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.how_2,
+      image: content?.how_2_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.how_3,
+      image: content?.how_3_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.how_4,
+      image: content?.how_4_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.how_5,
+      image: content?.how_5_graphic?.data[0]?.url,
+    },
+  ];
+
+  const whatCanDoProps = {
+    header_content: content?.how_title,
+    column_data: alternateColumnsData,
+    cta_link: content?.middle_cta_button_link?.data[0].meta.web.uri,
+    cta_text: content?.middle_cta_button_text,
+  };
+
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const featuresData = (dataArray) => {
     return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.icon_image?.data[0].url,
+          feature_name: item.feature_name,
+          content: item.content,
+        });
+
+        return acc;
+      }, []) || []
     );
+  };
+
+  const featuresProps = {
+    features_header: content.why_title,
+    data: featuresData(content.features_tiles),
+    card_name_color: theme.palette.zesty.zestyZambezi,
+    background_color: theme.palette.zesty.zestyBackgroundBlue,
+  };
+
+  const bottomProps = {
+    graphic: content?.footer_graphic?.data[0]?.url,
+    titleAndDescription: content.footer_cta,
+    cta_text: content.footer_primary_cta?.data[0]?.button_text,
+    cta_button_link:
+      content.footer_primary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    secondary_cta_text: content.footer_secondary_cta?.data[0]?.button_text,
+    secondary_cta_link:
+      content.footer_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    graphicBottom: -42,
+    // marginTop: 20,
+  };
+
+  return (
+    <>
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <AlternateColumns {...whatCanDoProps} />
+      <Features {...featuresProps} />
+      <Bottom {...bottomProps} />
+    </>
+  );
 }
-  
+
 export default HeadlessLocalization;

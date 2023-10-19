@@ -1,5 +1,6 @@
 // MUI Imports
 import { Box, useMediaQuery } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
 
 // Components Import
 import ContactUs from './ContactUs';

@@ -1,29 +1,20 @@
 import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { alpha, useTheme } from '@mui/material/styles';
-
 import Container from 'components/Container';
-import SubscribeCTA from 'components/cta/SubscribeCTA';
 
-const ColorSection = ({title, subtitle,image, children}) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-
-  const LeftSide = ({children}) => (
+const ColorSection = ({
+  //  title, subtitle,
+  image,
+  children,
+}) => {
+  const LeftSide = ({ children }) => (
     // transition removed: data-aos={isMd ? 'fade-right' : 'fade-up'}
-    <>
-      {children}
-    </>
+    <>{children}</>
   );
 
-  const RightSide = ({image}) => {
+  const RightSide = ({ image }) => {
     return (
       <Box
         sx={{
@@ -58,7 +49,7 @@ const ColorSection = ({title, subtitle,image, children}) => {
         overflow: 'hidden',
       }}
     >
-      <Container paddingX={0} paddingY={0} >
+      <Container paddingX={0} paddingY={0}>
         <Box
           display={'flex'}
           flexDirection={{ xs: 'column', md: 'row' }}

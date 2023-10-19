@@ -13,9 +13,13 @@ const CtaSection = (props) => {
     defaultMatches: true,
   });
 
-  let title = (undefined !== props.title) ? props.title.split('<br>') : ['title','sub'];
-  let subtext = (undefined !== props.content) ? props.content.replace(/(<([^>]+)>)/gi, "") : '';
-  
+  let title =
+    undefined !== props.title ? props.title.split('<br>') : ['title', 'sub'];
+  let subtext =
+    undefined !== props.content
+      ? props.content.replace(/(<([^>]+)>)/gi, '')
+      : '';
+
   return (
     <Box>
       <Typography
@@ -35,7 +39,7 @@ const CtaSection = (props) => {
           variant="h2"
           color="text.primary"
           sx={{
-            fontWeight: 300
+            fontWeight: 300,
           }}
         >
           {/* <span dangerouslySetInnerHTML={{__html:props.title}}></span> */}
@@ -53,23 +57,26 @@ const CtaSection = (props) => {
         </Typography>
       </Box>
       <Box marginBottom={3}>
-        <Typography variant="h6" component="p" color="text.secondary" dangerouslySetInnerHTML={{__html:subtext}}>
-         
-        </Typography>
+        <Typography
+          variant="h6"
+          component="p"
+          color="text.secondary"
+          dangerouslySetInnerHTML={{ __html: subtext }}
+        ></Typography>
       </Box>
       <Box
         display="flex"
         flexDirection={{ xs: 'column', sm: 'row' }}
         alignItems={{ xs: 'stretched', sm: 'flex-start' }}
       >
-        <TryFreeButton 
-         variant="contained"
-         color="secondary"
-         size="large"
-         text={props.cta_hero_button_text}
-         fullWidth={isMd ? false : true}
+        <TryFreeButton
+          variant="contained"
+          color="secondary"
+          size="large"
+          text={props.cta_hero_button_text}
+          fullWidth={isMd ? false : true}
         />
-       
+
         <Box
           component={Button}
           variant="outlined"

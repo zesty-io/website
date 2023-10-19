@@ -20,19 +20,24 @@ const capitalize = (str, lower = false) =>
   (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, (match) =>
     match.toUpperCase(),
   );
-const PricingCompareTable = ({ tiers, category = '', pricingLevers }) => {
+const PricingCompareTable = ({ tiers, category = '', pricingLevers, id }) => {
   const theme = useTheme();
-  const [expanded, setExpanded] = React.useState('panel1');
+  const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
   return (
     <Box>
-      <Accordion expanded={expanded === 'panel1'}>
+      <Accordion
+        onClick={() => setExpanded(!expanded)}
+        expanded={expanded || id === 0}
+      >
         {/* Removed expandIcon from AccordionSummary */}
         {/*expandIcon={<ExpandMoreIcon />}*/}
         <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
           sx={{ bgcolor: 'background.level2' }}
@@ -52,15 +57,13 @@ const PricingCompareTable = ({ tiers, category = '', pricingLevers }) => {
                   <TableCell>Features</TableCell>
 
                   {/* Do not include Sandbox tier in table */}
-                  {tiers
-                    .filter((tier) => tier.meta.zuid != '7-e0e8cadec0-7crggz')
-                    .map((item, i) => (
-                      <TableCell align="center" key={i}>
-                        <Typography sx={{ fontWeight: 'bold' }}>
-                          {item.name}
-                        </Typography>
-                      </TableCell>
-                    ))}
+                  {tiers.map((item, i) => (
+                    <TableCell align="center" key={i}>
+                      <Typography sx={{ fontWeight: 'bold' }}>
+                        {item.name}
+                      </Typography>
+                    </TableCell>
+                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -73,42 +76,38 @@ const PricingCompareTable = ({ tiers, category = '', pricingLevers }) => {
                       </TableCell>
 
                       {/* Do not include Sandbox tier in table */}
-                      {tiers
-                        .filter(
-                          (tier) => tier.meta.zuid != '7-e0e8cadec0-7crggz',
-                        )
-                        .map((tier) => (
-                          <TableCell align="center">
-                            {lever.included_pricing_tier.find(
-                              (zuid) => zuid == tier.meta.zuid,
-                            ) ? (
-                              <Box display={'flex'} justifyContent={'center'}>
-                                <Box
-                                  component={Avatar}
-                                  bgcolor={theme.palette.secondary.main}
-                                  width={20}
-                                  height={20}
+                      {tiers.map((tier) => (
+                        <TableCell align="center">
+                          {lever.included_pricing_tier.find(
+                            (zuid) => zuid == tier.meta.zuid,
+                          ) ? (
+                            <Box display={'flex'} justifyContent={'center'}>
+                              <Box
+                                component={Avatar}
+                                bgcolor={theme.palette.secondary.main}
+                                width={20}
+                                height={20}
+                              >
+                                <svg
+                                  width={12}
+                                  height={12}
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
                                 >
-                                  <svg
-                                    width={12}
-                                    height={12}
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </Box>
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
                               </Box>
-                            ) : (
-                              ''
-                            )}
-                          </TableCell>
-                        ))}
+                            </Box>
+                          ) : (
+                            ''
+                          )}
+                        </TableCell>
+                      ))}
                     </TableRow>
                   ))}
               </TableBody>

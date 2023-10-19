@@ -7,16 +7,24 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Local Assets Imports
-import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
+// import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
 
 const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
-    <Box component="section" sx={{ position: 'relative' }}>
-      <Box
+    <Box
+      component="section"
+      sx={{
+        pt: 15,
+        pb: 20,
+        position: 'relative',
+        background: theme.palette.zesty.zestyBackgroundBlue,
+      }}
+    >
+      {/* <Box
         sx={{
           position: 'absolute',
           right: 0,
@@ -26,35 +34,37 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         component="img"
         alt=""
         src={chevron_right.src}
-      />
+      /> */}
       <Container sx={{ position: 'relative', zIndex: 10 }}>
         <Box>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h3',
-                  component: 'h2',
-                  sx: {
-                    mt: isMobile ? 5 : 0,
-                    color: theme.palette.zesty.zestyOrange,
-                    fontWeight: 'bold',
-                    letterSpacing: 0.2,
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      mt: isMobile ? 5 : 0,
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                      letterSpacing: 0.2,
+                      textAlign: 'center',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component: 'h3',
-                  sx: {
-                    mt: 2,
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zestyZambezi,
-                    letterSpacing: 0.2,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'h3',
+                    sx: {
+                      mt: 2,
+                      textAlign: 'center',
+                      color: theme.palette.zesty.zestyZambezi,
+                      letterSpacing: 0.2,
+                    },
                   },
                 },
               },

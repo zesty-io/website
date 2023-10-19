@@ -30,89 +30,171 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
-import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
-import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta';
-import WithSwiperAndBrandBackgroundColor from 'blocks/logoGrid/WithSwiperAndBrandBackgroundColor';
-import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
-import WithOverlappedCards from 'blocks/team/WithOverlappedCards';
-import ReviewsWithSimpleBoxes from 'blocks/testimonials/ReviewsWithSimpleBoxes';
-import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
-import CtaWithInputField from 'blocks/cta/CtaWithInputField';
-import Stories from 'blocks/portfolioGrid/Stories/Stories';
-import Container from 'components/Container';
-import FillerContent from 'components/globals/FillerContent';
-import useFetch from 'components/hooks/useFetch';
+/**
+ * MUI Imports
+ */
+// import { useTheme } from '@mui/material/styles';
+// import useMediaQuery from '@mui/material/useMediaQuery';
+
+/**
+ * Components Imports
+ */
+import revampTheme from 'theme/revampTheme';
+import { ThemeProvider, useTheme } from '@mui/material';
+import Hero from 'revamp/ui/HeroV2';
+import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { removeHTMLtags } from 'utils/removeHTMLtags';
+
+const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
+  loading: () => <p>Loading...</p>,
+});
+const GridFeature = dynamic(() => import('revamp/ui/GridFeature'), {
+  loading: () => <p>Loading...</p>,
+});
+const SingleTestimonial = dynamic(() => import('revamp/ui/SingleTestimonial'), {
+  loading: () => <p>Loading...</p>,
+});
+const Stats = dynamic(() => import('revamp/ui/Stats'), {
+  loading: () => <p>Loading...</p>,
+});
+const EnterpriseGrowth = dynamic(() => import('revamp/ui/EnterpriseGrowth'), {
+  loading: () => <p>Loading...</p>,
+});
+const FeatureBulletWithTestimonials = dynamic(
+  () => import('revamp/ui/FeatureBulletWithTestimonials'),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+const SecurityFeature = dynamic(() => import('revamp/ui/SecurityFeature'), {
+  loading: () => <p>Loading...</p>,
+});
+const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
+  loading: () => <p>Loading...</p>,
+});
 
 function Homepage({ content }) {
-  const theme = useTheme();
+  const { palette } = useTheme();
+  const isLoggedIn = useIsLoggedIn();
 
-  //  const { data: reviewsData, isPending: reviewPending  } = useFetch(`/-/reviews.json`);
-  const { data: allArticles, isPending: articlesPending, error } = useFetch(
-    `/-/all-articles-hydrated.json?limit=3`,
-    content.zestyProductionMode,
-  );
+  useEffect(() => {
+    const prevUrl = sessionStorage.getItem('prevUrl');
+    if (content.zesty.isAuthenticated || isLoggedIn) {
+      // redirect the user to previous url from SSO
+      if (prevUrl && !['', '/'].includes(prevUrl)) {
+        window.location.href = prevUrl;
+      } else {
+        window.location.href = '/dashboard/';
+      }
+    }
+  }, [content.zesty.isAuthenticated, isLoggedIn]);
 
-  let image_url = content?.zesty_benefits_image
-    ? content.zesty_benefits_image.data[0].url
-    : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
   const heroProps = {
-    title: content.title,
-    description: content.content || '',
-    subtitle: content.simple_intro_text,
-    image: content.main_image?.data[0].url || FillerContent.image,
-    button_left_text: content.hero_button_left || FillerContent.header,
+    HeroText: removeHTMLtags(content?.header_title_and_description)
+      .replace('&amp;', '&')
+      .split(','),
+    primaryBtn: content?.primarybtn,
+    primaryBtnLink: content?.primarybtnlink?.data?.[0].meta?.web?.uri,
+    secondaryBtn: content?.secondarybtn,
+    secondaryBtnLink: content?.secondarybtnlink?.data?.[0].meta?.web?.uri,
+    subtitle2: content?.subtitle,
+    heroImage: content?.header_graphic?.data?.[0]?.url,
+  };
 
-    button_left_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
-    hero_button_right: content.hero_button_right || FillerContent.header,
-    button_right_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+  const tabSectionProps = {
+    header: removeHTMLtags(content?.features_title),
+    tabs: content?.features_options,
+  };
+
+  const statsProps = {
+    title: content?.stats_title,
+    header: content?.stats_header,
+    subHeading: content?.stats_subheading,
+  };
+
+  const enterpriseProps = {
+    overline: content?.enterprise_overline,
+    heading: content?.enterprise_heading,
+    supportingText: content?.enterprise_supporting_text,
+    primaryBtn: content?.enterprise_primary_btn_text,
+    primaryBtnLink: content?.enterprise_primary_btn_link,
+    secondaryBtn: content?.enterprise_secondary_btn_text,
+    secondaryBtnLink: content?.enterprise_secondary_btn_link,
+    caseStudiesList: content?.enterpise_case_study?.data?.map((item) => {
+      return {
+        mainImage: item?.main_image?.data?.[0]?.url,
+        logo: item?.logo?.data?.[0]?.url,
+        description: item?.description,
+        link: item?.link?.data[0]?.meta?.web?.uri,
+      };
+    }),
+  };
+
+  const regex = /<li>(.*?)<\/li>/g;
+  const featureTestimonialsList = [];
+
+  // Use a loop to iterate through matches and extract the text content
+  let match;
+  while (
+    (match = regex.exec(content?.feature_testimonial_list_items)) !== null
+  ) {
+    featureTestimonialsList.push(match[1]);
+  }
+
+  const featureTestimonialsProps = {
+    overline: content?.feature_testimonial_overline,
+    heading: content?.feature_testimonial_heading,
+    supportingText: content?.feature_testimonial_supporting__text,
+    image: content.feature_testimonial_image?.data?.[0]?.url,
+    testimonial: content?.feature_testimonial_,
+    testimonialLogo: content.feature_testimonial_logo?.data?.[0]?.url,
+    lists: featureTestimonialsList,
+  };
+
+  const singleTestimonialProps = {
+    witness: content?.singletestimonial_witness?.data?.[0]?.url,
+    name: content?.singletestimonial_name,
+    role: content?.singletestimonial_role,
+    logo: content?.singletestimonial_logo?.data?.[0]?.url,
+    header: content?.singletestimonial_header,
+    quote: content?.singletestimonial_quote,
+  };
+
+  const gridFeatureProps = {
+    overline: content?.grid_feature_overline,
+    heading: content?.grid_feature_heading,
+    supportingText: content?.grid_feature_supporting_text,
+    featureLists: content?.grid_feature_list?.data?.map((item) => {
+      return {
+        image: item?.feature_image?.data?.[0]?.url,
+        title: item?.feature_title,
+        description: item?.feature_description,
+      };
+    }),
+  };
+
+  const securityFeatureProps = {
+    overline: content?.security_feature_overline,
+    heading: content?.security_feature_heding,
+    supportingText: content?.security_feature_supporting_text,
+    image: content?.security_feature_image?.data?.[0]?.url,
   };
 
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <HeroWithIllustrationAndCta {...heroProps} />
-      <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos?.data} />
-      <FeaturesWithIllustration
-        rich_text={content.zesty_benefits}
-        image_url={image_url}
-        wysiwyig_type=""
-      />
-      <Box bgcolor={'alternate.main'}>
-        <Container>
-          <Stories
-            eyeBrow={content.case_studies_eyebrow || FillerContent.header}
-            clientTitle={content.case_studies_header || FillerContent.header}
-            clientInfo={content.case_study_cards?.data || []}
-          />
-        </Container>
-        <ReviewsWithSimpleBoxes
-          header={content.testimonials_content}
-          list={content.testimonials?.data || []}
-        />
-      </Box>
-      {/* Latest Articles */}
-      <Box sx={{ pt: 4 }}>
-        <VerticallyAlignedBlogCardsWithShapedImage
-          title={'Industry Insights'}
-          description={
-            'Stay up-to-date with the latest in digital experience, content management and more.'
-          }
-          ctaBtn={'View More' || FillerContent.cta}
-          ctaUrl="/mindshare/"
-          popularArticles={allArticles || FillerContent.missingDataArray}
-        />
-      </Box>
-      <CtaWithInputField
-        title={'Subscribe to the zestiest newsletter in the industry'}
-        description={
-          'Get the latest from the Zesty team, from whitepapers to product updates.'
-        }
-        cta={'Subscribe'}
-      />
+      <ThemeProvider theme={() => revampTheme(palette.mode)}>
+        <Hero {...heroProps} />
+        <TabsSection {...tabSectionProps} />
+        <Stats {...statsProps} />
+        <EnterpriseGrowth {...enterpriseProps} />
+        <FeatureBulletWithTestimonials {...featureTestimonialsProps} />
+        <SingleTestimonial {...singleTestimonialProps} />
+        <GridFeature {...gridFeatureProps} />
+        <SecurityFeature {...securityFeatureProps} />
+        <GetDemoSection />
+      </ThemeProvider>
     </>
   );
 }

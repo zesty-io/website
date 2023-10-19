@@ -9,8 +9,13 @@ import {
 } from '@mui/material';
 import Icon from '@mui/material/Icon';
 import { alpha, useTheme } from '@mui/material/styles';
+import FillerContent from 'components/globals/FillerContent';
 
-const SimpleCentered = ({ header, description, cards = [] }) => {
+const SimpleCentered = ({
+  header,
+  //  description,
+  cards = [],
+}) => {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

@@ -55,78 +55,77 @@ function useResetCache(data) {
 }
 
 // Adapter for react-window
-const ListboxComponent = React.forwardRef(function ListboxComponent(
-  props,
-  ref,
-) {
-  const { children, ...other } = props;
-  const itemData = [];
-  children.forEach((item) => {
-    itemData.push(item);
-    itemData.push(...(item.children || []));
-  });
+const ListboxComponent = React.forwardRef(
+  function ListboxComponent(props, ref) {
+    const { children, ...other } = props;
+    const itemData = [];
+    children.forEach((item) => {
+      itemData.push(item);
+      itemData.push(...(item.children || []));
+    });
 
-  const theme = useTheme();
-  const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
-    noSsr: true,
-  });
+    const theme = useTheme();
+    const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
+      noSsr: true,
+    });
 
-  const itemCount = itemData.length;
-  const itemSize = smUp ? 36 : 48;
+    const itemCount = itemData.length;
+    const itemSize = smUp ? 36 : 48;
 
-  const getChildSize = (child) => {
-    if (child.hasOwnProperty('group')) {
-      return 48;
-    }
+    const getChildSize = (child) => {
+      if (child.hasOwnProperty('group')) {
+        return 48;
+      }
 
-    return itemSize;
-  };
+      return itemSize;
+    };
 
-  const getHeight = () => {
-    if (itemCount > 8) {
-      return 8 * itemSize;
-    }
-    return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
-  };
+    const getHeight = () => {
+      if (itemCount > 8) {
+        return 8 * itemSize;
+      }
+      return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
+    };
 
-  const gridRef = useResetCache(itemCount);
+    const gridRef = useResetCache(itemCount);
 
-  return (
-    <div ref={ref}>
-      <OuterElementContext.Provider value={other}>
-        <VariableSizeList
-          itemData={itemData}
-          height={getHeight() + 2 * LISTBOX_PADDING}
-          width="100%"
-          ref={gridRef}
-          outerElementType={OuterElementType}
-          innerElementType="ul"
-          itemSize={(index) => getChildSize(itemData[index])}
-          overscanCount={5}
-          itemCount={itemCount}
-        >
-          {renderRow}
-        </VariableSizeList>
-      </OuterElementContext.Provider>
-    </div>
-  );
-});
+    return (
+      <div ref={ref}>
+        <OuterElementContext.Provider value={other}>
+          <VariableSizeList
+            itemData={itemData}
+            height={getHeight() + 2 * LISTBOX_PADDING}
+            width="100%"
+            ref={gridRef}
+            outerElementType={OuterElementType}
+            innerElementType="ul"
+            itemSize={(index) => getChildSize(itemData[index])}
+            overscanCount={5}
+            itemCount={itemCount}
+          >
+            {renderRow}
+          </VariableSizeList>
+        </OuterElementContext.Provider>
+      </div>
+    );
+  },
+);
 
 ListboxComponent.propTypes = {
   children: PropTypes.node,
 };
 
-function random(length) {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
+// function random(length) {
+//   const characters =
+//     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//   let result = '';
 
-  for (let i = 0; i < length; i += 1) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
+//   for (let i = 0; i < length; i += 1) {
+//     result += characters.charAt(Math.floor(Math.random() * characters.length));
+//   }
 
-  return result;
-}
+//   return result;
+// }
 
 const StyledPopper = styled(Popper)({
   [`& .${autocompleteClasses.listbox}`]: {
@@ -143,7 +142,14 @@ const filterOptions = createFilterOptions({
   stringify: (option) => option.name + option.value,
 });
 
-const Index = ({ instances, setCookies, instanceZUID }) => {
+const Index = ({
+  instances = [],
+  setCookies,
+  instanceZUID,
+  width = 300,
+  initialLabel,
+  ...props
+}) => {
   const theme = useTheme();
   const [label, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
@@ -160,9 +166,8 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
   const currentVal = memoizedInstances?.find((e) => e.ZUID === instanceZUID);
 
   const handleChange = (e, newValue) => {
-    setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
+    setCookies(newValue?.value);
     setlabel(newValue?.name);
-    window.location.reload();
   };
 
   React.useEffect(() => {
@@ -174,18 +179,28 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
       filterOptions={filterOptions}
       id="virtualize-demo"
       onChange={handleChange}
-      sx={{ width: 300, backgroundColor: theme.palette.common.white }}
+      sx={{
+        width,
+        backgroundColor:
+          theme.palette.mode === 'light' && theme.palette.common.white,
+      }}
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
       options={OPTIONS}
       getOptionLabel={(option) => option.name}
       renderInput={(params) => {
-        return <TextField {...params} label={label || 'Select an instance'} />;
+        return (
+          <TextField
+            {...params}
+            label={label || initialLabel || 'Select an instance'}
+          />
+        );
       }}
       renderOption={(props, option) => {
         return [props, option.name];
       }}
+      {...props}
     />
   );
 };

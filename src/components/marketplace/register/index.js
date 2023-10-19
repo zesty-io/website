@@ -13,8 +13,9 @@ import { getCookie } from 'cookies-next';
 import * as yup from 'yup';
 import TransitionsModal from '../../../blocks/modal/modal';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import { fetchWrapperOptions, getUserAppSID } from 'utils';
+import { getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 const URL =
   /^((https?|ftp):\/\/)?(www.)?(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
 
@@ -75,11 +76,11 @@ const initialValues = {
 const FormComp = React.memo(
   ({
     ZestyAPI,
-    instanceZUID,
-    userAppSID,
+    // instanceZUID,
+    // userAppSID,
     verifyLoading,
     verifySuccess,
-    title = 'Register',
+    // title = 'Register',
   }) => {
     const [modal, setmodal] = React.useState(false);
     const [error, seterror] = React.useState('');
@@ -88,7 +89,7 @@ const FormComp = React.memo(
 
     const isLogin = verifySuccess?.userZuid ? true : false;
 
-    const handleRegisterSuccess = (data) => {
+    const handleRegisterSuccess = () => {
       setmodal(true);
       setsucces('App successfully registered');
       setloading(false);
@@ -192,12 +193,10 @@ const RegisterPage = ({}) => {
 
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getUserAppSID();
+  const isLoggedIn = useIsLoggedIn();
 
   const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
-  const { verifySuccess, loading: verifyLoading } = useFetchWrapper(
-    userAppSID,
-    instanceZUID,
-  );
+  const { verifySuccess, loading: verifyLoading } = useFetchWrapper(isLoggedIn);
   const FormProps = {
     ZestyAPI,
     instanceZUID,
