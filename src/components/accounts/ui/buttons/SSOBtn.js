@@ -1,6 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { accounts } from 'components/accounts/constants';
+import { getCookie, setCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 
 const Index = ({
@@ -17,26 +18,42 @@ const Index = ({
     popup.postMessage('message', window.location.origin);
   };
 
+  const handleRedirect = (message) => {
+    setCookie('isAuthenticated', true);
+    let referrer = window.document.referrer;
+    referrer =
+      window.document.referrer === '' ||
+      window.document.referrer.includes('/logout/') ||
+      window.document.referrer.includes('/login/')
+        ? window.location.origin + '/dashboard/'
+        : window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+    message.source.close();
+    const sessionPrevUrl = sessionStorage.getItem('prevUrl');
+    const prevUrl = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+    sessionStorage.removeItem('prevUrl');
+    if (prevUrl === sessionPrevUrl || referrer.indexOf('/docs/') === 0) {
+      window.location.href = referrer;
+    } else {
+      window.location.href = '/dashboard/';
+    }
+  };
+
   useEffect(() => {
     const redirectLogic = (message) => {
-      if (message.origin === 'https://auth.api.zesty.io') {
-        if (message.data.source === 'zesty' && message.data.status === '200') {
-          let referrer = window.document.referrer;
-          referrer =
-            window.document.referrer === '' ||
-            window.document.referrer.includes('/logout/') ||
-            window.document.referrer.includes('/login/')
-              ? window.location.origin + '/dashboard/'
-              : window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
-          message.source.close();
-          const sessionPrevUrl = sessionStorage.getItem('prevUrl');
-          const prevUrl = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+      const devSSOLogin =
+        getCookie('google:sso:authstate') && getCookie('DEV_APP_SID');
 
-          sessionStorage.removeItem('prevUrl');
-          if (prevUrl === sessionPrevUrl || referrer.indexOf('/docs/') === 0) {
-            window.location.href = referrer;
-          } else {
-            window.location.href = '/dashboard/';
+      if (devSSOLogin) {
+        handleRedirect(message);
+      }
+
+      if (!devSSOLogin) {
+        if (message.origin === 'https://auth.api.zesty.io') {
+          if (
+            message.data.source === 'zesty' &&
+            message.data.status === '200'
+          ) {
+            handleRedirect(message);
           }
         }
       }

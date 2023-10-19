@@ -2,15 +2,11 @@ import { NextResponse } from 'next/server';
 // import { resolve } from 'url';
 
 export async function middleware(request) {
-  // auth checking
+  const isProd = process.env.PRODUCTION === 'true' ? true : false;
   const response = NextResponse.next();
-  const isAuthenticated = await isUserAuthenticated(request);
+  const isAuthenticated = await isUserAuthenticated(request, false, isProd);
   response.cookies.set('isAuthenticated', isAuthenticated);
 
-  // if (request.nextUrl.pathname === '/' && isAuthenticated) {
-  //   const redirectUrl = resolve(request.nextUrl.origin, '/dashboard/');
-  //   return NextResponse.redirect(redirectUrl, 302);
-  // }
   if (request.nextUrl.pathname === '/' && isAuthenticated) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
@@ -20,12 +16,7 @@ export async function middleware(request) {
   return response;
 }
 
-export const isUserAuthenticated = async (request, isGSSP = false) => {
-  let cookieProd = isGSSP
-    ? request.cookies['PRODUCTION']
-    : request.cookies?.get('PRODUCTION');
-  let isProd = JSON.parse(cookieProd?.value || cookieProd || true);
-
+export const isUserAuthenticated = async (request, isGSSP = false, isProd) => {
   const verifyUrl = !isProd
     ? 'https://auth.api.dev.zesty.io/verify'
     : 'https://auth.api.zesty.io/verify';
