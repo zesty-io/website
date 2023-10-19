@@ -1,12 +1,14 @@
 import { React, createContext } from 'react';
 import { fetchGqlData, fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
-import MarketingMain from 'layouts/Main/MarketingMain';
 import { ZestyView } from 'lib/ZestyView';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import Main from 'layouts/Main';
 import { getIsAuthenticated } from 'utils';
 import { isUserAuthenticated } from 'middleware';
+import dynamic from 'next/dynamic';
+
+const MarketingMain = dynamic(() => import('layouts/Main/MarketingMain'));
+const Main = dynamic(() => import('layouts/Main/'));
 
 export const GlobalContext = createContext();
 export default function Zesty(props) {
