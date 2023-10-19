@@ -50,28 +50,28 @@ import { removeHTMLtags } from 'utils/removeHTMLtags';
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
   loading: () => <p>Loading...</p>,
 });
-const GridFeature = dynamic(() => import('revamp/ui/GridFeature'), {
+const GridFeature = dynamic(() => import('./GridFeature'), {
   loading: () => <p>Loading...</p>,
 });
-const SingleTestimonial = dynamic(() => import('revamp/ui/SingleTestimonial'), {
+const SingleTestimonial = dynamic(() => import('./SingleTestimonial'), {
   loading: () => <p>Loading...</p>,
 });
-const Stats = dynamic(() => import('revamp/ui/Stats'), {
+const Stats = dynamic(() => import('./Stats'), {
   loading: () => <p>Loading...</p>,
 });
-const EnterpriseGrowth = dynamic(() => import('revamp/ui/EnterpriseGrowth'), {
+const EnterpriseGrowth = dynamic(() => import('./EnterpriseGrowth'), {
   loading: () => <p>Loading...</p>,
 });
 const FeatureBulletWithTestimonials = dynamic(
-  () => import('revamp/ui/FeatureBulletWithTestimonials'),
+  () => import('./FeatureBulletWithTestimonials'),
   {
     loading: () => <p>Loading...</p>,
   },
 );
-const SecurityFeature = dynamic(() => import('revamp/ui/SecurityFeature'), {
+const SecurityFeature = dynamic(() => import('./SecurityFeature'), {
   loading: () => <p>Loading...</p>,
 });
-const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
+const GetDemoSection = dynamic(() => import('./GetDemoSection'), {
   loading: () => <p>Loading...</p>,
 });
 
