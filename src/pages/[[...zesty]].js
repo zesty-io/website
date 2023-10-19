@@ -90,6 +90,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
   // does not display with npm run dev
 
+  res.setHeader('set-cookie', `PRODUCTION=${process.env.PRODUCTION}`);
   isProd &&
     res.setHeader(
       'Cache-Control',
