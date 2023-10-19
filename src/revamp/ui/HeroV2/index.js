@@ -265,14 +265,18 @@ const Hero = ({
           },
         })}
       >
-        <img
-          height={560}
-          width={894}
-          src={heroImage}
-          style={{ width: '100%', height: 'auto' }}
-          alt={generateAlt('Zesty image')}
-          loading="eager"
-        />
+        <picture>
+          <source srcSet={media} media="(min-width: 1200px)" />
+          <source srcSet={media + '?width=400'} media="(min-width: 400px)" />
+          <img
+            height={560}
+            width={894}
+            src={heroImage}
+            style={{ width: '100%', height: 'auto' }}
+            alt={generateAlt('Zesty image')}
+            loading="eager"
+          />
+        </picture>
       </Box>
     </Box>
   );
