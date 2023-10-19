@@ -87,9 +87,9 @@ async function fetchData({ isProd = false, dataType }) {
 
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
-  let isAuthenticated =
-    (await isUserAuthenticated(req, true)) || getIsAuthenticated(res);
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
+  let isAuthenticated =
+    (await isUserAuthenticated(req, true, isProd)) || getIsAuthenticated(res);
   // does not display with npm run dev
 
   res.setHeader('set-cookie', `PRODUCTION=${process.env.PRODUCTION}`);
