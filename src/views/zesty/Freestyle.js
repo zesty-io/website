@@ -29,12 +29,13 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Card, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Resources from 'components/marketing/IntegrationsIndividualPage/Resources';
 import FillerContent from 'components/globals/FillerContent';
 import dynamic from 'next/dynamic';
 import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import Feature from 'components/marketing/IntegrationsIndividualPage/Feature';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const SimpleHeroWithImageAndCtaButtons = dynamic(
   () => import('blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons'),
@@ -76,12 +77,40 @@ function Freestyle({ content }) {
     <>
       <SimpleHeroWithImageAndCtaButtons {...headerProps} />{' '}
       <Resources {...pageData} />
-      <Feature {...pageData} />
+      <Box sx={{ mt: -10 }}>
+        <Feature {...pageData} />
+      </Box>
       <Box sx={{ py: 10 }}>
         <SimpleCardLogo
           heading_text={content?.logos_title}
           logoItems={content?.logos?.data}
         />
+
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Card
+            sx={{
+              width: '100%',
+              maxWidth: 500,
+              borderRadius: 50,
+              p: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              sx={{
+                textAlign: 'center',
+                mt: 2,
+                color: theme.palette.zesty.zestyZambezi,
+              }}
+            >
+              Have a questions? Give us a call and we walk you through it
+            </Typography>
+            <TryFreeButton variant="text" size="small" color="secondary" />
+          </Card>
+        </Box>
       </Box>
     </>
   );
