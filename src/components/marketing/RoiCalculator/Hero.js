@@ -2,8 +2,7 @@
  *  MUI Imports
  */
 import { Box, Typography, Grid, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
-
+import MuiMarkdown from 'markdown-to-jsx';
 /**
  *  Static Assets Imports
  */
@@ -52,31 +51,33 @@ function Hero({ content, FillerContent, theme, isExtraLarge, isLarge }) {
           <Grid sx={{ position: 'relative', zIndex: 10 }} item sm={12} md={6}>
             <MuiMarkdown
               overrides={{
-                h1: {
-                  component: Typography,
-                  props: {
-                    component: 'h1',
-                    variant: 'h3',
-                    sx: {
-                      fontWeight: 'bold',
-                      color: isLarge
-                        ? theme.palette.zesty.zestyZambezi
-                        : theme.palette.common.white,
-                      textAlign: isLarge ? 'center' : 'left',
+                options: {
+                  h1: {
+                    component: Typography,
+                    props: {
+                      component: 'h1',
+                      variant: 'h3',
+                      sx: {
+                        fontWeight: 'bold',
+                        color: isLarge
+                          ? theme.palette.zesty.zestyZambezi
+                          : theme.palette.common.white,
+                        textAlign: isLarge ? 'center' : 'left',
+                      },
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    component: 'p',
-                    variant: 'h6',
-                    sx: {
-                      mt: 2,
-                      color: isLarge
-                        ? theme.palette.zesty.zestyZambezi
-                        : theme.palette.common.white,
-                      textAlign: isLarge ? 'center' : 'left',
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        mt: 2,
+                        color: isLarge
+                          ? theme.palette.zesty.zestyZambezi
+                          : theme.palette.common.white,
+                        textAlign: isLarge ? 'center' : 'left',
+                      },
                     },
                   },
                 },

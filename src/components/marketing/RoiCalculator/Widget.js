@@ -2,8 +2,7 @@
  *  MUI Imports
  */
 import { Box, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
-
+import MuiMarkdown from 'markdown-to-jsx';
 function Widget({ content, FillerContent, theme }) {
   return (
     <Box
@@ -18,27 +17,29 @@ function Widget({ content, FillerContent, theme }) {
       <Container>
         <MuiMarkdown
           overrides={{
-            h3: {
-              component: Typography,
-              props: {
-                component: 'h3',
-                variant: 'h4',
-                sx: {
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  color: theme.palette.zesty.zestyOrange,
+            options: {
+              h3: {
+                component: Typography,
+                props: {
+                  component: 'h3',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    color: theme.palette.zesty.zestyOrange,
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                component: 'p',
-                variant: 'h6',
-                sx: {
-                  textAlign: 'center',
-                  mt: 2,
-                  color: theme.palette.zesty.zestyZambezi,
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'h6',
+                  sx: {
+                    textAlign: 'center',
+                    mt: 2,
+                    color: theme.palette.zesty.zestyZambezi,
+                  },
                 },
               },
             },
