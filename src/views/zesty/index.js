@@ -64,6 +64,7 @@ import Simplestat from './Simplestat';
 import Tworowshero from './Tworowshero';
 import Alternatecolumn from './Alternatecolumn';
 import Persona from './Persona';
+import Whyzesty from './Whyzesty';
 import Testimonial from './Testimonial';
 import LogoSlider from './LogoSlider';
 import AiExample from './AiExample';
@@ -88,6 +89,9 @@ import FeatureSectionLeftImageRightTextNoCta from './FeatureSectionLeftImageRigh
 import HeroWithForm from './HeroWithForm';
 import Herostackedlight from './Herostackedlight';
 import ProductGlossary from './ProductGlossary';
+import ZPatternSection from './ZPatternSection';
+import FeaturesOption from './FeaturesOption';
+import GridFeatureList from './GridFeatureList';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -178,6 +182,8 @@ import Componenttesting from './Componenttesting';
 import ProductLandingPage from './ProductLandingPage';
 import DocsOverview from './DocsOverview';
 import CmWorldDemo from './CmWorldDemo';
+import EbookLandingPage from './EbookLandingPage';
+import Freestyle from './Freestyle';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -246,6 +252,7 @@ export {
   Tworowshero,
   Alternatecolumn,
   Persona,
+  Whyzesty,
   Testimonial,
   LogoSlider,
   AiExample,
@@ -270,6 +277,9 @@ export {
   HeroWithForm,
   Herostackedlight,
   ProductGlossary,
+  ZPatternSection,
+  FeaturesOption,
+  GridFeatureList,
   Category,
   Article,
   Tag,
@@ -360,6 +370,8 @@ export {
   ProductLandingPage,
   DocsOverview,
   CmWorldDemo,
+  EbookLandingPage,
+  Freestyle,
   Footer,
   Header,
 };
