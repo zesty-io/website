@@ -9,7 +9,7 @@ import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
 import React, { useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
-const TabSection = dynamic(() => import('./TabSection'));
+const TabSection = dynamic(() => import('./TabSection'), { ssr: false });
 
 const icons = [
   {

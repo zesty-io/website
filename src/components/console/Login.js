@@ -18,16 +18,19 @@ import dayjs from 'dayjs';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { notistackMessage } from 'utils';
-import {
-  accountsValidations,
-  FormInput,
-  SSOGroupBtns,
-} from 'components/accounts';
+import { accountsValidations } from 'components/accounts';
 
 import Swal from 'sweetalert2';
 
 import dynamic from 'next/dynamic';
 
+const FormInput = dynamic(() =>
+  import('components/accounts').then((e) => e.FormInput),
+);
+
+const SSOGroupBtns = dynamic(() =>
+  import('components/accounts').then((e) => e.SSOGroupBtns),
+);
 const AlternateEmailIcon = dynamic(() =>
   import('@mui/icons-material/AlternateEmail'),
 );
