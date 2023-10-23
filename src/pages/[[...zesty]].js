@@ -1,12 +1,14 @@
 import { React, createContext } from 'react';
 import { fetchGqlData, fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
-import MarketingMain from 'layouts/Main/MarketingMain';
 import { ZestyView } from 'lib/ZestyView';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import Main from 'layouts/Main';
 import { getIsAuthenticated } from 'utils';
 import { isUserAuthenticated } from 'middleware';
+import dynamic from 'next/dynamic';
+
+const MarketingMain = dynamic(() => import('layouts/Main/MarketingMain'));
+const Main = dynamic(() => import('layouts/Main/'));
 
 export const GlobalContext = createContext();
 export default function Zesty(props) {
@@ -85,11 +87,12 @@ async function fetchData({ isProd = false, dataType }) {
 
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
-  let isAuthenticated =
-    (await isUserAuthenticated(req, true)) || getIsAuthenticated(res);
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
+  let isAuthenticated =
+    (await isUserAuthenticated(req, true, isProd)) || getIsAuthenticated(res);
   // does not display with npm run dev
 
+  res.setHeader('set-cookie', `PRODUCTION=${process.env.PRODUCTION}`);
   isProd &&
     res.setHeader(
       'Cache-Control',

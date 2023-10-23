@@ -15,7 +15,7 @@ export default function ZestyHead({ content }) {
 
   // default OG image
   let ogimage =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/zesty-homepage-screen.png';
+    'https://kfg6bckb.media.zesty.site/zesty-share-image-generic.png?width=1200';
   // determine if there is a custom og image
   if (content?.og_image) {
     ogimage = content.og_image.data[0].url + '?width=1200';

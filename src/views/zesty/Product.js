@@ -33,17 +33,33 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
-import AppBar from 'components/console/AppBar';
 import React from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import { SearchModal } from 'views/Docs/SearchModal';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
-import GetDemoSection from 'revamp/ui/GetDemoSection';
-import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
-import { TreeNavigation } from 'components/globals/TreeNavigation';
-import { TableOfContent } from 'components/globals/TableOfContent';
+
+import dynamic from 'next/dynamic';
+
+const AppBar = dynamic(() => import('components/console/AppBar'));
+const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'));
+const TableOfContent = dynamic(() =>
+  import('components/globals/TableOfContent').then((e) => e.TableOfContent),
+);
+
+const SearchModal = dynamic(() =>
+  import('views/Docs/SearchModal').then((e) => e.SearchModal),
+);
+const AlgoSearch = dynamic(() =>
+  import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
+);
+const ZestyMarkdownParser = dynamic(() =>
+  import('components/markdown-styling/ZestyMarkdownParser').then(
+    (e) => e.ZestyMarkdownParser,
+  ),
+);
+const TreeNavigation = dynamic(() =>
+  import('components/globals/TreeNavigation').then((e) => e.TreeNavigation),
+);
 
 // main file
 const Product = (props) => {
