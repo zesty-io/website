@@ -3,8 +3,13 @@
  */
 import React from 'react';
 import * as Zesty from '../views/zesty';
-import ErrorPage from '../pages/_error';
-import AutoLayoutComponent from '../views/zesty/AutoLayoutComponent';
+
+import dynamic from 'next/dynamic';
+
+const ErrorPage = dynamic(() => import('../pages/_error'));
+const AutoLayoutComponent = dynamic(() =>
+  import('../views/zesty/AutoLayoutComponent'),
+);
 
 export function ZestyView(props) {
   if (props.content.error) {

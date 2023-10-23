@@ -3,11 +3,17 @@ import axios from 'axios';
 import { setCookie } from 'cookies-next';
 import { fetchGqlData, fetchPage } from 'lib/api';
 import Head from 'next/head';
-import { MainWrapper } from 'pages/marketplace';
 import React from 'react';
 import { getIsAuthenticated } from 'utils';
-import { ProductLandingPage } from 'views/zesty';
 
+import dynamic from 'next/dynamic';
+
+const ProductLandingPage = dynamic(() =>
+  import('views/zesty').then((e) => e.ProductLandingPage),
+);
+const MainWrapper = dynamic(() =>
+  import('pages/marketplace').then((e) => e.MainWrapper),
+);
 const AuthSuccess = ({ nav, ...props }) => {
   return (
     <>

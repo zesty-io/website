@@ -24,6 +24,11 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link
+            rel="icon"
+            href="https://brand.zesty.io/favicon.png"
+            type="image/png"
+          />
+          <link
             href="https://fonts.gstatic.com"
             rel="preconnect"
             crossOrigin="anonymous"

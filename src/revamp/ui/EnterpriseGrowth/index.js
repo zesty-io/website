@@ -3,6 +3,9 @@ import Marquee from 'react-fast-marquee';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
+import dynamic from 'next/dynamic';
+
+const EnterpriseImage = dynamic(() => import('./EnterpriseImage'));
 
 const alphaUniverse =
     'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp?width=640&height=480',
@@ -219,19 +222,13 @@ const EnterpriseGrowth = ({
         </Typography>
 
         <Grid container spacing={{ xs: 3, tablet: 4, lg: 8 }}>
-          {caseStudiesList.map((c, index) => (
+          {caseStudiesList?.map((c, index) => (
             <Grid item xs={12} lg={6} key={index}>
               <Stack
                 sx={{ cursor: 'pointer' }}
                 onClick={() => (window.location.href = c.link)}
               >
-                <img
-                  src={c.mainImage}
-                  loading="lazy"
-                  alt={generateAlt('')}
-                  width={600}
-                  height={400}
-                />
+                <EnterpriseImage img={c.mainImage} />
 
                 <Box
                   component="img"

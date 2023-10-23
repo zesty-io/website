@@ -181,7 +181,7 @@ const Hero = ({
         height: 1,
         overflow: 'hidden',
         position: 'relative',
-        zIndex: 10,
+        zIndex: 1,
       }}
     >
       <Container>

@@ -2,7 +2,14 @@
 /// <reference types="cypress" />
 
 describe('test for built in marketing pages in app', () => {
-  const urls = ['/', '/mindshare', '/ai', '/why-zesty/'];
+  const urls = [
+    '/',
+    '/mindshare/',
+    '/ai/',
+    '/why-zesty/',
+    '/marketplace/installed/',
+    '/marketplace/register/',
+  ];
 
   urls.forEach((url) => {
     it(`should load URL: ${url} without encountering 404`, () => {

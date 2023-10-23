@@ -1,5 +1,12 @@
-// prettier-ignore
-import {Box,Button,Grid,Link,Typography, Card, CardContent } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  Typography,
+  Card,
+  CardContent,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/globals/FillerContent';
 import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
@@ -14,7 +21,7 @@ const InstallButton = ({ data, theme }) => {
   const { workingInstance } = useZestyStore((state) => state);
 
   const router = useRouter();
-  const isTemplate = data.meta.web.uri.includes('template') ? true : false;
+  const isTemplate = data?.meta?.web?.uri?.includes('template') ? true : false;
   const handleTemplate = () => {
     router.push({
       pathname: `/start/`,
@@ -166,7 +173,7 @@ const Extension = (props) => {
                   sx={{ width: '100%' }}
                   component="img"
                   src={
-                    props.placard_image.data[0].url ||
+                    props?.placard_image?.data[0]?.url ||
                     FillerContent.logos[0].url
                   }
                 />
@@ -242,9 +249,9 @@ const Extension = (props) => {
                         color: 'inherit',
                         textDecoration: 'none',
                       }}
-                      href={`/marketplace/${props.meta.model_name.toLowerCase()}`}
+                      href={`/marketplace/${props?.meta?.model_name?.toLowerCase()}/`}
                     >
-                      {props.meta.model_name}
+                      {props?.meta?.model_name}
                     </Link>
                   </Typography>
                 </Typography>
