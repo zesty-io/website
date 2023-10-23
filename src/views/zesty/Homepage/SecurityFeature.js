@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
+import { Placeholder } from '.';
 
 const Child = dynamic(() => import('revamp/ui/SecurityFeature'), {
-  loading: () => <p>Loading...</p>,
+  loading: Placeholder,
 });
 
 const Index = () => {

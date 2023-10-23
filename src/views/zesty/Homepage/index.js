@@ -49,7 +49,7 @@ import { removeHTMLtags } from 'utils/removeHTMLtags';
 import { getCookie } from 'cookies-next';
 import { isProd } from 'utils';
 
-function Placeholder() {
+export function Placeholder() {
   return <Box sx={{ height: { xs: 587, sm: 303, md: 289 } }} />;
 }
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
