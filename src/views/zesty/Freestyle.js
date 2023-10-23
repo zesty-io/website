@@ -29,14 +29,28 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import { Box, Card, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import Resources from 'components/marketing/IntegrationsIndividualPage/Resources';
 import FillerContent from 'components/globals/FillerContent';
 import dynamic from 'next/dynamic';
 import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import Feature from 'components/marketing/IntegrationsIndividualPage/Feature';
 import TryFreeButton from 'components/cta/TryFreeButton';
-
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Container from 'components/Container';
+import MuiMarkdown from 'markdown-to-jsx';
 const SimpleHeroWithImageAndCtaButtons = dynamic(
   () => import('blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons'),
   {
@@ -73,6 +87,16 @@ function Freestyle({ content }) {
 
   console.log(content);
 
+  const faqProps = {
+    title: content?.faq_title || FillerContent.header,
+    faqs: content?.faqs?.data || [],
+  };
+
+  const popularFeaturesProps = {
+    title: content?.popular_features || FillerContent.header,
+    data: content?.freestyle_popular_features?.data || [],
+  };
+
   return (
     <>
       <SimpleHeroWithImageAndCtaButtons {...headerProps} />{' '}
@@ -80,7 +104,7 @@ function Freestyle({ content }) {
       <Box sx={{ mt: -10 }}>
         <Feature {...pageData} />
       </Box>
-      <Box sx={{ py: 10 }}>
+      <Box sx={{ pt: 10 }}>
         <SimpleCardLogo
           heading_text={content?.logos_title}
           logoItems={content?.logos?.data}
@@ -110,6 +134,111 @@ function Freestyle({ content }) {
             </Typography>
             <TryFreeButton variant="text" size="small" color="secondary" />
           </Card>
+        </Box>
+
+        <Box sx={{ py: 10 }}>
+          <Container>
+            <Typography
+              sx={{
+                color: theme.palette.zesty.zestyZambezi,
+                fontWeight: 'bold',
+                textAlign: 'center',
+                mb: 4,
+              }}
+              variant="h4"
+              component="h2"
+            >
+              {faqProps?.title}
+            </Typography>
+            <Grid container spacing={4}>
+              {faqProps.faqs.map((faq) => {
+                return (
+                  <Grid key={faq.meta.zuid} item sm={4}>
+                    <Accordion defaultExpanded>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography
+                          sx={{ color: theme.palette.zesty.zestyZambezi }}
+                        >
+                          {faq?.question}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <MuiMarkdown
+                          options={{
+                            overrides: {
+                              p: {
+                                component: Typography,
+                                props: {
+                                  sx: {
+                                    color: theme.palette.zesty.zestyZambezi,
+                                    mb: 4,
+                                  },
+                                },
+                              },
+                            },
+                          }}
+                        >
+                          {faq?.answer}
+                        </MuiMarkdown>
+                      </AccordionDetails>
+                    </Accordion>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Container>
+        </Box>
+
+        <Box sx={{ background: theme.palette.zesty.zestyWhite, py: 10 }}>
+          <Container>
+            <Typography
+              sx={{
+                color: theme.palette.zesty.zestyZambezi,
+                fontWeight: 'bold',
+                textAlign: 'center',
+                mb: 4,
+              }}
+              variant="h4"
+              component="h2"
+            >
+              {popularFeaturesProps.title}
+            </Typography>
+            <Grid container spacing={4}>
+              {popularFeaturesProps.data.map((feature) => {
+                return (
+                  <Grid item sm={4}>
+                    <Card sx={{ position: 'relative' }}>
+                      <CardContent>
+                        <Typography
+                          sx={{
+                            fontWeight: 'bold',
+                            color: theme.palette.zesty.zestyZambezi,
+                            mb: 2,
+                            minHeight: 20,
+                          }}
+                        >
+                          {feature.title}
+                        </Typography>
+                        <Typography
+                          sx={{ color: theme.palette.zesty.zestyZambezi }}
+                        >
+                          {feature.description}
+                        </Typography>
+
+                        <Button
+                          sx={{ mt: 4 }}
+                          variant="contained"
+                          color="secondary"
+                        >
+                          Learn More
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Container>
         </Box>
       </Box>
     </>
