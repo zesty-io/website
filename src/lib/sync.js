@@ -38,7 +38,6 @@ async function ask(question) {
 // for now: can use password param for preview url (readonly)
 // if it creates developer token, need to account for token expiration
 // 0b include needed packages
-const fetch = require('node-fetch');
 const fs = require('fs'); // need to check folder and write files
 const chalk = require('chalk');
 const { promisify } = require('util');
