@@ -9,7 +9,6 @@ import { grey } from '@mui/material/colors';
 // import { MissingQuestions } from '../join/MissingQuestions';
 import { joinAppConstants } from '../join/constants';
 import { ToolBox } from '../join/ToolBox';
-import { pendoScript } from 'components/marketing/Join/pendoScript';
 
 import dynamic from 'next/dynamic';
 
@@ -354,7 +353,6 @@ const Dashboard = ({ content = {} }) => {
           px: 3,
         })}
       >
-        {pendoScript}
         {!content.zestyProductionMode && <ToolBox title="" />}
         <Grid container spacing={2} mt={1}>
           <Grid
