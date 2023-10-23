@@ -1,9 +1,14 @@
 // import { AccountPageloading } from 'components/accounts/ui/loading';
-import Dashboard from 'components/accounts/dashboard';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { getIsAuthenticated } from 'utils';
 import { fetchPage } from 'lib/api';
+
+import dynamic from 'next/dynamic';
+
+const Dashboard = dynamic(() => import('components/accounts/dashboard'));
+const InstanceContainer = dynamic(() =>
+  import('components/accounts/instances/InstanceContainer'),
+);
 
 function DashboardPage(props) {
   return (

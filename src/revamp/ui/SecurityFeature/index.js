@@ -66,11 +66,8 @@ const SecurityFeature = ({
               objectFit: 'contain',
               maxWidth: '100%',
               height: '100%',
+              display: { xs: 'none', lg: 'flex' },
             },
-            // [theme.breakpoints.up('mobile')]: {
-            //   maxWidth: '704px',
-            //   height: '343px',
-            // },
             [theme.breakpoints.up('tablet')]: {
               maxWidth: '100%',
               height: '420px',
@@ -80,7 +77,7 @@ const SecurityFeature = ({
               height: '100%',
             },
             [theme.breakpoints.between(1201, 1439)]: {
-              maxWidth: '100%',
+              maxWidth: '600px',
               height: '100%',
             },
             [theme.breakpoints.up('desktopWide')]: {

@@ -40,48 +40,62 @@
  * Components Imports
  */
 import revampTheme from 'theme/revampTheme';
-import { ThemeProvider, useTheme } from '@mui/material';
+import { Box, ThemeProvider, useTheme } from '@mui/material';
 import Hero from 'revamp/ui/HeroV2';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { removeHTMLtags } from 'utils/removeHTMLtags';
+import { getCookie } from 'cookies-next';
+import { isProd } from 'utils';
 
+function Placeholder() {
+  return <Box sx={{ height: { xs: 587, sm: 303, md: 289 } }} />;
+}
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
-  loading: () => <p>Loading...</p>,
+  loading: Placeholder,
+  ssr: false,
 });
-const GridFeature = dynamic(() => import('revamp/ui/GridFeature'), {
-  loading: () => <p>Loading...</p>,
+const GridFeature = dynamic(() => import('./GridFeature'), {
+  loading: Placeholder,
+  ssr: false,
 });
-const SingleTestimonial = dynamic(() => import('revamp/ui/SingleTestimonial'), {
-  loading: () => <p>Loading...</p>,
+const SingleTestimonial = dynamic(() => import('./SingleTestimonial'), {
+  ssr: false,
+  loading: Placeholder,
 });
-const Stats = dynamic(() => import('revamp/ui/Stats'), {
-  loading: () => <p>Loading...</p>,
+const Stats = dynamic(() => import('./Stats'), {
+  loading: Placeholder,
+  ssr: false,
 });
-const EnterpriseGrowth = dynamic(() => import('revamp/ui/EnterpriseGrowth'), {
-  loading: () => <p>Loading...</p>,
+const EnterpriseGrowth = dynamic(() => import('./EnterpriseGrowth'), {
+  loading: Placeholder,
+  ssr: false,
 });
 const FeatureBulletWithTestimonials = dynamic(
-  () => import('revamp/ui/FeatureBulletWithTestimonials'),
+  () => import('./FeatureBulletWithTestimonials'),
   {
-    loading: () => <p>Loading...</p>,
+    loading: Placeholder,
+    ssr: false,
   },
 );
-const SecurityFeature = dynamic(() => import('revamp/ui/SecurityFeature'), {
-  loading: () => <p>Loading...</p>,
+const SecurityFeature = dynamic(() => import('./SecurityFeature'), {
+  loading: Placeholder,
+  ssr: false,
 });
-const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
-  loading: () => <p>Loading...</p>,
+const GetDemoSection = dynamic(() => import('./GetDemoSection'), {
+  loading: Placeholder,
+  ssr: false,
 });
 
 function Homepage({ content }) {
   const { palette } = useTheme();
   const isLoggedIn = useIsLoggedIn();
+  const token = getCookie(isProd ? 'APP_SID' : 'DEV_APP_SID');
 
   useEffect(() => {
     const prevUrl = sessionStorage.getItem('prevUrl');
-    if (content.zesty.isAuthenticated || isLoggedIn) {
+    if (content.zesty.isAuthenticated || isLoggedIn || token) {
       // redirect the user to previous url from SSO
       if (prevUrl && !['', '/'].includes(prevUrl)) {
         window.location.href = prevUrl;

@@ -4,6 +4,11 @@ import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
 import { FONT_FAMILY } from 'components/globals/constants';
+import dynamic from 'next/dynamic';
+
+const Logos = dynamic(() => import('./Logos'), {
+  ssr: false,
+});
 
 const media =
     'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-hero.webp',
@@ -205,28 +210,7 @@ const Hero = ({
               {subtitle2}
             </Typography>
 
-            <Stack
-              direction="row"
-              flexWrap="wrap"
-              sx={(theme) => ({
-                [theme.breakpoints.down('sm')]: {
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                },
-              })}
-              rowGap="24px"
-              columnGap="20px"
-            >
-              {logos.map((image, index) => (
-                <img
-                  src={image.src}
-                  alt={generateAlt()}
-                  loading="lazy"
-                  width={image.width}
-                  height={image.height}
-                />
-              ))}
-            </Stack>
+            <Logos logos={logos} />
           </Grid>
         </Grid>
       </Container>
@@ -265,14 +249,18 @@ const Hero = ({
           },
         })}
       >
-        <img
-          height={560}
-          width={894}
-          src={heroImage}
-          style={{ width: '100%', height: 'auto' }}
-          alt={generateAlt('Zesty image')}
-          loading="eager"
-        />
+        <picture>
+          <source srcSet={media} media="(min-width: 1200px)" />
+          <source srcSet={media + '?width=400'} media="(min-width: 400px)" />
+          <img
+            height={560}
+            width={894}
+            src={heroImage}
+            style={{ width: '100%', height: 'auto' }}
+            alt={generateAlt('Zesty image')}
+            loading="eager"
+          />
+        </picture>
       </Box>
     </Box>
   );

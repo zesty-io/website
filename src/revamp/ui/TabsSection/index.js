@@ -6,8 +6,10 @@ import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
 import { TabContext, TabList } from '@mui/lab';
 import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
 import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
-import TabSection from './TabSection';
 import React, { useEffect, useState } from 'react';
+
+import dynamic from 'next/dynamic';
+const TabSection = dynamic(() => import('./TabSection'), { ssr: false });
 
 const icons = [
   {
