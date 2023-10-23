@@ -85,14 +85,6 @@ const GetDemoSection = ({
     return values;
   };
 
-  console.log(
-    isLong && !isContact
-      ? 'validationSchema'
-      : isContact
-      ? 'contactPageValidation'
-      : 'shortValidationSchema',
-  );
-
   return (
     <Stack bgcolor="grey.900">
       <Stack
