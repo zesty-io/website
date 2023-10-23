@@ -18,13 +18,16 @@ import { useZestyStore } from 'store';
 import { Topbar, Sidebar, Footer } from './components';
 
 import dynamic from 'next/dynamic';
+import revampTheme from 'theme/revampTheme';
 
 const TopNav = dynamic(() => import('components/globals/TopNav'));
-const SiteBanner = dynamic(() =>
-  import('components/marketing/SiteBanner/SiteBanner'),
+const SiteBanner = dynamic(
+  () => import('components/marketing/SiteBanner/SiteBanner'),
+  { ssr: false },
 );
-const ProgressBar = dynamic(() => import('react-scroll-progress-bar'));
-const revampTheme = dynamic(() => import('theme/revampTheme'));
+const ProgressBar = dynamic(() => import('react-scroll-progress-bar'), {
+  ssr: false,
+});
 
 const MarketingMain = ({
   children,
