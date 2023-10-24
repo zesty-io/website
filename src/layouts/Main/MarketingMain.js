@@ -7,19 +7,27 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
+import { Container, Stack, ThemeProvider } from '@mui/material';
 
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
-// import Container from 'components/Container';
-import TopNav from 'components/globals/TopNav';
-import { Topbar, Sidebar, Footer } from './components';
 import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container, Stack, ThemeProvider } from '@mui/material';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
-import ProgressBar from 'react-scroll-progress-bar';
+
+import { Topbar, Sidebar, Footer } from './components';
+
+import dynamic from 'next/dynamic';
 import revampTheme from 'theme/revampTheme';
+
+const TopNav = dynamic(() => import('components/globals/TopNav'));
+const SiteBanner = dynamic(
+  () => import('components/marketing/SiteBanner/SiteBanner'),
+  { ssr: false },
+);
+const ProgressBar = dynamic(() => import('react-scroll-progress-bar'), {
+  ssr: false,
+});
 
 const MarketingMain = ({
   children,

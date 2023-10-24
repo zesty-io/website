@@ -1,6 +1,11 @@
 import axios from 'axios';
 import FillerContent from 'components/globals/FillerContent';
 import zestyConfig from '../../zesty.config.json';
+import {
+  flyoutNavigation,
+  navigationCustom,
+  navigationTree,
+} from 'components/globals/constants';
 
 const API_REQ_TIMEOUT = 30000;
 
@@ -83,10 +88,10 @@ export async function fetchPage(
   // fetch the navigation and append the navigation to the data
   if (getNavigation == true) {
     // not using this tree
-    data.navigationTree = await buildJSONTreeFromNavigation(zestyURL);
+    data.navigationTree = navigationTree;
     // custom nav tree building
-    data.navigationCustom = await customNavigation(zestyURL);
-    data.flyoutNavigation = await newNavigationWithFlyout(zestyURL);
+    data.navigationCustom = navigationCustom;
+    data.flyoutNavigation = flyoutNavigation;
   }
   return data;
 }

@@ -9,13 +9,19 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 // import { lighten } from '@mui/material';
 // import slides
-import { SlideMessage } from 'components/marketing/Join/SlideMessage';
+
+// import { SlideMessage } from 'components/marketing/Join/SlideMessage';
+
+const SlideMessage = dynamic(() =>
+  import('components/marketing/Join/SlideMessage').then((e) => e.SlideMessage),
+);
 // import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
 // google analytics
 // import * as ga from 'lib/ga';
 
 import { getIsAuthenticated } from 'utils';
+import dynamic from 'next/dynamic';
 
 // messages
 const firstMessage = (

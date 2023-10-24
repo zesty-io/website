@@ -5,7 +5,11 @@
  * Label: ROI calculator 
  * Name: roi_calculator 
  * Model ZUID: 6-82e1ad9d8d-c2rq2z
+<<<<<<< HEAD
+ * File Created On: Tue Jul 05 2022 21:46:15 GMT+0800 (Philippine Standard Time)
+=======
  * File Created On: Wed Jul 27 2022 18:58:43 GMT+0800 (Philippine Standard Time)
+>>>>>>> stage
  * 
  * Model Fields:
  * 
@@ -29,29 +33,46 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ *  MUI Imports
+ */
+
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+/**
+ *  Helper Imports
+ */
+import FillerContent from 'components/globals/FillerContent';
+
+/**
+ * Components Imports
+ */
+import Hero from 'components/marketing/RoiCalculator/Hero';
+import Widget from 'components/marketing/RoiCalculator/Widget';
+import Calculator from 'components/marketing/RoiCalculator/Calculator';
 
 function RoiCalculator({ content }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+
+  const pageData = {
+    theme,
+    isMobile,
+    isLarge,
+    isExtraLarge,
+    FillerContent,
+    content,
+  };
+
   return (
-    <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
-    </>
+    <div className="roi-calculator">
+      <Hero {...pageData} />
+      <Widget {...pageData} />
+      <Calculator {...pageData} />
+    </div>
   );
 }
 

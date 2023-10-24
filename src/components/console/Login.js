@@ -7,28 +7,39 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import {
-  accountsValidations,
-  FormInput,
-  SSOGroupBtns,
-} from 'components/accounts';
 import { setCookie } from 'cookies-next';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useZestyStore } from 'store';
 import * as helpers from 'utils';
-import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useSnackbar } from 'notistack';
 import dayjs from 'dayjs';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
-import LoginIcon from '@mui/icons-material/Login';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { notistackMessage } from 'utils';
+import { accountsValidations } from 'components/accounts';
+
+import Swal from 'sweetalert2';
+
+import dynamic from 'next/dynamic';
+
+const FormInput = dynamic(() =>
+  import('components/accounts').then((e) => e.FormInput),
+);
+
+const SSOGroupBtns = dynamic(() =>
+  import('components/accounts').then((e) => e.SSOGroupBtns),
+);
+const AlternateEmailIcon = dynamic(() =>
+  import('@mui/icons-material/AlternateEmail'),
+);
+const PlayArrowIcon = dynamic(() => import('@mui/icons-material/PlayArrow'));
+const ImportContactsOutlinedIcon = dynamic(() =>
+  import('@mui/icons-material/ImportContactsOutlined'),
+);
+const LoginIcon = dynamic(() => import('@mui/icons-material/Login'));
+const LoadingButton = dynamic(() => import('@mui/lab/LoadingButton'));
 
 const MySwal = withReactContent(Swal);
 
@@ -184,7 +195,6 @@ const Login = ({ content, userEmail }) => {
     },
     onSubmit: async (values) => {
       await handleLogin(values);
-      formik.resetForm();
     },
   });
 

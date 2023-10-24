@@ -22,7 +22,7 @@ const BlackHero = ({
   title = 'UNIFY YOUR TEAM WITH',
   header = 'Content Management All Teams will Love',
   subtitle = 'Create, manage, and deliver content at scale - with a suite of forward thinking features to meet your business needs.',
-  primaryBtn = 'Schedule Demo',
+  primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo?ab=dark',
   secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '/demos/video?ab=dark',

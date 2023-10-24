@@ -1,27 +1,25 @@
 import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
-
 import Marquee from 'react-fast-marquee';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
+import { generateAlt } from 'utils';
+import dynamic from 'next/dynamic';
+
+const EnterpriseImage = dynamic(() => import('./EnterpriseImage'));
 
 const alphaUniverse =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/alphaUniverse.webp',
-  sonyLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/sonyLogo.svg',
+    'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp?width=640&height=480',
+  sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
   rocketLeague =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/rocketLeaguePic.webp',
+    'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp?width=640&height=480',
   rocketLeagueLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Rocket League Logo.png',
+    'https://kfg6bckb.media.zestyio.com/Rocket-League-Logo.png',
   singlife =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/singlifePic.webp',
-  singlifeLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Singlife Logo.png',
+    'https://kfg6bckb.media.zestyio.com/singlifePic.webp?width=640&height=480',
+  singlifeLogo = 'https://kfg6bckb.media.zestyio.com/Singlife-Logo.png',
   acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/acornsPic.webp',
-  acornsLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Acorns Logo.png';
+    'https://kfg6bckb.media.zestyio.com/acornsPic.webp?width=640&height=480',
+  acornsLogo = 'https://kfg6bckb.media.zestyio.com/Acorns-Logo.png';
 
 const logos = [
   'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Rocket League Logo.svg',
@@ -69,9 +67,9 @@ const caseStudies = [
 
 const EnterpriseGrowth = ({
   overline = 'No more monday morning fires to put out',
-  heading = 'Built for enterprise scale and security',
+  heading = 'Lowest Total Cost of Ownership',
   supportingText = 'With best-in class security and automatically scaling architecture, our platform can serve up to millions of users at any second. Sleep soundly at night knowing Zesty serves an average 1B+ requests per month at 99.999%+ uptime.',
-  primaryBtn = 'Schedule Demo',
+  primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo',
   secondaryBtn = 'View Demo Video',
   secondaryBtnLink = '/demos/video/',
@@ -82,7 +80,7 @@ const EnterpriseGrowth = ({
   const isTablet = useMediaQuery(theme.breakpoints.up('tablet'));
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
   return (
-    <Stack bgcolor="grey.900">
+    <Stack bgcolor="grey.900" overflow={'hidden'}>
       <Stack
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
@@ -117,7 +115,7 @@ const EnterpriseGrowth = ({
           </Typography>
           <Typography
             color="white"
-            variant="h1"
+            variant="h2"
             fontWeight={800}
             letterSpacing="-0.02em"
             mb={3}
@@ -166,6 +164,9 @@ const EnterpriseGrowth = ({
               <Box
                 key={index}
                 component="img"
+                alt={generateAlt('')}
+                loading="lazy"
+                width={'120px'}
                 height="40px"
                 src={logo}
                 sx={{
@@ -221,42 +222,31 @@ const EnterpriseGrowth = ({
         </Typography>
 
         <Grid container spacing={{ xs: 3, tablet: 4, lg: 8 }}>
-          {caseStudiesList.map((c, index) => (
+          {caseStudiesList?.map((c, index) => (
             <Grid item xs={12} lg={6} key={index}>
               <Stack
                 sx={{ cursor: 'pointer' }}
                 onClick={() => (window.location.href = c.link)}
               >
-                <Box
-                  component="img"
-                  width="100%"
-                  height="auto"
-                  src={c.mainImage}
-                  sx={(theme) => ({
-                    [theme.breakpoints.up('xs')]: {
-                      objectFit: 'contain',
-                      marginBottom: '24px',
-                      borderRadius: '6px',
-                    },
-                    [theme.breakpoints.up('lg')]: {
-                      height: '344px',
-                    },
-                  })}
-                />
+                <EnterpriseImage img={c.mainImage} />
 
                 <Box
                   component="img"
+                  loading="lazy"
+                  alt={generateAlt('')}
+                  width={120}
                   height={{ xs: '32px', tablet: '64px' }}
                   src={c.logo}
                   sx={{
                     objectFit: 'contain',
                     alignSelf: 'start',
                     marginBottom: '12px',
+                    marginTop: 2,
                   }}
                 />
 
                 <Typography
-                  variant="h4"
+                  variant="h3"
                   letterSpacing="-0.02em"
                   color="white"
                   fontWeight={800}

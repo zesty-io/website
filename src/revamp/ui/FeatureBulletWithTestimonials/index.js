@@ -1,11 +1,10 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import React from 'react';
+import { CheckRounded as CheckRoundedIcon } from '@mui/icons-material';
+import { generateAlt } from 'utils';
 
 const featureContent =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/supportImage.webp',
-  logo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/experiom.png';
+    'https://kfg6bckb.media.zestyio.com/supportImage.webp?width=1280&height=720',
+  logo = 'https://kfg6bckb.media.zestyio.com/experiom.png';
 
 const listItems = [
   'Live chat support for business customers',
@@ -15,7 +14,7 @@ const listItems = [
 
 const FeatureBulletWithTestimonials = ({
   overline = 'WHITE GLOVE SUPPORT',
-  heading = 'Expert guidance and migration support for any project',
+  heading = 'Migration Included in Businesses Licenses',
   supportingText = `Once you get started, our onboarding experience consists of a 360 degree review by Zesty experts. You can expect a dedicated partner to provide white glove support throughout the entire process. Plus, we offer training to help you get the most out of your investment.`,
   image = featureContent,
   testimonial = `“We love Zesty’s top-tier support, easy-to-use interfaces for both business and technical users, and their ability to keep the platform as modern as possible with very little legacy baggage.”
@@ -99,11 +98,18 @@ const FeatureBulletWithTestimonials = ({
           >
             {testimonial}
           </Typography>
-          <img src={testimonialLogo} width="110.44px" height="40px" />
+          <img
+            alt={generateAlt('')}
+            loading="lazy"
+            src={testimonialLogo}
+            width="110.44px"
+            height="40px"
+          />
         </Stack>
       </Stack>
       <Stack
         justifyContent={{ lg: 'center' }}
+        display={{ xs: 'none', lg: 'flex' }}
         mb={{
           xs: !isImageRight && 3,
           tablet: !isImageRight && 6,
@@ -112,18 +118,12 @@ const FeatureBulletWithTestimonials = ({
         order={{ lg: isImageRight ? 1 : 0 }}
       >
         <Box
-          component="img"
-          src={image}
           sx={(theme) => ({
             [theme.breakpoints.up('xs')]: {
               objectFit: 'contain',
               maxWidth: '100%',
               height: '100%',
             },
-            // [theme.breakpoints.up('mobile')]: {
-            //   maxWidth: '704px',
-            //   height: '343px',
-            // },
             [theme.breakpoints.up('tablet')]: {
               maxWidth: '100%',
               height: '420px',
@@ -141,7 +141,15 @@ const FeatureBulletWithTestimonials = ({
               height: '100%',
             },
           })}
-        />
+        >
+          <img
+            src={image}
+            loading="lazy"
+            alt={generateAlt('')}
+            width={788}
+            height={420}
+          />
+        </Box>
       </Stack>
     </Stack>
   );
