@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthProvider';
-import { getCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 
 const isUserAuthenticated = async () => {
   let isProd = JSON.parse(getCookie('PRODUCTION') || true);
@@ -18,6 +18,15 @@ const isUserAuthenticated = async () => {
   });
   const data = await response.json();
 
+  if (data?.code !== 200) {
+    deleteCookie(isProd ? 'APP_SID' : 'DEV_APP_SID', {
+      domain: '.zesty.io',
+    });
+    deleteCookie('isAuthenticated');
+    deleteCookie('ZESTY_WORKING_INSTANCE', {});
+
+    return false;
+  }
   return data?.code === 200 ? true : false;
 };
 
@@ -30,7 +39,7 @@ const useIsLoggedIn = () => {
     const auth = async () => {
       setIsAuth(await isUserAuthenticated());
     };
-    if (cookies?.isAuthenticated === true) {
+    if (cookies?.isAuthenticated === false) {
       auth();
     }
   }, [isAuth]);
