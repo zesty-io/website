@@ -28,10 +28,14 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import React from 'react';
-import CustomLogin from 'components/console/Login';
 import { getCookie } from 'cookies-next';
 import { useEffect } from 'react';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+
+import dynamic from 'next/dynamic';
+
+const CustomLogin = dynamic(() => import('components/console/Login'));
+
 function Login({ content }) {
   const APP_USER_EMAIL = getCookie('APP_USER_EMAIL');
   const isLoggedIn = useIsLoggedIn();

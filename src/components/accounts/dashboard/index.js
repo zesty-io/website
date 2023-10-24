@@ -2,21 +2,24 @@ import { Container, Divider, Grid, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import * as helpers from 'utils';
-import ZInstancesContainer from './ui/ZInstancesContainer';
-import ZMarketingAds from './ui/ZMarketingAds';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
-import ZActivityStream from './ui/ZActivityStream';
-import SideContent from './SideContent';
-import { OnboardingQuestions } from '../join/OnboardingQuestions';
-import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
-import { AccountPageloading } from '../ui';
 // import { PreferenceQuestions } from '../join/PreferenceQuestions';
 // import { MissingQuestions } from '../join/MissingQuestions';
 import { joinAppConstants } from '../join/constants';
 import { ToolBox } from '../join/ToolBox';
-import { pendoScript } from 'components/marketing/Join/pendoScript';
+
+import dynamic from 'next/dynamic';
+
+const ZInstancesContainer = dynamic(() => import('./ui/ZInstancesContainer'));
+const ZMarketingAds = dynamic(() => import('./ui/ZMarketingAds'));
+const ZActivityStream = dynamic(() => import('./ui/ZActivityStream'));
+const SideContent = dynamic(() => import('./SideContent'));
+
+import { OnboardingQuestions } from '../join/OnboardingQuestions';
+import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
+import { AccountPageloading } from '../ui';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
@@ -350,7 +353,6 @@ const Dashboard = ({ content = {} }) => {
           px: 3,
         })}
       >
-        {pendoScript}
         {!content.zestyProductionMode && <ToolBox title="" />}
         <Grid container spacing={2} mt={1}>
           <Grid

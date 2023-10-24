@@ -12,9 +12,16 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { SearchModal } from 'views/Docs/SearchModal';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
+
+import dynamic from 'next/dynamic';
+
+const SearchModal = dynamic(() =>
+  import('views/Docs/SearchModal').then((e) => e.SearchModal),
+);
+const AlgoSearch = dynamic(() =>
+  import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
+);
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 

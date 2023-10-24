@@ -47,10 +47,12 @@ const Stats = ({
     <Stack
       sx={(theme) => ({
         [theme.breakpoints.up('xs')]: {
+          display: 'none',
           py: 4,
           px: 2,
         },
         [theme.breakpoints.up('tablet')]: {
+          display: 'none',
           py: 6,
           px: 4,
         },
