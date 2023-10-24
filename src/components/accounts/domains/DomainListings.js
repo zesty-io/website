@@ -71,9 +71,9 @@ export default function DomainListings({
             params.row.domain.includes('webengine') ||
             params.row.domain.includes('zesty.dev')
           ) {
-            url = `${siteProtocol}://${params.row.domain}/`;
+            url = `${siteProtocol}://${params.row.domain}`;
           } else {
-            url = `${siteProtocol}://${preferredWWW}${params.row.domain}/`;
+            url = `${siteProtocol}://${preferredWWW}${params.row.domain}`;
           }
           return (
             <Link
