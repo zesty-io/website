@@ -3,6 +3,10 @@ on:
   pull_request:
     branches: [stage,accounts,production,dev]
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-check:
     runs-on: ubuntu-latest
@@ -10,18 +14,25 @@ jobs:
       PRODUCTION: 'false'
     steps:
       - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v1
+      # - uses: oven-sh/setup-bun@v1
+      #   with:
+      #    bun-version: 1.0.4
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
         with:
-         bun-version: 1.0.4
+         path: ~/.npm
+         key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+         restore-keys: npm-${{ runner.os }}-
 
       - name: Setup custom host for mylocal
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
 
       - name: Install dependencies 
-        run: bun install
+        run: npm install
 
       - name: Check format and linters
-        run: bun run test-all
+        run: npm run test-all
 
       - name: Build Project 
-        run: bun run build
+        run: npm run build
