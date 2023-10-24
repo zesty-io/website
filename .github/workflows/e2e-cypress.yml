@@ -3,6 +3,11 @@ on:
   pull_request:
     branches: [stage,accounts,production,dev]
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   end-to-end-tests-cypress:
     runs-on: ubuntu-latest
@@ -10,7 +15,6 @@ jobs:
       PRODUCTION: 'true'
     steps:
       - uses: actions/checkout@v2
-      - uses: oven-sh/setup-bun@v1
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm

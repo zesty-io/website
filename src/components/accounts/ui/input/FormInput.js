@@ -1,12 +1,12 @@
-const {
-  Box,
-  TextField,
-  Typography,
-  InputAdornment,
-  IconButton,
-} = require('@mui/material');
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import PasswordIcon from '@mui/icons-material/Password';
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React, { useState } from 'react';
 
 const Index = ({
