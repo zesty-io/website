@@ -210,7 +210,7 @@ const InstanceDashboardV2 = () => {
     if (res?.data.length === 0) {
       const invites = await getAllInvitedInstances();
       if (invites && invites.length == 0) {
-        router.push('/');
+        router.push('/dashboard/');
       }
     }
 

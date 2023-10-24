@@ -30,10 +30,6 @@ export default function DomainListings({
   }, [instanceDomains?.length, zuid, instance?.ZUID]);
 
   const siteProtocol = settings?.find((e) => e.key === 'site_protocol')?.value;
-  const preferredWWW =
-    settings?.find((e) => e.key === 'preferred_domain_prefix')?.value === '1'
-      ? 'www.'
-      : '';
 
   const ROWS_LIVE_DOMAINS = liveDomains?.map((e) => {
     return {
@@ -71,9 +67,9 @@ export default function DomainListings({
             params.row.domain.includes('webengine') ||
             params.row.domain.includes('zesty.dev')
           ) {
-            url = `${siteProtocol}://${params.row.domain}/`;
+            url = `${siteProtocol}://${params.row.domain}`;
           } else {
-            url = `${siteProtocol}://${preferredWWW}${params.row.domain}/`;
+            url = `${siteProtocol}://${params.row.domain}`;
           }
           return (
             <Link
