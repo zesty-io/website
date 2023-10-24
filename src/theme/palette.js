@@ -26,6 +26,7 @@ export const light = {
     blueShadow: 'rgba(145, 177, 235, 0.3)',
     whiteSmoke: '#f1f1f1',
     snow: '#fafafa',
+    black: '#273240',
   },
 
   text: {
@@ -90,6 +91,7 @@ export const light = {
     zestyLightText: '#a1a1a1',
     zestyLightText2: '#CBCBCB',
     zestyLightText3: '#E2E2E2',
+    zestyLightText4: '#909090',
     zestyLightOrange: '#F5F1F1',
     zestyDarkText: '#2D3748',
     lightPink: '#FFF6F1',
