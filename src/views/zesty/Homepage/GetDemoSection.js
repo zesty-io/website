@@ -1,8 +1,9 @@
+import { placeholder } from '@codemirror/view';
 import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 
 const Child = dynamic(() => import('revamp/ui/GetDemoSection'), {
-  loading: () => <p>Loading...</p>,
+  loading: placeholder,
 });
 
 const Index = () => {
