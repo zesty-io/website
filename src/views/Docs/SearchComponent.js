@@ -1,4 +1,4 @@
-const { TextField } = require('@mui/material');
+import { TextField } from '@mui/material';
 import React from 'react';
 
 const Main = ({ search = '', onChange = () => {} }) => {
