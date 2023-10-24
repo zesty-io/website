@@ -208,6 +208,11 @@ const DocsOverview = dynamic(() => import('./DocsOverview'));
 const CmWorldDemo = dynamic(() => import('./CmWorldDemo'));
 const Header = dynamic(() => import('./Header'));
 const Footer = dynamic(() => import('./Footer'));
+const EbookLandingPage = dynamic(() => import('./EbookLandingPage'));
+const Freestyle = dynamic(() => import('./Freestyle'));
+const ZPatternSection = dynamic(() => import('./ZPatternSection'));
+const FeaturesOption = dynamic(() => import('./FeaturesOption'));
+const GridFeatureList = dynamic(() => import('./GridFeatureList'));
 
 export {
   Clipping,
@@ -274,6 +279,7 @@ export {
   Tworowshero,
   Alternatecolumn,
   Persona,
+  WhyZesty,
   Testimonial,
   LogoSlider,
   AiExample,
@@ -298,6 +304,9 @@ export {
   HeroWithForm,
   Herostackedlight,
   ProductGlossary,
+  ZPatternSection,
+  FeaturesOption,
+  GridFeatureList,
   Category,
   Article,
   Tag,
@@ -326,7 +335,6 @@ export {
   Pricing,
   Ourpartner,
   HeroHompage,
-  WhyZesty,
   PlatformOverview,
   TechnologyOverview,
   CaseStudy,
@@ -388,6 +396,8 @@ export {
   ProductLandingPage,
   DocsOverview,
   CmWorldDemo,
+  EbookLandingPage,
+  Freestyle,
   Footer,
   Header,
 };

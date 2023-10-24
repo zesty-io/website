@@ -320,7 +320,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                     controls={true}
                   />
                 </Box>
-                <Box
+                  {integrationLogo &&       <Box
                   sx={{
                     width: '100%',
                     maxWidth: 250,
@@ -339,6 +339,8 @@ const SimpleHeroWithImageAndCtaButtons = ({
                     alt={mainTitle || 'Zesty.io integration'}
                   />
                 </Box>
+
+                  }
               </>
             )}
           </Grid>
