@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthProvider';
-import { deleteCookie, getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
+import { resetCookies } from 'utils/resetCookie';
 
 const isUserAuthenticated = async () => {
   const isProd = getCookie('PRODUCTION') === 'true' ? true : false;
@@ -11,12 +12,7 @@ const isUserAuthenticated = async () => {
   const appSid = getCookie(isProd ? 'APP_SID' : 'DEV_APP_SID');
 
   if (!appSid) {
-    deleteCookie(isProd ? 'APP_SID' : 'DEV_APP_SID', {
-      domain: '.zesty.io',
-      secure: true,
-    });
-    deleteCookie('isAuthenticated');
-    deleteCookie('ZESTY_WORKING_INSTANCE', {});
+    resetCookies(isProd);
     return false;
   }
 
@@ -32,29 +28,18 @@ const isUserAuthenticated = async () => {
       if (data?.code === 200) {
         return true;
       } else {
-        deleteCookie(isProd ? 'APP_SID' : 'DEV_APP_SID', {
-          domain: '.zesty.io',
-          secure: true,
-        });
-        deleteCookie('isAuthenticated');
-        deleteCookie('ZESTY_WORKING_INSTANCE', {});
+        resetCookies(isProd);
         return false;
       }
     } catch (error) {
       console.log(error, 'error');
-      deleteCookie(isProd ? 'APP_SID' : 'DEV_APP_SID', {
-        domain: '.zesty.io',
-        secure: true,
-      });
-      deleteCookie('isAuthenticated');
-      deleteCookie('ZESTY_WORKING_INSTANCE', {});
+      resetCookies(isProd);
       return false;
     }
   }
 };
 
 const useIsLoggedIn = () => {
-  // update
   const cookies = useContext(AuthContext);
   const [isAuth, setIsAuth] = useState(false);
 
