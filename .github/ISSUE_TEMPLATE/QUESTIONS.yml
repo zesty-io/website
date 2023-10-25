@@ -1,0 +1,21 @@
+name: "🤔 Question"
+title: "\U0001F917 [Question]: "
+description: Ask a question so we can help you easily.
+labels: ["🤔 Question"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Notice
+        - If you think this is just a bug, open the issue with the **☢️ Bug Report** template.
+        - If you have a suggestion for a Zesty feature you would like to see, open the issue with the **✏️ Feature Request** template.
+        - Write your issue with clear and understandable English.
+  - type: textarea
+    id: description
+    attributes:
+      label: "Question Description"
+      description: "A clear and detailed description of the question."
+      placeholder: "Explain your question clearly, and in detail."
+    validations:
+      required: true
