@@ -9,6 +9,7 @@ describe('test for built in marketing pages in app', () => {
     '/why-zesty/',
     '/marketplace/installed/',
     '/marketplace/register/',
+    '/contact/',
   ];
 
   urls.forEach((url) => {
