@@ -4,7 +4,7 @@ import * as yup from 'yup';
 const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
 const validEmailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-export const validationSchema = yup.object({
+export const validationSchemaShortForm = yup.object({
   firstName: yup.string().label('First Name').trim().optional(),
   lastName: yup.string().label('Last Name').trim().optional(),
 
@@ -61,6 +61,22 @@ export const contactPageValidation = yup.object({
     .trim()
     .matches(phoneRegExp, 'You must enter at least 5 digits.')
     .required(),
+});
+
+export const validationSchema = yup.object({
+  firstName: yup.string().label('First Name').trim().required(),
+  lastName: yup.string().label('Last Name').trim().required(),
+  email: yup
+    .string()
+    .label('Email')
+    .trim()
+    .email('Please enter a valid email address')
+    .required(),
+  phoneNumber: yup
+    .string()
+    .label('Phone')
+    .trim()
+    .matches(phoneRegExp, 'You must enter at least 5 digits.'),
 });
 
 export const shortValidationSchema = yup.object({
