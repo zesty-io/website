@@ -82,6 +82,18 @@ export const MultiFieldForm = ({
               />
             </FormControl>
 
+            {/* Hidden fields */}
+            {isLong && !isContact && (
+              <CustomTextField
+                label="Company"
+                name="company"
+                value={initialValues.company}
+                error={touched.company && !!errors.company}
+                helperText={touched.company && errors.company}
+                {...getFieldProps('company')}
+              />
+            )}
+
             {isContact && (
               <CustomTextField
                 label="Inquiry Reason"
@@ -102,18 +114,6 @@ export const MultiFieldForm = ({
               {...getFieldProps('message')}
             />
           </>
-        )}
-
-        {/* Hidden fields */}
-        {isLong && !isContact && (
-          <CustomTextField
-            label="Company"
-            name="company"
-            value={initialValues.company}
-            error={touched.company && !!errors.company}
-            helperText={touched.company && errors.company}
-            {...getFieldProps('company')}
-          />
         )}
 
         <Button type="submit" variant="contained" size="extraLarge" fullWidth>
