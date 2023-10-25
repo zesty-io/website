@@ -17,5 +17,6 @@ body:
       label: "Question Description"
       description: "A clear and detailed description of the question."
       placeholder: "Explain your question clearly, and in detail."
+      render: bash
     validations:
       required: true
