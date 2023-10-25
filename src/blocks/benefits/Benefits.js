@@ -135,69 +135,17 @@ const Benefits = ({
                     {item?.header || FillerContent.header}
                   </Typography>
                 )}
-                <MuiMarkdown
-                  options={{
-                    overrides: {
-                      h2: {
-                        component: Typography,
-                        props: {
-                          component: 'h2',
-                          variant: 'h4',
-                          sx: {
-                            color: headerColor
-                              ? headerColor
-                              : theme.palette.zesty.zestyZambezi,
-                            fontWeight: 'bold',
-                            textAlign: isMedium ? 'center' : 'left',
-                          },
-                        },
-                      },
-                      h3: {
-                        component: Typography,
-                        props: {
-                          component: 'h3',
-                          variant: 'h5',
-                          sx: {
-                            color: headerColor
-                              ? headerColor
-                              : theme.palette.zesty.zestyZambezi,
-                            fontWeight: 'bold',
-                            textAlign: isMedium ? 'center' : 'left',
-                          },
-                        },
-                      },
-                      span: {
-                        component: Typography,
-                        props: {
-                          component: 'h2',
-                          variant: 'h3',
-                          sx: {
-                            color: headerColor
-                              ? headerColor
-                              : theme.palette.zesty.zestyZambezi,
-                            fontWeight: 'bold',
-                            textAlign: ' center',
-                          },
-                        },
-                      },
-                      p: {
-                        component: Typography,
-                        props: {
-                          mt: 2,
-                          component: 'p',
-                          variant: 'h6',
-                          sx: {
-                            color: theme.palette.zesty.zestyZambezi,
-                            textAlign: isMedium ? 'center' : 'left',
-                            mt: 3,
-                          },
-                        },
-                      },
-                    },
+                <Typography
+                  variant="h6"
+                  component="p"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    textAlign: isMedium ? 'center' : 'left',
+                    mt: 2,
+                    mb:6
                   }}
-                >
-                  {item?.content || FillerContent.description}
-                </MuiMarkdown>
+                  dangerouslySetInnerHTML={{ __html: item?.content || FillerContent.description }}
+                ></Typography>
               </Grid>
               <Grid
                 sx={{

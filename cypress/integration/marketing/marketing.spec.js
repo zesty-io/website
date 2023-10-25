@@ -20,6 +20,7 @@ describe('test for built in marketing pages in app', () => {
       }).then((response) => {
         expect(response.status).to.not.equal(404);
         expect(response.body).not.to.contain('404 Not Found');
+        expect(response.body).not.to.contain(/&rsquo;|&amp;|&nbsp;|&quot;/);
         cy.get('body').should('exist');
       });
     });
