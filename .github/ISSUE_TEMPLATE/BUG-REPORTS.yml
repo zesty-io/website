@@ -4,6 +4,15 @@ description: Create a bug report to help us fix it.
 labels: ["☢️ Bug"]
 body:
   - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: Please enter an explicit description of your issue
+      placeholder: Short and explicit description of your incident...
+    validations:
+        required: true
+  - type: textarea
+    id: reprod
     attributes:
       label: To Reproduce
       description: A step-by-step description of how to reproduce the issue, based on the linked reproduction. Screenshots can be provided in the issue body below. If using code blocks, make sure that [syntax highlighting is correct](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks#syntax-highlighting) and double check that the rendered preview is not broken.
@@ -11,6 +20,7 @@ body:
         1. Start the application in development (next dev)
         2. Click X
         3. Y will happen
+      render: bash
     validations:
       required: true
   - type: textarea
@@ -18,6 +28,7 @@ body:
       label: Current vs. Expected behavior
       description: A clear and concise description of what the bug is, and what you expected to happen.
       placeholder: 'Following the steps from the previous section, I expected A to happen, but I observed B instead'
+      render: bash
     validations:
       required: true
   - type: dropdown
@@ -39,3 +50,4 @@ body:
         Any extra information that might help us investigate. For example, where are you deploying your application (Vercel, Docker, other platform)? Is it only reproducible on that platform, or locally too? Is the issue only happening in a specific browser? etc.
       placeholder: |
         I am hosting via Docker with the recommended `output: "standalone"` option", and if I remove that option or try a different hosting option, I cannot reproduce the same issue.
+      render: bash

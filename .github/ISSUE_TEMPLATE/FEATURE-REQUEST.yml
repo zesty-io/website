@@ -15,6 +15,7 @@ body:
       label: "Feature Description"
       description: "A clear and detailed description of the feature you would like to see added."
       placeholder: "Explain your feature clearly, and in detail."
+      render: bash
     validations:
       required: true
   - type: textarea
@@ -23,3 +24,5 @@ body:
       label: "Additional Context (optional)"
       description: "If you have something else to describe, write them here."
       placeholder: "Write here what you can describe differently."
+      render: bash
+
