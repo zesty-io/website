@@ -10,6 +10,9 @@ export const resetCookies = (isProd) => {
     domain: '.zesty.io',
     secure: true,
   });
+  deleteCookie(isProd ? 'APP_SID' : 'DEV_APP_SID', {
+    domain: '.zesty.io',
+  });
   deleteCookie('isAuthenticated');
   deleteCookie('ZESTY_WORKING_INSTANCE', {});
   deleteCookie('APP_USER_ZUID');

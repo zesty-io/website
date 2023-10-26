@@ -31,12 +31,6 @@
  */
 
 /**
- * MUI Imports
- */
-// import { useTheme } from '@mui/material/styles';
-// import useMediaQuery from '@mui/material/useMediaQuery';
-
-/**
  * Components Imports
  */
 import revampTheme from 'theme/revampTheme';
@@ -46,8 +40,6 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { removeHTMLtags } from 'utils/removeHTMLtags';
-import { getCookie } from 'cookies-next';
-import { isProd } from 'utils';
 
 export function Placeholder() {
   return <Box sx={{ height: { xs: 587, sm: 303, md: 289 } }} />;
@@ -91,11 +83,10 @@ const GetDemoSection = dynamic(() => import('./GetDemoSection'), {
 function Homepage({ content }) {
   const { palette } = useTheme();
   const isLoggedIn = useIsLoggedIn();
-  const token = getCookie(isProd ? 'APP_SID' : 'DEV_APP_SID');
 
   useEffect(() => {
     const prevUrl = sessionStorage.getItem('prevUrl');
-    if (content.zesty.isAuthenticated || isLoggedIn || token) {
+    if (content.zesty.isAuthenticated || isLoggedIn) {
       // redirect the user to previous url from SSO
       if (prevUrl && !['', '/'].includes(prevUrl)) {
         window.location.href = prevUrl;
