@@ -22,7 +22,7 @@ body:
         3. Y will happen
       render: bash
     validations:
-      required: true
+      required: false
   - type: textarea
     attributes:
       label: Current vs. Expected behavior
@@ -30,7 +30,7 @@ body:
       placeholder: 'Following the steps from the previous section, I expected A to happen, but I observed B instead'
       render: bash
     validations:
-      required: true
+      required: false
   - type: dropdown
     attributes:
       label: Which area(s) are affected? (Select all that apply)
@@ -40,9 +40,10 @@ body:
         - 'Docs'
         - 'Website'
         - 'Accounts'
-        - 'middleware'
+        - 'Middleware'
+        - 'Marketing'
     validations:
-      required: true
+      required: false
   - type: textarea
     attributes:
       label: Additional context
