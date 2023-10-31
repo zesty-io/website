@@ -202,7 +202,7 @@ const Topbar = ({
               </Box>
               <Box>
                 <TryFreeButton
-                  text="Free Consultation"
+                  text="Talk to Us"
                   variant="contained"
                   component="a"
                   size="large"
