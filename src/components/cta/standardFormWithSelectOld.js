@@ -16,8 +16,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TransitionsModal from './TransitionModal';
-import { inputLabelClasses } from '@mui/material/InputLabel';
-import { styled } from '@mui/material/styles';
 import { getCookie } from 'cookies-next';
 
 /**
@@ -25,13 +23,6 @@ import { getCookie } from 'cookies-next';
  * Note, if a custom field need to be added speak to todd.sabo@zesty.io
  * For testing new changes, please work with katie.moser@zesty.io
  */
-
-// for hiding of ellipis in message in mobile
-const StyledTextField = styled(TextField)({
-  [`& .${inputLabelClasses.outlined}`]: {
-    whiteSpace: 'normal',
-  },
-});
 
 /* validation for form component */
 
@@ -200,18 +191,13 @@ function StandardFormWithSelectOld({
   businessType = 'Direct',
   modalTitle = 'Thank you',
   modalMessage = 'Have a great day.',
-  displayMsgUnderButton = `We'll get back to you in 1-2 business days.`,
   additionalTextfield = {},
   buttonFullWidth = false,
   hidePrivacySection = false,
-  messageLabel = 'Message',
   customButtonStyle = { display: 'flex', justifyContent: 'initial' },
-  bottomCheckbox = false,
-  bottomCheckboxLabel = '',
   validationType = '',
   ctaButton = 'Submit',
   downloadLink = '',
-  // onClickBtn = null,
   phoneNumber = false,
   capterraTracking = null,
   cmsModel,

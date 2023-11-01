@@ -131,7 +131,7 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
 
 NavItem.propTypes = {
   route: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   colorInvert: PropTypes.bool,
 };
 

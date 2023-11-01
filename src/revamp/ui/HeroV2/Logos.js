@@ -16,7 +16,7 @@ const Logos = ({ logos }) => {
       rowGap="24px"
       columnGap="20px"
     >
-      {logos.map((image, index) => (
+      {logos.map((image) => (
         <img
           src={image.src}
           alt={generateAlt()}

@@ -15,9 +15,9 @@ const listItems = [
 const TabSection = ({
   header = 'Digital Asset Management made easy',
   lists = listItems,
-  primaryBtn = 'Free Consultation',
+  primaryBtn = 'Talk to Us',
   primaryBtnLink = '/demo',
-  image = 'https://kfg6bckb.media.zestyio.com/schema.png?width=1200&height=720',
+  image = 'https://kfg6bckb.media.zestyio.com/schema.png',
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));

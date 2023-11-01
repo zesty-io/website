@@ -17,8 +17,7 @@ const media =
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
   rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeagueHero.svg',
   singlife = 'https://kfg6bckb.media.zestyio.com/singlifeHero.svg',
-  sony = 'https://kfg6bckb.media.zestyio.com/sonyHero.svg',
-  circle = 'https://kfg6bckb.media.zestyio.com/Ellipse.svg';
+  sony = 'https://kfg6bckb.media.zestyio.com/sonyHero.svg';
 
 const logos = [
   {
@@ -67,7 +66,7 @@ const logos = [
 
 const Hero = ({
   HeroText = ['Composable', 'Data Driven', 'Drag & Drop', 'AI Assisted'],
-  primaryBtn = 'Free Consultation',
+  primaryBtn = 'Talk to Us',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '/demos/video?ab=light',

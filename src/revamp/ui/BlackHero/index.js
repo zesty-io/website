@@ -20,7 +20,7 @@ const BlackHero = ({
   title = 'Unify your team with',
   header = 'Data Driven, Drag & Drop, Composable, Content Management',
   subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale. ',
-  primaryBtn = 'Free Consultation',
+  primaryBtn = 'Talk to Us',
   primaryBtnLink = '/demo?ab=dark',
   secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '/demos/video?ab=dark',

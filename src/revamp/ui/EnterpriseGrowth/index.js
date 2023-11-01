@@ -69,7 +69,7 @@ const EnterpriseGrowth = ({
   overline = 'No more monday morning fires to put out',
   heading = 'Lowest Total Cost of Ownership',
   supportingText = 'With best-in class security and automatically scaling architecture, our platform can serve up to millions of users at any second. Sleep soundly at night knowing Zesty serves an average 1B+ requests per month at 99.999%+ uptime.',
-  primaryBtn = 'Free Consultation',
+  primaryBtn = 'Talk to Us',
   primaryBtnLink = '/demo',
   secondaryBtn = 'View Demo Video',
   secondaryBtnLink = '/demos/video/',
@@ -159,7 +159,7 @@ const EnterpriseGrowth = ({
         mb={{ xs: 6, tablet: 8, lg: 10 }}
       >
         <Stack direction="row" spacing={6}>
-          {[...Array(5)].map((c) =>
+          {[...Array(5)].map(() =>
             logos.map((logo, index) => (
               <Box
                 key={index}

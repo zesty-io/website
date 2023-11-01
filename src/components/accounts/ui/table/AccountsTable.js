@@ -1,9 +1,17 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 import { Stack, Typography } from '@mui/material';
 
+import dynamic from 'next/dynamic';
+
+const DataGrid = dynamic(() =>
+  import('@mui/x-data-grid').then((e) => e.DataGrid),
+);
+
+const GridToolbar = dynamic(() =>
+  import('@mui/x-data-grid').then((e) => e.GridToolbar),
+);
 // const NoResultsOverlay = () => {
 //   return (
 //     <Stack height="100%" alignItems="center" justifyContent="center">

@@ -1,7 +1,13 @@
 import React, { useMemo } from 'react';
 import { Button, Typography, Stack } from '@mui/material';
-import { AccountsTable, AccountsTableHead } from 'components/accounts';
+import { AccountsTableHead } from 'components/accounts';
 import { useRouter } from 'next/router';
+
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const TicketsTable = ({ setsearch, filteredTicket, isLoading }) => {
   const router = useRouter();
