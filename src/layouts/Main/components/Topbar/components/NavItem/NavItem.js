@@ -102,27 +102,29 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
           }}
         >
           {/* Grid container that holds left and rigt column of the flyout navigation*/}
-          <Grid sx={{ minHeight: 495 }} container>
-            <Grid
-              sx={{ p: 5, background: theme.palette.background.smokeWhite }}
-              item
-              sm={12}
-              md={7}
-            >
-              <LeftGridLinks route={route} />
+          {activeNav?.isActive && (
+            <Grid sx={{ minHeight: 495 }} container>
+              <Grid
+                sx={{ p: 5, background: theme.palette.background.smokeWhite }}
+                item
+                sm={12}
+                md={7}
+              >
+                <LeftGridLinks route={route} />
+              </Grid>
+              <Grid
+                sx={{
+                  p: 5,
+                  borderLeft: `1px solid ${theme.palette.background.smokeWhiteLevel2}`,
+                }}
+                item
+                sm={12}
+                md={5}
+              >
+                <RightGridLinks route={route} />
+              </Grid>
             </Grid>
-            <Grid
-              sx={{
-                p: 5,
-                borderLeft: `1px solid ${theme.palette.background.smokeWhiteLevel2}`,
-              }}
-              item
-              sm={12}
-              md={5}
-            >
-              <RightGridLinks route={route} />
-            </Grid>
-          </Grid>
+          )}
         </Card>
       </Grow>
     </Box>

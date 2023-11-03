@@ -9,6 +9,7 @@ const Index = (props) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0,
+    rootMargin: '500px',
   });
   return <div ref={ref}>{inView && <Child {...props} />}</div>;
 };

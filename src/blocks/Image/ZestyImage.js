@@ -1,4 +1,5 @@
 import FillerContent from 'components/globals/FillerContent';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 /**
  *
@@ -20,7 +21,7 @@ const ZestyImage = ({
   options = {},
   src,
   alt,
-  loading = 'eager',
+  loading = 'lazy',
   style = {},
   attributes = {},
 }) => {
@@ -42,7 +43,8 @@ const ZestyImage = ({
   );
 
   return (
-    <img
+    <LazyLoadImage
+      effect='blur'
       width={width}
       height={height}
       {...attributes}
