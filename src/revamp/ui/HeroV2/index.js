@@ -67,7 +67,7 @@ const logos = [
 
 const Hero = ({
   HeroText = ['Composable', 'Data Driven', 'Drag & Drop', 'AI Assisted'],
-  primaryBtn = 'Free Consultation',
+  primaryBtn = 'Talk to Us',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '/demos/video?ab=light',
