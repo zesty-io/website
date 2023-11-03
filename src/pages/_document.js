@@ -26,6 +26,7 @@ export default class MyDocument extends Document {
             href="https://brand.zesty.io/favicon.png"
             type="image/png"
           />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             href="https://fonts.gstatic.com"
             rel="preconnect"

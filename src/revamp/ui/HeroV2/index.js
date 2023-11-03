@@ -5,7 +5,6 @@ import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
 import { FONT_FAMILY } from 'components/globals/constants';
 import dynamic from 'next/dynamic';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Logos = dynamic(() => import('./Logos'), {
   ssr: false,
@@ -249,27 +248,18 @@ const Hero = ({
           },
         })}
       >
-        {!isLg ? (
-          <picture>
-            <source srcSet={media + '?width=400'} media="(min-width: 400px)" />
-            <img
-              height={320}
-              width={400}
-              src={heroImage}
-              style={{ width: '100%', height: 'auto' }}
-              alt={generateAlt('Zesty image')}
-              loading="eager"
-            />
-          </picture>
-        ) : (
-          <LazyLoadImage
-            alt={generateAlt('Zesty-Hero')}
-            srcSet={heroImage}
-            effect="blur"
-            height={940}
-            width={1500}
+        <picture>
+          <source srcSet={media} media="(min-width: 1200px)" />
+          <source srcSet={media + '?width=400'} media="(min-width: 400px)" />
+          <img
+            height={900}
+            width={1400}
+            src={heroImage}
+            style={{ width: '100%', height: 'auto' }}
+            alt={generateAlt('Zesty image')}
+            loading="eager"
           />
-        )}
+        </picture>
       </Box>
     </Box>
   );

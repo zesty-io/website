@@ -66,6 +66,7 @@ export default function App({ Component, pageProps }) {
       <Head>
         {GTM_ID && (
           <script
+            id="gtm-script"
             defer
             dangerouslySetInnerHTML={{
               __html: `
@@ -80,6 +81,7 @@ export default function App({ Component, pageProps }) {
         )}
 
         <script
+          id="zi-script"
           defer
           dangerouslySetInnerHTML={{
             __html: `
