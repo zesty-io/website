@@ -1,6 +1,5 @@
 import { Stack } from '@mui/material';
 import React from 'react';
-import { generateAlt } from 'utils';
 
 const Logos = ({ logos }) => {
   return (
@@ -19,8 +18,8 @@ const Logos = ({ logos }) => {
       {logos.map((image) => (
         <img
           src={image.src}
-          alt={generateAlt()}
-          loading="lazy"
+          alt={image.alt}
+          loading="eager"
           width={image.width}
           height={image.height}
         />

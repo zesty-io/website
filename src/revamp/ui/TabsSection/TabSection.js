@@ -47,7 +47,7 @@ const TabSection = ({
             component="img"
             loading="lazy"
             alt="zesty-image"
-            src={image}
+            src={image + '?quality=10'}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -110,13 +110,6 @@ const TabSection = ({
             >
               {primaryBtn}
             </Button>
-            {/* <Button
-              variant="outlined"
-              size={isTablet ? 'extraLarge' : 'medium'}
-              href={secondaryBtnLink}
-            >
-              {secondaryBtn}
-            </Button> */}
           </Stack>
         </Stack>
       </Stack>

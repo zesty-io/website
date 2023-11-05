@@ -21,7 +21,7 @@ const ZestyImage = ({
   options = {},
   src,
   alt,
-  loading = 'lazy',
+  loading = 'eager',
   style = {},
   attributes = {},
 }) => {
@@ -43,8 +43,7 @@ const ZestyImage = ({
   );
 
   return (
-    <LazyLoadImage
-      effect='blur'
+    <img
       width={width}
       height={height}
       {...attributes}

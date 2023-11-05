@@ -4,11 +4,8 @@ import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
 import { FONT_FAMILY } from 'components/globals/constants';
-import dynamic from 'next/dynamic';
 
-const Logos = dynamic(() => import('./Logos'), {
-  ssr: false,
-});
+import Logos from './Logos';
 
 const media =
     'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-hero.webp',
@@ -249,8 +246,11 @@ const Hero = ({
         })}
       >
         <picture>
-          <source srcSet={media} media="(min-width: 1200px)" />
-          <source srcSet={media + '?width=400'} media="(min-width: 400px)" />
+          <source srcSet={media + '?quality=50'} media="(min-width: 1200px)" />
+          <source
+            srcSet={media + '?width=400&&quality=10'}
+            media="(min-width: 400px)"
+          />
           <img
             height={900}
             width={1400}
