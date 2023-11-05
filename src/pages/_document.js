@@ -11,7 +11,6 @@ const getCache = () => {
   return cache;
 };
 
-const GOOGLE_FONT = `https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap`;
 const fetchUrl =
   process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
   'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
@@ -33,8 +32,6 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-
-          <link href={GOOGLE_FONT} rel="stylesheet" />
 
           <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"

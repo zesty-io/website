@@ -1,7 +1,9 @@
 const zestyConfig = require('./zesty.config.json');
 
 module.exports = {
+  transpilePackages: ['@mui/system', '@mui/material', '@mui/icons-material'],
   trailingSlash: true,
+  reactStrictMode: true,
   env: {
     zesty: zestyConfig,
   },
