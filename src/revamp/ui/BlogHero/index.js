@@ -17,7 +17,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import { useSnackbar } from 'notistack';
-import React from 'react';
+import React, { memo } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const image =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/zosh.svg',
@@ -155,7 +156,7 @@ const BlogHero = ({
         <Stack direction="row" alignItems="center">
           <Link href={authorLink}>
             <Avatar
-              src={authorImage}
+              src={authorImage + '?quality=60'}
               sx={{ width: 48, height: 48, mr: '12px' }}
             />
           </Link>
@@ -194,7 +195,8 @@ const BlogHero = ({
         </Stack>
       </Stack>
       <Box
-        component="img"
+        component={LazyLoadImage}
+        effect="blur"
         src={articleImage}
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
@@ -203,7 +205,7 @@ const BlogHero = ({
             height: '100%',
           },
           [theme.breakpoints.up('xl')]: {
-            maxWidth: theme.maxWidth,
+            width: '100%',
             mx: 'auto',
           },
         })}
@@ -243,4 +245,4 @@ const BlogHero = ({
   );
 };
 
-export default BlogHero;
+export default memo(BlogHero);

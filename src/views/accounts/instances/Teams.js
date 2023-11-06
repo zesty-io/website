@@ -4,7 +4,6 @@ import AddIcon from '@mui/icons-material/Add';
 import {
   AccountsHeader,
   AccountsPopover,
-  AccountsTable,
   AccountsTableHead,
   accountsValidations,
   DeleteMsg,
@@ -20,6 +19,11 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useZestyStore } from 'store';
 import { gravatarImg } from 'utils';
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const MySwal = withReactContent(Swal);
 

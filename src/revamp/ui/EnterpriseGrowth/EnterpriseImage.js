@@ -3,7 +3,6 @@ import { generateAlt } from 'utils';
 
 const EnterpriseImage = ({ img = '' }) => {
   const str = img?.split('?')[0];
-  console.log(str, 444);
   return (
     <picture>
       <source srcSet={img} media="(min-width: 1200px)" />

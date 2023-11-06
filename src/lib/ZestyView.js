@@ -6,6 +6,9 @@ import * as Zesty from '../views/zesty';
 
 import dynamic from 'next/dynamic';
 
+const LiveEditor = dynamic(() => import('components/globals/LiveEditor'), {
+  ssr: false,
+});
 const ErrorPage = dynamic(() => import('../pages/_error'));
 const AutoLayoutComponent = dynamic(() =>
   import('../views/zesty/AutoLayoutComponent'),
@@ -61,19 +64,13 @@ export function ZestyView(props) {
     : Zesty[props.content.meta.model_alternate_name];
 
   // outside the component near imports
-  const initLiveEditor = async (data) => {
-    const { ZestyLiveEditor } = await import('@zesty-io/live-editor');
-    ZestyLiveEditor(data);
-  };
 
   // inside the component's function just before the return statement
-  React.useEffect(() => {
-    if (props.content.zestyProductionMode !== true) {
-      initLiveEditor(props.content);
-    }
-  }, []);
   return (
     <>
+      {props.content.zestyProductionMode !== true && (
+        <LiveEditor data={props.content} />
+      )}
       <Component content={props.content} />
     </>
   );
