@@ -2,7 +2,6 @@ const zestyConfig = require('./zesty.config.json');
 
 module.exports = {
   trailingSlash: true,
-  reactStrictMode: true,
   env: {
     zesty: zestyConfig,
   },
@@ -14,5 +13,4 @@ module.exports = {
     ],
   },
   swcMinify: true,
-  poweredByHeader: false,
 };
