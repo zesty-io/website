@@ -27,7 +27,6 @@ const advancedHeaders = [
   },
 ];
 module.exports = {
-  transpilePackages: ['@mui/system', '@mui/material', '@mui/icons-material'],
   trailingSlash: true,
   reactStrictMode: true,
   env: {

@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import useDebounce from 'components/hooks/useDebounce';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import BlogContent from 'revamp/ui/BlogContent';
 import BlogPageHeader from 'revamp/ui/BlogPageHeader';
 
@@ -48,4 +48,4 @@ const MindshareBlog = ({ tags, articles }) => {
   );
 };
 
-export default MindshareBlog;
+export default memo(MindshareBlog);
