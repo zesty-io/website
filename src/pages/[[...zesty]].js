@@ -46,24 +46,6 @@ export default function Zesty(props) {
   );
 }
 
-const cache = {};
-
-// Function to fetch the page data
-async function fetchPageData(url) {
-  // Check if the data is already cached
-  if (cache[url]) {
-    return cache[url];
-  }
-
-  // Fetch the page data
-  const data = await fetchPage(url);
-
-  // Cache the data
-  cache[url] = data;
-
-  return data;
-}
-
 const cacheData = {};
 
 async function fetchData({ isProd = false, dataType }) {
@@ -105,7 +87,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     `${process.env.zesty.instance_zuid}, zesty.io`,
   );
   // Fetch the page data using the cache function
-  let data = await fetchPageData(resolvedUrl);
+  let data = await fetchPage(resolvedUrl);
   // attempt to get page data relative to zesty
 
   let products = [];
