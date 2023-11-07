@@ -29,7 +29,11 @@ export default function ZestyHead({ content }) {
   const isBlog = router.asPath.includes('mindshare') ? true : false;
   const title = content.meta?.web?.seo_meta_title;
   const description = content.meta?.web.seo_meta_description;
-  const preview = ogimage;
+
+  const preview = ogimage.replace(
+    'kfg6bckb.media.zestyio.com',
+    'kfg6bckb.media.zesty.site',
+  );
   const type = isBlog ? 'article' : 'website';
 
   return (
