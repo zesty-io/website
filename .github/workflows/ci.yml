@@ -94,7 +94,6 @@ jobs:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    needs: [lint, unit-tests]
 
     steps:
       - name: Checkout code
