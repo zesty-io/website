@@ -190,8 +190,7 @@ function Homepage({ content }) {
     title: content?.demo_section_title,
     supportingText: content?.demo_section_supporting_text,
     formTitle: content?.demo_section_form_title,
-  }
-
+  };
 
   return (
     <>
