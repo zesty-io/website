@@ -4,8 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm pkg delete scripts.prepare && npm ci --only=production && npm cache clean --force
-
+RUN  npm ci --only=production --ignore-scripts && npm cache clean --force
 
 COPY . ./
 
