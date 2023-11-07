@@ -429,7 +429,7 @@ const Slug = (props) => {
   const [glossaryData, setglossaryData] = useState([]);
   const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
-  const [currentTab, setcurrentTab] = React.useState('response');
+  const [_currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
   const [loading, setloading] = useState(false);
   const [textContent, settextContent] = useState('');

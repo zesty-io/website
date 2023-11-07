@@ -1,13 +1,9 @@
-// const { fetchZestyRedirects } = require('./src/lib/zesty/fetchRedirects');
 const zestyConfig = require('./zesty.config.json');
 
 module.exports = {
   trailingSlash: true,
   env: {
     zesty: zestyConfig,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   images: {
     domains: [

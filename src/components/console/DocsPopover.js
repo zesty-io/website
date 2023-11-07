@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { Stack } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 
-export function DocsPopover({ name, options, onSelect }) {
+export function DocsPopover({ name, options }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -16,7 +16,7 @@ export function DocsPopover({ name, options, onSelect }) {
     setAnchorEl(null);
   };
 
-  const handleSelect = (e) => {
+  const handleSelect = () => {
     handleClose();
   };
   const open = Boolean(anchorEl);

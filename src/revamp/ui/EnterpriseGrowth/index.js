@@ -7,18 +7,14 @@ import dynamic from 'next/dynamic';
 
 const EnterpriseImage = dynamic(() => import('./EnterpriseImage'));
 
-const alphaUniverse =
-    'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp?width=640&height=480',
+const alphaUniverse = 'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp',
   sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
-  rocketLeague =
-    'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp?width=640&height=480',
+  rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp',
   rocketLeagueLogo =
     'https://kfg6bckb.media.zestyio.com/Rocket-League-Logo.png',
-  singlife =
-    'https://kfg6bckb.media.zestyio.com/singlifePic.webp?width=640&height=480',
+  singlife = 'https://kfg6bckb.media.zestyio.com/singlifePic.webp',
   singlifeLogo = 'https://kfg6bckb.media.zestyio.com/Singlife-Logo.png',
-  acorns =
-    'https://kfg6bckb.media.zestyio.com/acornsPic.webp?width=640&height=480',
+  acorns = 'https://kfg6bckb.media.zestyio.com/acornsPic.webp',
   acornsLogo = 'https://kfg6bckb.media.zestyio.com/Acorns-Logo.png';
 
 const logos = [
@@ -159,7 +155,7 @@ const EnterpriseGrowth = ({
         mb={{ xs: 6, tablet: 8, lg: 10 }}
       >
         <Stack direction="row" spacing={6}>
-          {[...Array(5)].map((c) =>
+          {[...Array(5)].map(() =>
             logos.map((logo, index) => (
               <Box
                 key={index}

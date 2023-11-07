@@ -6,7 +6,6 @@ import {
   AccountsHeader,
   AccountsInput,
   AccountsPopover,
-  AccountsTable,
   AccountsTableHead,
   accountsValidations,
   DeleteMsg,
@@ -19,6 +18,11 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
 import dayjs from 'dayjs';
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const MySwal = withReactContent(Swal);
 
