@@ -40,7 +40,6 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { removeHTMLtags } from 'utils/removeHTMLtags';
-
 export function Placeholder() {
   return <Box sx={{ height: { xs: 587, sm: 303, md: 289 } }} />;
 }
@@ -187,6 +186,12 @@ function Homepage({ content }) {
     image: content?.security_feature_image?.data?.[0]?.url,
   };
 
+  const getDemoSectionProps = {
+    title: content?.demo_section_title,
+    supportingText: content?.demo_section_supporting_text,
+    formTitle: content?.demo_section_form_title,
+  };
+
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
@@ -198,7 +203,7 @@ function Homepage({ content }) {
         <SingleTestimonial {...singleTestimonialProps} />
         <GridFeature {...gridFeatureProps} />
         <SecurityFeature {...securityFeatureProps} />
-        <GetDemoSection />
+        <GetDemoSection {...getDemoSectionProps} />
       </ThemeProvider>
     </>
   );
