@@ -96,8 +96,6 @@ const postToZOHO = async (payloadJSON) => {
       throw new Error(`HTTP error: ${error}`);
     });
 };
-const phoneRegExp =
-  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
 const subscribeToZoho = async (payload) => {
   const { Email, First_Name, Last_Name } = payload;
@@ -115,13 +113,8 @@ const subscribeToZoho = async (payload) => {
 };
 
 function StandardFormWithSelect({
-  leadDetail = 'Contact Us',
-  leadSource = 'Website',
-  businessType = 'Direct',
   modalTitle = 'Thank you',
   modalMessage = 'Have a great day.',
-  downloadLink = '',
-  capterraTracking = null,
   cmsModel,
 }) {
   const [open, setOpen] = useState(false);

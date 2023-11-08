@@ -30,7 +30,7 @@ import {
 import { EmailOutlined } from '@mui/icons-material';
 
 export const Signup = ({
-  message = 'What team are you from?',
+  _message = 'What team are you from?',
   callback = {},
   production = false,
   settoken,

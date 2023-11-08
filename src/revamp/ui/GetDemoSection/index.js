@@ -36,7 +36,6 @@ const GetDemoSection = ({
   redirect = '/meet',
   isContact = false,
   formTitle = 'Enter your details to connect with a Content Expert',
-  formCtaText = 'Submit',
 }) => {
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
   let inquiryReasons = [

@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { CacheProvider } from '@emotion/react';
@@ -12,8 +11,6 @@ const getCache = () => {
   return cache;
 };
 
-const GOOGLE_FONT = `https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap`;
-const Mulish = '/fonts/Mulish-Regular.woff2';
 const fetchUrl =
   process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
   'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
@@ -28,6 +25,7 @@ export default class MyDocument extends Document {
             href="https://brand.zesty.io/favicon.png"
             type="image/png"
           />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             href="https://fonts.gstatic.com"
             rel="preconnect"
@@ -35,20 +33,6 @@ export default class MyDocument extends Document {
           />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-          <link href={GOOGLE_FONT} rel="stylesheet" />
-
-          <link
-            rel="preload"
-            href={Mulish}
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `@font-face{font-family:'Mulish';font-style:normal;font-weight:600;font-display:swap;src:url('${Mulish}') format('woff2');}`,
-            }}
-          />
           <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"

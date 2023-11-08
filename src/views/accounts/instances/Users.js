@@ -7,7 +7,6 @@ import {
   DeleteMsg,
   SubmitBtn,
   FormSelect,
-  AccountsTable,
   AccountSelect,
   AccountsInput,
   AccountsTableHead,
@@ -26,6 +25,11 @@ import { AccountsHeader } from 'components/accounts/ui/header';
 import { AccountsPopover } from 'components/accounts/ui/popover';
 
 const MySwal = withReactContent(Swal);
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
   switch (role) {

@@ -1,35 +1,160 @@
 name: Zesty Website CI Dev
+
 on:
   pull_request:
-    branches: [stage,accounts,production,dev]
+    branches: [stage, accounts, production, dev]
   workflow_dispatch:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-check:
+  install-dependencies:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+
+      - uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+  build-check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16, 18, 20]
+    runs-on: ${{ matrix.os }}
+    needs: install-dependencies
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v2
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+      - name: Build
+        run: npm run build
+
+  lint:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18]
+    runs-on: ${{ matrix.os }}
+    needs: install-dependencies
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v2
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+      - name: Run unit tests
+        run: npm run test-all
+
+  unit-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18]
+    runs-on: ${{ matrix.os }}
+    needs: install-dependencies
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v2
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+      - name: Run unit tests
+        run: npm run test
+
+  docker-build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v2
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+      - name: Docker Build
+        run: docker build -t zesty-website:latest .
+        working-directory: ./
+
+  end-to-end-tests-cypress:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18]
+    runs-on: ${{ matrix.os }}
     env:
-      PRODUCTION: 'false'
+      PRODUCTION: 'true'
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-         path: ~/.npm
-         key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-         restore-keys: npm-${{ runner.os }}-
 
       - name: Setup custom host for mylocal
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
 
-      - name: Install dependencies 
+      - name: Install dependencies
         run: npm install
 
-      - name: Check format and linters
-        run: npm run test-all
+      - name: Write the cypress.env.json file 📝
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
 
-      - name: Build Project 
-        run: npm run build
+      - name: Run E2E test
+        run: npm run test:e2e:ci:prod
+
+      - name: Save screenshots 🖼
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+  tests-pass:
+    needs:
+      [
+        docker-build,
+        build-check,
+        end-to-end-tests-cypress,
+        install-dependencies,
+        lint,
+        unit-tests,
+      ]
+
+    if: always()
+    runs-on: ubuntu-latest
+    name: Ok to Proceed ✅
+    steps:
+      - run: exit 1
+        if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'skipped') || contains(needs.*.result, 'cancelled')) }}
