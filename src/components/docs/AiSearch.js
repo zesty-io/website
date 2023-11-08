@@ -182,7 +182,7 @@ export const AiSearch = () => {
         sx={{ mt: 4, maxHeight: 500, overflow: 'auto', pb: 2 }}
       >
         <Box>
-          {chatHistory.map((item, idx) => {
+          {chatHistory.map((item, _idx) => {
             const message = item.type === 'bot' ? item.message : '';
 
             return (

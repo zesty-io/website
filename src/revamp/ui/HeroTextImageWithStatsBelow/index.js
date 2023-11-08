@@ -120,7 +120,7 @@ const HeroTextImageWithStatsBelow = ({
             justifyContent={{ tablet: 'space-between' }}
             divider={
               <Divider
-                sx={(theme) => ({
+                sx={() => ({
                   borderRightWidth: 4,
                   display: { xs: 'none', tablet: 'block' },
                 })}

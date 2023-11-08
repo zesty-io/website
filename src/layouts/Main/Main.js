@@ -78,8 +78,6 @@ const Main = ({
   const isLoggedIn = useIsLoggedIn();
   const pageNavColorRegex = new RegExp(/\bmindshare\b|article\b|category/gi);
   const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
-  const headerColorInvert =
-    model?.match(pageNavColorRegex) !== null ? true : false;
   const blogMain = new RegExp(/\bmindshare\b/gi);
   const isBlogHome = model?.match(blogMain) !== null ? true : false;
 

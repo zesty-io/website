@@ -3,12 +3,14 @@ import { Link, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {
-  AccountsPopover,
-  AccountsTable,
-  AccountsTableHead,
-} from 'components/accounts';
+import { AccountsPopover, AccountsTableHead } from 'components/accounts';
 import dayjs from 'dayjs';
+
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 export default function DomainListings({
   liveDomains,

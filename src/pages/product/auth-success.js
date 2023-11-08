@@ -48,24 +48,6 @@ const getGlossary = async () => {
   }
 };
 
-const cache = {};
-
-// Function to fetch the page data
-async function fetchPageData(url) {
-  // Check if the data is already cached
-  if (cache[url]) {
-    return cache[url];
-  }
-
-  // Fetch the page data
-  const data = await fetchPage(url);
-
-  // Cache the data
-  cache[url] = data;
-
-  return data;
-}
-
 export async function getServerSideProps({ res, req }) {
   const isAuthenticated = getIsAuthenticated(res);
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
