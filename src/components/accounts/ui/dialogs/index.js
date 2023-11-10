@@ -24,6 +24,8 @@ export const ErrorMsg = ({
   title = 'Error',
   text = 'Something went wrong',
   html = '',
+  timerProgressBar = false,
+  timer = 2500,
 }) => {
   MySwal.fire({
     position: 'center',
@@ -32,7 +34,8 @@ export const ErrorMsg = ({
     html,
     text,
     confirmButtonColor: light.zesty.zestyRose,
-    //   footer: '<a href="">Why do I have this issue?</a>',
+    timer,
+    timerProgressBar,
   });
 };
 

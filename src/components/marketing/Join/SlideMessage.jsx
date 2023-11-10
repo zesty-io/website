@@ -61,11 +61,11 @@ function a11yProps(index) {
   };
 }
 
-export const SlideMessage = ({
+export function SlideMessage({
   message = 'What team are you from?',
   demo = false,
   content = {},
-}) => {
+}) {
   const theme = useTheme();
   const { ZestyAPI } = useZestyStore();
   const [logos, setlogos] = React.useState([]);
@@ -104,11 +104,14 @@ export const SlideMessage = ({
     }
   };
   const handleSignUpError = (res) => {
-    ErrorMsg({ title: 'Sign up failed', text: res?.error });
-    window.location.reload();
+    ErrorMsg({
+      title: 'Sign up failed',
+      text: res?.error,
+      timer: 10000,
+      timerProgressBar: true,
+    });
   };
   const createZestyUser = async (firstName, lastName, email, password) => {
-    // create the user
     const signUpResponse = await ZestyAPI.createUser(
       firstName,
       lastName,
@@ -152,7 +155,6 @@ export const SlideMessage = ({
       >
         <Grid item lg={12} md={12} xs={12}>
           <Grid container>
-            {/* left side with custom text */}
             <Grid
               item
               lg={7}
@@ -160,10 +162,8 @@ export const SlideMessage = ({
               xs={12}
               sx={{ display: 'flex', flexDirection: 'column', p: 4 }}
             >
-              {/* Custom message */}
               <Container sx={{ py: 1, flex: 3 }}>{message}</Container>
 
-              {/* Review */}
               {reviews.length > 0 && (
                 <Container sx={{ flex: 1 }}>
                   <Divider sx={{ mb: 2 }} />
@@ -193,7 +193,6 @@ export const SlideMessage = ({
                 </Container>
               )}
             </Grid>
-            {/* right sign with signons */}
             <Grid
               item
               lg={5}
@@ -276,7 +275,7 @@ export const SlideMessage = ({
       </Box>
     </Container>
   );
-};
+}
 
 const CustomForm = ({ onSubmit = () => {} }) => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -295,7 +294,6 @@ const CustomForm = ({ onSubmit = () => {} }) => {
     },
     onSubmit: async (data) => {
       await onSubmit(data);
-      formik.resetForm();
     },
   });
   return (
@@ -308,7 +306,6 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         sx={{ mb: 1, pt: 2 }}
       >
         or start a new account
-        {/* Create your free account */}
       </Typography>
       <Box pb={0} gap={4} display="flex" width={1}>
         <Box width={1} sx={{ pb: 0 }}>
@@ -316,6 +313,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
             customLabelVariant="body1"
             color="secondary"
             name={'firstName'}
+            placeholder="First Name"
             size="small"
             customLabel="First Name"
             formik={formik}
@@ -324,6 +322,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         <Box width={1}>
           <FormInput
             customLabelVariant="body1"
+            placeholder="Last Name"
             color="secondary"
             name={'lastName'}
             size="small"
@@ -358,6 +357,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
           color="secondary"
           name="password"
           size="small"
+          placeholder="Password"
           type={showPassword ? 'text' : 'password'}
           customLabel="Password"
           formik={formik}
