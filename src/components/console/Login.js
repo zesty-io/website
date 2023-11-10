@@ -23,14 +23,12 @@ import { accountsValidations } from 'components/accounts';
 import Swal from 'sweetalert2';
 
 import dynamic from 'next/dynamic';
+import { SSOButton, SSOButtonGroup } from '@zesty-io/material';
 
 const FormInput = dynamic(() =>
   import('components/accounts').then((e) => e.FormInput),
 );
 
-const SSOGroupBtns = dynamic(() =>
-  import('components/accounts').then((e) => e.SSOGroupBtns),
-);
 const AlternateEmailIcon = dynamic(() =>
   import('@mui/icons-material/AlternateEmail'),
 );
@@ -68,7 +66,6 @@ const Login = ({ content, userEmail }) => {
       window.location.href = '/dashboard/';
     }
   };
-
   const triggerAuto2FA = (sysID) => {
     const auto2FAInterval = setInterval(async () => {
       await auto2FA();
@@ -261,7 +258,17 @@ const Login = ({ content, userEmail }) => {
           </Stack>
 
           <Stack>
-            <SSOGroupBtns content={content} />
+            <SSOButtonGroup
+              authServiceUrl={'https://auth.api.dev.zesty.io'}
+              onSuccess={() => {
+                window.location.href = '/dashboard/';
+              }}
+              onError={(err) => {}}
+            >
+              <SSOButton service="google" />
+              <SSOButton service="azure" />
+              <SSOButton service="github" />
+            </SSOButtonGroup>
             <Divider>
               <Typography
                 sx={{ color: '#475467', fontSize: '14px', my: '16px' }}
