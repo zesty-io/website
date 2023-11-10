@@ -9,13 +9,14 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  AccountsHeader,
-  AccountsTable,
-  AccountsTableHead,
-} from 'components/accounts';
+import { AccountsHeader, AccountsTableHead } from 'components/accounts';
 import dayjs from 'dayjs';
 import LaunchIcon from '@mui/icons-material/Launch';
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const getMonthDates = ({ start = '', end = '' }) => {
   const FORMAT = 'YYYY-MM-DD';

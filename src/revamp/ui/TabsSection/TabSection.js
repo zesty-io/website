@@ -17,7 +17,7 @@ const TabSection = ({
   lists = listItems,
   primaryBtn = 'Talk to Us',
   primaryBtnLink = '/demo',
-  image = 'https://kfg6bckb.media.zestyio.com/schema.png?width=1200&height=720',
+  image = 'https://kfg6bckb.media.zestyio.com/schema.png',
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
@@ -47,7 +47,7 @@ const TabSection = ({
             component="img"
             loading="lazy"
             alt="zesty-image"
-            src={image}
+            src={image + '?quality=10'}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -110,13 +110,6 @@ const TabSection = ({
             >
               {primaryBtn}
             </Button>
-            {/* <Button
-              variant="outlined"
-              size={isTablet ? 'extraLarge' : 'medium'}
-              href={secondaryBtnLink}
-            >
-              {secondaryBtn}
-            </Button> */}
           </Stack>
         </Stack>
       </Stack>

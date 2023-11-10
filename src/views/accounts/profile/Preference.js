@@ -4,11 +4,16 @@ import { useZestyStore } from 'store';
 import {
   AccountsHeader,
   AccountsSelect,
-  AccountsTable,
   AccountsTableHead,
   ErrorMsg,
   SuccessMsg,
 } from 'components/accounts';
+
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const teamOption = [
   { value: 0, label: 'Hide' },

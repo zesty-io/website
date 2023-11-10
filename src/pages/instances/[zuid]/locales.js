@@ -7,13 +7,15 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import {
-  AccountsHeader,
-  AccountsTable,
-  AccountsTableHead,
-} from 'components/accounts';
+import { AccountsHeader, AccountsTableHead } from 'components/accounts';
 import dayjs from 'dayjs';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
+
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const MySwal = withReactContent(Swal);
 

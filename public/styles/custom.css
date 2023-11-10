@@ -46,3 +46,44 @@ h2 span {
   margin-right: 10px;
 }
 
+@font-face {
+    font-family: 'Mulish';
+    src: url(../fonts/Mulish-Regular.woff2) format(woff2);
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+@font-face {
+    font-family: 'Mulish';
+    src: url(../fonts/Mulish-Medium.woff2) format(woff2);
+    font-style: normal;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Mulish';
+    src: url(../fonts/Mulish-SemiBold.woff2) format(woff2);
+    font-style: normal;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Mulish';
+    src: url(../fonts/Mulish-Bold.woff2) format(woff2);
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Mulish';
+    src: url(../fonts/Mulish-ExtraBold.woff2) format(woff2);
+    font-style: normal;
+    font-weight: 800;
+}
+@font-face {
+    font-family: 'Mulish';
+    src: url(../fonts/Mulish-Black.woff2) format(woff2);
+    font-style: normal;
+    font-weight: 900;
+}

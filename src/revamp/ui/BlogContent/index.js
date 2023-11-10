@@ -1,10 +1,17 @@
 import { Stack, Typography, Grid, Pagination } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import BlogCard from '../BlogCard';
 import { useTheme, useMediaQuery } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
+import dynamic from 'next/dynamic';
+import { useInView } from 'react-intersection-observer';
+
+const BlogCard = dynamic(() => import('../BlogCard'), { ssr: false });
 
 const BlogContent = ({ title = '', articles, withPagination = false }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0,
+  });
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
   const scrollTo = (id) => {
@@ -43,7 +50,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
   }, [articles]);
 
   return (
-    <>
+    <div ref={ref}>
       <Stack
         id="scrollTop"
         sx={(theme) => ({
@@ -68,23 +75,25 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
         >
           {title}
         </Typography>
-        <Grid container rowSpacing={8} columnSpacing={6}>
-          {articlesList.map((article, index) => (
-            <Grid xs={12} lg={index === 0 ? 12 : 4} item key={index}>
-              <BlogCard
-                article={article.image || FillerContent.image}
-                heading={article.title}
-                description={article.description}
-                author={article.author.name}
-                authorImage={article.author.image}
-                path={article.path}
-                supportingText={article?.date}
-                category={article?.category?.category}
-                isBig={isLG && index === 0 ? true : false}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {inView && (
+          <Grid container rowSpacing={8} columnSpacing={6}>
+            {articlesList.map((article, index) => (
+              <Grid xs={12} lg={index === 0 ? 12 : 4} item key={index}>
+                <BlogCard
+                  article={article.image || FillerContent.image}
+                  heading={article.title}
+                  description={article.description}
+                  author={article.author.name}
+                  authorImage={article.author.image}
+                  path={article.path}
+                  supportingText={article?.date}
+                  category={article?.category?.category}
+                  isBig={isLG && index === 0 ? true : false}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Stack>
 
       {withPagination && articlesList?.length ? (
@@ -109,7 +118,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
       ) : (
         ''
       )}
-    </>
+    </div>
   );
 };
 

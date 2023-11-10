@@ -1,4 +1,5 @@
 import FillerContent from 'components/globals/FillerContent';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 /**
  *
