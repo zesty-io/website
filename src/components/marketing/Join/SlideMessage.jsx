@@ -112,7 +112,6 @@ export function SlideMessage({
     });
   };
   const createZestyUser = async (firstName, lastName, email, password) => {
-    // create the user
     const signUpResponse = await ZestyAPI.createUser(
       firstName,
       lastName,
