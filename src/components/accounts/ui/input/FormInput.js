@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 
-const Index = ({
+function Index({
   name,
   formik,
   label,
@@ -22,7 +22,7 @@ const Index = ({
   hasError = true,
   customLabelVariant = 'h6',
   ...props
-}) => {
+}) {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -100,6 +100,6 @@ const Index = ({
       )}
     </Box>
   );
-};
+}
 
 export const FormInput = React.memo(Index);
