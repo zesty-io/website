@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useZestyStore } from 'store';
 import * as helpers from 'utils';
 import withReactContent from 'sweetalert2-react-content';
@@ -18,12 +18,12 @@ import dayjs from 'dayjs';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { notistackMessage } from 'utils';
-import { accountsValidations } from 'components/accounts';
+import { SSOGroupBtns, accountsValidations } from 'components/accounts';
 
 import Swal from 'sweetalert2';
 
 import dynamic from 'next/dynamic';
-import { SSOButton, SSOButtonGroup } from '@zesty-io/material';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const FormInput = dynamic(() =>
   import('components/accounts').then((e) => e.FormInput),
@@ -40,6 +40,78 @@ const LoginIcon = dynamic(() => import('@mui/icons-material/Login'));
 const LoadingButton = dynamic(() => import('@mui/lab/LoadingButton'));
 
 const MySwal = withReactContent(Swal);
+
+function FormComponent({ userEmail, handleLogin, loading }) {
+  const formik = useFormik({
+    validationSchema: accountsValidations.login,
+    initialValues: {
+      email: userEmail,
+      password: '',
+    },
+    onSubmit: async (values) => {
+      await handleLogin(values);
+    },
+  });
+  return (
+    <Stack>
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <Stack display={'flex'} flexDirection={'column'} spacing={'16px'}>
+          <FormInput
+            size="small"
+            name="email"
+            customLabel={
+              <Typography
+                fontSize={{ xs: '14px' }}
+                sx={{ fontWeight: '600 !important', mb: '4px' }}
+              >
+                Email address
+              </Typography>
+            }
+            formik={formik}
+            placeholder="e.g john@zesty.io"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AlternateEmailIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <FormInput
+            size="small"
+            color="secondary"
+            name="password"
+            type="password"
+            formik={formik}
+            customLabel={
+              <Typography fontSize={{ xs: '14px' }} sx={{ fontWeight: '600' }}>
+                Password
+              </Typography>
+            }
+          />
+          <Link
+            href="/login/forgot-password/"
+            alignSelf="start"
+            mb={3}
+            color="secondary"
+          >
+            <Typography fontSize={'12px'}>Forgot Password?</Typography>
+          </Link>
+          <LoadingButton
+            type="submit"
+            startIcon={<LoginIcon />}
+            variant="contained"
+            color="secondary"
+            size="large"
+            loading={loading}
+          >
+            Log In
+          </LoadingButton>
+        </Stack>
+      </form>
+    </Stack>
+  );
+}
 
 const Login = ({ content, userEmail }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
@@ -184,24 +256,16 @@ const Login = ({ content, userEmail }) => {
     setLoading(false);
   };
 
-  const formik = useFormik({
-    validationSchema: accountsValidations.login,
-    initialValues: {
-      email: userEmail,
-      password: '',
-    },
-    onSubmit: async (values) => {
-      await handleLogin(values);
-    },
-  });
-
-  const is2Xl = useMediaQuery(theme.breakpoints.up('xl2'));
-
   const scrollBarStyle = `::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
 }`;
 
+  const formComponentProps = {
+    loading,
+    handleLogin,
+    userEmail,
+  };
   return (
     <Grid height="100vh" container overflow={'hidden'}>
       <style>{scrollBarStyle}</style>
@@ -210,6 +274,7 @@ const Login = ({ content, userEmail }) => {
         xs={12}
         md={3.5}
         xl={3}
+        xl2={2}
         sx={{
           px: { xs: '40px', xl: '48px' },
           pb: { xs: '12px', xl: '24px' },
@@ -239,7 +304,7 @@ const Login = ({ content, userEmail }) => {
         </Stack>
 
         <Stack>
-          <Stack mb={'8px'}>
+          <Stack mb={'14px'}>
             <Typography
               variant="h4"
               fontSize={{ xs: '24px', xl: '24px' }}
@@ -258,17 +323,8 @@ const Login = ({ content, userEmail }) => {
           </Stack>
 
           <Stack>
-            <SSOButtonGroup
-              authServiceUrl={'https://auth.api.dev.zesty.io'}
-              onSuccess={() => {
-                window.location.href = '/dashboard/';
-              }}
-              onError={(err) => {}}
-            >
-              <SSOButton service="google" />
-              <SSOButton service="azure" />
-              <SSOButton service="github" />
-            </SSOButtonGroup>
+            <SSOGroupBtns />
+
             <Divider>
               <Typography
                 sx={{ color: '#475467', fontSize: '14px', my: '16px' }}
@@ -276,64 +332,8 @@ const Login = ({ content, userEmail }) => {
                 OR
               </Typography>
             </Divider>
-            <form noValidate onSubmit={formik.handleSubmit}>
-              <Stack display={'flex'} flexDirection={'column'} spacing={'16px'}>
-                <FormInput
-                  size="small"
-                  name="email"
-                  customLabel={
-                    <Typography
-                      fontSize={{ xs: '14px' }}
-                      sx={{ fontWeight: '600 !important', mb: '4px' }}
-                    >
-                      Email address
-                    </Typography>
-                  }
-                  formik={formik}
-                  placeholder="e.g john@zesty.io"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <AlternateEmailIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-                <FormInput
-                  size="small"
-                  color="secondary"
-                  name="password"
-                  type="password"
-                  formik={formik}
-                  customLabel={
-                    <Typography
-                      fontSize={{ xs: '14px' }}
-                      sx={{ fontWeight: '600' }}
-                    >
-                      Password
-                    </Typography>
-                  }
-                />
-                <Link
-                  href="/login/forgot-password/"
-                  alignSelf="start"
-                  mb={3}
-                  color="secondary"
-                >
-                  <Typography fontSize={'12px'}>Forgot Password?</Typography>
-                </Link>
-                <LoadingButton
-                  type="submit"
-                  startIcon={<LoginIcon />}
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  loading={loading}
-                >
-                  Log In
-                </LoadingButton>
-              </Stack>
-            </form>
+
+            <FormComponent {...formComponentProps} />
           </Stack>
         </Stack>
 
@@ -347,48 +347,42 @@ const Login = ({ content, userEmail }) => {
         item
         md={8.5}
         xl={9}
+        xl2={10}
         bgcolor={(theme) =>
           theme.palette.mode === 'light'
             ? theme.palette.zesty.zestyDarkerBlue
             : theme.palette.secondary.main
         }
-        display={isMD ? 'none' : 'block'}
+        display={isMD ? 'none' : 'flex'}
+        justifyContent="center"
+        alignItems="center"
+        justifyItems={'center'}
+        px={{ xs: '10%', xl2: '15%' }}
       >
         <Stack
-          justifyContent="center"
-          alignItems="center"
           spacing={4}
-          height={1}
-          sx={{
-            px: { xs: '120px', xl: '120px' },
-            py: '48px',
-          }}
+          maxHeight={{ xs: '100vh', xl: '90vh', xl2: '100vh' }}
+          overflow={'hidden'}
         >
-          <Stack
-            textAlign={is2Xl ? 'center' : 'start'}
-            justifyContent={'start'}
-            width={1}
-          >
+          <Stack textAlign={'start'} justifyContent={'start'} width={1}>
             <Typography
               variant="h5"
               color="common.white"
-              fontSize={{ xs: '24px', xl: '32px' }}
+              fontSize={{ xs: '24px', xl: '32px', xl2: '36px' }}
               fontWeight={'700'}
               mb={'8px'}
             >
               {content?.title}
             </Typography>
-            <Typography color="common.white" fontSize={'16px'}>
+            <Typography
+              color="common.white"
+              fontSize={{ xs: '16px', xl2: '20px' }}
+            >
               {content?.description}
             </Typography>
           </Stack>
 
-          <Stack
-            direction="row"
-            spacing={2}
-            justifyContent={is2Xl ? 'center' : 'start'}
-            width={1}
-          >
+          <Stack direction="row" spacing={2} justifyContent={'start'} width={1}>
             <Button
               target="_blank"
               href={content?.docs_link}
@@ -430,8 +424,6 @@ const Login = ({ content, userEmail }) => {
           <Stack
             sx={{
               objectFit: 'contain',
-              maxWidth: { xs: 800, xl: 800 },
-              maxHeight: { xs: 500, xl: 500 },
             }}
           >
             {content?.image?.data[0]?.url.includes('mp4') ? (
@@ -447,11 +439,19 @@ const Login = ({ content, userEmail }) => {
                 <source src={content?.image?.data[0]?.url} type="video/mp4" />
               </Stack>
             ) : (
-              <img
-                src={content?.image?.data[0]?.url}
+              <Stack
                 alt="Zesty.io Media"
-                width="100%"
-                height="100%"
+                component={LazyLoadImage}
+                src={content?.image?.data[0]?.url}
+                effect="blur"
+                sx={{
+                  minHeight: { xs: 400, xl: 600 },
+                  objectFit: 'cover',
+                  width: '100%',
+                  height: '100%',
+                  filter:
+                    theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+                }}
               />
             )}
           </Stack>
@@ -461,4 +461,4 @@ const Login = ({ content, userEmail }) => {
   );
 };
 
-export default Login;
+export default memo(Login);
