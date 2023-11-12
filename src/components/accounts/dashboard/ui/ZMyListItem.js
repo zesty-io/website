@@ -1,5 +1,5 @@
 import { Link, ListItem } from '@mui/material';
-import React from 'react';
+import React, { memo } from 'react';
 
 const ZMyListItem = ({ logo, link, name, sx, ...props }) => {
   return (
@@ -29,4 +29,4 @@ const ZMyListItem = ({ logo, link, name, sx, ...props }) => {
   );
 };
 
-export default ZMyListItem;
+export default memo(ZMyListItem);
