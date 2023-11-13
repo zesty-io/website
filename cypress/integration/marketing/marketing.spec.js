@@ -10,6 +10,7 @@ describe('test for built in marketing pages in app', () => {
     '/marketplace/installed/',
     '/marketplace/register/',
     '/contact/',
+    '/join/',
   ];
 
   urls.forEach((url) => {
