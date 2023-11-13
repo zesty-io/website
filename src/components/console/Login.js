@@ -259,6 +259,8 @@ const Login = ({ content, userEmail }) => {
   const scrollBarStyle = `::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
+
+
 }`;
 
   const formComponentProps = {
@@ -357,7 +359,7 @@ const Login = ({ content, userEmail }) => {
         justifyContent="center"
         alignItems="center"
         justifyItems={'center'}
-        px={{ xs: '10%', xl2: '15%' }}
+        px={{ xs: '8%', md: '5%', lg: '10%', xl2: '15%' }}
       >
         <Stack
           spacing={4}
@@ -423,7 +425,7 @@ const Login = ({ content, userEmail }) => {
 
           <Stack
             sx={{
-              objectFit: 'contain',
+              objectFit: 'cover',
             }}
           >
             {content?.image?.data[0]?.url.includes('mp4') ? (
