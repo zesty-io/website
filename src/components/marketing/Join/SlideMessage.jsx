@@ -10,6 +10,7 @@ import {
   Divider,
   Tabs,
   Tab,
+  Paper,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import ZestyImage from 'blocks/Image/ZestyImage';
@@ -219,20 +220,22 @@ export function SlideMessage({
 
               <Container sx={{ py: 3 }}>
                 <TabPanel value={tabValue} index={0}>
-                  <Typography
-                    variant="h5"
-                    color="black"
-                    textAlign={'center'}
-                    fontWeight={'bold'}
-                    sx={{ mb: 2 }}
-                  >
-                    Build on Zesty for Free
-                    {/* Create your free account */}
-                  </Typography>
+                  <Paper sx={{ px: 3, py: 3 }}>
+                    <Typography
+                      variant="h5"
+                      color="black"
+                      textAlign={'center'}
+                      fontWeight={'bold'}
+                      sx={{ mb: 2 }}
+                    >
+                      Build on Zesty for Free
+                      {/* Create your free account */}
+                    </Typography>
 
-                  <SSOGroupBtns content={content} />
+                    <SSOGroupBtns content={content} />
 
-                  <CustomForm onSubmit={handleSignUp} />
+                    <CustomForm onSubmit={handleSignUp} />
+                  </Paper>
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
                   <ZohoFormEmbed />
