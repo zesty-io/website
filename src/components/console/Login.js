@@ -350,112 +350,128 @@ const Login = ({ content, userEmail }) => {
         md={8.5}
         xl={9}
         xl2={10}
+        position={'relative'}
         bgcolor={(theme) =>
           theme.palette.mode === 'light'
             ? theme.palette.zesty.zestyDarkerBlue
             : theme.palette.secondary.main
         }
         display={isMD ? 'none' : 'flex'}
-        justifyContent="center"
-        alignItems="center"
-        justifyItems={'center'}
-        px={{ xs: '8%', md: '5%', lg: '10%', xl2: '15%' }}
       >
         <Stack
           spacing={4}
-          maxHeight={{ xs: '100vh', xl: '90vh', xl2: '100vh' }}
           overflow={'hidden'}
+          display={'flex'}
+          justifyContent={'center'}
+          justifyItems={'center'}
+          sx={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%,-50%)',
+          }}
         >
-          <Stack textAlign={'start'} justifyContent={'start'} width={1}>
-            <Typography
-              variant="h5"
-              color="common.white"
-              fontSize={{ xs: '24px', xl: '32px', xl2: '36px' }}
-              fontWeight={'700'}
-              mb={'8px'}
-            >
-              {content?.title}
-            </Typography>
-            <Typography
-              color="common.white"
-              fontSize={{ xs: '16px', xl2: '20px' }}
-            >
-              {content?.description}
-            </Typography>
-          </Stack>
-
-          <Stack direction="row" spacing={2} justifyContent={'start'} width={1}>
-            <Button
-              target="_blank"
-              href={content?.docs_link}
-              variant="outlined"
-              sx={{
-                px: 4,
-
-                color: 'common.white',
-                borderColor: 'common.white',
-                '&.MuiButtonBase-root:hover': {
-                  bgcolor: 'transparent',
-                  border: '1px solid white',
-                },
-              }}
-              startIcon={<ImportContactsOutlinedIcon />}
-              size="small"
-            >
-              Read Docs
-            </Button>
-            <Button
-              target="_blank"
-              href={content?.video_link}
-              variant="contained"
-              sx={{
-                px: 4,
-                bgcolor: 'common.white',
-                color: 'black',
-                '&.MuiButtonBase-root:hover': {
-                  bgcolor: 'white',
-                },
-              }}
-              startIcon={<PlayArrowIcon />}
-              size="small"
-            >
-              Watch Demo
-            </Button>
-          </Stack>
-
           <Stack
-            sx={{
-              objectFit: 'cover',
-            }}
+            justifyItems={'center'}
+            alignContent={'center'}
+            alignItems={'center'}
+            width={{ xs: '55vw', lg: '50vw', xl2: '70vw' }}
+            height={{ xs: '90vh', lg: '85vh' }}
+            spacing={2}
+            display={'flex'}
           >
-            {content?.image?.data[0]?.url.includes('mp4') ? (
-              <Stack
-                component={'video'}
-                width={1}
-                autoPlay={true}
-                muted={true}
-                loop={true}
-                alt="Zesty.io Media"
-                title="Zesty.io Media"
+            <Stack textAlign={'start'} justifyContent={'start'} width={1}>
+              <Typography
+                variant="h5"
+                color="common.white"
+                fontSize={{ xs: '24px', xl: '32px', xl2: '36px' }}
+                fontWeight={'700'}
+                mb={'8px'}
               >
-                <source src={content?.image?.data[0]?.url} type="video/mp4" />
-              </Stack>
-            ) : (
-              <Stack
-                alt="Zesty.io Media"
-                component={LazyLoadImage}
-                src={content?.image?.data[0]?.url}
-                effect="blur"
+                {content?.title}
+              </Typography>
+              <Typography
+                color="common.white"
+                fontSize={{ xs: '16px', xl2: '20px' }}
+              >
+                {content?.description}
+              </Typography>
+            </Stack>
+
+            <Stack
+              direction="row"
+              spacing={2}
+              justifyContent={'start'}
+              width={1}
+            >
+              <Button
+                target="_blank"
+                href={content?.docs_link}
+                variant="outlined"
                 sx={{
-                  minHeight: { xs: 400, xl: 600 },
-                  objectFit: 'cover',
-                  width: '100%',
-                  height: '100%',
-                  filter:
-                    theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+                  px: 4,
+                  color: 'common.white',
+                  borderColor: 'common.white',
+                  '&.MuiButtonBase-root:hover': {
+                    bgcolor: 'transparent',
+                    border: '1px solid white',
+                  },
                 }}
-              />
-            )}
+                startIcon={<ImportContactsOutlinedIcon />}
+                size="small"
+              >
+                Read Docs
+              </Button>
+              <Button
+                target="_blank"
+                href={content?.video_link}
+                variant="contained"
+                sx={{
+                  px: 4,
+                  bgcolor: 'common.white',
+                  color: 'black',
+                  '&.MuiButtonBase-root:hover': {
+                    bgcolor: 'white',
+                  },
+                }}
+                startIcon={<PlayArrowIcon />}
+                size="small"
+              >
+                Watch Demo
+              </Button>
+            </Stack>
+
+            <Stack>
+              {content?.image?.data[0]?.url.includes('mp4') ? (
+                <Stack
+                  component={'video'}
+                  width={1}
+                  autoPlay={true}
+                  muted={true}
+                  loop={true}
+                  alt="Zesty.io Media"
+                  title="Zesty.io Media"
+                >
+                  <source src={content?.image?.data[0]?.url} type="video/mp4" />
+                </Stack>
+              ) : (
+                <Stack
+                  alt="Zesty.io Media"
+                  component={LazyLoadImage}
+                  src={content?.image?.data[0]?.url}
+                  effect="blur"
+                  sx={{
+                    objectFit: 'cover',
+                    maxWidth: '100%',
+                    height: 'auto',
+                    filter:
+                      theme.palette.mode === 'dark'
+                        ? 'brightness(0.7)'
+                        : 'none',
+                  }}
+                />
+              )}
+            </Stack>
           </Stack>
         </Stack>
       </Grid>
