@@ -97,8 +97,8 @@ const DocsPage = (props) => {
             about Zesty
           </Typography>
           <DocSearch
-            appId={props.algolia.search_appId}
-            indexName={props.algolia.search_index}
+            appId={props.algolia.appId}
+            indexName={props.algolia.index}
             apiKey={props.algolia.search_key}
           />
         </Box>
