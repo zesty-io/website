@@ -1,42 +1,45 @@
 import { Stack } from '@mui/material';
 import { accounts } from 'components/accounts/constants';
 import React from 'react';
-import { SSOBtn } from './SSOBtn';
+import dynamic from 'next/dynamic';
 
-const Index = ({ content = {} }) => {
+const SSOBtn = dynamic(() => import('./SSOBtn').then((e) => e.SSOBtn));
+
+function Index({ content = {} }) {
   return (
     <Stack
       direction={'column'}
       alignItems={'center'}
-      justifyContent="space-evenly"
-      gap={1}
+      justifyContent="space-between"
       width={1}
     >
       <SSOBtn
         image={accounts.sso.google.logo}
-        title="Sign in with Google"
+        title="Continue with Google"
         href={content?.zesty?.sso?.googleUrl}
-        bodyColor="#4584F8"
-        textColor="#fff"
-        borderColor="#4584F8"
-      />
-      <SSOBtn
-        image={accounts.sso.github.logo}
-        title="Sign in with Github"
-        href={content?.zesty?.sso?.githubUrl}
-        bodyColor="#23282C"
-        logoColor="#23282C"
-        borderColor="#23282C"
-        textColor="#fff"
+        bodyColor="#fff"
+        textColor="#333333"
+        borderColor="#F2F4F7"
       />
 
       <SSOBtn
         image={accounts.sso.microsoft.logo}
         href={content?.zesty?.sso?.msUrl}
-        title="Sign in with Microsoft"
+        title="Continue with Microsoft"
+        bodyColor="#fff"
+        textColor="#333333"
+        borderColor="#F2F4F7"
+      />
+      <SSOBtn
+        image={accounts.sso.github.logo}
+        title="Continue with Github"
+        href={content?.zesty?.sso?.githubUrl}
+        bodyColor="#fff"
+        textColor="#333333"
+        borderColor="#F2F4F7"
       />
     </Stack>
   );
-};
+}
 
 export const SSOGroupBtns = React.memo(Index);
