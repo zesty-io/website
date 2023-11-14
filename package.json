@@ -60,7 +60,9 @@
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
     "@codemirror/view": "^6.21.2",
+    "@docsearch/css": "^3.5.2",
     "@docsearch/js": "^3.5.2",
+    "@docsearch/react": "^3.5.2",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/server": "^11.11.0",
@@ -118,7 +120,6 @@
     "zustand": "^4.4.2"
   },
   "devDependencies": {
-    "tape-async": "^2.3.0",
     "@commitlint/cli": "^17.7.2",
     "@commitlint/config-conventional": "^17.7.0",
     "@next/bundle-analyzer": "^14.0.1",
@@ -149,6 +150,7 @@
     "prettier-eslint-cli": "^7.1.0",
     "rimraf": "^5.0.5",
     "start-server-and-test": "^2.0.1",
+    "tape-async": "^2.3.0",
     "typescript": "^5.2.2"
   },
   "engines": {

@@ -14,14 +14,8 @@ import {
 } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
-import dynamic from 'next/dynamic';
-
-const SearchModal = dynamic(() =>
-  import('views/Docs/SearchModal').then((e) => e.SearchModal),
-);
-const AlgoSearch = dynamic(() =>
-  import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
-);
+import { DocSearch } from '@docsearch/react';
+import '@docsearch/css';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -44,9 +38,6 @@ const DocsPage = (props) => {
       <MainWrapper docsLanding customRouting={[]}>
         <Box
           sx={{
-            // background: `url('https://kfg6bckb.media.zestyio.com/radialgradient.png')`,
-            // backgroundRepeat: 'no-repeat',
-            // backgroundPosition: 'top center',
             backgroundSize: 'cover',
             height: 450,
             display: 'flex',
@@ -105,10 +96,11 @@ const DocsPage = (props) => {
             Explore guides, code samples, API references, and more to learn
             about Zesty
           </Typography>
-
-          <SearchModal sx={{ width: isMedium ? 300 : 500 }}>
-            <AlgoSearch />
-          </SearchModal>
+          <DocSearch
+            appId={props.algolia.search_appId}
+            indexName={props.algolia.search_index}
+            apiKey={props.algolia.search_key}
+          />
         </Box>
 
         <Container sx={{ py: 10 }}>
