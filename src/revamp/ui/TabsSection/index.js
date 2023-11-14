@@ -1,4 +1,4 @@
-import { Stack, Tab, Typography } from '@mui/material';
+import { Stack, Tab, Typography, useScrollTrigger } from '@mui/material';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
@@ -65,7 +65,7 @@ const tabLists = [
           'Preview edits in real time with Duo Mode',
           'Easy organization and search for easy management',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/Content-App-2.webp?width=1280&height=720"
+        image="https://kfg6bckb.media.zestyio.com/Content-App-2.webp?width=1280&height=720&&quality=40"
       />
     ),
   },
@@ -128,11 +128,6 @@ const tabLists = [
       />
     ),
   },
-  // {
-  //   name: 'APIs',
-  //   icon: <ApiRoundedIcon sx={{ fontSize: '20px' }} />,
-  //   component: <TabSection header="APIs" />,
-  // },
 ];
 
 function TabPanel(props) {
@@ -153,7 +148,7 @@ const TabsSection = ({
   header = 'Personalization, A/B Testing, Integrated Analytics, Any Business Configuration',
   tabs,
 }) => {
-  const [value, setValue] = useState('Content');
+  const [value, setValue] = useState('A/B Testing');
   const [list, setList] = useState(tabLists);
 
   useEffect(() => {
@@ -190,17 +185,23 @@ const TabsSection = ({
     setValue(newValue);
   };
 
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 5,
+  });
   useEffect(() => {
     const interval = setInterval(() => {
-      setValue((prevValue) => {
-        const currentIndex = list?.findIndex((tab) => tab.name === prevValue);
-        const nextIndex = (currentIndex + 1) % list?.length;
-        return list[nextIndex]?.name;
-      });
+      if (trigger) {
+        setValue((prevValue) => {
+          const currentIndex = list?.findIndex((tab) => tab.name === prevValue);
+          const nextIndex = (currentIndex + 1) % list?.length;
+          return list[nextIndex]?.name;
+        });
+      }
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [list]);
+  }, [list, trigger]);
 
   return (
     <Stack

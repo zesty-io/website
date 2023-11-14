@@ -6,13 +6,12 @@ const Child = dynamic(() => import('revamp/ui/GetDemoSection'), {
   loading: Placeholder,
 });
 
-const Index = () => {
+const Index = (props) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0,
-    rootMargin: '500px',
   });
-  return <div ref={ref}>{inView && <Child />}</div>;
+  return <div ref={ref}>{inView && <Child {...props} />}</div>;
 };
 
 export default Index;

@@ -7,7 +7,6 @@ import {
   AccountSelect,
   AccountsHeader,
   AccountsInput,
-  AccountsTable,
   AccountsTableHead,
   AccountsTextArea,
   AccountTextfield,
@@ -16,6 +15,11 @@ import {
 } from 'components/accounts';
 import * as helper from 'utils';
 import SaveIcon from '@mui/icons-material/Save';
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const OPTIONS = (options, separator) => {
   const res = options?.split(separator).map((e) => {

@@ -1,7 +1,9 @@
 import { Button, FormControl, Stack, Typography } from '@mui/material';
 import React from 'react';
-import MuiPhoneNumber from 'material-ui-phone-number';
 import CustomTextField from 'revamp/components/CustomTextField';
+import dynamic from 'next/dynamic';
+
+const MuiPhoneNumber = dynamic(() => import('material-ui-phone-number'));
 
 export const MultiFieldForm = ({
   getFieldProps,

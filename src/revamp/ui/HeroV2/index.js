@@ -4,11 +4,8 @@ import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
 import { FONT_FAMILY } from 'components/globals/constants';
-import dynamic from 'next/dynamic';
 
-const Logos = dynamic(() => import('./Logos'), {
-  ssr: false,
-});
+import Logos from './Logos';
 
 const media =
     'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-hero.webp',
@@ -17,8 +14,7 @@ const media =
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
   rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeagueHero.svg',
   singlife = 'https://kfg6bckb.media.zestyio.com/singlifeHero.svg',
-  sony = 'https://kfg6bckb.media.zestyio.com/sonyHero.svg',
-  circle = 'https://kfg6bckb.media.zestyio.com/Ellipse.svg';
+  sony = 'https://kfg6bckb.media.zestyio.com/sonyHero.svg';
 
 const logos = [
   {
@@ -250,11 +246,14 @@ const Hero = ({
         })}
       >
         <picture>
-          <source srcSet={media} media="(min-width: 1200px)" />
-          <source srcSet={media + '?width=400'} media="(min-width: 400px)" />
+          <source srcSet={media + '?quality=50'} media="(min-width: 1200px)" />
+          <source
+            srcSet={media + '?width=400&&quality=10'}
+            media="(min-width: 400px)"
+          />
           <img
-            height={560}
-            width={894}
+            height={900}
+            width={1400}
             src={heroImage}
             style={{ width: '100%', height: 'auto' }}
             alt={generateAlt('Zesty image')}
