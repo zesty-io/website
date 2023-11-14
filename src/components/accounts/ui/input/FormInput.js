@@ -56,12 +56,12 @@ function Index({
       )}
       {type !== 'password' ? (
         <TextField
-          autoComplete="new-password"
           FormHelperTextProps={{ style: { background: 'transparent' } }}
           {...defaultProps}
           {...props}
           sx={{
             '& .MuiOutlinedInput-root': {
+              height: '40px',
               borderRadius: '8px',
               fontSize: '14px',
               '& fieldset': {
@@ -79,9 +79,9 @@ function Index({
       ) : (
         <TextField
           FormHelperTextProps={{ style: { background: 'transparent' } }}
-          autoComplete="new-password"
           sx={{
             '& .MuiOutlinedInput-root': {
+              height: '40px',
               borderRadius: '8px',
               fontSize: '14px',
               '& fieldset': {
