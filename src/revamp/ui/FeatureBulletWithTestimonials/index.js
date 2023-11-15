@@ -141,15 +141,11 @@ const FeatureBulletWithTestimonials = ({
               height: '100%',
             },
           })}
-        >
-          <img
-            src={image}
-            loading="lazy"
-            alt={generateAlt('')}
-            width={788}
-            height={420}
-          />
-        </Box>
+          component="img"
+          src={image}
+          loading="lazy"
+          alt={generateAlt('')}
+        />
       </Stack>
     </Stack>
   );
