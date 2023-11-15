@@ -8,7 +8,7 @@ import { FONT_FAMILY } from 'components/globals/constants';
 import Logos from './Logos';
 
 const media =
-    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-hero.webp',
+    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-hero.webp?width=1400',
   acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
   bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
