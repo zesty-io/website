@@ -72,7 +72,7 @@ export function AiSearch() {
 
       // Make a request to the AI server
       const response = await fetch(
-        'https://us-central1-zesty-dev.cloudfunctions.net/aiSearch/quey/',
+        'https://us-central1-zesty-dev.cloudfunctions.net/aiSearch/query/',
         {
           method: 'POST',
           headers: {
