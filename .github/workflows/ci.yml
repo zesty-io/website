@@ -14,17 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: ✅ Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: npm install --ignore-scripts
-
-      - uses: actions/cache@v2
+      - name: ⚡️ Cache dependencies
+        uses: actions/cache@v2
         id: cache-build
         with:
           path: ./*
           key: ${{ github.sha }}
+
+      - name: 🚚 Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install --force --prefer-offline --no-audit
 
   build-check:
     strategy:
@@ -35,16 +37,17 @@ jobs:
     needs: install-dependencies
 
     steps:
-      - name: Checkout code
+      - name: ✅ Checkout code
         uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - name: ⚡️ Cache dependencies
+        uses: actions/cache@v2
         id: restore-build
         with:
           path: ./*
           key: ${{ github.sha }}
 
-      - name: Build
+      - name: 📦️ Build
         run: npm run build
 
   lint:
@@ -56,16 +59,17 @@ jobs:
     needs: install-dependencies
 
     steps:
-      - name: Checkout code
+      - name: ✅ Checkout code
         uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - name: ⚡️ Cache dependencies
+        uses: actions/cache@v2
         id: restore-build
         with:
           path: ./*
           key: ${{ github.sha }}
 
-      - name: Run unit tests
+      - name: ✏️ Run lint
         run: npm run test-all
 
   unit-tests:
@@ -77,16 +81,17 @@ jobs:
     needs: install-dependencies
 
     steps:
-      - name: Checkout code
+      - name: ✅ Checkout code
         uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - name: ⚡️ Cache dependencies
+        uses: actions/cache@v2
         id: restore-build
         with:
           path: ./*
           key: ${{ github.sha }}
 
-      - name: Run unit tests
+      - name: 🧪 Run unit tests
         run: npm run test
 
   docker-build:
@@ -96,16 +101,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout code
+      - name: ✅ Checkout code
         uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
-        id: restore-build
-        with:
-          path: ./*
-          key: ${{ github.sha }}
-
-      - name: Docker Build
+      - name: 🐳 Docker Build
         run: docker build -t zesty-website:latest .
         working-directory: ./
 
@@ -119,22 +118,23 @@ jobs:
       PRODUCTION: 'true'
 
     steps:
-      - uses: actions/checkout@v3
+      - name: ✅ Checkout code
+        uses: actions/checkout@v3
 
-      - name: Setup custom host for mylocal
+      - name: 🌐 Setup custom host for mylocal
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
 
-      - name: Install dependencies
-        run: npm install
+      - name: 🚚 Install dependencies
+        run: npm install --force --prefer-offline --no-audit
 
-      - name: Write the cypress.env.json file 📝
+      - name: 📝 Write the cypress.env.json file
         run: |
           echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
 
-      - name: Run E2E test
+      - name: 🧪 Run E2E test
         run: npm run test:e2e:ci:prod
 
-      - name: Save screenshots 🖼
+      - name: 🖼 Save screenshots
         uses: actions/upload-artifact@v3
         if: always()
         with:
@@ -154,7 +154,7 @@ jobs:
 
     if: always()
     runs-on: ubuntu-latest
-    name: Ok to Proceed ✅
+    name: 🚀🚀🚀 Ok to Proceed 😎 👍👍👍
     steps:
       - run: exit 1
         if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'skipped') || contains(needs.*.result, 'cancelled')) }}

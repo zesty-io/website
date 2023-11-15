@@ -36,9 +36,10 @@ body:
         - 'Docs'
         - 'Website'
         - 'Accounts'
-        - 'middleware'
+        - 'Middleware'
+        - 'Marketing'
     validations:
-      required: true
+      required: false
   - type: textarea
     attributes:
       label: Additional context

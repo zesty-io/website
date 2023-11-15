@@ -38,11 +38,22 @@ import { ThemeProvider, useTheme } from '@mui/material/styles';
 import revampTheme from 'theme/revampTheme';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 
-function Contact() {
+function Contact({ content }) {
   const theme = useTheme();
+
+  const getDemoSectionProps = {
+    title: content?.demo_section_title,
+    supportingText: content?.demo_section_supportingtext,
+    formTitle: content?.demo_section_formtitle,
+  };
+
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-      <GetDemoSection isContact redirect="/ppc/thank-you/" />
+      <GetDemoSection
+        {...getDemoSectionProps}
+        isContact
+        redirect="/ppc/thank-you/"
+      />
     </ThemeProvider>
     //     <Box>
     //       <ContactFormWithSidebarMap

@@ -139,6 +139,13 @@ export const isProd =
     ? false
     : true;
 
+export const isProdClient = () => {
+  if (getCookie('PRODUCTION') === 'true') {
+    return true;
+  }
+  return false;
+};
+
 export const fetchWrapperOptions = () => {
   const dev = {
     sitesServiceURL: 'https://svc.dev.zesty.io/sites-service/',
