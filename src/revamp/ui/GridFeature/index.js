@@ -125,6 +125,7 @@ const GridFeature = ({
   heading = 'Headless Interface/Code',
   supportingText = ``,
   featureLists = cardLists,
+  ...props
 }) => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.up('tablet'), {
