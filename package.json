@@ -22,7 +22,7 @@
     "test": "jest --forceExit",
     "dev-test": "jest --watch --silent",
     "fix-lint": "eslint . --ext=js --fix",
-    "commit": "git add . && git commit -m ' '",
+    "commit": "git commit -m ''",
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
@@ -144,6 +144,7 @@
     "jest": "^29.7.0",
     "jest-dom": "^4.0.0",
     "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.1.0",
     "prettier": "3.0.3",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",
@@ -159,6 +160,14 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "*": [
+      "npm run check-format"
+    ],
+    "**/*.+(js|jsx|json|ts|tsx)": [
+      "npm run check-lint"
+    ]
   },
   "overrides": {
     "react-virtualized": {
