@@ -46,6 +46,16 @@ h2 span {
   margin-right: 10px;
 }
 
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    font-family: `Mulish, Arial, sans-serif`;
+    font-size: 14px
+}
+
 @font-face {
     font-family: 'Mulish';
     src: url(../fonts/Mulish-Regular.woff2) format(woff2);

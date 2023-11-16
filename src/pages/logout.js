@@ -21,6 +21,18 @@ const logout = () => {
       deleteCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', {
         domain: '.zesty.io',
       });
+      deleteCookie('azure:sso:authstate', {
+        domain: '.zesty.io',
+        secure: true,
+      });
+      deleteCookie('google:sso:authstate', {
+        domain: '.zesty.io',
+        secure: true,
+      });
+      deleteCookie('github:sso:authstate', {
+        domain: '.zesty.io',
+        secure: true,
+      });
       deleteCookie('isAuthenticated');
       deleteCookie('ZESTY_WORKING_INSTANCE', {});
       window.location.replace('/login/');
