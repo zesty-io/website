@@ -576,7 +576,7 @@ const Slug = (props) => {
   }, [router.asPath]);
 
   useEffect(() => {
-    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);

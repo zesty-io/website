@@ -10,10 +10,11 @@ import {
 import algoliasearch from 'algoliasearch';
 import SearchIcon from '@mui/icons-material/Search';
 import {
-  Configure,
-  Hits,
-  InstantSearch,
   connectSearchBox,
+  InstantSearch,
+  Hits,
+  Configure,
+  Index,
 } from 'react-instantsearch-dom';
 import { useZestyStore } from 'store';
 import MuiMarkdown from 'markdown-to-jsx';
@@ -24,9 +25,9 @@ import TreeView from '@mui/lab/TreeView';
 import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import DescriptionIcon from '@mui/icons-material/Description';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
+
 import { ArrowBack } from '@mui/icons-material';
 import { AiSearch } from 'components/docs/AiSearch';
-import Index from 'pages/docs/accounts/api-reference';
 
 const SearchBoxMui = ({ currentRefinement, _isSearchStalled, refine }) => (
   <form noValidate action="" role="search">

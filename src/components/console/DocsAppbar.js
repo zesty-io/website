@@ -1,4 +1,5 @@
 import {
+  Box,
   Breadcrumbs,
   Button,
   Link,
@@ -15,6 +16,7 @@ import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
 
 import dynamic from 'next/dynamic';
+import { DocSearchModal } from 'pages/docs';
 
 const DocsPopover = dynamic(() =>
   import('views/Docs/DocsPopover').then((e) => e.DocsPopover),
@@ -181,7 +183,7 @@ export const DocsAppbar = React.memo(() => {
             <Link color="GrayText" underline="hover" href="/docs">
               Docs
             </Link>
-            <Typography color="GrayText">
+            <Typography className="algolia-category" color="GrayText">
               {currentPath?.charAt(0).toUpperCase() +
                 currentPath?.slice(1).replaceAll('-', ' ')}
             </Typography>
@@ -237,7 +239,7 @@ export const DocsAppbar = React.memo(() => {
           )}
         </Stack>
       </Stack>
-      <Stack direction={'row'} spacing={2}>
+      <Stack direction={'row'} alignItems={'center'} spacing={2}>
         {isApiReference && !isMobile && (
           <Stack direction={'row'} spacing={1} alignItems="center">
             <Typography color={'black'}>Language:</Typography>{' '}
@@ -279,9 +281,9 @@ export const DocsAppbar = React.memo(() => {
           />
         )}
         {!isMobile && (
-          <SearchModal sx={{ width: 200 }}>
-            <AlgoSearch />
-          </SearchModal>
+          <Box sx={{ pr: 6, mt: 6 }}>
+            <DocSearchModal />
+          </Box>
         )}
       </Stack>
     </Stack>

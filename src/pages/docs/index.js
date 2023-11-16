@@ -27,7 +27,7 @@ const DocsPage = (props) => {
   );
 
   React.useEffect(() => {
-    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
@@ -96,16 +96,7 @@ const DocsPage = (props) => {
             Explore guides, code samples, API references, and more to learn
             about Zesty
           </Typography>
-          <DocSearch
-            transformItems={(item) => {
-              return item.reverse();
-            }}
-            placeholder="Search docs..."
-            maxResultsPerGroup={100}
-            appId={props.algolia.appId}
-            indexName={props.algolia.index}
-            apiKey={props.algolia.search_key}
-          />
+          <DocSearchModal {...props} />
         </Box>
 
         <Container sx={{ py: 10 }}>
@@ -204,3 +195,24 @@ const cardData = [
     link: '/docs/parsley',
   },
 ];
+
+export function DocSearchModal() {
+  const {
+    algoliaApiKey: apiKey,
+    algoliaAppId: appId,
+    algoliaIndex: index,
+  } = useZestyStore((e) => e);
+
+  return (
+    <DocSearch
+      transformItems={(item) => {
+        return item.reverse();
+      }}
+      placeholder="Search docs..."
+      maxResultsPerGroup={100}
+      appId={appId}
+      indexName={index}
+      apiKey={apiKey}
+    />
+  );
+}
