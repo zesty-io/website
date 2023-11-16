@@ -145,6 +145,8 @@ const FeatureBulletWithTestimonials = ({
           src={image}
           loading="lazy"
           alt={generateAlt('')}
+          width="526px"
+          height="420px"
         />
       </Stack>
     </Stack>
