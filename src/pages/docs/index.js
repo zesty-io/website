@@ -97,6 +97,11 @@ const DocsPage = (props) => {
             about Zesty
           </Typography>
           <DocSearch
+            transformItems={(item) => {
+              return item.reverse();
+            }}
+            placeholder="Search docs..."
+            maxResultsPerGroup={100}
             appId={props.algolia.appId}
             indexName={props.algolia.index}
             apiKey={props.algolia.search_key}
