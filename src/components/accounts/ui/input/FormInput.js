@@ -61,7 +61,7 @@ function Index({
           {...props}
           sx={{
             '& .MuiOutlinedInput-root': {
-              height: '40px',
+              height: multiline ? 'auto' : '40px',
               borderRadius: '8px',
               fontSize: '14px',
               '& fieldset': {
