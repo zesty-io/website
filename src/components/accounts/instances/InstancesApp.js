@@ -87,7 +87,12 @@ const Index = ({ children }) => {
     <Box>
       <ZestyAccountsHead title={title} />
       {isLG ? (
-        <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: '240px calc(100% - 240px)',
+          }}
+        >
           <Box
             sx={(theme) => ({
               position: 'sticky',
