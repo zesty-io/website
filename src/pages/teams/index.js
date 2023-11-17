@@ -7,6 +7,8 @@ import { useZestyStore } from 'store';
 import TeamInvites from 'components/accounts/teams/TeamInvites';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import dynamic from 'next/dynamic';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -15,10 +17,11 @@ const TeamsContainer = dynamic(() =>
 );
 
 const Teams = () => {
+  const { ZestyAPI } = useZestyStore((state) => state);
+  const isLoggedIn = useIsLoggedIn();
   const {
-    ZestyAPI,
     verifySuccess: { userZuid },
-  } = useZestyStore((state) => state);
+  } = useFetchWrapper(isLoggedIn);
   const [teams, setTeams] = useState([]);
   const [invites, setInvites] = useState([]);
 
