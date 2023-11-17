@@ -61,7 +61,9 @@ function Index({
           {...props}
           sx={{
             '& .MuiOutlinedInput-root': {
+              height: multiline ? 'auto' : '40px',
               borderRadius: '8px',
+              fontSize: '14px',
               '& fieldset': {
                 border: '1px solid #F2F4F7',
               },
@@ -73,40 +75,15 @@ function Index({
               },
             },
           }}
-          // sx={{
-          //   '& .MuiInputBase-root': {
-          //     border: '1px solid #F2F4F7',
-          //   },
-          //   '& .MuiOutlinedInput-root': {
-          //     border: '1px solid #F2F4F7',
-          //     '&.Mui-focused fieldset': {
-          //       border: '1px solid #F2F4F7',
-          //     },
-          //   },
-          // }}
-          // sx={{
-          //   '& .MuiInputBase-root': {
-          //     background: '#fff',
-          //     borderRadius: '8px',
-          //     border: '1px solid red',
-          //   },
-          //   '& label.Mui-focused': {
-          //     border: '1px solid red',
-          //     color: 'red',
-          //   },
-          //   '& .MuiOutlinedInput-root:hover': {
-          //     '& > fieldset': {
-          //       border: '1px solid #red',
-          //     },
-          //   },
-          // }}
         />
       ) : (
         <TextField
           FormHelperTextProps={{ style: { background: 'transparent' } }}
           sx={{
             '& .MuiOutlinedInput-root': {
+              height: '40px',
               borderRadius: '8px',
+              fontSize: '14px',
               '& fieldset': {
                 border: '1px solid #F2F4F7',
               },
