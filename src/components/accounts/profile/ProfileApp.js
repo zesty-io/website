@@ -150,7 +150,12 @@ const Index = ({ children }) => {
   return (
     <Box>
       {isLG ? (
-        <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: '240px calc(100% - 240px)',
+          }}
+        >
           <Box
             sx={(theme) => ({
               position: 'sticky',
