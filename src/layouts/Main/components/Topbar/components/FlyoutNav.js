@@ -34,7 +34,7 @@ function FlyoutNav({
       }}
     >
       {flyoutNavigation.map((route) => (
-        <Box display="flex" height="100%" key={hashString(router.link)}>
+        <Box display="flex" height="100%" key={hashString(route.nav_title)}>
           {/* If link in the cms is empty and column one is not equal to zero it must be a parent navigation with flyout navigation */}
           {route.link === null && route.column_1_items.length != 0 && (
             <Box display="flex" height="100%">
