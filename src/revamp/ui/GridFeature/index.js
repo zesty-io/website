@@ -204,7 +204,17 @@ const GridFeature = ({
       <Grid container columnSpacing={4} rowSpacing={isTablet ? 6 : 3} mb={6}>
         {featureLists.slice(0, showedItems)?.map((feature, index) => (
           <Grid key={index} item tablet={6} lg={4} display="flex">
-            <Stack spacing="20px">
+            <Stack
+              spacing="20px"
+              sx={(theme) => ({
+                [theme.breakpoints.up('xs')]: {
+                  textAlign: 'center',
+                },
+                [theme.breakpoints.up('lg')]: {
+                  textAlign: 'left',
+                },
+              })}
+            >
               <img
                 loading="lazy"
                 alt="zesty-image"
