@@ -1,24 +1,54 @@
 import { Link, List, Stack, TextField } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
+import * as helpers from 'utils';
 import ZMyListItem from './ui/ZMyListItem';
 import ZSideListContent from './ui/ZSideListContent';
 
-const SideContent = ({
-  instances,
-  totalInstancesLimit,
-  totalTeamsLimit,
-  unfilteredTotalInstances,
-  handleSearchInstances,
-  teams,
-}) => {
+import { TOTAL_INSTANCES_LIMIT, TOTAL_TEAMS_LIMIT } from '.';
+
+function SideContent({ initialInstances, unfilteredTotalInstances, teams }) {
+  const [filteredInstances, setFilteredInstances] = useState([]);
+
+  function onChange(e) {
+    if (e?.target?.value) {
+      handleSearchInstances(e.target.value.toLocaleLowerCase());
+    }
+  }
+
+  function handleSearchInstances(value) {
+    if (!initialInstances) {
+      return;
+    }
+    const filterInstances = [...initialInstances]?.filter((instance) =>
+      helpers.isMatch(
+        [
+          instance?.name,
+          instance?.ID,
+          instance?.ZUID,
+          instance?.randomHashID,
+          instance?.domain,
+        ],
+        value,
+      ),
+    );
+
+    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LIMIT));
+  }
+
+  useEffect(() => {
+    if (initialInstances) {
+      setFilteredInstances(initialInstances.slice(0, TOTAL_INSTANCES_LIMIT));
+    }
+  }, [initialInstances]);
+
   return (
     <Stack p={3} pt={0} pl={1} spacing={2} pr={{ xs: 0, md: 3 }}>
       <ZSideListContent
         label="Your Instances"
         bottomAction={
-          unfilteredTotalInstances > totalInstancesLimit &&
-          instances?.length > 0 && (
+          unfilteredTotalInstances > TOTAL_INSTANCES_LIMIT &&
+          filteredInstances?.length > 0 && (
             <Link
               underline="none"
               href="/instances"
@@ -35,17 +65,15 @@ const SideContent = ({
             size="small"
             color="primary"
             placeholder="Search an Instances"
-            onChange={(e) => {
-              handleSearchInstances(e.target.value.toLocaleLowerCase());
-            }}
+            onChange={onChange}
             sx={{ mb: 2 }}
           />
         }
       >
         <List disablePadding>
-          {instances?.length === 0
+          {filteredInstances?.length === 0
             ? 'No Instances Found.'
-            : instances?.map((instance, index) => (
+            : filteredInstances?.map((instance, index) => (
                 <ZMyListItem
                   key={index}
                   logo={instance.screenshotURL || FillerContent.image}
@@ -60,7 +88,7 @@ const SideContent = ({
         label="Your Teams"
         showDivider={false}
         bottomAction={
-          teams?.length > totalTeamsLimit &&
+          teams?.length > TOTAL_TEAMS_LIMIT &&
           teams?.length > 0 && (
             <Link
               underline="none"
@@ -77,7 +105,7 @@ const SideContent = ({
           {teams?.length === 0
             ? 'No Teams Found.'
             : teams
-                ?.slice(0, totalTeamsLimit)
+                ?.slice(0, TOTAL_TEAMS_LIMIT)
                 ?.map((team, index) => (
                   <ZMyListItem
                     key={index}
@@ -90,6 +118,6 @@ const SideContent = ({
       </ZSideListContent>
     </Stack>
   );
-};
+}
 
-export default SideContent;
+export default memo(SideContent);

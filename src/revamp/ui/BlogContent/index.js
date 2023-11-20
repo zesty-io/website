@@ -103,6 +103,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
               py: 3,
               mx: 'auto',
               maxWidth: theme.maxWidth,
+              alignItems: 'center',
             },
           })}
         >

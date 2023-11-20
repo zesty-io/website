@@ -16,11 +16,13 @@ import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 import dynamic from 'next/dynamic';
 
-const SearchModal = dynamic(() =>
-  import('views/Docs/SearchModal').then((e) => e.SearchModal),
+const SearchModal = dynamic(
+  () => import('views/Docs/SearchModal').then((e) => e.SearchModal),
+  { ssr: false },
 );
-const AlgoSearch = dynamic(() =>
-  import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
+const AlgoSearch = dynamic(
+  () => import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
+  { ssr: false },
 );
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
