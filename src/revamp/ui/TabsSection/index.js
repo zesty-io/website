@@ -1,14 +1,17 @@
 import { Button, Stack, Typography, useScrollTrigger } from '@mui/material';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
-import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
-import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
 import { TabContext } from '@mui/lab';
-import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
-import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
 import React, { memo, useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
+
+import {
+  EditRounded as EditRoundedIcon,
+  ImageRounded as ImageRoundedIcon,
+  TranslateRounded as TranslateRoundedIcon,
+  ScienceRounded as ScienceRoundedIcon,
+  PsychologyRounded as PsychologyRoundedIcon,
+  SchemaRounded as SchemaRoundedIcon,
+} from '@mui/icons-material';
 
 const TabSection = dynamic(() => import('./TabSection'), { ssr: false });
 
