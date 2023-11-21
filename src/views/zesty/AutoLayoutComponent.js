@@ -1,21 +1,28 @@
 import React from 'react';
 import { AutoLayout } from '@zesty-io/react-autolayout';
 import ComponentSelector from 'components/marketing/AppLayouts/ComponentSelector';
-import { Columns, RichText } from 'blocks/layoutsBlocks';
-import { Text } from 'blocks/layoutsBlocks';
+import { Row, Images, RichText, Text, Column } from 'blocks/layoutsBlocks';
+
+import revampTheme from 'theme/revampTheme';
+import { ThemeProvider, useTheme } from '@emotion/react';
 
 function AutoLayoutComponent({ content }) {
-  console.log(content);
+  const theme = useTheme();
+
   return (
-    <AutoLayout
-      content={content}
-      components={{
-        component: ComponentSelector,
-        row: Columns,
-        text: Text,
-        wysiwyg_basic: RichText,
-      }}
-    />
+    <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+      <AutoLayout
+        content={content}
+        components={{
+          component: ComponentSelector,
+          row: Row,
+          column: Column,
+          text: Text,
+          wysiwyg_basic: RichText,
+          images: Images,
+        }}
+      />
+    </ThemeProvider>
   );
 }
 

@@ -88,9 +88,11 @@ import GridFeatureListWithImageDark from './revamp/layoutComponent/GridFeatureLi
 import CompetitorListing from './revamp/layoutComponent/CompetitorListing';
 
 // Freestyle Layouts
-import Columns from './revamp/layoutComponent/Columns';
+import Row from './revamp/layoutComponent/Row';
 import Text from './revamp/layoutComponent/Text';
 import RichText from './revamp/layoutComponent/RichText';
+import Images from './revamp/layoutComponent/Images';
+import Column from './revamp/layoutComponent/Column';
 
 
 export {
@@ -182,8 +184,10 @@ export {
   GridFeatureListWithImageDark,
   CompetitorListing,
   // Freestyle Layouts
-  Columns,
+  Row,
   Text,
-  RichText
+  RichText,
+  Images,
+  Column
   
 };
