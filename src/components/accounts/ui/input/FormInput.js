@@ -21,6 +21,8 @@ function Index({
   hasHelperText = true,
   hasError = true,
   customLabelVariant = 'h6',
+  customHeight = '40px',
+  customFontSize = '14px',
   ...props
 }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -61,9 +63,9 @@ function Index({
           {...props}
           sx={{
             '& .MuiOutlinedInput-root': {
-              height: multiline ? 'auto' : '40px',
+              height: multiline ? 'auto' : customHeight,
               borderRadius: '8px',
-              fontSize: '14px',
+              fontSize: customFontSize,
               '& fieldset': {
                 border: '1px solid #F2F4F7',
               },
