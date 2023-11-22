@@ -9,7 +9,6 @@ function FlyoutNav({
   hideNav,
   flyoutNavigation,
   hashString,
-  router,
   activeNav,
   navHandler,
   colorInvert,

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { useRouter } from 'next/router';
 import {
-  Button,
   Collapse,
   IconButton,
   lighten,
@@ -15,6 +13,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Skeleton,
   Stack,
   Typography,
 } from '@mui/material';
@@ -28,6 +27,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { grey } from '@mui/material/colors';
 import * as helpers from 'utils';
+import { LoadingButton } from '@mui/lab';
 
 const legacyAccountsLink = `https://accounts${
   helpers?.isProd ? '' : '.dev'
@@ -92,26 +92,11 @@ const mobileNavLinks = [
   },
 ];
 
-const AppNavigation = ({
-  // onSidebarOpen,
-  colorInvert = false,
-  // loading = false,
-  // trigger,
-}) => {
+const AppNavigation = ({ colorInvert = false }) => {
   const router = useRouter();
   const [pathname, setPathname] = useState('');
   const { ZestyAPI, userInfo, setInstances } = useZestyStore((state) => state);
-  // const [isMarketplace, setIsMarketplace] = useState(false);
-  // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  // const [instances, setinstances] = useState([]);
-
-  // const handleComboxClick = (zuid) => {
-  //   setCookie('ZESTY_WORKING_INSTANCE', zuid);
-  //   if (!isMarketplace) {
-  //     setworkingInstance(zuid);
-  //     window.location.href = `/instances/${zuid}/`;
-  //   }
-  // };
+  const [loading, setLoading] = useState(false);
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
 
@@ -124,23 +109,17 @@ const AppNavigation = ({
   const [isToggle, setIsToggle] = useState(false);
 
   const getInstances = async () => {
+    setLoading(true);
     const res = await ZestyAPI.getInstances();
     !res.error && setInstances(res);
     res.error && setInstances([]);
+    setLoading(false);
   };
 
   const userPrefs =
     typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
 
-  // const isNewUser = Object.keys(userPrefs).length === 0 ? true : false;
-
   useEffect(() => {
-    // setIsMarketplace(
-    //   window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
-    //     ? true
-    //     : false,
-    // );
-
     setPathname(window.location.pathname);
   }, []);
 
@@ -195,17 +174,10 @@ const AppNavigation = ({
             alignItems="center"
             pl={isXL ? 0 : 1}
           >
-            {/* {!isSM && !isNewUser && (
-              <AccountsComboBox
-                instances={instances?.data}
-                setCookies={handleComboxClick}
-                instanceZUID={instanceZUID}
-                width={isXL ? 300 : 150}
-              />
-            )} */}
-            {isLG && Object.keys(userPrefs).length !== 0 && (
+            {isLG && (
               <>
-                <Button
+                <LoadingButton
+                  loading={Object.keys(userPrefs)?.length === 0 || loading}
                   title="Create Instance"
                   color={
                     isAccounts || pathname === '/' ? 'primary' : 'secondary'
@@ -220,29 +192,7 @@ const AppNavigation = ({
                   }}
                 >
                   Create Instance
-                </Button>
-                {/* <Button
-                  size={isXL ? 'large' : 'small'}
-                  href={legacyAccountsLink}
-                  variant="outlined"
-                  id="accounts-legacy"
-                  className="accounts-legacy-button"
-                  endIcon={<ExitToAppIcon />}
-                  sx={({ palette: { mode } }) => {
-                    const adjustedGrey =
-                      mode === 'light' ? grey[500] : grey[200];
-                    return {
-                      whiteSpace: 'nowrap',
-                      border: `1px solid ${adjustedGrey}`,
-                      color: adjustedGrey,
-                      '&.MuiButtonBase-root:hover': {
-                        border: `1px solid ${adjustedGrey}`,
-                      },
-                    };
-                  }}
-                >
-                  Legacy Accounts
-                </Button> */}
+                </LoadingButton>
               </>
             )}
 
@@ -273,13 +223,17 @@ const AppNavigation = ({
               userInfo={userInfo}
               profilePic={
                 <Stack direction="row" data-testid="user-avatar">
-                  <img
-                    src={profileUrl}
-                    alt="User"
-                    height={30}
-                    width={30}
-                    style={{ borderRadius: '50%' }}
-                  />
+                  {Object.keys(userPrefs)?.length === 0 || loading ? (
+                    <Skeleton width={30} height={30} variant="circular" />
+                  ) : (
+                    <img
+                      src={profileUrl}
+                      alt="Zesty User"
+                      height={30}
+                      width={30}
+                      style={{ borderRadius: '50%' }}
+                    />
+                  )}
                   <ArrowDropDownIcon color={'disabled'} fontSize="medium" />
                 </Stack>
               }
@@ -331,11 +285,6 @@ const AppNavigation = ({
       </Collapse>
     </>
   );
-};
-
-AppNavigation.propTypes = {
-  onSidebarOpen: PropTypes.func,
-  colorInvert: PropTypes.bool,
 };
 
 export default React.memo(AppNavigation);

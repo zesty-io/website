@@ -70,9 +70,9 @@ export function ZestyView(props) {
   // inside the component's function just before the return statement
   return (
     <>
-      {/* {props.content.zestyProductionMode !== true && (
+      {props.content.zestyProductionMode !== true && (
         <LiveEditor data={props.content} />
-      )} */}
+      )}
       <Component content={props.content} />
     </>
   );
