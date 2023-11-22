@@ -429,7 +429,6 @@ const Slug = (props) => {
   const [glossaryData, setglossaryData] = useState([]);
   const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
-  const [_currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
   const [loading, setloading] = useState(false);
   const [textContent, settextContent] = useState('');
@@ -465,7 +464,6 @@ const Slug = (props) => {
     const url = `/docs/parsley/tour/${e.url}`;
     setparsleyResult('');
     settextContent('');
-    setcurrentTab('request');
     router.push(url);
   };
   const getRenderText = async () => {
@@ -572,11 +570,8 @@ const Slug = (props) => {
   const pageTitle = `Zesty.io - ${title}`;
 
   useEffect(() => {
-    setcurrentTab('response');
-  }, [router.asPath]);
-
-  useEffect(() => {
     setalgoliaApiKey(props.algolia.search_key);
+    setalgoliaApiKey(props.algolia.apiKey);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);

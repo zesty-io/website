@@ -24,9 +24,21 @@ const ZMarketingAds = ({ marketingCards }) => {
         >
           <Stack
             direction="row"
-            justifyContent={card[1].read_all_url && 'space-between'}
+            justifyContent={
+              card[1].read_all_url ? 'space-between' : 'space-evenly'
+            }
             alignSelf={!card[1].read_all_url && 'center'}
-            spacing={1}
+            width="100%"
+            sx={(theme) => ({
+              [theme.breakpoints.up('lg')]: {
+                flexDirection: 'column',
+                gap: 1,
+              },
+              [theme.breakpoints.up('xl')]: {
+                flexDirection: 'row',
+                gap: 1,
+              },
+            })}
           >
             <Button
               sx={{ whiteSpace: 'nowrap' }}

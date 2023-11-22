@@ -31,7 +31,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, _setPostPerPage] = useState(10);
+  const [postPerPage] = useState(10);
   const indexOfLast = currentPage * postPerPage;
   const indexOfFirst = indexOfLast - postPerPage;
   const pageNum = [];
@@ -103,6 +103,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
               py: 3,
               mx: 'auto',
               maxWidth: theme.maxWidth,
+              alignItems: 'center',
             },
           })}
         >

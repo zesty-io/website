@@ -21,12 +21,7 @@ import { DocSearchModal } from 'pages/docs';
 const DocsPopover = dynamic(() =>
   import('views/Docs/DocsPopover').then((e) => e.DocsPopover),
 );
-const SearchModal = dynamic(() =>
-  import('views/Docs/SearchModal').then((e) => e.SearchModal),
-);
-const AlgoSearch = dynamic(() =>
-  import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
-);
+
 const AccountsComboBox = dynamic(() =>
   import('components/accounts').then((e) => e.AccountsComboBox),
 );

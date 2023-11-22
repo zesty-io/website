@@ -1,14 +1,18 @@
-import { Stack, Tab, Typography, useScrollTrigger } from '@mui/material';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
-import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
-import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
-import { TabContext, TabList } from '@mui/lab';
-import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
-import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
-import React, { useEffect, useState } from 'react';
+import { Button, Stack, Typography, useScrollTrigger } from '@mui/material';
+import { TabContext } from '@mui/lab';
+import React, { memo, useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
+
+import {
+  EditRounded as EditRoundedIcon,
+  ImageRounded as ImageRoundedIcon,
+  TranslateRounded as TranslateRoundedIcon,
+  ScienceRounded as ScienceRoundedIcon,
+  PsychologyRounded as PsychologyRoundedIcon,
+  SchemaRounded as SchemaRoundedIcon,
+} from '@mui/icons-material';
+
 const TabSection = dynamic(() => import('./TabSection'), { ssr: false });
 
 const icons = [
@@ -181,10 +185,6 @@ const TabsSection = ({
     }
   }, []);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 5,
@@ -241,40 +241,51 @@ const TabsSection = ({
         {header}
       </Typography>
 
-      <TabContext value={value}>
-        <TabList
-          TabIndicatorProps={{
-            style: {
-              display: 'none',
-            },
-          }}
+      <Stack>
+        <Stack
           sx={{
-            '.MuiTabs-flexContainer': {
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '16px',
-              padding: '8px',
-            },
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignContent: 'center',
+            justifyItems: 'center',
+            flexWrap: 'wrap',
+            my: 1,
           }}
-          onChange={handleChange}
         >
-          {list?.map((tab) => (
-            <Tab
-              aria-selected={value === tab.name}
-              role="tab"
-              aria-controls={tab.name || 'Zesty image'}
-              key={tab.name}
-              label={tab.name}
-              value={tab.name}
-              iconPosition="start"
-              icon={tab.icon}
-              sx={{
-                textTransform: 'none',
-                color: 'text.secondary',
-              }}
-            />
-          ))}
-        </TabList>
+          {list.map((e) => {
+            const isActive = e.name === value;
+            return (
+              <Stack mx={'8px'}>
+                <Button
+                  title={e.name}
+                  sx={{
+                    borderRadius: '8px',
+                    color: isActive ? '#FE5D08' : '#9FA3A9',
+                    bgcolor: isActive ? '#FEF5ED' : '#fff',
+                    py: '8px',
+                    px: '14px',
+                  }}
+                  startIcon={e.icon}
+                  onClick={() => {
+                    setValue(e.name);
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: isActive ? '#FE5D08' : '#333333',
+                    }}
+                  >
+                    {e.name}
+                  </Typography>
+                </Button>
+              </Stack>
+            );
+          })}
+        </Stack>
+      </Stack>
+      <TabContext value={value}>
         {list?.map((tab) => (
           <TabPanel
             key={tab.name}
@@ -290,4 +301,4 @@ const TabsSection = ({
   );
 };
 
-export default TabsSection;
+export default memo(TabsSection);
