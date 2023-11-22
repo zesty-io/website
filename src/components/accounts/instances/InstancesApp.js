@@ -22,7 +22,6 @@ import { useTheme } from '@mui/material/styles';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 const Index = ({ children }) => {
-  const [_loading, setloading] = useState(false);
   const theme = useTheme();
   let isLG = true;
   if (typeof window !== 'undefined') {
@@ -63,10 +62,8 @@ const Index = ({ children }) => {
   };
 
   const getInstance = async () => {
-    setloading(true);
     const res = await ZestyAPI.getInstance(zuid);
     setInstance(res.data);
-    setloading(false);
   };
 
   useEffect(() => {

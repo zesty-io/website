@@ -26,7 +26,7 @@
 
 import React from 'react';
 
-function LayoutsTestPage({ content }) {
+function LayoutsTestPage() {
   return <></>;
 }
 
