@@ -21,6 +21,8 @@ function Index({
   hasHelperText = true,
   hasError = true,
   customLabelVariant = 'h6',
+  customHeight = '40px',
+  customFontSize = '14px',
   ...props
 }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,8 +49,12 @@ function Index({
   };
   return (
     <Box width={props.fullWidth ? '100%' : 'auto'} mb={boxGutterBottom ? 1 : 0}>
-      {customLabel && (
+      {customLabel && typeof customLabel === 'string' ? (
         <Typography variant={customLabelVariant}>{customLabel}</Typography>
+      ) : customLabel ? (
+        customLabel
+      ) : (
+        <></>
       )}
       {type !== 'password' ? (
         <TextField
@@ -56,10 +62,18 @@ function Index({
           {...defaultProps}
           {...props}
           sx={{
-            '& .MuiInputBase-root': { background: '#fff' },
-            '& .MuiOutlinedInput-root:hover': {
-              '& > fieldset': {
-                border: '1px solid #c4c4c4',
+            '& .MuiOutlinedInput-root': {
+              height: multiline ? 'auto' : customHeight,
+              borderRadius: '8px',
+              fontSize: customFontSize,
+              '& fieldset': {
+                border: '1px solid #F2F4F7',
+              },
+              '&:hover fieldset': {
+                border: '2px solid #FF5D0A',
+              },
+              '&.Mui-focused fieldset': {
+                border: '2px solid #FF5D0A',
               },
             },
           }}
@@ -68,10 +82,18 @@ function Index({
         <TextField
           FormHelperTextProps={{ style: { background: 'transparent' } }}
           sx={{
-            '& .MuiInputBase-root': { background: '#fff' },
-            '& .MuiOutlinedInput-root:hover': {
-              '& > fieldset': {
-                border: '1px solid #c4c4c4',
+            '& .MuiOutlinedInput-root': {
+              height: '40px',
+              borderRadius: '8px',
+              fontSize: '14px',
+              '& fieldset': {
+                border: '1px solid #F2F4F7',
+              },
+              '&:hover fieldset': {
+                border: '2px solid #FF5D0A',
+              },
+              '&.Mui-focused fieldset': {
+                border: '2px solid #FF5D0A',
               },
             },
           }}

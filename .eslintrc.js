@@ -27,10 +27,10 @@ module.exports = {
     'require-jsdoc': 0,
     'valid-jsdoc': 0,
     'no-undef': 'error',
-    'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+    'no-unused-vars': 'error',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
-      'warn',
+      'error',
       {
         vars: 'all',
         varsIgnorePattern: '^_',

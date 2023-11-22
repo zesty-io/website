@@ -59,6 +59,8 @@ export function ZestyView(props) {
    * npm run sync must be run! otherwise it default back to auto layout component
    */
 
+  console.log(props);
+
   const Component = useAutoLayoutCheck()
     ? AutoLayoutComponent
     : Zesty[props.content.meta.model_alternate_name];

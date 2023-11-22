@@ -21,6 +21,7 @@ export async function middleware(request) {
   return response;
 }
 
+// this functions runs on server
 export const isUserAuthenticated = async (request, isGSSP = false, isProd) => {
   const verifyUrl = !isProd
     ? 'https://auth.api.dev.zesty.io/verify'

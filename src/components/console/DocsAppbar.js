@@ -181,7 +181,7 @@ export const DocsAppbar = React.memo(() => {
             <Link color="GrayText" underline="hover" href="/docs">
               Docs
             </Link>
-            <Typography color="GrayText">
+            <Typography className="algolia-category" color="GrayText">
               {currentPath?.charAt(0).toUpperCase() +
                 currentPath?.slice(1).replaceAll('-', ' ')}
             </Typography>
