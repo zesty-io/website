@@ -174,10 +174,10 @@ const AppNavigation = ({ colorInvert = false }) => {
             alignItems="center"
             pl={isXL ? 0 : 1}
           >
-            {isLG && (
+            {isLG && Object.keys(userPrefs)?.length !== 0 && (
               <>
                 <LoadingButton
-                  loading={Object.keys(userPrefs)?.length === 0 || loading}
+                  loading={loading}
                   title="Create Instance"
                   color={
                     isAccounts || pathname === '/' ? 'primary' : 'secondary'
