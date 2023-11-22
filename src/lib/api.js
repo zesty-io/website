@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable unused-imports/no-unused-vars */
 import axios from 'axios';
 import FillerContent from 'components/globals/FillerContent';

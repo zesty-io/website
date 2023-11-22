@@ -55,18 +55,10 @@ function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
   const { palette } = useTheme();
 
-  const { data: latestArticles, isPending: _latestPending } = useFetch(
+  const { data: latestArticles } = useFetch(
     '/-/all-articles-hydrated.json?limit=4',
     content.zestyProductionMode,
   );
-
-  // const {
-  //   data: tagArticles,
-  //   //  isPending: tagsPending
-  // } = useFetch(
-  //   `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
-  //   content.zestyProductionMode,
-  // );
 
   const removeErrorHandlingString = /Error hydrating/gi;
   let cleanOutErrorHydrating;
