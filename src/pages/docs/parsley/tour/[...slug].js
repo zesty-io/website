@@ -570,6 +570,7 @@ const Slug = (props) => {
   const pageTitle = `Zesty.io - ${title}`;
 
   useEffect(() => {
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaApiKey(props.algolia.apiKey);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);

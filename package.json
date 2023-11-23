@@ -60,7 +60,9 @@
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
     "@codemirror/view": "^6.21.2",
+    "@docsearch/css": "^3.5.2",
     "@docsearch/js": "^3.5.2",
+    "@docsearch/react": "^3.5.2",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/server": "^11.11.0",
