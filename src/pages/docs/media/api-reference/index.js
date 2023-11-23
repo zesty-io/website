@@ -7,15 +7,6 @@ import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
-const VALID_URLS = ['/accounts', '/instances', '/authentication', '/media'];
-
-const initialTreeData = (url, data) => {
-  const url1 = '/' + url.split('/').filter((e) => e)[0];
-  if (VALID_URLS.includes(url1)) {
-    return data.find((e) => e.url === url);
-  }
-};
-
 export default function Index(props) {
   const router = useRouter();
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex, setmainData } =
@@ -25,13 +16,6 @@ export default function Index(props) {
   const mainCollection = props.docs.data;
   const mainData = transFormMainDataMedia(mainCollection);
   const [treeData, settreeData] = React.useState(mainData[2]);
-  const parentUrl =
-    '/' +
-    url
-      ?.split('/')
-      .filter((e) => e)
-      .slice(0, 2)
-      .join('/');
 
   // main logic that will populate the data in the page
   let item = [];
@@ -94,16 +78,16 @@ export default function Index(props) {
   }, [url]);
 
   React.useEffect(() => {
-    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
 
   React.useEffect(() => {
-    if (mainData.length !== 0) {
+    if (mainData?.length === 0) {
       setmainData(mainData);
     }
-  }, []);
+  }, [mainData]);
 
   const title = `Zesty.io - ${pageData?.name || 'Documentation'}`;
   return (

@@ -1,9 +1,10 @@
-FROM node:16.16.0-alpine3.16
+FROM node:18.18.2-alpine3.17
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm set-script prepare "" && npm ci --only=production && npm cache clean --force
+
+RUN  npm ci --only=production --ignore-scripts && npm cache clean --force
 
 COPY . ./
 
@@ -15,6 +16,4 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
-
 CMD [ "npm", "start" ]
-

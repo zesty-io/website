@@ -1,9 +1,15 @@
 // import { AccountPageloading } from 'components/accounts/ui/loading';
-import Dashboard from 'components/accounts/dashboard';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
-import { getIsAuthenticated } from 'utils';
 import { fetchPage } from 'lib/api';
+import { isUserAuthenticated } from 'middleware';
+
+import dynamic from 'next/dynamic';
+// import { getIsAuthenticated } from 'utils';
+
+const Dashboard = dynamic(() => import('components/accounts/dashboard'));
+const InstanceContainer = dynamic(() =>
+  import('components/accounts/instances/InstanceContainer'),
+);
 
 function DashboardPage(props) {
   return (
@@ -18,11 +24,13 @@ export default DashboardPage;
 
 const cache = {};
 export async function getServerSideProps({ res, resolvedUrl, req }) {
+  const isProd = process.env.PRODUCTION === 'true' ? true : false;
   // this getssrprops should run if login in accounts and docs
   res.setHeader('Cache-Control', 'private');
 
-  const isAuthenticated = getIsAuthenticated(res);
-  // issue:  multiple call of getServersideprops
+  // const isAuthenticated = getIsAuthenticated(res);
+  const isAuthenticated = await isUserAuthenticated(req, true, isProd);
+
   let data = await fetchPageData(resolvedUrl);
 
   data = {

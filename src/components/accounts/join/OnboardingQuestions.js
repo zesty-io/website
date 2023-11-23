@@ -110,6 +110,8 @@ const ProjectNameForm = ({ onSubmit = () => {}, loading = false }) => {
         <form noValidate onSubmit={formik.handleSubmit}>
           <Stack gap={2}>
             <FormInput
+              customFontSize="16px"
+              customHeight="58px"
               label="Project Name"
               name={'projectName'}
               formik={formik}
@@ -156,7 +158,13 @@ const DemoForm = ({ onSubmit = () => {} }) => {
         </Typography>
         <form noValidate onSubmit={formik.handleSubmit}>
           <Stack gap={2}>
-            <FormInput label="Company" name={'company'} formik={formik} />
+            <FormInput
+              customFontSize="16px"
+              customHeight="58px"
+              label="Company"
+              name={'company'}
+              formik={formik}
+            />
             {/* // convert to  text area */}
             <FormInput
               label="Project Description"
@@ -170,6 +178,8 @@ const DemoForm = ({ onSubmit = () => {} }) => {
               label="Phone Number"
               name={'phoneNumber'}
               formik={formik}
+              customFontSize="16px"
+              customHeight="58px"
             />
 
             <Stack width={'5rem'}>
@@ -204,7 +214,13 @@ const CompanyDetails = ({ onSubmit, loading }) => {
 
       <form noValidate onSubmit={formik.handleSubmit}>
         <Stack gap={2}>
-          <FormInput label="Company" name={'company'} formik={formik} />
+          <FormInput
+            label="Company"
+            name={'company'}
+            formik={formik}
+            customFontSize="16px"
+            customHeight="58px"
+          />
           <Stack width={'5rem'}>
             <SubmitBtn
               loading={formik.isSubmitting || loading}
@@ -392,6 +408,7 @@ const Index = ({
   goalsList = [],
   inviteUserList = [],
 }) => {
+  const [zohoData, setzohoData] = React.useState({});
   const baseUrl = content?.zesty?.templateUrl;
   const [zohoLeadLink, setzohoLeadLink] = React.useState('');
   const [loading, setloading] = React.useState(false);
@@ -433,12 +450,18 @@ const Index = ({
   const sliderRef = React.useRef(null);
 
   const handleZoho = async (obj, callback = () => {}) => {
-    const zohoData = await postToZOHO(obj);
-    setzohoLeadLink(
-      `${zoholeadUrl}${zohoData?.data && zohoData?.data[0]?.details?.id}`,
-    );
+    const res = await postToZOHO(obj);
+    if (res?.data) {
+      setzohoData();
+    }
     await callback();
   };
+
+  React.useEffect(() => {
+    if (zohoData?.data) {
+      setzohoLeadLink(`${zoholeadUrl}${zohoData?.data?.[0]?.details?.id}`);
+    }
+  }, [zohoData]);
 
   const handleSuccessCreate = async (res, name) => {
     setinstance_zuid(res.data.ZUID);

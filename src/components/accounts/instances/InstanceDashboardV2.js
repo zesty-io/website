@@ -53,7 +53,7 @@ const InstanceDashboardV2 = () => {
   const [isTogglingFavorites, setIsTogglingFavorites] = useState(false);
   const [search, setSearch] = useState('');
   const [view, setView] = useState('grid');
-  const [orderByValue, setOrderByValue, _reset] = useDropdown();
+  const [orderByValue, setOrderByValue] = useDropdown();
   const [ecosystem, setEcosystem] = useState([]);
   const [selectedEcosystem, setSelectedEcosystem] = useState(null);
   const debounceSearch = useDebounce(
@@ -210,7 +210,7 @@ const InstanceDashboardV2 = () => {
     if (res?.data.length === 0) {
       const invites = await getAllInvitedInstances();
       if (invites && invites.length == 0) {
-        router.push('/');
+        router.push('/dashboard/');
       }
     }
 

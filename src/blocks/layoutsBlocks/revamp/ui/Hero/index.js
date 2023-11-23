@@ -21,9 +21,9 @@ const media =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ellipse.svg';
 
 const Hero = ({
-  header = 'Data Driven, Drag &amp; Drop, Composable, Content Management',
+  header = 'Data Driven, Drag & Drop, Composable, Content Management',
   subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale.',
-  primaryBtn = 'Schedule Demo',
+  primaryBtn = 'Talk to Us',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '/demos/video?ab=light',

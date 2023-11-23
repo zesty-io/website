@@ -36,3 +36,4 @@ cypress.env.json
 cypress.json
 
 cypress/integration/__image_snapshots__
+.vercel

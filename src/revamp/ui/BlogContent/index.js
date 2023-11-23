@@ -1,10 +1,14 @@
 import { Stack, Typography, Grid, Pagination } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import BlogCard from '../BlogCard';
 import { useTheme, useMediaQuery } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
+import dynamic from 'next/dynamic';
+import { useInView } from 'react-intersection-observer';
+
+const BlogCard = dynamic(() => import('../BlogCard'), { ssr: false });
 
 const BlogContent = ({ title = '', articles, withPagination = false }) => {
+
   // checks for related articles data else return nothing
   if (articles != null) {
     const theme = useTheme();
@@ -16,6 +20,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
           return;
         }
 
+
         window.scrollTo({
           left: 0,
           top: element.offsetTop,
@@ -23,6 +28,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
         });
       });
     };
+
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -44,6 +50,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
       if (articlesList?.length <= postPerPage) setCurrentPage(1);
     }, [articles]);
 
+
     return (
       <>
         <Stack
@@ -58,6 +65,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
               py: 8,
               mx: 'auto',
               maxWidth: theme.maxWidth,
+              alignItems: 'center',
             },
           })}
         >
@@ -131,6 +139,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
   } else {
     return <></>;
   }
+
 };
 
 export default BlogContent;

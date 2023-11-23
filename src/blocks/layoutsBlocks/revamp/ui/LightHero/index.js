@@ -18,7 +18,7 @@ import React from 'react';
 
 const LightHero = ({
   title = 'Unify your team with',
-  header = 'Data Driven, Drag &amp; Drop, Composable, Content Management',
+  header = 'Data Driven, Drag & Drop, Composable, Content Management',
   subtitle = 'Drive business growth with a Hybrid Headless CMS to create, deliver, measure, and optimize your content marketing at scale. ',
   primaryBtn = 'Start Now',
   primaryBtnLink = '#',

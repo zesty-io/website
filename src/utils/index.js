@@ -139,6 +139,13 @@ export const isProd =
     ? false
     : true;
 
+export const isProdClient = () => {
+  if (getCookie('PRODUCTION') === 'true') {
+    return true;
+  }
+  return false;
+};
+
 export const fetchWrapperOptions = () => {
   const dev = {
     sitesServiceURL: 'https://svc.dev.zesty.io/sites-service/',
@@ -257,9 +264,9 @@ export const notistackMessage = async (
 
 export const parseCookie = (str) =>
   str
-    .split(';')
-    .map((v) => v.split('='))
-    .reduce((acc, v) => {
+    ?.split(';')
+    ?.map((v) => v.split('='))
+    ?.reduce((acc, v) => {
       acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
       return acc;
     }, {});
@@ -385,4 +392,7 @@ export const transFormEndpoint = ({
     );
 
   return { endpoint: res };
+};
+export const generateAlt = (name) => {
+  return `zesty customer logo ${name}`;
 };

@@ -2,7 +2,7 @@
 
 exports[`TableOfContent test toc test 1`] = `
 <div
-  class="css-1a8uuxu-MuiStack-root"
+  class="MuiStack-root css-1a8uuxu-MuiStack-root"
   data-testid="table-of-contents"
 >
   <span
@@ -11,10 +11,10 @@ exports[`TableOfContent test toc test 1`] = `
     On this Page
   </span>
   <div
-    class="css-p8ma2d-MuiStack-root"
+    class="MuiStack-root css-p8ma2d-MuiStack-root"
   >
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ftk0rp-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1wfumw2-MuiTypography-root-MuiLink-root"
       href="#"
     >
       <span
@@ -23,7 +23,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#understanding-content-zestyio"
     >
       <span
@@ -32,7 +32,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#content-editing"
     >
       <span
@@ -41,7 +41,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#visual-layout"
     >
       <span
@@ -50,7 +50,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#versioning"
     >
       <span
@@ -59,7 +59,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#environment"
     >
       <span
@@ -68,7 +68,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#publishing"
     >
       <span
@@ -77,7 +77,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#workflow-requests"
     >
       <span
@@ -86,7 +86,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#multi-language-support"
     >
       <span
@@ -95,7 +95,7 @@ exports[`TableOfContent test toc test 1`] = `
       />
     </a>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ja28j0-MuiTypography-root-MuiLink-root"
       href="#api-access"
     >
       <span

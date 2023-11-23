@@ -1,78 +1,50 @@
-name: "🐛 Bug Report"
-description: Create a new ticket for a bug.
-title: "🐛 [BUG] - <title>"
-labels: ["bug"]
+name: "\U0001F41B Bug Report"
+title: "\U0001F41B [Bug]: "
+description: Create a bug report to help us fix it.
+labels: ["☢️ Bug"]
 body:
-   - type: textarea
-     id: description
-     attributes:
-        label: "Description"
-        description: Please enter an explicit description of your issue
-        placeholder: Short and explicit description of your incident...
-     validations:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: Please enter an explicit description of your issue
+      placeholder: Short and explicit description of your incident...
+    validations:
         required: true
-   - type: input
-     id: reprod-url
-     attributes:
-        label: "Reproduction URL"
-        description: Please enter your GitHub URL to provide a reproduction of the issue
-        placeholder: ex. https://github.com/USERNAME/REPO-NAME
-     validations:
-        required: true
-   - type: textarea
-     id: reprod
-     attributes:
-        label: "Reproduction steps"
-        description: Please enter an explicit description of your issue
-        value: |
-           1. Go to '...'
-           2. Click on '....'
-           3. Scroll down to '....'
-           4. See error
-        render: bash
-     validations:
-        required: true
-   - type: textarea
-     id: screenshot
-     attributes:
-        label: "Screenshots"
-        description: If applicable, add screenshots to help explain your problem.
-        value: |
-           ![DESCRIPTION](LINK.png)
-        render: bash
-     validations:
-        required: false
-   - type: textarea
-     id: logs
-     attributes:
-        label: "Logs"
-        description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-        render: bash
-     validations:
-        required: false
-   - type: dropdown
-     id: browsers
-     attributes:
-        label: "Browsers"
-        description: What browsers are you seeing the problem on ?
-        multiple: true
-        options:
-           - Firefox
-           - Chrome
-           - Safari
-           - Microsoft Edge
-           - Opera
-     validations:
-        required: false
-   - type: dropdown
-     id: os
-     attributes:
-        label: "OS"
-        description: What is the impacted environment ?
-        multiple: true
-        options:
-           - Windows
-           - Linux
-           - Mac
-     validations:
-        required: false
+  - type: textarea
+    id: reprod
+    attributes:
+      label: To Reproduce
+      description: A step-by-step description of how to reproduce the issue, based on the linked reproduction. Screenshots can be provided in the issue body below. If using code blocks, make sure that [syntax highlighting is correct](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks#syntax-highlighting) and double check that the rendered preview is not broken.
+      placeholder: |
+        1. Start the application in development (next dev)
+        2. Click X
+        3. Y will happen
+      render: bash
+  - type: textarea
+    attributes:
+      label: Current vs. Expected behavior
+      description: A clear and concise description of what the bug is, and what you expected to happen.
+      placeholder: 'Following the steps from the previous section, I expected A to happen, but I observed B instead'
+      render: bash
+  - type: dropdown
+    attributes:
+      label: Which area(s) are affected? (Select all that apply)
+      multiple: true
+      options:
+        - 'Not sure'
+        - 'Docs'
+        - 'Website'
+        - 'Accounts'
+        - 'Middleware'
+        - 'Marketing'
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: |
+        Any extra information that might help us investigate. For example, where are you deploying your application (Vercel, Docker, other platform)? Is it only reproducible on that platform, or locally too? Is the issue only happening in a specific browser? etc.
+      placeholder: |
+        I am hosting via Docker with the recommended `output: "standalone"` option", and if I remove that option or try a different hosting option, I cannot reproduce the same issue.
+      render: bash

@@ -1,12 +1,14 @@
 import { React, createContext } from 'react';
 import { fetchGqlData, fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
-import MarketingMain from 'layouts/Main/MarketingMain';
 import { ZestyView } from 'lib/ZestyView';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import Main from 'layouts/Main';
 import { getIsAuthenticated } from 'utils';
 import { isUserAuthenticated } from 'middleware';
+import dynamic from 'next/dynamic';
+
+const MarketingMain = dynamic(() => import('layouts/Main/MarketingMain'));
+const Main = dynamic(() => import('layouts/Main/'));
 
 export const GlobalContext = createContext();
 export default function Zesty(props) {
@@ -44,24 +46,6 @@ export default function Zesty(props) {
   );
 }
 
-const cache = {};
-
-// Function to fetch the page data
-async function fetchPageData(url) {
-  // Check if the data is already cached
-  if (cache[url]) {
-    return cache[url];
-  }
-
-  // Fetch the page data
-  const data = await fetchPage(url);
-
-  // Cache the data
-  cache[url] = data;
-
-  return data;
-}
-
 const cacheData = {};
 
 async function fetchData({ isProd = false, dataType }) {
@@ -85,11 +69,12 @@ async function fetchData({ isProd = false, dataType }) {
 
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
-  let isAuthenticated =
-    (await isUserAuthenticated(req, true)) || getIsAuthenticated(res);
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
+  let isAuthenticated =
+    (await isUserAuthenticated(req, true, isProd)) || getIsAuthenticated(res);
   // does not display with npm run dev
 
+  res.setHeader('set-cookie', `PRODUCTION=${process.env.PRODUCTION}`);
   isProd &&
     res.setHeader(
       'Cache-Control',
@@ -102,16 +87,16 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     `${process.env.zesty.instance_zuid}, zesty.io`,
   );
   // Fetch the page data using the cache function
-  let data = await fetchPageData(resolvedUrl);
+  let data = await fetchPage(resolvedUrl);
   // attempt to get page data relative to zesty
 
   let products = [];
   let productGlossary = [];
   let docs = [];
 
-  productGlossary = await fetchData({ isProd, dataType: 'product_glossary' });
   if (req.url.includes('/product')) {
     products = await fetchData({ isProd, dataType: 'product' });
+    productGlossary = await fetchData({ isProd, dataType: 'product_glossary' });
   }
   if (req.url.includes('/docs')) {
     docs = await fetchData({ isProd, dataType: 'zesty_docs' });

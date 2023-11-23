@@ -1,7 +1,9 @@
 import { Button, FormControl, Stack, Typography } from '@mui/material';
 import React from 'react';
-import MuiPhoneNumber from 'material-ui-phone-number';
 import CustomTextField from 'revamp/components/CustomTextField';
+import dynamic from 'next/dynamic';
+
+const MuiPhoneNumber = dynamic(() => import('material-ui-phone-number'));
 
 export const MultiFieldForm = ({
   getFieldProps,
@@ -82,6 +84,18 @@ export const MultiFieldForm = ({
               />
             </FormControl>
 
+            {/* Hidden fields */}
+            {isLong && !isContact && (
+              <CustomTextField
+                label="Company"
+                name="company"
+                value={initialValues.company}
+                error={touched.company && !!errors.company}
+                helperText={touched.company && errors.company}
+                {...getFieldProps('company')}
+              />
+            )}
+
             {isContact && (
               <CustomTextField
                 label="Inquiry Reason"
@@ -102,18 +116,6 @@ export const MultiFieldForm = ({
               {...getFieldProps('message')}
             />
           </>
-        )}
-
-        {/* Hidden fields */}
-        {isLong && !isContact && (
-          <CustomTextField
-            label="Company"
-            name="company"
-            value={initialValues.company}
-            error={touched.company && !!errors.company}
-            helperText={touched.company && errors.company}
-            {...getFieldProps('company')}
-          />
         )}
 
         <Button type="submit" variant="contained" size="extraLarge" fullWidth>

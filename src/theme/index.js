@@ -6,7 +6,7 @@ import {
   light as lightAccounts,
   dark as darkAccounts,
 } from './paletteAccounts';
-import { theme } from '@zesty-io/material';
+import { legacyTheme as theme } from '@zesty-io/material';
 const getTheme = (mode, themeToggler) =>
   responsiveFontSizes(
     createTheme({
@@ -14,7 +14,7 @@ const getTheme = (mode, themeToggler) =>
       palette: mode === 'light' ? light : dark,
       shadows: shadows(mode),
       typography: {
-        fontFamily: '"Mulish", sans-serif',
+        fontFamily: '"Mulish", Arial',
         button: {
           textTransform: 'none',
           fontWeight: 'medium',
@@ -83,7 +83,7 @@ export const getThemeAccounts = (mode, themeToggler) =>
       palette: mode === 'light' ? lightAccounts : darkAccounts,
       shadows: shadows(mode),
       typography: {
-        fontFamily: '"Mulish", sans-serif',
+        fontFamily: '"Mulish", Arial',
         button: {
           textTransform: 'none',
           fontWeight: 'medium',

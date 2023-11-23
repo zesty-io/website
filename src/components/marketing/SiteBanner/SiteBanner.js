@@ -35,6 +35,12 @@ const SiteBanner = ({ children }) => {
     setIsDismissed(true);
   };
 
+  /**
+   * Hide banner if enable is set to 0 in the cms
+   */
+  if (bannerContent?.data?.[0]?.content?.enable === '0') {
+    return <></>;
+  }
   return (
     <>
       {bannerContent.length != 0 && !isDismissed && (

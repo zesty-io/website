@@ -4,14 +4,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-// import LoginIcon from '@mui/icons-material/Login';
-import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import { useRouter } from 'next/router';
 import { Skeleton, Typography } from '@mui/material';
 import { setCookie } from 'cookies-next';
-import SingleNavItem from './components/NavItem/SingleNavItem.js';
-import ClickAwayListener from '@mui/base/ClickAwayListener';
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+import dynamic from 'next/dynamic';
+
+const FlyoutNav = dynamic(() => import('./components/FlyoutNav'));
 
 const hashString = (str = '') => {
   let hash = 0,
@@ -97,6 +97,16 @@ const Topbar = ({
     );
   };
 
+  const flyoutNavProps = {
+    hideNav,
+    flyoutNavigation,
+    hashString,
+    router,
+    activeNav,
+    navHandler,
+    colorInvert,
+  };
+
   return (
     <ClickAwayListener onClickAway={navHandler}>
       <Box
@@ -131,53 +141,7 @@ const Topbar = ({
           />
         </Box>
 
-        <Box
-          sx={{
-            gap: 2,
-            display: {
-              xs: 'none',
-              md: hideNav ? 'none' : 'flex',
-              alignItems: 'center',
-            },
-            'a::before, p::before': {
-              display: 'block',
-              content: 'attr(title)',
-              fontWeight: 'bold',
-              height: 0,
-              overflow: 'hidden',
-              visibility: 'hidden',
-            },
-          }}
-        >
-          {flyoutNavigation.map((route) => (
-            <Box display="flex" height="100%" key={hashString(router.link)}>
-              {/* If link in the cms is empty and column one is not equal to zero it must be a parent navigation with flyout navigation */}
-              {route.link === null && route.column_1_items.length != 0 && (
-                <Box display="flex" height="100%">
-                  <NavItem
-                    activeNav={
-                      activeNav.filter((item) => item.isActive === true)[0]
-                    }
-                    navHandler={navHandler}
-                    route={route}
-                    id={hashString(route.nav_title)}
-                    colorInvert={colorInvert}
-                  />
-                </Box>
-              )}
-              {/* if link is set in the cms and column one items is empty its a single item navigation without flyout */}
-              {route.link != null && !route.column_1_items && (
-                <Box display="flex" height="100%">
-                  <SingleNavItem
-                    title={route.nav_title}
-                    url={route.link}
-                    colorInvert={colorInvert}
-                  />
-                </Box>
-              )}
-            </Box>
-          ))}
-        </Box>
+        <FlyoutNav {...flyoutNavProps} />
 
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
@@ -203,7 +167,7 @@ const Topbar = ({
               </Box>
               <Box>
                 <TryFreeButton
-                  text="Schedule Demo"
+                  text="Talk to Us"
                   variant="contained"
                   component="a"
                   size="large"

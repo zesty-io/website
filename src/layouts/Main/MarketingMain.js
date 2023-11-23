@@ -7,25 +7,34 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
+import { Container, Stack, ThemeProvider } from '@mui/material';
 
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
-// import Container from 'components/Container';
-import TopNav from 'components/globals/TopNav';
-import { Topbar, Sidebar, Footer } from './components';
 import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container, Stack, ThemeProvider } from '@mui/material';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
-import ProgressBar from 'react-scroll-progress-bar';
+
+import { Topbar } from './components';
+
+import dynamic from 'next/dynamic';
 import revampTheme from 'theme/revampTheme';
+
+const Footer = dynamic(() => import('./components/Footer/FooterDynamic'));
+const Sidebar = dynamic(() => import('./components').then((e) => e.Sidebar));
+const TopNav = dynamic(() => import('components/globals/TopNav'));
+const SiteBanner = dynamic(
+  () => import('components/marketing/SiteBanner/SiteBanner'),
+  { ssr: false },
+);
+const ProgressBar = dynamic(() => import('react-scroll-progress-bar'), {
+  ssr: false,
+});
 
 const MarketingMain = ({
   children,
   customRouting,
   nav = [],
-  colorInvert = false,
   bgcolor = 'transparent',
   model = '',
   flyoutNavigation,
@@ -67,11 +76,7 @@ const MarketingMain = ({
     isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
   const isLoggedIn = useIsLoggedIn();
   const pageNavColorRegex = new RegExp(/\bmindshare\b|article\b|category/gi);
-  const blogMain = new RegExp(/\bmindshare\b/gi);
   const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
-  const isBlogHome = model?.match(blogMain) !== null ? true : false;
-  const headerColorInvert =
-    model?.match(pageNavColorRegex) !== null ? true : false;
 
   const bgColorSwitch = () => {
     if (isExplorePage) {
@@ -107,7 +112,7 @@ const MarketingMain = ({
           display={router?.query?.slug?.[0] === 'login' && 'none'}
         >
           <Container
-            sx={(theme) => ({
+            sx={() => ({
               paddingTop:
                 hideNav || isExplorePage ? '0px !important' : '8px !important',
               paddingBottom: '0 !important',
@@ -141,7 +146,7 @@ const MarketingMain = ({
           elevation={trigger ? 1 : 0}
         >
           <Container
-            sx={(theme) => ({
+            sx={() => ({
               maxWidth: '1440px !important',
               mx: 'auto',
               paddingY: isExplorePage ? 2 : 1,

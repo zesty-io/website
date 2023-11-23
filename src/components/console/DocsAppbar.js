@@ -1,4 +1,5 @@
 import {
+  Box,
   Breadcrumbs,
   Button,
   Link,
@@ -8,16 +9,25 @@ import {
   useTheme,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
-import { DocsComboBox } from 'views/Docs/DocsComboBox';
-import { DocsPopover } from 'views/Docs/DocsPopover';
-import { SearchModal } from 'views/Docs/SearchModal';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
+
+import dynamic from 'next/dynamic';
+import { DocSearchModal } from 'pages/docs';
+
+const DocsPopover = dynamic(() =>
+  import('views/Docs/DocsPopover').then((e) => e.DocsPopover),
+);
+
+const AccountsComboBox = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsComboBox),
+);
+const DocsComboBox = dynamic(() =>
+  import('views/Docs/DocsComboBox').then((e) => e.DocsComboBox),
+);
 
 const allowedSections = [
   'docs/media',
@@ -26,27 +36,8 @@ const allowedSections = [
   'docs/accounts',
 ];
 
-const tabs = [
-  { label: 'API Reference', value: '/docs/parsley/api-reference/' },
-  { label: 'Tour', value: '/docs/parsley/tour/' },
-  { label: 'Guides', value: '/docs/parsley/guides/' },
-];
-
 export const DocsAppbar = React.memo(() => {
   const router = useRouter();
-
-  // setting of active tabs
-  const getInitialTab = () => {
-    if (router.asPath.includes(tabs[0].value)) {
-      return tabs[0].value;
-    } else if (router.asPath.includes(tabs[1].value)) {
-      return tabs[1].value;
-    } else if (router.asPath.includes(tabs[2].value)) {
-      return tabs[2].value;
-    } else {
-      return '';
-    }
-  };
 
   const currentPath = router?.asPath?.split('/')?.filter((e) => e)[1] || '';
 
@@ -78,19 +69,11 @@ export const DocsAppbar = React.memo(() => {
     setSelectedDocsCategory: e.setSelectedDocsCategory,
   }));
 
-  const {
-    algoliaApiKey: apiKey,
-    algoliaAppId: appId,
-    algoliaIndex: index,
-  } = useZestyStore((e) => e);
-
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
-  // const [currentTab, setcurrentTab] = React.useState(getInitialTab());
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isXl = useMediaQuery(theme.breakpoints.up('xl'));
 
   const onChangeDropdown = (data) => {
     let category = data.label;
@@ -147,7 +130,6 @@ export const DocsAppbar = React.memo(() => {
     }
   }, [workingInstance]);
 
-  const isDocs = router.asPath.includes('/docs');
   const isApiReference = router.asPath.includes('api-reference');
   const showApiReferenceBtn = allowedSections.some((path) =>
     router.asPath.includes(path),
@@ -196,7 +178,7 @@ export const DocsAppbar = React.memo(() => {
             <Link color="GrayText" underline="hover" href="/docs">
               Docs
             </Link>
-            <Typography color="GrayText">
+            <Typography className="algolia-category" color="GrayText">
               {currentPath?.charAt(0).toUpperCase() +
                 currentPath?.slice(1).replaceAll('-', ' ')}
             </Typography>
@@ -252,7 +234,7 @@ export const DocsAppbar = React.memo(() => {
           )}
         </Stack>
       </Stack>
-      <Stack direction={'row'} spacing={2}>
+      <Stack direction={'row'} alignItems={'center'} spacing={2}>
         {isApiReference && !isMobile && (
           <Stack direction={'row'} spacing={1} alignItems="center">
             <Typography color={'black'}>Language:</Typography>{' '}
@@ -294,9 +276,9 @@ export const DocsAppbar = React.memo(() => {
           />
         )}
         {!isMobile && (
-          <SearchModal sx={{ width: 200 }}>
-            <AlgoSearch />
-          </SearchModal>
+          <Box sx={{ pr: 6, mt: 6 }}>
+            <DocSearchModal />
+          </Box>
         )}
       </Stack>
     </Stack>

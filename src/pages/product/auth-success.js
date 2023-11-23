@@ -3,11 +3,17 @@ import axios from 'axios';
 import { setCookie } from 'cookies-next';
 import { fetchGqlData, fetchPage } from 'lib/api';
 import Head from 'next/head';
-import { MainWrapper } from 'pages/marketplace';
 import React from 'react';
 import { getIsAuthenticated } from 'utils';
-import { ProductLandingPage } from 'views/zesty';
 
+import dynamic from 'next/dynamic';
+
+const ProductLandingPage = dynamic(() =>
+  import('views/zesty').then((e) => e.ProductLandingPage),
+);
+const MainWrapper = dynamic(() =>
+  import('pages/marketplace').then((e) => e.MainWrapper),
+);
 const AuthSuccess = ({ nav, ...props }) => {
   return (
     <>
@@ -41,24 +47,6 @@ const getGlossary = async () => {
     return error;
   }
 };
-
-const cache = {};
-
-// Function to fetch the page data
-async function fetchPageData(url) {
-  // Check if the data is already cached
-  if (cache[url]) {
-    return cache[url];
-  }
-
-  // Fetch the page data
-  const data = await fetchPage(url);
-
-  // Cache the data
-  cache[url] = data;
-
-  return data;
-}
 
 export async function getServerSideProps({ res, req }) {
   const isAuthenticated = getIsAuthenticated(res);

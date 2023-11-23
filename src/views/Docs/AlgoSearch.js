@@ -22,12 +22,13 @@ import MuiMarkdown from 'markdown-to-jsx';
 import * as React from 'react';
 import { alpha, styled } from '@mui/material/styles';
 import TreeView from '@mui/lab/TreeView';
-import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
+import TreeItem from '@mui/lab/TreeItem';
 import DescriptionIcon from '@mui/icons-material/Description';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 
 import { ArrowBack } from '@mui/icons-material';
 import { AiSearch } from 'components/docs/AiSearch';
+import { treeItemClasses } from '@mui/x-tree-view';
 
 const SearchBoxMui = ({ currentRefinement, _isSearchStalled, refine }) => (
   <form noValidate action="" role="search">

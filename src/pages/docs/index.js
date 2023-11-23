@@ -12,9 +12,10 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { SearchModal } from 'views/Docs/SearchModal';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
+
+import { DocSearch } from '@docsearch/react';
+import '@docsearch/css';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -26,7 +27,7 @@ const DocsPage = (props) => {
   );
 
   React.useEffect(() => {
-    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
@@ -37,9 +38,6 @@ const DocsPage = (props) => {
       <MainWrapper docsLanding customRouting={[]}>
         <Box
           sx={{
-            // background: `url('https://kfg6bckb.media.zestyio.com/radialgradient.png')`,
-            // backgroundRepeat: 'no-repeat',
-            // backgroundPosition: 'top center',
             backgroundSize: 'cover',
             height: 450,
             display: 'flex',
@@ -98,10 +96,7 @@ const DocsPage = (props) => {
             Explore guides, code samples, API references, and more to learn
             about Zesty
           </Typography>
-
-          <SearchModal sx={{ width: isMedium ? 300 : 500 }}>
-            <AlgoSearch />
-          </SearchModal>
+          <DocSearchModal {...props} />
         </Box>
 
         <Container sx={{ py: 10 }}>
@@ -200,3 +195,24 @@ const cardData = [
     link: '/docs/parsley',
   },
 ];
+
+export function DocSearchModal() {
+  const {
+    algoliaApiKey: apiKey,
+    algoliaAppId: appId,
+    algoliaIndex: index,
+  } = useZestyStore((e) => e);
+
+  return (
+    <DocSearch
+      transformItems={(item) => {
+        return item.reverse();
+      }}
+      placeholder="Search docs..."
+      maxResultsPerGroup={100}
+      appId={appId}
+      indexName={index}
+      apiKey={apiKey}
+    />
+  );
+}

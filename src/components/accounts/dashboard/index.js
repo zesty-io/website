@@ -1,26 +1,27 @@
 import { Container, Divider, Grid, Stack } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import * as helpers from 'utils';
-import ZInstancesContainer from './ui/ZInstancesContainer';
-import ZMarketingAds from './ui/ZMarketingAds';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
-import ZActivityStream from './ui/ZActivityStream';
-import SideContent from './SideContent';
+import { joinAppConstants } from '../join/constants';
+import { ToolBox } from '../join/ToolBox';
+
+import dynamic from 'next/dynamic';
+
+const ZInstancesContainer = dynamic(() => import('./ui/ZInstancesContainer'));
+const ZMarketingAds = dynamic(() => import('./ui/ZMarketingAds'));
+const ZActivityStream = dynamic(() => import('./ui/ZActivityStream'));
+const SideContent = dynamic(() => import('./SideContent'));
+
 import { OnboardingQuestions } from '../join/OnboardingQuestions';
 import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
 import { AccountPageloading } from '../ui';
-// import { PreferenceQuestions } from '../join/PreferenceQuestions';
-// import { MissingQuestions } from '../join/MissingQuestions';
-import { joinAppConstants } from '../join/constants';
-import { ToolBox } from '../join/ToolBox';
-import { pendoScript } from 'components/marketing/Join/pendoScript';
 
-const TOTAL_INSTANCES_LIMIT = 10;
-const TOTAL_TEAMS_LIMIT = 5;
-const INSTANCE_CARD_LIMIT = 3;
+export const TOTAL_INSTANCES_LIMIT = 10;
+export const TOTAL_TEAMS_LIMIT = 5;
+export const INSTANCE_CARD_LIMIT = 3;
 
 const Dashboard = ({ content = {} }) => {
   const {
@@ -39,7 +40,6 @@ const Dashboard = ({ content = {} }) => {
   const [initialInstances, setInitialInstances] = useState(undefined);
   const [instances, setInstances] = useState([]);
   const [isInstancesLoading, setIsInstanceLoading] = useState(false);
-  const [filteredInstances, setFilteredInstances] = useState([]);
   const [instancesFavorites, setInstancesFavorites] = useState([]);
   const [isTogglingFavorites, setIsTogglingFavorites] = useState(false);
   const [initialRender, setInitialRender] = useState(false);
@@ -73,23 +73,6 @@ const Dashboard = ({ content = {} }) => {
     !response.error && setTeams(response?.data);
     response.error && setTeams([]);
     setIsInstanceLoading(false);
-  };
-
-  const handleSearchInstances = (value) => {
-    const filterInstances = [...initialInstances]?.filter((instance) =>
-      helpers.isMatch(
-        [
-          instance?.name,
-          instance?.ID,
-          instance?.ZUID,
-          instance?.randomHashID,
-          instance?.domain,
-        ],
-        value,
-      ),
-    );
-
-    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LIMIT));
   };
 
   const getInitialInstances = async (instances, favorites) => {
@@ -266,7 +249,6 @@ const Dashboard = ({ content = {} }) => {
       const res = await ZestyAPI.getInstances();
       setInstances([...(await getInitialInstances(res?.data, favorites))]);
       setInitialRender(true);
-      setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LIMIT));
       setInitialInstances([...res?.data]);
       setIsInstanceLoading(false);
     };
@@ -350,7 +332,6 @@ const Dashboard = ({ content = {} }) => {
           px: 3,
         })}
       >
-        {pendoScript}
         {!content.zestyProductionMode && <ToolBox title="" />}
         <Grid container spacing={2} mt={1}>
           <Grid
@@ -370,11 +351,8 @@ const Dashboard = ({ content = {} }) => {
             item
           >
             <SideContent
-              instances={filteredInstances}
-              totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
-              totalTeamsLimit={TOTAL_TEAMS_LIMIT}
+              initialInstances={initialInstances}
               unfilteredTotalInstances={initialInstances?.length}
-              handleSearchInstances={handleSearchInstances}
               teams={teams}
             />
           </Grid>
@@ -418,4 +396,4 @@ const Dashboard = ({ content = {} }) => {
   );
 };
 
-export default Dashboard;
+export default memo(Dashboard);

@@ -15,9 +15,9 @@ const listItems = [
 const TabSection = ({
   header = 'Digital Asset Management made easy',
   lists = listItems,
-  primaryBtn = 'Schedule Demo',
+  primaryBtn = 'Talk to Us',
   primaryBtnLink = '/demo',
-  image = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png',
+  image = 'https://kfg6bckb.media.zestyio.com/schema.png',
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
@@ -45,7 +45,9 @@ const TabSection = ({
         <Stack order={isLG ? 2 : 1}>
           <Box
             component="img"
-            src={image}
+            loading="lazy"
+            alt="zesty-image"
+            src={image + '?quality=10'}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -108,13 +110,6 @@ const TabSection = ({
             >
               {primaryBtn}
             </Button>
-            {/* <Button
-              variant="outlined"
-              size={isTablet ? 'extraLarge' : 'medium'}
-              href={secondaryBtnLink}
-            >
-              {secondaryBtn}
-            </Button> */}
           </Stack>
         </Stack>
       </Stack>

@@ -1,4 +1,4 @@
-const { Box } = require('@mui/material');
+import { Box } from "@mui/material";
 
 const Container = ({ children, maxWidth = 1500, sx }) => {
   return (

@@ -1,26 +1,160 @@
 name: Zesty Website CI Dev
+
 on:
   pull_request:
-    branches: [stage,accounts,production,dev]
+    branches: [stage, accounts, production, dev]
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build-check:
+  install-dependencies:
     runs-on: ubuntu-latest
-    env:
-      PRODUCTION: 'false'
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: ✅ Checkout code
+        uses: actions/checkout@v3
+
+      - name: ⚡️ Cache dependencies
+        uses: actions/cache@v2
+        id: cache-build
         with:
-          node-version: '16.x'
-      - name: Setup custom host for mylocal
-        run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
+          path: ./*
+          key: ${{ github.sha }}
 
-      - name: Install dependencies 
-        run: npm ci
+      - name: 🚚 Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install --force --prefer-offline --no-audit
 
-      - name: Check format and linters
+  build-check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16, 18, 20]
+    runs-on: ${{ matrix.os }}
+    needs: install-dependencies
+
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v3
+
+      - name: ⚡️ Cache dependencies
+        uses: actions/cache@v2
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+      - name: 📦️ Build
+        run: npm run build
+
+  lint:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18]
+    runs-on: ${{ matrix.os }}
+    needs: install-dependencies
+
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v3
+
+      - name: ⚡️ Cache dependencies
+        uses: actions/cache@v2
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+      - name: ✏️ Run lint
         run: npm run test-all
 
-      - name: Build Project 
-        run: npm run build
+  unit-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18]
+    runs-on: ${{ matrix.os }}
+    needs: install-dependencies
+
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v3
+
+      - name: ⚡️ Cache dependencies
+        uses: actions/cache@v2
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+      - name: 🧪 Run unit tests
+        run: npm run test
+
+  docker-build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🐳 Docker Build
+        run: docker build -t zesty-website:latest .
+        working-directory: ./
+
+  end-to-end-tests-cypress:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18]
+    runs-on: ${{ matrix.os }}
+    env:
+      PRODUCTION: 'true'
+
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🌐 Setup custom host for mylocal
+        run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
+
+      - name: 🚚 Install dependencies
+        run: npm install --force --prefer-offline --no-audit
+
+      - name: 📝 Write the cypress.env.json file
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
+
+      - name: 🧪 Run E2E test
+        run: npm run test:e2e:ci:prod
+
+      - name: 🖼 Save screenshots
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+  tests-pass:
+    needs:
+      [
+        docker-build,
+        build-check,
+        end-to-end-tests-cypress,
+        install-dependencies,
+        lint,
+        unit-tests,
+      ]
+
+    if: always()
+    runs-on: ubuntu-latest
+    name: 🚀🚀🚀 Ok to Proceed 😎 👍👍👍
+    steps:
+      - run: exit 1
+        if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'skipped') || contains(needs.*.result, 'cancelled')) }}

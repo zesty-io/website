@@ -4,22 +4,44 @@ import withReactContent from 'sweetalert2-react-content';
 import AddIcon from '@mui/icons-material/Add';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
-import DomainListings from 'components/accounts/domains/DomainListings';
-import DomainSettings from 'components/accounts/domains/DomainSettings';
 import { Box, Button, Grid } from '@mui/material';
 import {
   AccountsHeader,
   accountsValidations,
   ErrorMsg,
-  FormInput,
   FormSelect,
   SubmitBtn,
   SuccessMsg,
 } from 'components/accounts';
 import { useFormik } from 'formik';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
+import dynamic from 'next/dynamic';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
+
+const FormInput = dynamic(
+  () => import('components/accounts').then((e) => e.FormInput),
+  {
+    ssr: false,
+  },
+);
+const DomainListings = dynamic(
+  () => import('components/accounts/domains/DomainListings'),
+  {
+    ssr: false,
+  },
+);
+const DomainSettings = dynamic(
+  () => import('components/accounts/domains/DomainSettings'),
+  {
+    ssr: false,
+  },
+);
+const InstanceContainer = dynamic(
+  () => import('components/accounts/instances/InstanceContainer'),
+  {
+    ssr: false,
+  },
+);
 
 const MySwal = withReactContent(Swal);
 

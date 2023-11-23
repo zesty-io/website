@@ -23,7 +23,7 @@ const HeroTextImageWithStatsBelow = ({
   title = 'Why Developers are Switching from Sitecore to Zesty',
   description = 'Build faster using a content management system that supports virtually any framework out-of-the-box. Empower your marketing team with an intuitive UI to edit content. Win-win.',
   stats = sampleStats,
-  ctaText = 'Schedule Demo',
+  ctaText = 'Talk to Us',
   ctaLink = '/demo',
   hero = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Hero Image 2.png',
 }) => {
@@ -120,7 +120,7 @@ const HeroTextImageWithStatsBelow = ({
             justifyContent={{ tablet: 'space-between' }}
             divider={
               <Divider
-                sx={(theme) => ({
+                sx={() => ({
                   borderRightWidth: 4,
                   display: { xs: 'none', tablet: 'block' },
                 })}

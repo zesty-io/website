@@ -54,11 +54,13 @@ function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
   const { palette } = useTheme();
 
+
   // Check if Related Articles from content object; pass null if no data
   let relatedArticles;
   content?.related_articles != null
     ? (relatedArticles = content.related_articles.data)
     : (relatedArticles = null);
+
 
   // const {
   //   data: tagArticles,
@@ -384,7 +386,6 @@ function Article({ content }) {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
                           color: 'text.secondary',
-                          listStyleType: 'disc',
                           fontSize: '18px',
                           lineHeight: '28px',
                           fontWeight: 500,
@@ -392,6 +393,7 @@ function Article({ content }) {
                           mt: '20px',
                           '& .MuiListItem-root': {
                             display: 'list-item',
+                            listStyleType: 'auto',
                           },
                           mx: 3,
                           // pl: 2,
@@ -424,6 +426,7 @@ function Article({ content }) {
                           fontWeight: 500,
                           '& .MuiListItem-root': {
                             display: 'list-item',
+                            listStyleType: 'auto',
                           },
                           // pl: 2,
                           mx: 3,
@@ -441,6 +444,7 @@ function Article({ content }) {
                     props: {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
+                          listStyleType: 'inherit',
                           px: 0,
                           pt: 0,
                           pb: '12px',

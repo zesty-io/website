@@ -98,16 +98,16 @@ export default function Slug(props) {
   }, [url]);
 
   React.useEffect(() => {
-    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
 
   React.useEffect(() => {
-    if (mainData.length !== 0) {
+    if (mainData?.length === 0) {
       setmainData(mainData);
     }
-  }, []);
+  }, [mainData]);
 
   const title = `Zesty.io - ${pageData?.name || 'Documentation'}`;
   return (

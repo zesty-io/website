@@ -1,9 +1,9 @@
-/* eslint-disable react/display-name */
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import createEmotionServer from '@emotion/server/create-instance';
+import Script from 'next/script';
 
 const getCache = () => {
   const cache = createCache({ key: 'css', prepend: true });
@@ -11,19 +11,27 @@ const getCache = () => {
   return cache;
 };
 
+const fetchUrl =
+  process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
+  'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
+
 export default class MyDocument extends Document {
   render() {
-    const fetchUrl =
-      process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
-      'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
     return (
       <Html lang="en">
         <Head>
-          <script src={fetchUrl} />
           <link
-            href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap"
-            rel="stylesheet"
+            rel="icon"
+            href="https://brand.zesty.io/favicon.png"
+            type="image/png"
           />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            href="https://fonts.gstatic.com"
+            rel="preconnect"
+            crossOrigin="anonymous"
+          />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
 
           <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -33,6 +41,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <Script strategy="beforeInteractive" src={fetchUrl} />
         </body>
       </Html>
     );
@@ -73,12 +82,11 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // Take precedence over the CacheProvider in our custom _app.js
-      enhanceComponent: (Component) => (props) =>
-        (
-          <CacheProvider value={cache}>
-            <Component {...props} />
-          </CacheProvider>
-        ),
+      enhanceComponent: (Component) => (props) => (
+        <CacheProvider value={cache}>
+          <Component {...props} />
+        </CacheProvider>
+      ),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
