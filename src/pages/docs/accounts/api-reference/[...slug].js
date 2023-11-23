@@ -98,7 +98,7 @@ export default function Slug(props) {
   }, [url]);
 
   React.useEffect(() => {
-    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
