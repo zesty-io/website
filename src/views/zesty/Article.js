@@ -60,6 +60,14 @@ function Article({ content }) {
     content.zestyProductionMode,
   );
 
+  // const {
+  //   data: tagArticles,
+  //   //  isPending: tagsPending
+  // } = useFetch(
+  //   `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
+  //   content.zestyProductionMode,
+  // );
+
   const removeErrorHandlingString = /Error hydrating/gi;
   let cleanOutErrorHydrating;
 
@@ -376,7 +384,6 @@ function Article({ content }) {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
                           color: 'text.secondary',
-                          listStyleType: 'disc',
                           fontSize: '18px',
                           lineHeight: '28px',
                           fontWeight: 500,
@@ -384,6 +391,7 @@ function Article({ content }) {
                           mt: '20px',
                           '& .MuiListItem-root': {
                             display: 'list-item',
+                            listStyleType: 'auto',
                           },
                           mx: 3,
                           // pl: 2,
@@ -416,6 +424,7 @@ function Article({ content }) {
                           fontWeight: 500,
                           '& .MuiListItem-root': {
                             display: 'list-item',
+                            listStyleType: 'auto',
                           },
                           // pl: 2,
                           mx: 3,
@@ -433,6 +442,7 @@ function Article({ content }) {
                     props: {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
+                          listStyleType: 'inherit',
                           px: 0,
                           pt: 0,
                           pb: '12px',
