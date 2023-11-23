@@ -152,7 +152,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                   ? theme.palette.zesty.zestyBlue
                   : theme.palette.background.paper,
                 '&:hover': {
-                  border: `1px solid ${theme.palette.zesty.zestyBlue}`,
+                  border: `1px solid ${theme.palette.zesty.zestyOrange}`,
                 },
               }}
             >
@@ -238,7 +238,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                   : theme.palette.background.paper,
                 borderRadius: 2,
                 '&:hover': {
-                  border: `1px solid ${theme.palette.zesty.zestyBlue}`,
+                  border: `1px solid ${theme.palette.zesty.zestyOrange}`,
                 },
                 p: 1,
               }}
