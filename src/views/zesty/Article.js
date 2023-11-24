@@ -55,7 +55,7 @@ function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
   const { palette } = useTheme();
 
-  const { data: latestArticles, isPending: _latestPending } = useFetch(
+  const { data: latestArticles } = useFetch(
     '/-/all-articles-hydrated.json?limit=4',
     content.zestyProductionMode,
   );
@@ -384,7 +384,6 @@ function Article({ content }) {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
                           color: 'text.secondary',
-                          listStyleType: 'disc',
                           fontSize: '18px',
                           lineHeight: '28px',
                           fontWeight: 500,
@@ -392,6 +391,7 @@ function Article({ content }) {
                           mt: '20px',
                           '& .MuiListItem-root': {
                             display: 'list-item',
+                            listStyleType: 'auto',
                           },
                           mx: 3,
                           // pl: 2,
@@ -424,6 +424,7 @@ function Article({ content }) {
                           fontWeight: 500,
                           '& .MuiListItem-root': {
                             display: 'list-item',
+                            listStyleType: 'auto',
                           },
                           // pl: 2,
                           mx: 3,
@@ -441,6 +442,7 @@ function Article({ content }) {
                     props: {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
+                          listStyleType: 'inherit',
                           px: 0,
                           pt: 0,
                           pb: '12px',

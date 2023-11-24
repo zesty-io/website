@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   Box,
   Button,
@@ -12,34 +13,18 @@ import {
 } from '@mui/material';
 
 import MuiMarkdown from 'markdown-to-jsx';
-
-import * as React from 'react';
-
 import { ArrowUpward } from '@mui/icons-material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { getCookie } from 'cookies-next';
-import { hashMD5 } from 'utils/Md5Hash';
+import QuestionAndAnswer from './QuestionAndAnswer';
+import { useEffect } from 'react';
+import { formatUrlSources } from './AiSearchHelpers/formatUrlSources';
+import { generateRandomId } from './AiSearchHelpers/generateRandomId';
+import { animateStreaming } from './AiSearchHelpers/animateSteaming';
+import { Lang } from './AiSearchHelpers/constant';
 
-const formatUrlSources = (url) => {
-  const match = url.match(/\/([^/]+)\/?(\?.*)?$/);
-  if (match) {
-    const lastPath = match[1];
-
-    // Replace hyphens with spaces and capitalize each word
-    const formattedText = lastPath
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-
-    return formattedText;
-  }
-};
-
-export const AiSearch = () => {
+export function AiSearch() {
   const theme = useTheme();
-  const email = getCookie('APP_USER_EMAIL').replace(/%40/g, '@');
-  const md5Hash = hashMD5(email.toLowerCase());
   const scrollableRef = React.useRef(null);
   const [chatHistory, setChatHistory] = React.useState([
     {
@@ -50,33 +35,43 @@ export const AiSearch = () => {
   ]);
   const [query, setQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-
   const [language, setLanguage] = React.useState('english');
+  const { typedText } = animateStreaming({ chatHistory, scrollableRef });
+
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
   };
 
-  const askAiHandler = async (e) => {
-    // Keep scroll at the bottom
-    scrollableRef.current.scrollTop = scrollableRef.current.scrollHeight;
-    e.preventDefault();
-    setLoading(true);
-    setQuery('');
-    setTypedText('');
-    setChatHistory([
-      ...chatHistory,
-      {
+  async function askAiHandler(event) {
+    try {
+      // Scroll to the bottom of the chat
+      scrollableRef.current.scrollTop = scrollableRef.current.scrollHeight;
+
+      // Prevent the default form submission
+      event.preventDefault();
+
+      // Set loading state to true
+      setLoading(true);
+
+      // Clear the input query
+      setQuery('');
+
+      // Add the user's query to the chat history
+      const userMessage = {
         id: generateRandomId(10),
         type: 'user',
         message: query.replaceAll('\n', '<br/>'),
-      },
-    ]);
+      };
+      setChatHistory((prevChatHistory) => [...prevChatHistory, userMessage]);
 
-    // Guard Clause to prevent empty queries
-    if (query === '') return;
+      // Guard Clause to prevent empty queries
+      if (!query) {
+        // Early return if the query is empty
+        return;
+      }
 
-    try {
-      const resp = await fetch(
+      // Make a request to the AI server
+      const response = await fetch(
         'https://us-central1-zesty-dev.cloudfunctions.net/aiSearch/query/',
         {
           method: 'POST',
@@ -89,90 +84,43 @@ export const AiSearch = () => {
         },
       );
 
-      const data = await resp.json();
-
-      if (data) {
-        setLoading(false);
-        setChatHistory((prevChatHistory) => [
-          ...prevChatHistory,
-          {
-            id: generateRandomId(10),
-            type: 'bot',
-            message: data.response.text
-              .replace(/\\n/g, '\n')
-              .replace(/\"/g, ''),
-            sourceDocuments: data.response.sourceDocuments,
-          },
-        ]);
+      // Check if the response is successful
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const placeholderText = [
-    'Ask me anything about zesty!',
-    'What is zesty?',
-    'How do I use parsley?',
-  ];
-  const [state, setState] = React.useState(0);
+      // Parse the JSON response
+      const responseData = await response.json();
 
-  const [displayedPlaceholder, setDisplayedPlaceholder] = React.useState('');
-
-  React.useEffect(() => {
-    if (chatHistory.length < 2) {
-      let currentText = '';
-      let currentIndex = 0;
-      const placeholderInterval = setInterval(() => {
-        const currentPlaceholder = placeholderText[state];
-        const nextChar = currentPlaceholder[currentIndex];
-
-        if (nextChar) {
-          currentText += nextChar;
-          setDisplayedPlaceholder(currentText);
-          currentIndex++;
-        } else {
-          setState((prevState) => (prevState + 1) % placeholderText.length);
-          currentText = '';
-          currentIndex = 0;
-        }
-      }, 150);
-
-      return () => {
-        clearInterval(placeholderInterval); // Clean up the interval on component unmount
+      // Update the chat history with the AI's response
+      const botMessage = {
+        id: generateRandomId(10),
+        type: 'bot',
+        message: responseData.response.text
+          .replace(/\\n/g, '\n')
+          .replace(/\"/g, ''),
+        sourceDocuments: responseData.response.sourceDocuments,
       };
-    }
-  }, [state, chatHistory]);
+      setChatHistory((prevChatHistory) => [...prevChatHistory, botMessage]);
 
-  React.useEffect(() => {
+      // Set loading state to false
+      setLoading(false);
+    } catch (error) {
+      // Handle and log any errors that occur
+      setChatHistory((prevChatHistory) => [
+        ...prevChatHistory,
+        {
+          type: 'bot',
+          message:
+            'Sorry, There was an error while processing your request. Please try again later.',
+        },
+      ]);
+      console.error('An error occurred:', error);
+    }
+  }
+
+  useEffect(() => {
     scrollableRef.current.scrollTop = scrollableRef.current?.scrollHeight;
-  }, [chatHistory]);
-
-  const [typedText, setTypedText] = React.useState('');
-
-  React.useEffect(() => {
-    let currentIndex = 0;
-    const lastBotResponse =
-      chatHistory[chatHistory.length - 1].type === 'bot'
-        ? chatHistory[chatHistory.length - 1]
-        : null;
-
-    let text = '';
-
-    const typeNextCharacter = () => {
-      scrollableRef.current.scrollTop = scrollableRef.current?.scrollHeight;
-
-      if (currentIndex < lastBotResponse?.message.length) {
-        text += lastBotResponse?.message.charAt(currentIndex);
-        setTypedText(text);
-        currentIndex++;
-        setTimeout(typeNextCharacter, 1); // Adjust the delay to control typing speed
-      }
-    };
-
-    if (lastBotResponse) {
-      typeNextCharacter();
-    }
   }, [chatHistory]);
 
   return (
@@ -188,149 +136,108 @@ export const AiSearch = () => {
             return (
               <Box key={item.id}>
                 {item.type === 'bot' ? (
-                  <Box>
-                    <Box
-                      key={item.id}
-                      sx={{
-                        display: 'flex',
-                        gap: 1.5,
-                        mt: 2,
-                      }}
-                    >
-                      <Box>
-                        <Box
-                          component={'img'}
-                          src="https://kfg6bckb.media.zestyio.com/content.one-logo.png"
-                          sx={{
-                            width: 40,
-                            height: 35,
-                            borderRadius: 1,
-                            display: 'flex',
-                          }}
-                        />
-                      </Box>
-
-                      <Box sx={{ pr: 2 }}>
-                        {item.sourceDocuments && (
-                          <>
-                            <Typography
-                              sx={{
-                                borderRadius: 100,
-                                color: theme.palette.zesty.zestyZambezi,
-                              }}
-                              variant="caption"
-                            >
-                              Sources:
-                            </Typography>
-                            <Box
-                              sx={{
-                                mb: 1,
-                                display: 'flex',
-                                gap: 1,
-                                flexWrap: 'wrap',
-                              }}
-                            >
-                              {item?.sourceDocuments?.map((item, idx) => {
-                                const domainRegex = /https:\/\/[^/]+/;
-                                return (
-                                  <Box key={idx}>
-                                    <Box
-                                      component="a"
-                                      href={item.metadata.source.replace(
-                                        domainRegex,
-                                        `https://zesty.io`,
-                                      )}
-                                      target="_blank"
+                  <QuestionAndAnswer
+                    type={item.type}
+                    reverse
+                    sx={{
+                      display: 'flex',
+                      gap: 1.5,
+                      mt: 2,
+                    }}
+                  >
+                    <Box>
+                      {item.sourceDocuments && (
+                        <>
+                          <Typography
+                            sx={{
+                              borderRadius: 100,
+                              color: theme.palette.zesty.zestyZambezi,
+                            }}
+                            variant="caption"
+                          >
+                            Sources:
+                          </Typography>
+                          <Box
+                            sx={{
+                              mb: 1,
+                              display: 'flex',
+                              gap: 1,
+                              flexWrap: 'wrap',
+                            }}
+                          >
+                            {item?.sourceDocuments?.map((item, idx) => {
+                              const domainRegex = /https:\/\/[^/]+/;
+                              return (
+                                <Box key={idx}>
+                                  <Box
+                                    component="a"
+                                    href={item.metadata.source.replace(
+                                      domainRegex,
+                                      `https://zesty.io`,
+                                    )}
+                                    target="_blank"
+                                    sx={{
+                                      background: `${theme.palette.zesty.zestyOrange}`,
+                                      borderRadius: 100,
+                                      px: 1,
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      textDecoration: 'none',
+                                    }}
+                                  >
+                                    <Typography
                                       sx={{
-                                        background: `${theme.palette.zesty.zestyOrange}`,
-                                        borderRadius: 100,
-                                        px: 1,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        textDecoration: 'none',
+                                        color: '#fff',
                                       }}
+                                      variant="caption"
                                     >
-                                      <Typography
-                                        sx={{
-                                          color: '#fff',
-                                        }}
-                                        variant="caption"
-                                      >
-                                        {formatUrlSources(item.metadata.source)}
-                                      </Typography>
-                                    </Box>
+                                      {formatUrlSources(item.metadata.source)}
+                                    </Typography>
                                   </Box>
-                                );
-                              })}
-                            </Box>
-                          </>
-                        )}
-                        <MuiMarkdown
-                          options={{
-                            overrides: {
-                              code: {
-                                component: SyntaxHighlighter,
-                                props: {
-                                  style: dracula,
-                                  language: 'javascript',
-                                  wrapLongLines: true,
-                                },
+                                </Box>
+                              );
+                            })}
+                          </Box>
+                        </>
+                      )}
+
+                      <MuiMarkdown
+                        options={{
+                          overrides: {
+                            code: {
+                              component: SyntaxHighlighter,
+                              props: {
+                                style: dracula,
+                                language: 'javascript',
+                                wrapLongLines: true,
                               },
                             },
-                          }}
-                        >
-                          {item.message ===
-                          chatHistory[chatHistory.length - 1].message
-                            ? typedText
-                            : message}
-                        </MuiMarkdown>
-                      </Box>
-                    </Box>
-
-                    <Box
-                      sx={{
-                        ml: 4,
-                        mt: 1,
-                      }}
-                    ></Box>
-                  </Box>
-                ) : (
-                  <>
-                    <Box
-                      key={item.id}
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        mt: 2,
-                        pr: 2,
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          gap: 2,
-                          pl: 5,
+                          },
                         }}
                       >
-                        <Box sx={{ mt: 0.5 }}>
-                          <MuiMarkdown options={{ wrapper: 'p' }}>
-                            {item.message.replaceAll(/\n/g, '<br/>')}
-                          </MuiMarkdown>
-                        </Box>
-
-                        <Box
-                          component={'img'}
-                          src={`https://www.gravatar.com/avatar/${md5Hash}?s=200&d=mm`}
-                          sx={{
-                            width: 40,
-                            height: 40,
-                            borderRadius: 1,
-                            display: 'block',
-                          }}
-                        />
-                      </Box>
+                        {item.message ===
+                        chatHistory[chatHistory.length - 1].message
+                          ? typedText
+                          : message}
+                      </MuiMarkdown>
                     </Box>
-                  </>
+                  </QuestionAndAnswer>
+                ) : (
+                  <QuestionAndAnswer
+                    type={item.type}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      mt: 2,
+                      pr: 2,
+                    }}
+                  >
+                    <Box sx={{ mt: 0.5 }}>
+                      <MuiMarkdown options={{ wrapper: 'p' }}>
+                        {item.message.replaceAll(/\n/g, '<br/>')}
+                      </MuiMarkdown>
+                    </Box>
+                  </QuestionAndAnswer>
                 )}
               </Box>
             );
@@ -363,9 +270,7 @@ export const AiSearch = () => {
       >
         <TextField
           required
-          placeholder={
-            chatHistory.length < 2 ? displayedPlaceholder : placeholderText[0]
-          }
+          placeholder={'Ask me anything about zesty!'}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           sx={{ flex: 1 }}
@@ -407,49 +312,4 @@ export const AiSearch = () => {
       </Typography>
     </>
   );
-};
-
-const Lang = [
-  {
-    name: 'EN',
-    value: 'english',
-  },
-  {
-    name: 'ES',
-    value: 'spanish',
-  },
-  {
-    name: 'TL',
-    value: 'tagalog',
-  },
-  {
-    name: 'HI',
-    value: 'hindi',
-  },
-  {
-    name: 'IT',
-    value: 'italian',
-  },
-  {
-    name: 'FR',
-    value: 'french',
-  },
-  {
-    name: 'DE',
-    value: 'german',
-  },
-];
-
-// Create a function that generates random ID's
-function generateRandomId(length) {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let randomId = '';
-
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    randomId += characters.charAt(randomIndex);
-  }
-
-  return randomId;
 }

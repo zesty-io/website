@@ -97,3 +97,22 @@ input:-webkit-autofill:active{
     font-style: normal;
     font-weight: 900;
 }
+
+/* Algolia DocSearch CSS */
+
+/*! @docsearch/css 3.5.2 | MIT License | © Algolia, Inc. and contributors | https://docsearch.algolia.com */
+:root {
+    --docsearch-primary-color: #FF5D0A !important;
+    --docsearch-text-color: #5b5b5b !important;
+    --docsearch-logo-color:#FF5D0A !important;
+
+}
+
+
+.DocSearch-Container  {
+  z-index: 9999 !important
+}
+.DocSearch-Button {
+  width: 100% !important;
+  max-width: 350px !important;
+}
