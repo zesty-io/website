@@ -530,6 +530,17 @@ function Article({ content }) {
                     component: Link,
                     props: {
                       color: 'info.main',
+                      sx: {
+                        '& > span > span:has(img)': {
+                          height: '100%',
+                          display: 'inline-block',
+                          width: '100%',
+                        },
+                        '& > span > span > img': {
+                          cursor: 'pointer',
+                          pointerEvents: 'none',
+                        },
+                      },
                     },
                   },
                   sub: {
