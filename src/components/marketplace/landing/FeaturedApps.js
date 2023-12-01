@@ -59,7 +59,7 @@ const FeaturedApps = ({ featuredApps }) => {
                 md={6}
                 lg={4}
               >
-                <Box component={'a'} href="#" sx={{ textDecoration: 'none' }}>
+                <Box sx={{ textDecoration: 'none' }}>
                   <AppCard {...item} />
                 </Box>
               </Grid>

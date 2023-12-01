@@ -30,7 +30,7 @@ const ZMarketingAds = ({ marketingCards }) => {
             alignSelf={!card[1].read_all_url && 'center'}
             width="100%"
             sx={(theme) => ({
-              [theme.breakpoints.up('lg')]: {
+              [theme.breakpoints.up('sm')]: {
                 flexDirection: 'column',
                 gap: 1,
               },
@@ -45,6 +45,7 @@ const ZMarketingAds = ({ marketingCards }) => {
               href={card[1].url}
               variant="contained"
               color="primary"
+              size="small"
             >
               {card[0] === 'marketing' ? card[1]?.cta_text : 'Read Article'}
             </Button>
@@ -54,6 +55,7 @@ const ZMarketingAds = ({ marketingCards }) => {
                 href={card[1].read_all_url}
                 variant="outlined"
                 color="primary"
+                size="small"
               >
                 Read All
               </Button>
