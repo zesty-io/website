@@ -25,12 +25,16 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { SimpleHeroSolidBg } from 'blocks/heroes';
+import { SlashImageHeroWithCta } from 'blocks/heroes';
 import { Result } from 'blocks/formLayouts';
 import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
+import { alpha } from '@mui/material';
+import { useTheme } from '@emotion/react';
+import { Box } from '@mui/system';
 
 function Tag({ content }) {
+  const theme = useTheme();
   let zestyURL = content.zestyProductionMode
     ? process.env.zesty.production
     : process.env.zesty.stage;
@@ -116,9 +120,44 @@ function Tag({ content }) {
   };
   return (
     <>
-      <SimpleHeroSolidBg
+      {/* <SimpleHeroSolidBg
         title={content?.meta?.web?.seo_meta_title || FillerContent.header}
-      />
+      /> */}
+      <Box
+        bgcolor={'alternate.main'}
+        sx={{
+          position: 'relative',
+          '&::after': {
+            position: 'absolute',
+            content: '""',
+            width: '30%',
+            zIndex: 1,
+            top: 0,
+            left: '5%',
+            height: '100%',
+            backgroundSize: '18px 18px',
+            backgroundImage: `radial-gradient(${alpha(
+              theme.palette.primary.dark,
+              0.4,
+            )} 20%, transparent 20%)`,
+            opacity: 0.2,
+          },
+        }}
+      >
+        <Box position={'relative'} zIndex={3}>
+          <SlashImageHeroWithCta
+            title={content?.meta?.web?.seo_meta_title || FillerContent.header}
+            description={
+              content?.meta?.web?.seo_meta_description ||
+              FillerContent.description
+            }
+            mainImage={
+              content.header_image?.data?.[0]?.url ||
+              FillerContent.category_fallback_image
+            }
+          />
+        </Box>
+      </Box>
       <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
         <Result
           array={cardsData}
