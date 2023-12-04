@@ -6,10 +6,17 @@ import { deleteCookie } from 'cookies-next';
  *
  */
 export const resetCookies = (isProd) => {
-  deleteCookie(isProd ? 'APP_SID' : 'DEV_APP_SID', {
-    domain: '.zesty.io',
-    secure: true,
-  });
+  if (isProd) {
+    deleteCookie('APP_SID', {
+      domain: '.zesty.io',
+      secure: true,
+    });
+  } else {
+    deleteCookie('DEV_APP_SID', {
+      domain: '.zesty.io',
+      secure: true,
+    });
+  }
   deleteCookie(isProd ? 'APP_SID' : 'DEV_APP_SID', {
     domain: '.zesty.io',
   });
