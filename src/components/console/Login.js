@@ -458,7 +458,10 @@ const Login = ({ content, userEmail }) => {
                 <Stack
                   alt="Zesty.io Media"
                   component={LazyLoadImage}
-                  src={content?.image?.data[0]?.url}
+                  src={
+                    content?.feature_image?.data[0]?.url ||
+                    content?.image?.data[0]?.url
+                  }
                   effect="blur"
                   sx={{
                     objectFit: 'cover',
