@@ -218,6 +218,9 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
+                        },
                       }),
                     },
                   },
@@ -244,6 +247,9 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
+                        },
                       }),
                     },
                   },
@@ -268,6 +274,9 @@ function Article({ content }) {
                           width: '640px',
                           mx: 'auto',
                           px: 0,
+                        },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
                         },
                       }),
                     },
@@ -294,6 +303,9 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
+                        },
                       }),
                     },
                   },
@@ -319,6 +331,9 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
+                        },
                       }),
                     },
                   },
@@ -343,6 +358,9 @@ function Article({ content }) {
                           width: '640px',
                           mx: 'auto',
                           px: 0,
+                        },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
                         },
                       }),
                     },
@@ -512,6 +530,17 @@ function Article({ content }) {
                     component: Link,
                     props: {
                       color: 'info.main',
+                      sx: {
+                        '& > span > span:has(img)': {
+                          height: '100%',
+                          display: 'inline-block',
+                          width: '100%',
+                        },
+                        '& > span > span > img': {
+                          cursor: 'pointer',
+                          pointerEvents: 'none',
+                        },
+                      },
                     },
                   },
                   sub: {
