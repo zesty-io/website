@@ -60,7 +60,7 @@ const Login = (props) => {
         />
         <link rel="canonical" href={canonicalURL} />
       </Head>
-      <CustomLogin content={content} userEmail={''} />;
+      <CustomLogin content={content} userEmail={''} />
     </Stack>
   );
 };
