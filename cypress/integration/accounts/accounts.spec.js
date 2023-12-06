@@ -85,7 +85,7 @@ describe('E2E accounts: Navigate user', () => {
     cy.get("[data-testid='Logout-dropdown']", { timeout: 30000 })
       .should('exist')
       .click();
-
+    cy.wait(5000);
     cy.get("[data-testid='signout-page']", { timeout: 30000 }).should('exist');
   });
 });
