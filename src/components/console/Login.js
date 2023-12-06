@@ -376,7 +376,7 @@ const Login = ({ content, userEmail }) => {
             alignContent={'center'}
             alignItems={'center'}
             width={{ xs: '55vw', lg: '50vw', xl2: '70vw' }}
-            height={{ xs: '90vh', lg: '85vh' }}
+            height={{ xs: '85vh', lg: '85vh' }}
             spacing={2}
             display={'flex'}
           >
@@ -406,7 +406,7 @@ const Login = ({ content, userEmail }) => {
             >
               <Button
                 target="_blank"
-                href={content?.docs_link}
+                href={content?.announcement_link}
                 variant="outlined"
                 sx={{
                   px: 4,
@@ -424,12 +424,14 @@ const Login = ({ content, userEmail }) => {
               </Button>
               <Button
                 target="_blank"
-                href={content?.video_link}
+                href={content?.training_link}
                 variant="contained"
                 sx={{
+                  textTransform: 'capitalize',
                   px: 4,
                   bgcolor: 'common.white',
                   color: 'black',
+
                   '&.MuiButtonBase-root:hover': {
                     bgcolor: 'white',
                   },
@@ -437,7 +439,7 @@ const Login = ({ content, userEmail }) => {
                 startIcon={<PlayArrowIcon />}
                 size="small"
               >
-                Watch Demo
+                {content?.cta_type?.replace('_', ' ')}
               </Button>
             </Stack>
 
