@@ -32,10 +32,8 @@ const FormInput = dynamic(() =>
 const AlternateEmailIcon = dynamic(() =>
   import('@mui/icons-material/AlternateEmail'),
 );
-const PlayArrowIcon = dynamic(() => import('@mui/icons-material/PlayArrow'));
-const ImportContactsOutlinedIcon = dynamic(() =>
-  import('@mui/icons-material/ImportContactsOutlined'),
-);
+const TimeIcon = dynamic(() => import('@mui/icons-material/AccessTime'));
+const LaunchIcon = dynamic(() => import('@mui/icons-material/Launch'));
 const LoginIcon = dynamic(() => import('@mui/icons-material/Login'));
 const LoadingButton = dynamic(() => import('@mui/lab/LoadingButton'));
 
@@ -375,9 +373,9 @@ const Login = ({ content, userEmail }) => {
             justifyItems={'center'}
             alignContent={'center'}
             alignItems={'center'}
-            width={{ xs: '55vw', lg: '50vw', xl2: '70vw' }}
-            height={{ xs: '90vh', lg: '85vh' }}
-            spacing={2}
+            width={{ xs: '600px', lg: '650px', xl: '900px' }}
+            height={{ xs: '550px', lg: '650px', xl: '850px' }}
+            spacing={3}
             display={'flex'}
           >
             <Stack textAlign={'start'} justifyContent={'start'} width={1}>
@@ -391,8 +389,9 @@ const Login = ({ content, userEmail }) => {
                 {content?.title}
               </Typography>
               <Typography
+                width={1}
                 color="common.white"
-                fontSize={{ xs: '16px', xl2: '20px' }}
+                fontSize={{ xs: '15px', xl2: '20px' }}
               >
                 {content?.description}
               </Typography>
@@ -406,7 +405,7 @@ const Login = ({ content, userEmail }) => {
             >
               <Button
                 target="_blank"
-                href={content?.docs_link}
+                href={content?.announcement_link}
                 variant="outlined"
                 sx={{
                   px: 4,
@@ -417,27 +416,29 @@ const Login = ({ content, userEmail }) => {
                     border: '1px solid white',
                   },
                 }}
-                startIcon={<ImportContactsOutlinedIcon />}
+                startIcon={<LaunchIcon />}
                 size="small"
               >
-                Read Docs
+                Read Announcement
               </Button>
               <Button
                 target="_blank"
-                href={content?.video_link}
+                href={content?.training_link}
                 variant="contained"
                 sx={{
+                  textTransform: 'capitalize',
                   px: 4,
                   bgcolor: 'common.white',
                   color: 'black',
+
                   '&.MuiButtonBase-root:hover': {
                     bgcolor: 'white',
                   },
                 }}
-                startIcon={<PlayArrowIcon />}
+                startIcon={<TimeIcon />}
                 size="small"
               >
-                Watch Demo
+                {content?.cta_type?.replace('_', ' ')}
               </Button>
             </Stack>
 
