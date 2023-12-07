@@ -31,7 +31,7 @@
  */
 
 import React from 'react';
-import { Box, Link, Table, useTheme } from '@mui/material';
+import { Box, Container, Link, Table, useTheme } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import {
   List,
@@ -45,11 +45,11 @@ import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import dayjs from 'dayjs';
-import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import AuthorSection from 'revamp/ui/AuthorSection';
 import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
+import { CtaWithInputField } from 'blocks/cta';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -112,11 +112,11 @@ function Article({ content }) {
     setNewContent(decode(validateWysiwyg()));
   }, []);
 
-  const MyZoomImg = ({ _children, ...props }) => (
-    <Zoom wrapElement="span">
-      <Box component="img" {...props} />
-    </Zoom>
-  );
+  // const MyZoomImg = ({ _children, ...props }) => (
+  //   <Zoom wrapElement="span">
+  //     <Box component="img" {...props} />
+  //   </Zoom>
+  // );
 
   return (
     <Box>
@@ -366,7 +366,7 @@ function Article({ content }) {
                     },
                   },
                   img: {
-                    component: MyZoomImg,
+                    component: 'img',
                     props: {
                       style: {
                         marginTop: '48px',
@@ -575,6 +575,18 @@ function Article({ content }) {
           <BlogContent title="Related Articles" articles={latestArticles} />
         </Stack>
       </ThemeProvider>
+
+      {content?.enable_newsletter_subscription === '1' && (
+        <Container position="relative" zIndex={3}>
+          <CtaWithInputField
+            title={'Subscribe to the zestiest newsletter in the industry'}
+            description={
+              'Get the latest from the Zesty team, from whitepapers to product updates.'
+            }
+            cta={'Subscribe'}
+          />
+        </Container>
+      )}
     </Box>
   );
 }
