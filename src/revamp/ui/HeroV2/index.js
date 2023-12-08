@@ -246,9 +246,9 @@ const Hero = ({
         })}
       >
         <picture>
-          <source srcSet={media + '?quality=50'} media="(min-width: 1200px)" />
+          <source srcSet={media + '?quality=100'} media="(min-width: 1200px)" />
           <source
-            srcSet={media + '?width=400&&quality=10'}
+            srcSet={media + '?width=1200&quality=100'}
             media="(min-width: 400px)"
           />
           <img
