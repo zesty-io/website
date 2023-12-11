@@ -5,6 +5,7 @@ import {
   InputAdornment,
   Link,
   Stack,
+  ThemeProvider,
   Typography,
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
@@ -24,6 +25,7 @@ import Swal from 'sweetalert2';
 
 import dynamic from 'next/dynamic';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import revampTheme from 'theme/revampTheme';
 
 const FormInput = dynamic(() =>
   import('components/accounts').then((e) => e.FormInput),
@@ -32,6 +34,8 @@ const FormInput = dynamic(() =>
 const AlternateEmailIcon = dynamic(() =>
   import('@mui/icons-material/AlternateEmail'),
 );
+
+const PlayArrowIcon = dynamic(() => import('@mui/icons-material/PlayArrow'));
 const TimeIcon = dynamic(() => import('@mui/icons-material/AccessTime'));
 const LaunchIcon = dynamic(() => import('@mui/icons-material/Launch'));
 const LoginIcon = dynamic(() => import('@mui/icons-material/Login'));
@@ -266,6 +270,9 @@ const Login = ({ content, userEmail }) => {
     handleLogin,
     userEmail,
   };
+
+  const hasVideoLink = content?.video_link;
+
   return (
     <Grid height="100vh" container overflow={'hidden'}>
       <style>{scrollBarStyle}</style>
@@ -397,50 +404,52 @@ const Login = ({ content, userEmail }) => {
               </Typography>
             </Stack>
 
-            <Stack
-              direction="row"
-              spacing={2}
-              justifyContent={'start'}
-              width={1}
-            >
-              <Button
-                target="_blank"
-                href={content?.announcement_link}
-                variant="outlined"
-                sx={{
-                  px: 4,
-                  color: 'common.white',
-                  borderColor: 'common.white',
-                  '&.MuiButtonBase-root:hover': {
-                    bgcolor: 'transparent',
-                    border: '1px solid white',
-                  },
-                }}
-                startIcon={<LaunchIcon />}
-                size="small"
+            <ThemeProvider theme={revampTheme}>
+              <Stack
+                direction="row"
+                spacing={2}
+                justifyContent={'start'}
+                width={1}
               >
-                Read Announcement
-              </Button>
-              <Button
-                target="_blank"
-                href={content?.training_link}
-                variant="contained"
-                sx={{
-                  textTransform: 'capitalize',
-                  px: 4,
-                  bgcolor: 'common.white',
-                  color: 'black',
-
-                  '&.MuiButtonBase-root:hover': {
-                    bgcolor: 'white',
-                  },
-                }}
-                startIcon={<TimeIcon />}
-                size="small"
-              >
-                {content?.cta_type?.replace('_', ' ')}
-              </Button>
-            </Stack>
+                <Button
+                  target="_blank"
+                  href={content?.announcement_link}
+                  variant="outlined"
+                  sx={{
+                    px: 3,
+                    color: 'common.white',
+                    borderColor: 'common.white',
+                    '&.MuiButtonBase-root:hover': {
+                      border: '1px solid white',
+                    },
+                  }}
+                  startIcon={<LaunchIcon />}
+                  size="medium"
+                >
+                  Read Announcement
+                </Button>
+                <Button
+                  target="_blank"
+                  href={content?.video_link || content?.training_link}
+                  variant="contained"
+                  sx={{
+                    textTransform: 'capitalize',
+                    px: 3,
+                    bgcolor: 'common.white',
+                    color: 'black',
+                    '&.MuiButtonBase-root:hover': {
+                      bgcolor: 'grey.200',
+                    },
+                  }}
+                  startIcon={hasVideoLink ? <PlayArrowIcon /> : <TimeIcon />}
+                  size="medium"
+                >
+                  {hasVideoLink
+                    ? 'Watch Video'
+                    : content?.cta_type?.replace('_', ' ')}
+                </Button>
+              </Stack>
+            </ThemeProvider>
 
             <Stack>
               {content?.image?.data[0]?.url.includes('mp4') ? (
