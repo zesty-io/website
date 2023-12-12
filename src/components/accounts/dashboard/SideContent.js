@@ -4,12 +4,14 @@ import React, { memo, useEffect, useState } from 'react';
 import * as helpers from 'utils';
 import ZMyListItem from './ui/ZMyListItem';
 import ZSideListContent from './ui/ZSideListContent';
+import { useTheme } from '@mui/material/styles';
 
 import { TOTAL_INSTANCES_LIMIT, TOTAL_TEAMS_LIMIT } from '.';
 
 function SideContent({ initialInstances, unfilteredTotalInstances, teams }) {
   const [filteredInstances, setFilteredInstances] = useState([]);
-
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   function onChange(e) {
     if (e?.target?.value) {
       handleSearchInstances(e.target.value.toLocaleLowerCase());
@@ -66,7 +68,12 @@ function SideContent({ initialInstances, unfilteredTotalInstances, teams }) {
             color="primary"
             placeholder="Search an Instances"
             onChange={onChange}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiInputBase-root': {
+                bgcolor: isDarkMode && 'transparent',
+              },
+            }}
           />
         }
       >
