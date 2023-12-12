@@ -5,6 +5,7 @@ import {
   InputAdornment,
   Link,
   Stack,
+  ThemeProvider,
   Typography,
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
@@ -24,6 +25,7 @@ import Swal from 'sweetalert2';
 
 import dynamic from 'next/dynamic';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import revampTheme from 'theme/revampTheme';
 
 const FormInput = dynamic(() =>
   import('components/accounts').then((e) => e.FormInput),
@@ -32,10 +34,10 @@ const FormInput = dynamic(() =>
 const AlternateEmailIcon = dynamic(() =>
   import('@mui/icons-material/AlternateEmail'),
 );
+
 const PlayArrowIcon = dynamic(() => import('@mui/icons-material/PlayArrow'));
-const ImportContactsOutlinedIcon = dynamic(() =>
-  import('@mui/icons-material/ImportContactsOutlined'),
-);
+const TimeIcon = dynamic(() => import('@mui/icons-material/AccessTime'));
+const LaunchIcon = dynamic(() => import('@mui/icons-material/Launch'));
 const LoginIcon = dynamic(() => import('@mui/icons-material/Login'));
 const LoadingButton = dynamic(() => import('@mui/lab/LoadingButton'));
 
@@ -268,6 +270,9 @@ const Login = ({ content, userEmail }) => {
     handleLogin,
     userEmail,
   };
+
+  const hasVideoLink = content?.video_link;
+
   return (
     <Grid height="100vh" container overflow={'hidden'}>
       <style>{scrollBarStyle}</style>
@@ -375,9 +380,9 @@ const Login = ({ content, userEmail }) => {
             justifyItems={'center'}
             alignContent={'center'}
             alignItems={'center'}
-            width={{ xs: '55vw', lg: '50vw', xl2: '70vw' }}
-            height={{ xs: '90vh', lg: '85vh' }}
-            spacing={2}
+            width={{ xs: '600px', lg: '650px', xl: '900px' }}
+            height={{ xs: '550px', lg: '650px', xl: '850px' }}
+            spacing={3}
             display={'flex'}
           >
             <Stack textAlign={'start'} justifyContent={'start'} width={1}>
@@ -391,55 +396,60 @@ const Login = ({ content, userEmail }) => {
                 {content?.title}
               </Typography>
               <Typography
+                width={1}
                 color="common.white"
-                fontSize={{ xs: '16px', xl2: '20px' }}
+                fontSize={{ xs: '15px', xl2: '20px' }}
               >
                 {content?.description}
               </Typography>
             </Stack>
 
-            <Stack
-              direction="row"
-              spacing={2}
-              justifyContent={'start'}
-              width={1}
-            >
-              <Button
-                target="_blank"
-                href={content?.docs_link}
-                variant="outlined"
-                sx={{
-                  px: 4,
-                  color: 'common.white',
-                  borderColor: 'common.white',
-                  '&.MuiButtonBase-root:hover': {
-                    bgcolor: 'transparent',
-                    border: '1px solid white',
-                  },
-                }}
-                startIcon={<ImportContactsOutlinedIcon />}
-                size="small"
+            <ThemeProvider theme={revampTheme}>
+              <Stack
+                direction="row"
+                spacing={2}
+                justifyContent={'start'}
+                width={1}
               >
-                Read Docs
-              </Button>
-              <Button
-                target="_blank"
-                href={content?.video_link}
-                variant="contained"
-                sx={{
-                  px: 4,
-                  bgcolor: 'common.white',
-                  color: 'black',
-                  '&.MuiButtonBase-root:hover': {
-                    bgcolor: 'white',
-                  },
-                }}
-                startIcon={<PlayArrowIcon />}
-                size="small"
-              >
-                Watch Demo
-              </Button>
-            </Stack>
+                <Button
+                  target="_blank"
+                  href={content?.announcement_link}
+                  variant="outlined"
+                  sx={{
+                    px: 3,
+                    color: 'common.white',
+                    borderColor: 'common.white',
+                    '&.MuiButtonBase-root:hover': {
+                      border: '1px solid white',
+                    },
+                  }}
+                  startIcon={<LaunchIcon />}
+                  size="medium"
+                >
+                  Read Announcement
+                </Button>
+                <Button
+                  target="_blank"
+                  href={content?.video_link || content?.training_link}
+                  variant="contained"
+                  sx={{
+                    textTransform: 'capitalize',
+                    px: 3,
+                    bgcolor: 'common.white',
+                    color: 'black',
+                    '&.MuiButtonBase-root:hover': {
+                      bgcolor: 'grey.200',
+                    },
+                  }}
+                  startIcon={hasVideoLink ? <PlayArrowIcon /> : <TimeIcon />}
+                  size="medium"
+                >
+                  {hasVideoLink
+                    ? 'Watch Video'
+                    : content?.cta_type?.replace('_', ' ')}
+                </Button>
+              </Stack>
+            </ThemeProvider>
 
             <Stack>
               {content?.image?.data[0]?.url.includes('mp4') ? (
@@ -458,7 +468,10 @@ const Login = ({ content, userEmail }) => {
                 <Stack
                   alt="Zesty.io Media"
                   component={LazyLoadImage}
-                  src={content?.image?.data[0]?.url}
+                  src={
+                    content?.feature_image?.data[0]?.url ||
+                    content?.image?.data[0]?.url
+                  }
                   effect="blur"
                   sx={{
                     objectFit: 'cover',

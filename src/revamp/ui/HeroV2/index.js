@@ -8,7 +8,7 @@ import { FONT_FAMILY } from 'components/globals/constants';
 import Logos from './Logos';
 
 const media =
-    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-hero.webp',
+    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.webp',
   acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
   bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
@@ -246,9 +246,9 @@ const Hero = ({
         })}
       >
         <picture>
-          <source srcSet={media + '?quality=50'} media="(min-width: 1200px)" />
+          <source srcSet={media + '?quality=100'} media="(min-width: 1200px)" />
           <source
-            srcSet={media + '?width=400&&quality=10'}
+            srcSet={media + '?width=1200&quality=100'}
             media="(min-width: 400px)"
           />
           <img
