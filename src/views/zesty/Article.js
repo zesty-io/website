@@ -31,7 +31,7 @@
  */
 
 import React from 'react';
-import { Box, Button, Link, Table, useTheme } from '@mui/material';
+import { Box, Button, Container, Link, Table, useTheme } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import {
   List,
@@ -45,11 +45,11 @@ import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import dayjs from 'dayjs';
-import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import AuthorSection from 'revamp/ui/AuthorSection';
 import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
+import { CtaWithInputField } from 'blocks/cta';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -60,19 +60,8 @@ function Article({ content }) {
     content.zestyProductionMode,
   );
 
-  // const {
-  //   data: tagArticles,
-  //   //  isPending: tagsPending
-  // } = useFetch(
-  //   `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
-  //   content.zestyProductionMode,
-  // );
-
   const removeErrorHandlingString = /Error hydrating/gi;
   let cleanOutErrorHydrating;
-
-  // Check if "Error hydrating" is being injected and clean out
-  // Skip if wysiwyg is empty to avoid error
 
   const authorImage =
     content.author?.data[0]?.headshot?.data[0]?.url || FillerContent.image;
@@ -119,12 +108,6 @@ function Article({ content }) {
       ),
     );
   }, []);
-
-  const MyZoomImg = ({ _children, ...props }) => (
-    <Zoom wrapElement="span">
-      <Box component="img" {...props} />
-    </Zoom>
-  );
 
   return (
     <Box>
@@ -383,7 +366,7 @@ function Article({ content }) {
                     },
                   },
                   img: {
-                    component: MyZoomImg,
+                    component: 'img',
                     props: {
                       style: {
                         marginTop: '48px',
@@ -429,7 +412,7 @@ function Article({ content }) {
                             listStyleType: 'auto',
                           },
                           mx: 3,
-                          // pl: 2,
+
                           '& ul': {
                             mt: '12px',
                             mx: 2,
@@ -442,7 +425,6 @@ function Article({ content }) {
                           px: 0,
                           '& ul': {
                             mx: 2,
-                            // pl: 2,
                           },
                         },
                       }),
@@ -461,7 +443,7 @@ function Article({ content }) {
                             display: 'list-item',
                             listStyleType: 'auto',
                           },
-                          // pl: 2,
+
                           mx: 3,
                         },
                         [theme.breakpoints.up('tablet')]: {
@@ -521,8 +503,6 @@ function Article({ content }) {
                         mt: '20px',
                         '& img, span': {
                           mt: '0px !important',
-                          // p: 1,
-                          // maxWidth: 'auto !important',
                           objectFit: 'contain',
                           height: '240px',
                         },
@@ -592,6 +572,18 @@ function Article({ content }) {
           <BlogContent title="Related Articles" articles={latestArticles} />
         </Stack>
       </ThemeProvider>
+
+      {content?.enable_newsletter_subscription === '1' && (
+        <Container position="relative" zIndex={3}>
+          <CtaWithInputField
+            title={'Subscribe to the zestiest newsletter in the industry'}
+            description={
+              'Get the latest from the Zesty team, from whitepapers to product updates.'
+            }
+            cta={'Subscribe'}
+          />
+        </Container>
+      )}
     </Box>
   );
 }
