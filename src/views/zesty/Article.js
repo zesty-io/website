@@ -60,19 +60,8 @@ function Article({ content }) {
     content.zestyProductionMode,
   );
 
-  // const {
-  //   data: tagArticles,
-  //   //  isPending: tagsPending
-  // } = useFetch(
-  //   `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
-  //   content.zestyProductionMode,
-  // );
-
   const removeErrorHandlingString = /Error hydrating/gi;
   let cleanOutErrorHydrating;
-
-  // Check if "Error hydrating" is being injected and clean out
-  // Skip if wysiwyg is empty to avoid error
 
   const authorImage =
     content.author?.data[0]?.headshot?.data[0]?.url || FillerContent.image;
@@ -111,12 +100,6 @@ function Article({ content }) {
     }
     setNewContent(decode(validateWysiwyg()));
   }, []);
-
-  // const MyZoomImg = ({ _children, ...props }) => (
-  //   <Zoom wrapElement="span">
-  //     <Box component="img" {...props} />
-  //   </Zoom>
-  // );
 
   return (
     <Box>
@@ -412,7 +395,7 @@ function Article({ content }) {
                             listStyleType: 'auto',
                           },
                           mx: 3,
-                          // pl: 2,
+
                           '& ul': {
                             mt: '12px',
                             mx: 2,
@@ -425,7 +408,6 @@ function Article({ content }) {
                           px: 0,
                           '& ul': {
                             mx: 2,
-                            // pl: 2,
                           },
                         },
                       }),
@@ -444,7 +426,7 @@ function Article({ content }) {
                             display: 'list-item',
                             listStyleType: 'auto',
                           },
-                          // pl: 2,
+
                           mx: 3,
                         },
                         [theme.breakpoints.up('tablet')]: {
@@ -504,8 +486,6 @@ function Article({ content }) {
                         mt: '20px',
                         '& img, span': {
                           mt: '0px !important',
-                          // p: 1,
-                          // maxWidth: 'auto !important',
                           objectFit: 'contain',
                           height: '240px',
                         },
