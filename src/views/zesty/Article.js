@@ -31,7 +31,7 @@
  */
 
 import React from 'react';
-import { Box, Container, Link, Table, useTheme } from '@mui/material';
+import { Box, Button, Container, Link, Table, useTheme } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import {
   List,
@@ -80,6 +80,9 @@ function Article({ content }) {
     link: c?.meta?.web?.uri,
   }));
 
+  // Define a regular expression pattern to match [_CTA_]
+  let regexPattern = /\[CALL TO ACTION\]/g;
+
   useEffect(() => {
     const validateWysiwyg = () => {
       if (newContent?.includes('Error hydrating')) {
@@ -98,7 +101,12 @@ function Article({ content }) {
       txt.innerHTML = str;
       return txt.value;
     }
-    setNewContent(decode(validateWysiwyg()));
+    setNewContent(
+      decode(validateWysiwyg()).replace(
+        regexPattern,
+        '<acronym title="Call to Action"></acronym>',
+      ),
+    );
   }, []);
 
   return (
@@ -137,6 +145,15 @@ function Article({ content }) {
             <MuiMarkdown
               options={{
                 overrides: {
+                  acronym: {
+                    component: CtaComponent,
+                    props: {
+                      title: content?.cta_title,
+                      description: content?.cta_description,
+                      ctaText: content?.cta_text,
+                      ctaLink: content?.cta_link,
+                    },
+                  },
                   p: {
                     component: Typography,
                     props: {
@@ -572,3 +589,57 @@ function Article({ content }) {
 }
 
 export default Article;
+
+function CtaComponent({ title, description, ctaText, ctaLink }) {
+  return (
+    <>
+      {title && description && (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: 4,
+            gap: 2,
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 'auto',
+            width: '100%',
+            backgroundColor: '#f0f0f0',
+            borderRadius: '8px',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h5" fontWeight={700} color="primary">
+            {title || ''}
+          </Typography>
+          <MuiMarkdown
+            options={{
+              overrides: {
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'body1',
+                    color: 'text.secondary',
+                  },
+                },
+              },
+            }}
+          >
+            {description || ''}
+          </MuiMarkdown>
+
+          <Button
+            target="_blank"
+            href={ctaLink || ''}
+            component="a"
+            variant="contained"
+            color="primary"
+          >
+            {ctaText || ''}
+          </Button>
+        </Box>
+      )}
+    </>
+  );
+}
