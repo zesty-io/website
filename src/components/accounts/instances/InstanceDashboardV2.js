@@ -317,7 +317,7 @@ const InstanceDashboardV2 = () => {
         />
 
         <TextField
-          label="Search an instances"
+          placeholder="Search an instances"
           InputProps={{
             endAdornment: (
               <InputAdornment position="start">
@@ -333,6 +333,11 @@ const InstanceDashboardV2 = () => {
           onChange={(e) => {
             const value = e.target.value?.toLowerCase();
             setSearch(value);
+          }}
+          sx={{
+            '& .MuiInputBase-root': {
+              bgcolor: 'transparent',
+            },
           }}
         />
         <Stack direction="row" spacing={2} alignItems="stretch">
