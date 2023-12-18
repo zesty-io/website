@@ -31,7 +31,7 @@
  */
 
 import React from 'react';
-import { Box, Link, Table, useTheme } from '@mui/material';
+import { Box, Button, Container, Link, Table, useTheme } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import {
   List,
@@ -45,11 +45,11 @@ import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import dayjs from 'dayjs';
-import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import AuthorSection from 'revamp/ui/AuthorSection';
 import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
+import { CtaWithInputField } from 'blocks/cta';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -60,19 +60,8 @@ function Article({ content }) {
     content.zestyProductionMode,
   );
 
-  // const {
-  //   data: tagArticles,
-  //   //  isPending: tagsPending
-  // } = useFetch(
-  //   `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
-  //   content.zestyProductionMode,
-  // );
-
   const removeErrorHandlingString = /Error hydrating/gi;
   let cleanOutErrorHydrating;
-
-  // Check if "Error hydrating" is being injected and clean out
-  // Skip if wysiwyg is empty to avoid error
 
   const authorImage =
     content.author?.data[0]?.headshot?.data[0]?.url || FillerContent.image;
@@ -90,6 +79,9 @@ function Article({ content }) {
     name: c?.tag,
     link: c?.meta?.web?.uri,
   }));
+
+  // Define a regular expression pattern to match [_CTA_]
+  let regexPattern = /\[CALL TO ACTION\]/g;
 
   useEffect(() => {
     const validateWysiwyg = () => {
@@ -109,14 +101,13 @@ function Article({ content }) {
       txt.innerHTML = str;
       return txt.value;
     }
-    setNewContent(decode(validateWysiwyg()));
+    setNewContent(
+      decode(validateWysiwyg()).replace(
+        regexPattern,
+        '<acronym title="Call to Action"></acronym>',
+      ),
+    );
   }, []);
-
-  const MyZoomImg = ({ _children, ...props }) => (
-    <Zoom wrapElement="span">
-      <Box component="img" {...props} />
-    </Zoom>
-  );
 
   return (
     <Box>
@@ -154,6 +145,15 @@ function Article({ content }) {
             <MuiMarkdown
               options={{
                 overrides: {
+                  acronym: {
+                    component: CtaComponent,
+                    props: {
+                      title: content?.cta_title,
+                      description: content?.cta_description,
+                      ctaText: content?.cta_text,
+                      ctaLink: content?.cta_link,
+                    },
+                  },
                   p: {
                     component: Typography,
                     props: {
@@ -366,7 +366,7 @@ function Article({ content }) {
                     },
                   },
                   img: {
-                    component: MyZoomImg,
+                    component: 'img',
                     props: {
                       style: {
                         marginTop: '48px',
@@ -412,7 +412,7 @@ function Article({ content }) {
                             listStyleType: 'auto',
                           },
                           mx: 3,
-                          // pl: 2,
+
                           '& ul': {
                             mt: '12px',
                             mx: 2,
@@ -425,7 +425,6 @@ function Article({ content }) {
                           px: 0,
                           '& ul': {
                             mx: 2,
-                            // pl: 2,
                           },
                         },
                       }),
@@ -444,7 +443,7 @@ function Article({ content }) {
                             display: 'list-item',
                             listStyleType: 'auto',
                           },
-                          // pl: 2,
+
                           mx: 3,
                         },
                         [theme.breakpoints.up('tablet')]: {
@@ -504,8 +503,6 @@ function Article({ content }) {
                         mt: '20px',
                         '& img, span': {
                           mt: '0px !important',
-                          // p: 1,
-                          // maxWidth: 'auto !important',
                           objectFit: 'contain',
                           height: '240px',
                         },
@@ -575,8 +572,74 @@ function Article({ content }) {
           <BlogContent title="Related Articles" articles={latestArticles} />
         </Stack>
       </ThemeProvider>
+
+      {content?.enable_newsletter_subscription === '1' && (
+        <Container position="relative" zIndex={3}>
+          <CtaWithInputField
+            title={'Subscribe to the zestiest newsletter in the industry'}
+            description={
+              'Get the latest from the Zesty team, from whitepapers to product updates.'
+            }
+            cta={'Subscribe'}
+          />
+        </Container>
+      )}
     </Box>
   );
 }
 
 export default Article;
+
+function CtaComponent({ title, description, ctaText, ctaLink }) {
+  return (
+    <>
+      {title && description && (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: 4,
+            gap: 2,
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 'auto',
+            width: '100%',
+            backgroundColor: '#f0f0f0',
+            borderRadius: '8px',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h5" fontWeight={700} color="primary">
+            {title || ''}
+          </Typography>
+          <MuiMarkdown
+            options={{
+              overrides: {
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'body1',
+                    color: 'text.secondary',
+                  },
+                },
+              },
+            }}
+          >
+            {description || ''}
+          </MuiMarkdown>
+
+          <Button
+            target="_blank"
+            href={ctaLink || ''}
+            component="a"
+            variant="contained"
+            color="primary"
+          >
+            {ctaText || ''}
+          </Button>
+        </Box>
+      )}
+    </>
+  );
+}
