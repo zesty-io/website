@@ -5,21 +5,7 @@ import { deleteCookie } from 'cookies-next';
  * @param {boolean} isProd - boolean current environment
  *
  */
-export const resetCookies = (isProd) => {
-  if (isProd) {
-    deleteCookie('APP_SID', {
-      domain: '.zesty.io',
-      secure: true,
-    });
-  } else {
-    deleteCookie('DEV_APP_SID', {
-      domain: '.zesty.io',
-      secure: true,
-    });
-  }
-  deleteCookie(isProd ? 'APP_SID' : 'DEV_APP_SID', {
-    domain: '.zesty.io',
-  });
+export const resetCookies = () => {
   deleteCookie('isAuthenticated');
   deleteCookie('ZESTY_WORKING_INSTANCE', {});
   deleteCookie('APP_USER_ZUID');
