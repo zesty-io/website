@@ -515,7 +515,9 @@ function Article({ content }) {
                         '& p': {
                           width: 'auto',
                         },
-
+                        '& tr': {
+                          bgcolor: 'transparent !important',
+                        },
                         '& td': {
                           color:
                             theme.palette.mode === 'dark'
@@ -563,6 +565,14 @@ function Article({ content }) {
                       style: {
                         backgroundColor:
                           palette.mode === 'dark' ? 'darkblue' : '#F5F7F9',
+                      },
+                    },
+                  },
+                  pre: {
+                    props: {
+                      style: {
+                        backgroundColor:
+                          palette.mode === 'dark' ? 'transparent' : '#F5F7F9',
                       },
                     },
                   },
