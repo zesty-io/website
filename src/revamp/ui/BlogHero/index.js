@@ -28,7 +28,7 @@ const image =
 const menuItems = [
   {
     name: 'Facebook',
-    icon: <FacebookRoundedIcon />,
+    icon: <FacebookRoundedIcon sx={{ color: 'red' }} />,
   },
   {
     name: 'Twitter',
@@ -233,7 +233,15 @@ const BlogHero = ({
                 handleClickMenu(c.name, true);
               }}
             >
-              <ListItemIcon>{c.icon}</ListItemIcon>
+              <ListItemIcon
+                sx={(theme) => ({
+                  '& svg': {
+                    color: theme.palette.mode === 'dark' && 'white',
+                  },
+                })}
+              >
+                {c.icon}
+              </ListItemIcon>
               <Typography color="text.primary" letterSpacing=".15px">
                 {c.name}
               </Typography>
