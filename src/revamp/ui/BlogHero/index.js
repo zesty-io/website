@@ -28,7 +28,7 @@ const image =
 const menuItems = [
   {
     name: 'Facebook',
-    icon: <FacebookRoundedIcon sx={{ color: 'red' }} />,
+    icon: <FacebookRoundedIcon />,
   },
   {
     name: 'Twitter',
