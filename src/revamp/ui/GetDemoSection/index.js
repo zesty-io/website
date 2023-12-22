@@ -78,6 +78,8 @@ const GetDemoSection = ({
     return values;
   };
 
+  console.warn(data);
+
   return (
     <Stack bgcolor="grey.900">
       <Stack

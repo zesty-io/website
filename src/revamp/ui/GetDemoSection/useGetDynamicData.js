@@ -19,6 +19,7 @@ export default function useGetDynamicData() {
   const router = useRouter();
   const { type } = router.query;
 
+  console.log(type);
   useEffect(() => {
     const getData = async () => {
       const fetchedData = await fetchData();
