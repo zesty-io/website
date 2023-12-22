@@ -15,6 +15,7 @@ import {
 import { MultiFieldForm } from './MultiFieldForm';
 import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
 import { generateAlt } from 'utils';
+import useGetDynamicData from './useGetDynamicData';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -38,6 +39,7 @@ const GetDemoSection = ({
   formTitle = 'Enter your details to connect with a Content Expert',
 }) => {
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
+  const { data } = useGetDynamicData();
   let inquiryReasons = [
     'General',
     'Agency Sign Up',
@@ -48,10 +50,6 @@ const GetDemoSection = ({
   ];
 
   const onSubmit = async (values) => {
-    // download link
-    // downloadLink && window.open(downloadLink, '_blank');
-    // capterraTracking && capterraTracking();
-
     if (values.firstName === '') {
       values.firstName = 'Unknown';
     }
@@ -63,7 +61,7 @@ const GetDemoSection = ({
       values?.inquiryReason,
       'Demo Sign Up',
       '',
-      'Contact Us', // leadsource
+      data?.lead_source_detail || 'Contact Us', // leadsource
       lastVisitedPath,
       lastVisitedURL,
     );
@@ -76,13 +74,11 @@ const GetDemoSection = ({
       await subscribeToZoho(payload);
     }
 
-    // cmsModel === 'Gated Content Page'
-    //   ? setOpen(true)
-    //   : (window.location = '/ppc/thank-you/');
-
     window.location = redirect;
     return values;
   };
+
+  console.warn(data);
 
   return (
     <Stack bgcolor="grey.900">
@@ -121,7 +117,7 @@ const GetDemoSection = ({
               letterSpacing="-0.02em"
               color="white"
             >
-              {title}
+              {data?.title || title}
             </Typography>
 
             <MuiMarkdown
@@ -142,7 +138,7 @@ const GetDemoSection = ({
                 },
               }}
             >
-              {supportingText}
+              {data?.description || supportingText}
             </MuiMarkdown>
           </Stack>
           <Stack>
