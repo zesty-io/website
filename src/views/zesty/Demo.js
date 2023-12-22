@@ -81,7 +81,7 @@ function EngageTypeCards({ cardData }) {
       </Stack>
 
       <Grid container spacing={4} sx={{ width: '100%', maxWidth: 1200 }}>
-        {cardData.map((item) => {
+        {cardData?.map((item) => {
           return (
             <Grid
               key={item}
