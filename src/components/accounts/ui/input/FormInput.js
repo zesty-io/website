@@ -76,6 +76,9 @@ function Index({
                 border: '2px solid #FF5D0A',
               },
             },
+            '& .MuiInputBase-root': {
+              bgcolor: 'transparent',
+            },
           }}
         />
       ) : (
@@ -86,6 +89,7 @@ function Index({
               height: '40px',
               borderRadius: '8px',
               fontSize: '14px',
+
               '& fieldset': {
                 border: '1px solid #F2F4F7',
               },
@@ -95,6 +99,9 @@ function Index({
               '&.Mui-focused fieldset': {
                 border: '2px solid #FF5D0A',
               },
+            },
+            '& .MuiInputBase-root': {
+              bgcolor: 'transparent',
             },
           }}
           {...defaultProps}

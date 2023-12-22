@@ -202,6 +202,9 @@ const Index = ({
                 border: `1px solid ${grey[200]}`,
                 borderRadius: '8px',
               },
+              '& .MuiInputBase-root': {
+                bgcolor: 'transparent',
+              },
             }}
             placeholder={placeholder}
             InputProps={{

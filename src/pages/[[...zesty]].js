@@ -119,7 +119,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       docs,
     },
     algolia: {
-      apiKey: process.env.ALGOLIA_APIKEY,
+      apiKey: process.env.ALGOLIA_SEARCH_KEY,
       appId: process.env.ALGOLIA_APPID,
       index: process.env.ALGOLIA_INDEX,
     },
