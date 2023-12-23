@@ -513,7 +513,9 @@ function Article({ content }) {
                         '& p': {
                           width: 'auto',
                         },
-
+                        '& tr': {
+                          bgcolor: 'transparent !important',
+                        },
                         '& td': {
                           color:
                             theme.palette.mode === 'dark'
