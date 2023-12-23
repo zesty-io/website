@@ -8,7 +8,6 @@ import {
 import axios from 'axios';
 import { deleteCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
-// import { useZestyStore } from 'store';
 import * as helpers from 'utils';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
@@ -17,12 +16,8 @@ const purgeUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/fastlyPurge?zuid=8-aaeffee09b-7w6v22&instance=8-aaeffee09b-7w6v22';
 
 const logout = () => {
-  // const { ZestyAPI } = useZestyStore((state) => state);
-
   useEffect(() => {
     const logout = async () => {
-      // await ZestyAPI.logout();
-      // clear websites cache on logout
       await axios.get(purgeUrl);
       deleteCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', {
         domain: '.zesty.io',
@@ -41,6 +36,10 @@ const logout = () => {
       });
       deleteCookie('isAuthenticated');
       deleteCookie('ZESTY_WORKING_INSTANCE', {});
+      deleteCookie('APP_USER_EMAIL', {});
+      deleteCookie('APP_USER_FIRST_NAME', {});
+      deleteCookie('APP_USER_LAST_NAME', {});
+      deleteCookie('APP_USER_ZUID', {});
       window.location.replace('/login/');
     };
 
