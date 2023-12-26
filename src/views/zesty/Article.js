@@ -409,7 +409,7 @@ function Article({ content }) {
                           mt: '20px',
                           '& .MuiListItem-root': {
                             display: 'list-item',
-                            listStyleType: 'auto',
+                            listStyleType: 'disc',
                           },
                           mx: 3,
 
@@ -432,7 +432,9 @@ function Article({ content }) {
                   },
                   ol: {
                     component: List,
+
                     props: {
+                      component: 'ol',
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
                           color: 'text.secondary',
@@ -459,7 +461,7 @@ function Article({ content }) {
                     props: {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
-                          listStyleType: 'inherit',
+                          listStyleType: 'initial',
                           px: 0,
                           pt: 0,
                           pb: '12px',
@@ -519,7 +521,7 @@ function Article({ content }) {
                         '& td': {
                           color:
                             theme.palette.mode === 'dark'
-                              ? 'black'
+                              ? 'white'
                               : 'text.primary',
                         },
                       }),
@@ -555,6 +557,22 @@ function Article({ content }) {
                       style: {
                         fontSize: '14px',
                         lineHeight: '14px',
+                      },
+                    },
+                  },
+                  code: {
+                    props: {
+                      style: {
+                        backgroundColor:
+                          palette.mode === 'dark' ? 'darkblue' : '#F5F7F9',
+                      },
+                    },
+                  },
+                  pre: {
+                    props: {
+                      style: {
+                        backgroundColor:
+                          palette.mode === 'dark' ? 'transparent' : '#F5F7F9',
                       },
                     },
                   },
