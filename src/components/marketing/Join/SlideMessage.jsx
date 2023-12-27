@@ -308,7 +308,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         fontWeight={'bold'}
         sx={{ mb: 1, pt: 2 }}
       >
-        or start a new account
+        or use your email
       </Typography>
       <Box pb={0} gap={4} display="flex" width={1}>
         <Box width={1} sx={{ pb: 0 }}>
