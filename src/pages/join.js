@@ -31,7 +31,7 @@ import dynamic from 'next/dynamic';
 const firstMessage = (
   <Box paddingY={4}>
     <Typography variant="h4" gutterBottom>
-      A Powerful, Free CMS
+      A Powerful, Headless and Hybrid CMS
     </Typography>
     <Typography variant="h6">
       Build websites and headless applications with Zesty.io

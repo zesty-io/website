@@ -228,7 +228,7 @@ export function SlideMessage({
                       fontWeight={'bold'}
                       sx={{ mb: 2 }}
                     >
-                      Build on Zesty for Free
+                      Start Free Trial
                       {/* Create your free account */}
                     </Typography>
 
