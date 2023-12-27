@@ -228,7 +228,7 @@ export function SlideMessage({
                       fontWeight={'bold'}
                       sx={{ mb: 2 }}
                     >
-                      Start Free Trial
+                      Login with Single Sign on
                       {/* Create your free account */}
                     </Typography>
 
