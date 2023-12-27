@@ -25,172 +25,158 @@
  */
 import { React } from 'react';
 import { useTheme } from '@mui/material/styles';
-// import Typography from '@mui/material/Typography';
-// import FillerContent from 'components/globals/FillerContent';
-// import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
-// import MuiMarkdown from 'markdown-to-jsx';
-// import ZestyImage from 'blocks/Image/ZestyImage';
-// import useMediaQuery from '@mui/material/useMediaQuery';
 import {
-  //  Avatar, Grid, Box, Container,
-
+  Box,
+  Button,
+  Card,
+  Grid,
+  Stack,
   ThemeProvider,
+  Typography,
+  alpha,
 } from '@mui/material';
-// import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
-// import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
-import GetDemoSection from 'revamp/ui/GetDemoSection';
+import MuiMarkdown from 'markdown-to-jsx';
 import revampTheme from 'theme/revampTheme';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import Link from 'next/link';
+import { G2Awards, Logos } from 'revamp/ui/GetDemoSection';
 
-const Demo = () => {
+const Demo = ({ content }) => {
   const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const cardData = content?.dynamic_contact_page?.data;
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-      <GetDemoSection />
+      <EngageTypeCards cardData={cardData} />
+      {/* <GetDemoSection /> */}
     </ThemeProvider>
-    // <Container sx={{ sm: 1, md: 1236, py: 15 }}>
-    //   <Grid container>
-    //     <Grid
-    //       sx={{
-    //         px: 4,
-    //         display: 'flex',
-    //         justifyContent: 'center',
-    //         alignItems: 'center',
-    //       }}
-    //       item
-    //       xs={12}
-    //       md={6}
-    //     >
-    //       <Box>
-    //         <Box>
-    //           <MuiMarkdown
-    //             options={{
-    //               overrides: {
-    //                 h1: {
-    //                   component: Typography,
-    //                   props: {
-    //                     variant: 'h3',
-    //                     fontWeight: 'bold',
-    //                     component: 'h1',
-    //                     color: theme.palette.zesty.zestyZambezi,
-    //                   },
-    //                 },
-    //                 p: {
-    //                   component: Typography,
-    //                   props: {
-    //                     variant: 'body1',
-    //                     component: 'p',
-    //                     lineHeight: 1.2,
-    //                     mt: 2,
-    //                     color: theme.palette.zesty.zestyZambezi,
-    //                   },
-    //                 },
-    //               },
-    //             }}
-    //           >
-    //             {content?.demo_description || FillerContent.description}
-    //           </MuiMarkdown>
-    //         </Box>
-    //         <Box
-    //           sx={{
-    //             display: 'flex',
-    //             flexWrap: 'wrap',
-    //             justifyContent: isMobile ? 'center' : 'flex-start',
-    //             gap: 2,
-    //             mt: 4,
-    //           }}
-    //         >
-    //           {content?.g2_badges?.data.map((item, index) => (
-    //             <Box key={index}>
-    //               <ZestyImage
-    //                 width={100}
-    //                 height={120}
-    //                 style={{ width: 'auto', height: 'auto' }}
-    //                 src={item?.badge_image?.data[0].url || FillerContent.href}
-    //               />
-    //             </Box>
-    //           ))}
-    //         </Box>
-    //         <Box sx={{ my: 4 }}>
-    //           {content?.testimonial?.data.map((item, index) => (
-    //             <Box key={index}>
-    //               <Typography
-    //                 variant="body1"
-    //                 component="p"
-    //                 sx={{
-    //                   lineHeight: 1.2,
-    //                   fontStyle: 'italic',
-    //                   color: theme.palette.zestyZambezi,
-    //                 }}
-    //               >
-    //                 {item?.review || FillerContent.description}
-    //               </Typography>
-
-    //               <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
-    //                 <Avatar
-    //                   src={
-    //                     item?.reviewer_headshot?.data[0]?.url ||
-    //                     FillerContent.photos[0].src
-    //                   }
-    //                   alt={item?.reviewer_name || ''}
-    //                 />
-    //                 <Box>
-    //                   <Typography
-    //                     variant="body1"
-    //                     component="p"
-    //                     sx={{
-    //                       lineHeight: 1.2,
-    //                       color: theme.palette.zestyZambezi,
-    //                     }}
-    //                   >
-    //                     {item?.reviewer_name || FillerContent.description}
-    //                   </Typography>
-    //                   <Typography
-    //                     variant="body1"
-    //                     component="p"
-    //                     sx={{
-    //                       lineHeight: 1.2,
-    //                       color: theme.palette.zestyZambezi,
-    //                       fontWeight: 'bold',
-    //                     }}
-    //                   >
-    //                     {item?.reviewer_title || FillerContent.description}
-    //                   </Typography>
-    //                 </Box>
-    //               </Box>
-    //             </Box>
-    //           ))}
-    //         </Box>
-    //       </Box>
-    //     </Grid>
-    //     <Grid sx={{ mt: isMobile ? 4 : 0 }} item xs={12} md={6}>
-    //       <Box>
-    //         <ZohoFormEmbed
-    //           height={content.form_height || 600}
-    //           formURL={content.form_link || ''}
-    //         />
-    //       </Box>
-    //     </Grid>
-    //   </Grid>
-    //   <Box sx={{ mt: 10 }}>
-    //     <SimpleCardLogo
-    //       variant="outlined"
-    //       heading_text={content?.logos_h2}
-    //       logoItems={content?.logos?.data}
-    //     />
-
-    //     <DarkBlueCta
-    //       sx={{ mt: 15, py: 10 }}
-    //       cta_text={content?.cta_button}
-    //       cta_secondary_link={
-    //         content?.cta_button_secondary_link?.data[0].meta.web.uri
-    //       }
-    //       cta_secondary_text={content?.cta_button_secondary}
-    //       header_content={content?.bottom_cta}
-    //     />
-    //   </Box>
-    // </Container>
   );
 };
 
 export default Demo;
+
+function EngageTypeCards({ cardData }) {
+  const theme = useTheme();
+  return (
+    <Stack
+      bgcolor="grey.900"
+      py={{ xs: 4, tablet: 6, lg: 10 }}
+      px={{ xs: 2, tablet: 4, lg: 14 }}
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
+    >
+      <Stack mb={{ xs: 4, lg: 5 }}>
+        <Typography
+          py={0}
+          fontWeight={800}
+          fontSize={{ xs: 36, tablet: 52 }}
+          lineHeight={{ xs: '44px', tablet: '56px' }}
+          mb={{ xs: 2, tablet: '24px' }}
+          letterSpacing="-0.02em"
+          color="#fff"
+        >
+          How would you like to engage?
+        </Typography>
+      </Stack>
+
+      <Grid container spacing={4} sx={{ width: '100%', maxWidth: 1200 }}>
+        {cardData?.map((item) => {
+          return (
+            <Grid
+              key={item}
+              component={Link}
+              href={item.button_link || '#'}
+              sx={{ textDecoration: 'none' }}
+              item
+              xs={12}
+              md={4}
+            >
+              <Stack
+                height={'100%'}
+                minHeight={220}
+                component={Card}
+                sx={{
+                  '&:hover': {
+                    background: theme.palette.grey[200],
+                  },
+                }}
+                borderRadius="8px"
+              >
+                <Stack sx={{ height: '100%' }}>
+                  <Box
+                    p="20px"
+                    spacing={1}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      width: '100%',
+                    }}
+                  >
+                    <Typography
+                      variant="h5"
+                      letterSpacing="-0.02em"
+                      color="text.primary"
+                      fontWeight={600}
+                    >
+                      {item?.title || ''}
+                    </Typography>
+
+                    <ArrowForwardRoundedIcon
+                      sx={{
+                        width: '16px',
+                        height: '16px',
+                        alignSelf: 'center',
+                        fill: alpha(theme.palette.grey[900], '.4'),
+                      }}
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      mb: 2,
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Stack gap={2} px="20px">
+                      <MuiMarkdown
+                        options={{
+                          overrides: {
+                            p: {
+                              component: Typography,
+                              props: {
+                                sx: { textAlign: 'left' },
+                                color: 'text.secondary',
+                              },
+                            },
+                          },
+                        }}
+                      >
+                        {item?.description || ''}
+                      </MuiMarkdown>
+                    </Stack>
+
+                    <Button sx={{ mx: 2 }} variant="contained" size="medium">
+                      {item?.button_text || ''}
+                    </Button>
+                  </Box>
+                </Stack>
+              </Stack>
+            </Grid>
+          );
+        })}
+      </Grid>
+
+      <Grid container spacing={4} sx={{ width: '100%', maxWidth: 1200, mt: 8 }}>
+        <Grid item xs={12} md={6}>
+          <Logos />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <G2Awards />
+        </Grid>
+      </Grid>
+    </Stack>
+  );
+}

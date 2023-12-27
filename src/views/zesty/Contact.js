@@ -49,11 +49,7 @@ function Contact({ content }) {
 
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-      <GetDemoSection
-        {...getDemoSectionProps}
-        isContact
-        redirect="/ppc/thank-you/"
-      />
+      <GetDemoSection {...getDemoSectionProps} />
     </ThemeProvider>
     //     <Box>
     //       <ContactFormWithSidebarMap
