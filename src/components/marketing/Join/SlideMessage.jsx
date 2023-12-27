@@ -228,7 +228,7 @@ export function SlideMessage({
                       fontWeight={'bold'}
                       sx={{ mb: 2 }}
                     >
-                      Build on Zesty for Free
+                      Login with Single Sign on
                       {/* Create your free account */}
                     </Typography>
 
@@ -308,7 +308,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         fontWeight={'bold'}
         sx={{ mb: 1, pt: 2 }}
       >
-        or start a new account
+        or use your email
       </Typography>
       <Box pb={0} gap={4} display="flex" width={1}>
         <Box width={1} sx={{ pb: 0 }}>
