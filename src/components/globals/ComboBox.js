@@ -150,7 +150,6 @@ const Index = ({
   initialLabel,
   ...props
 }) => {
-  const theme = useTheme();
   const [label, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
     return instances;
@@ -177,13 +176,10 @@ const Index = ({
   return (
     <Autocomplete
       filterOptions={filterOptions}
-      id="virtualize-demo"
       onChange={handleChange}
-      sx={{
+      sx={() => ({
         width,
-        backgroundColor:
-          theme.palette.mode === 'light' && theme.palette.common.white,
-      }}
+      })}
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
@@ -194,6 +190,11 @@ const Index = ({
           <TextField
             {...params}
             label={label || initialLabel || 'Select an instance'}
+            sx={{
+              '& > .MuiInputBase-root': {
+                bgcolor: 'transparent',
+              },
+            }}
           />
         );
       }}

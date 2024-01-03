@@ -52,9 +52,9 @@ const Index = ({
     >
       <DataGrid
         autoHeight={autoHeight}
-        sx={{
+        sx={(theme) => ({
           '& .MuiDataGrid-columnHeaders': {
-            bgcolor: grey[50],
+            bgcolor: theme.palette.mode === 'dark' ? 'transparent' : grey[50],
           },
           '.MuiDataGrid-columnSeparator': {
             display: true ? 'none' : '',
@@ -69,7 +69,17 @@ const Index = ({
           '& .MuiDataGrid-cell:hover': {
             color: 'primary.main',
           },
-        }}
+
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-track': {
+            background: grey[300],
+          },
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb': {
+            backgroundColor: grey[500],
+          },
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb:hover': {
+            background: grey[500],
+          },
+        })}
         rowHeight={rowHeight}
         rows={rows}
         columns={columns}

@@ -36,7 +36,7 @@ const Index = ({ children }) => {
     location?.pathname?.split('/').length > 2
       ? location?.pathname?.split('/')[3]
       : '';
-  const [tabValue, setTabValue] = useState(currentPage);
+  const [, setTabValue] = useState(currentPage);
   const router = useRouter();
   const { ZestyAPI, instance, setInstance } = useZestyStore((state) => state);
   const { zuid } = router.query;
@@ -115,7 +115,7 @@ const Index = ({ children }) => {
         <Container>
           <InstanceHeader ZestyAPI={ZestyAPI} instance={instance} />
           <Tabs
-            value={tabValue}
+            value={currentPage}
             onChange={handleTabChange}
             aria-label="icon position tabs example"
             indicatorColor="primary"
