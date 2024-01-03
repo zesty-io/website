@@ -40,6 +40,7 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { removeHTMLtags } from 'utils/removeHTMLtags';
+import { getCookie, setCookie } from 'cookies-next';
 export function Placeholder() {
   return <Box sx={{ height: { xs: 587, sm: 303, md: 289 } }} />;
 }
@@ -82,6 +83,13 @@ const GetDemoSection = dynamic(() => import('./GetDemoSection'), {
 function Homepage({ content }) {
   const { palette } = useTheme();
   const isLoggedIn = useIsLoggedIn();
+  const zestyProductionMode = getCookie('PRODUCTION');
+
+  useEffect(() => {
+    if (!zestyProductionMode) {
+      setCookie('PRODUCTION', content?.zestyProductionMode);
+    }
+  }, [zestyProductionMode]);
 
   useEffect(() => {
     const prevUrl = sessionStorage.getItem('prevUrl');
@@ -93,7 +101,7 @@ function Homepage({ content }) {
         window.location.href = '/dashboard/';
       }
     }
-  }, [content.zesty.isAuthenticated, isLoggedIn]);
+  }, [content.zesty.isAuthenticated, isLoggedIn, zestyProductionMode]);
 
   const heroProps = {
     HeroText: removeHTMLtags(content?.header_title_and_description)
