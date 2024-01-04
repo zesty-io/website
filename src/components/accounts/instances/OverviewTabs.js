@@ -63,10 +63,12 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
           disabled
           sx={(theme) => ({
             borderRadius: '8px',
-            bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
+            '& .MuiInputBase-root': {
+              bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
+            },
             '& .MuiInputBase-input.Mui-disabled': {
               WebkitTextFillColor:
-                theme.palette.mode === 'light' ? 'black' : '#333333',
+                theme.palette.mode === 'light' ? 'black' : '#fff',
             },
             '& fieldset': {
               border: `1px solid ${grey[200]}`,
