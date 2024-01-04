@@ -118,8 +118,19 @@ export const MultiFieldForm = ({
           </>
         )}
 
-        <Button type="submit" variant="contained" size="extraLarge" fullWidth>
-          Contact Us
+        <Button
+          sx={{
+            background: (t) => t.palette.zesty?.zestyOrange,
+            '&:hover': {
+              background: (t) => t.palette.zesty?.zestyOrange,
+            },
+          }}
+          type="submit"
+          variant="contained"
+          size="extraLarge"
+          fullWidth
+        >
+          Book Demo
         </Button>
       </Stack>
     </>
