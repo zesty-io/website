@@ -54,8 +54,10 @@ function SideContent({ initialInstances, unfilteredTotalInstances, teams }) {
             <Link
               underline="none"
               href="/instances"
-              color="primary"
-              sx={{ cursor: 'pointer' }}
+              sx={(theme) => ({
+                cursor: 'pointer',
+                color: theme.palette.primary.main,
+              })}
             >
               Show All
             </Link>
