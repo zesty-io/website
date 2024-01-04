@@ -14,7 +14,15 @@ const Index = ({
   value,
 }) => {
   return (
-    <FormControl fullWidth sx={{ margin: '.5rem 2rem' }}>
+    <FormControl
+      fullWidth
+      sx={{
+        margin: '.5rem 2rem',
+        '& > .MuiInputBase-root': {
+          background: 'transparent',
+        },
+      }}
+    >
       {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
         {value}
       </InputLabel> */}

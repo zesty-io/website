@@ -28,7 +28,14 @@ export const AccountSelect = ({
 
   return (
     <Box width={width}>
-      <FormControl fullWidth>
+      <FormControl
+        fullWidth
+        sx={(theme) => ({
+          '& > .MuiInputBase-root': {
+            bgcolor: theme.palette.mode === 'dark' ? 'transparent' : '',
+          },
+        })}
+      >
         <Select
           size="small"
           displayEmpty

@@ -48,6 +48,7 @@ export const ProfileMenu = ({ profilePic, userInfo }) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        disablePortal
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}

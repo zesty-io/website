@@ -21,6 +21,11 @@ const Index = ({ name, value, handleAdd }) => {
         onChange={handleChange}
         placeholder={name}
         variant="outlined"
+        sx={(theme) => ({
+          '& > .MuiInputBase-root': {
+            bgcolor: theme.palette.mode === 'dark' ? 'transparent' : '',
+          },
+        })}
       />
     </Box>
   );
