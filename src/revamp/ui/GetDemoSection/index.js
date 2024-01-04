@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import MuiMarkdown from 'markdown-to-jsx';
 import {
@@ -15,6 +15,7 @@ import {
 import { MultiFieldForm } from './MultiFieldForm';
 import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
 import { generateAlt } from 'utils';
+import useGetDynamicData from './useGetDynamicData';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -38,6 +39,7 @@ const GetDemoSection = ({
   formTitle = 'Enter your details to connect with a Content Expert',
 }) => {
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
+  const { data } = useGetDynamicData();
   let inquiryReasons = [
     'General',
     'Agency Sign Up',
@@ -48,10 +50,6 @@ const GetDemoSection = ({
   ];
 
   const onSubmit = async (values) => {
-    // download link
-    // downloadLink && window.open(downloadLink, '_blank');
-    // capterraTracking && capterraTracking();
-
     if (values.firstName === '') {
       values.firstName = 'Unknown';
     }
@@ -63,7 +61,7 @@ const GetDemoSection = ({
       values?.inquiryReason,
       'Demo Sign Up',
       '',
-      'Contact Us', // leadsource
+      data?.lead_source_detail || 'Contact Us', // leadsource
       lastVisitedPath,
       lastVisitedURL,
     );
@@ -75,10 +73,6 @@ const GetDemoSection = ({
     if (payload.newsletter_signup) {
       await subscribeToZoho(payload);
     }
-
-    // cmsModel === 'Gated Content Page'
-    //   ? setOpen(true)
-    //   : (window.location = '/ppc/thank-you/');
 
     window.location = redirect;
     return values;
@@ -121,7 +115,7 @@ const GetDemoSection = ({
               letterSpacing="-0.02em"
               color="white"
             >
-              {title}
+              {data?.title || title}
             </Typography>
 
             <MuiMarkdown
@@ -142,115 +136,10 @@ const GetDemoSection = ({
                 },
               }}
             >
-              {supportingText}
+              {data?.description || supportingText}
             </MuiMarkdown>
           </Stack>
-          <Stack>
-            <Typography
-              variant="body2"
-              color="primary"
-              mb="12px"
-              textTransform="uppercase"
-            >
-              Trusted By
-            </Typography>
-            <Stack
-              flexWrap="wrap"
-              direction="row"
-              gap={{ xs: '20px', desktopWide: '30px' }}
-            >
-              <img
-                loading="lazy"
-                src={sony}
-                width="91px"
-                height="32px"
-                alt={generateAlt('Sony')}
-              />
-              <img
-                loading="lazy"
-                src={rocketLeague}
-                width="60px"
-                height="32px"
-                alt={generateAlt('Rocket League')}
-              />
-              <img
-                loading="lazy"
-                src={singlife}
-                width="102.12px"
-                height="32px"
-                alt={generateAlt('Singlife')}
-              />
-              <img
-                loading="lazy"
-                src={acorns}
-                width="94px"
-                height="32px"
-                alt={generateAlt('Acorns')}
-              />
-              <img
-                loading="lazy"
-                src={phoenixSuns}
-                width="107.54px"
-                height="32px"
-                alt={generateAlt('Phoenix Suns')}
-              />
-              <img
-                loading="lazy"
-                src={wattpad}
-                width="115.91px"
-                height="32px"
-                alt={generateAlt('Wattpad')}
-              />
-              <img
-                loading="lazy"
-                src={cornershop}
-                width="96.69px"
-                height="32px"
-                alt={generateAlt('Corner Shop')}
-              />
-              <img
-                loading="lazy"
-                src={bjs}
-                width="36.48px"
-                height="32px"
-                alt={generateAlt('Bjs')}
-              />
-            </Stack>
-
-            <Stack sx={{ mt: 8 }}>
-              <Typography
-                color="primary"
-                variant="body2"
-                mb="12px"
-                textTransform="uppercase"
-              >
-                G2 MOMENTUM LEADER
-              </Typography>
-              <Stack flexWrap="wrap" direction="row" gap="20px">
-                <img
-                  alt={generateAlt('')}
-                  loading="lazy"
-                  src={pic1}
-                  width="92.2px"
-                  height="120px"
-                />
-                <img
-                  alt={generateAlt('')}
-                  loading="lazy"
-                  src={pic2}
-                  width="92.2px"
-                  height="120px"
-                />
-                <img
-                  alt={generateAlt('')}
-                  loading="lazy"
-                  src={pic3}
-                  width="92.2px"
-                  height="120px"
-                />
-              </Stack>
-            </Stack>
-          </Stack>
+          <TrustLogos />
         </Stack>
 
         <Stack>
@@ -381,3 +270,145 @@ const GetDemoSection = ({
 };
 
 export default GetDemoSection;
+
+function TrustLogos() {
+  return (
+    <Stack>
+      <Logos alignLeft />
+      <Box sx={{ mt: 8 }}>
+        <G2Awards alignLeft />
+      </Box>
+    </Stack>
+  );
+}
+
+export function Logos({ invert = false, alignLeft }) {
+  return (
+    <Stack>
+      <Typography
+        variant="body2"
+        color="primary"
+        mb="12px"
+        textTransform="uppercase"
+        textAlign={alignLeft ? 'left' : 'center'}
+      >
+        Trusted By
+      </Typography>
+      <Stack
+        justifyContent={alignLeft ? '' : 'center'}
+        flexWrap="wrap"
+        direction="row"
+        gap={{ xs: '20px', desktopWide: '30px' }}
+      >
+        <img
+          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
+          loading="lazy"
+          src={sony}
+          width="91px"
+          height="32px"
+          alt={generateAlt('Sony')}
+        />
+        <img
+          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
+          loading="lazy"
+          src={rocketLeague}
+          width="60px"
+          height="32px"
+          alt={generateAlt('Rocket League')}
+        />
+        <img
+          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
+          loading="lazy"
+          src={singlife}
+          width="102.12px"
+          height="32px"
+          alt={generateAlt('Singlife')}
+        />
+        <img
+          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
+          loading="lazy"
+          src={acorns}
+          width="94px"
+          height="32px"
+          alt={generateAlt('Acorns')}
+        />
+        <img
+          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
+          loading="lazy"
+          src={phoenixSuns}
+          width="107.54px"
+          height="32px"
+          alt={generateAlt('Phoenix Suns')}
+        />
+        <img
+          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
+          loading="lazy"
+          src={wattpad}
+          width="115.91px"
+          height="32px"
+          alt={generateAlt('Wattpad')}
+        />
+        <img
+          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
+          loading="lazy"
+          src={cornershop}
+          width="96.69px"
+          height="32px"
+          alt={generateAlt('Corner Shop')}
+        />
+        <img
+          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
+          loading="lazy"
+          src={bjs}
+          width="36.48px"
+          height="32px"
+          alt={generateAlt('Bjs')}
+        />
+      </Stack>
+    </Stack>
+  );
+}
+
+export function G2Awards({ alignLeft }) {
+  return (
+    <Stack>
+      <Typography
+        color="primary"
+        variant="body2"
+        mb="12px"
+        textTransform="uppercase"
+        textAlign={alignLeft ? 'left' : 'center'}
+      >
+        G2 MOMENTUM LEADER
+      </Typography>
+      <Stack
+        flexWrap="wrap"
+        justifyContent={alignLeft ? '' : 'center'}
+        direction="row"
+        gap="20px"
+      >
+        <img
+          alt={generateAlt('')}
+          loading="lazy"
+          src={pic1}
+          width="92.2px"
+          height="120px"
+        />
+        <img
+          alt={generateAlt('')}
+          loading="lazy"
+          src={pic2}
+          width="92.2px"
+          height="120px"
+        />
+        <img
+          alt={generateAlt('')}
+          loading="lazy"
+          src={pic3}
+          width="92.2px"
+          height="120px"
+        />
+      </Stack>
+    </Stack>
+  );
+}
