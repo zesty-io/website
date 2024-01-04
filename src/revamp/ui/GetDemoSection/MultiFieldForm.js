@@ -120,9 +120,9 @@ export const MultiFieldForm = ({
 
         <Button
           sx={{
-            background: (t) => t.palette.zesty.zestyOrange,
+            background: (t) => t.palette.zesty?.zestyOrange,
             '&:hover': {
-              background: (t) => t.palette.zesty.zestyOrange,
+              background: (t) => t.palette.zesty?.zestyOrange,
             },
           }}
           type="submit"
