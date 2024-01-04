@@ -2,24 +2,21 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-
 import { Form, Formik } from 'formik';
 
 import TransitionsModal from './TransitionModal';
 import { getCookie } from 'cookies-next';
-import { SingleFieldForm } from 'revamp/ui/GetDemoSection/SingleFieldForm';
 import { Stack } from '@mui/material';
 import { validationSchema } from 'revamp/utils/validation';
 import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
+import { MultiFieldForm } from 'revamp/ui/GetDemoSection/MultiFieldForm';
 
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
  * Note, if a custom field need to be added speak to todd.sabo@zesty.io
  * For testing new changes, please work with katie.moser@zesty.io
  */
-
 /* validation for form component */
-
 const getLeadObjectZOHO = (
   obj,
   select,
@@ -78,7 +75,6 @@ const getLeadObjectZOHO = (
     Entry_Path: getCookie('entry_path') ? getCookie('entry_path') : '',
   };
 };
-
 const postToZOHO = async (payloadJSON) => {
   fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
     method: 'POST',
@@ -96,7 +92,6 @@ const postToZOHO = async (payloadJSON) => {
       throw new Error(`HTTP error: ${error}`);
     });
 };
-
 const subscribeToZoho = async (payload) => {
   const { Email, First_Name, Last_Name } = payload;
   await fetch(
@@ -111,14 +106,12 @@ const subscribeToZoho = async (payload) => {
       acSENT = true;
     });
 };
-
 function StandardFormWithSelect({
   modalTitle = 'Thank you',
   modalMessage = 'Have a great day.',
   cmsModel,
 }) {
   const [open, setOpen] = useState(false);
-
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
   let inquiryReasons = [
     'General',
@@ -128,7 +121,6 @@ function StandardFormWithSelect({
     'Billing',
     'Press Relations',
   ];
-
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -141,7 +133,6 @@ function StandardFormWithSelect({
     phoneNumber: '',
     newsletter_signup: false,
   };
-
   const onSubmit = async (values) => {
     if (values.firstName === '') {
       values.firstName = 'Unknown';
@@ -149,7 +140,6 @@ function StandardFormWithSelect({
     if (values.lastName === '') {
       values.lastName = 'N/A in Zoominfo';
     }
-
     let payload = await getLeadObjectZOHO(
       values,
       '',
@@ -159,22 +149,17 @@ function StandardFormWithSelect({
       lastVisitedPath,
       lastVisitedURL,
     );
-
     // post to leads section
     await postToZOHO(payload);
-
     //post to email marketing signup
     if (payload.newsletter_signup) {
       await subscribeToZoho(payload);
     }
-
     cmsModel === 'Gated Content Page'
       ? setOpen(true)
       : (window.location = '/meet/');
-
     return values;
   };
-
   return (
     <Box>
       <Formik
@@ -197,8 +182,7 @@ function StandardFormWithSelect({
         }) => (
           <Form id="site-form" onSubmit={handleSubmit}>
             <Stack sx={{ mt: 4 }}>
-              <SingleFieldForm
-                buttonColor="secondary"
+              <MultiFieldForm
                 {...{
                   handleSubmit,
                   getFieldProps,
@@ -224,5 +208,4 @@ function StandardFormWithSelect({
     </Box>
   );
 }
-
 export default StandardFormWithSelect;
