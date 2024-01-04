@@ -61,7 +61,7 @@ const GetDemoSection = ({
       values?.inquiryReason,
       'Demo Sign Up',
       '',
-      data?.lead_source_detail || 'Contact Us', // leadsource
+      '', // leadsource
       lastVisitedPath,
       lastVisitedURL,
     );
