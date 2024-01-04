@@ -80,7 +80,11 @@ function EngageTypeCards({ cardData }) {
         </Typography>
       </Stack>
 
-      <Grid container spacing={4} sx={{ width: '100%', maxWidth: 1200 }}>
+      <Grid
+        container
+        spacing={{ xs: 4, sm: 1, md: 4 }}
+        sx={{ width: '100%', maxWidth: 1200 }}
+      >
         {cardData?.map((item) => {
           return (
             <Grid
@@ -90,11 +94,11 @@ function EngageTypeCards({ cardData }) {
               sx={{ textDecoration: 'none' }}
               item
               xs={12}
-              md={4}
+              sm={4}
             >
               <Stack
                 height={'100%'}
-                minHeight={220}
+                minHeight={250}
                 component={Card}
                 sx={{
                   '&:hover': {
@@ -147,7 +151,10 @@ function EngageTypeCards({ cardData }) {
                             p: {
                               component: Typography,
                               props: {
-                                sx: { textAlign: 'left' },
+                                sx: {
+                                  textAlign: 'left',
+                                  fontSize: { sm: 14, md: 'unset' },
+                                },
                                 color: 'text.secondary',
                               },
                             },
