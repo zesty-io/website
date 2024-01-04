@@ -81,17 +81,11 @@ const HeroWithIllustrationAndCta = ({
       position={'relative'}
       sx={{ backgroundColor: theme.palette.alternate.main }}
     >
-      {' '}
       <Container>
-        {' '}
         <Grid container spacing={4} flexDirection={{ xs: 'column', md: 'row' }}>
-          {' '}
           <Grid item container alignItems={'center'} xs={12} md={6}>
-            {' '}
             <Box>
-              {' '}
               <Box>
-                {' '}
                 <Typography
                   variant="h6"
                   component="h1"

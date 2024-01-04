@@ -7,10 +7,10 @@ import { Form, Formik } from 'formik';
 
 import TransitionsModal from './TransitionModal';
 import { getCookie } from 'cookies-next';
-import { SingleFieldForm } from 'revamp/ui/GetDemoSection/SingleFieldForm';
 import { Stack } from '@mui/material';
 import { validationSchema } from 'revamp/utils/validation';
 import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
+import { MultiFieldForm } from 'revamp/ui/GetDemoSection/MultiFieldForm';
 
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
@@ -197,8 +197,7 @@ function StandardFormWithSelect({
         }) => (
           <Form id="site-form" onSubmit={handleSubmit}>
             <Stack sx={{ mt: 4 }}>
-              <SingleFieldForm
-                buttonColor="secondary"
+              <MultiFieldForm
                 {...{
                   handleSubmit,
                   getFieldProps,
