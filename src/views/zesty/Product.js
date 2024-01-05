@@ -37,7 +37,7 @@ import React from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { useZestyStore } from 'store';
-
+import { DocSearch } from '@docsearch/react';
 import dynamic from 'next/dynamic';
 
 const AppBar = dynamic(() => import('components/console/AppBar'));
@@ -155,7 +155,7 @@ const Product = (props) => {
   });
   const mainKeywords = productGlossary.flatMap((obj) => obj.target_words);
 
-  React.useEffect(() => {
+React.useEffect(() => {
     setalgoliaApiKey(props.content.algolia.apiKey);
     setalgoliaAppId(props.content.algolia.appId);
     setalgoliaIndex(props.content.algolia.index);
@@ -181,15 +181,7 @@ const Product = (props) => {
           }}
         >
           <AppBar />
-
-          <SearchModal
-            sx={{
-              width: true ? 300 : 500,
-              display: { xs: 'none', md: 'block' },
-            }}
-          >
-            <AlgoSearch />
-          </SearchModal>
+          <DocSearchModal  />
         </Stack>
 
         {/* Navigation mobile */}
@@ -305,3 +297,25 @@ const Product = (props) => {
 };
 
 export default Product;
+
+
+export function DocSearchModal() {
+  const {
+    algoliaApiKey: apiKey,
+    algoliaAppId: appId,
+    algoliaIndex: index,
+  } = useZestyStore((e) => e);
+
+  return (
+    <DocSearch
+      transformItems={(item) => {
+        return item.reverse();
+      }}
+      placeholder="Search docs..."
+      maxResultsPerGroup={100}
+      appId={appId}
+      indexName={index}
+      apiKey={apiKey}
+    />
+  );
+}
