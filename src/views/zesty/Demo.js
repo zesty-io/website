@@ -100,11 +100,14 @@ function EngageTypeCards({ cardData }) {
                 height={'100%'}
                 minHeight={250}
                 component={Card}
-                sx={{
+                sx={(theme) => ({
                   '&:hover': {
-                    background: theme.palette.grey[200],
+                    background:
+                      theme.palette.mode === 'light'
+                        ? theme.palette.grey[200]
+                        : theme.palette.grey[800],
                   },
-                }}
+                })}
                 borderRadius="8px"
               >
                 <Stack sx={{ height: '100%' }}>
