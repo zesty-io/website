@@ -90,18 +90,11 @@ const ZestyDoc = (props) => {
     return { ...e, children: res };
   });
 
-  const productGlossary = content.zesty.productGlossary.map((e) => {
-    const res = e.keywords.split(',').map((item) => item.toLowerCase());
-    return { ...e, target_words: res };
-  });
-
   const algolia = {
     apiKey: props.content.algolia.apiKey,
     appId: props.content.algolia.appId,
     index: props.content.algolia.index,
   };
-
-  const contentBody = content?.body?.replaceAll('Error hydrating', '');
 
   React.useEffect(() => {
     setalgoliaApiKey(algolia.apiKey);
