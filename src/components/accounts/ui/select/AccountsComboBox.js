@@ -1,5 +1,6 @@
 import * as React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import Autocomplete, {
   autocompleteClasses,
@@ -112,6 +113,22 @@ const ListboxComponent = React.forwardRef(
   },
 );
 
+ListboxComponent.propTypes = {
+  children: PropTypes.node,
+};
+
+// function random(length) {
+//   const characters =
+//     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//   let result = '';
+
+//   for (let i = 0; i < length; i += 1) {
+//     result += characters.charAt(Math.floor(Math.random() * characters.length));
+//   }
+
+//   return result;
+// }
+
 const StyledPopper = styled(Popper)({
   [`& .${autocompleteClasses.listbox}`]: {
     boxSizing: 'border-box',
@@ -169,7 +186,6 @@ const Index = ({
         backgroundColor:
           theme.palette.mode === 'light' && theme.palette.common.white,
       })}
-      disablePortal
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
