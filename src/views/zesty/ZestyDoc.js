@@ -34,12 +34,12 @@ import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
-import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
 import { DocsHomePage } from 'components/docs/DocsHomePage';
 import { TreeNavigation } from 'components/globals/TreeNavigation';
 import { TableOfContent } from 'components/globals/TableOfContent';
 import { DocsAppbar } from 'components/console/DocsAppbar';
 import { setCookie } from 'cookies-next';
+import MuiMarkdown from 'markdown-to-jsx';
 
 // main file
 const ZestyDoc = (props) => {
@@ -90,19 +90,12 @@ const ZestyDoc = (props) => {
     return { ...e, children: res };
   });
 
-  const productGlossary = content.zesty.productGlossary.map((e) => {
-    const res = e.keywords.split(',').map((item) => item.toLowerCase());
-    return { ...e, target_words: res };
-  });
-  const mainKeywords = productGlossary.flatMap((obj) => obj.target_words);
-
   const algolia = {
     apiKey: props.content.algolia.apiKey,
     appId: props.content.algolia.appId,
     index: props.content.algolia.index,
   };
 
-  const contentBody = content?.body?.replaceAll('Error hydrating', '');
 
   React.useEffect(() => {
     setalgoliaApiKey(algolia.apiKey);
@@ -211,13 +204,19 @@ const ZestyDoc = (props) => {
                   </Typography>
                 </Stack>
                 <Stack width={1} height={1}>
-                  {/* Component that render the markdown file */}
-                  <ZestyMarkdownParser
-                    isDocs={true}
-                    markdown={contentBody}
-                    mainKeywords={mainKeywords}
-                    productGlossary={productGlossary}
-                  />
+                  <MuiMarkdown
+                    options={{
+                      overrides: {
+                        img: {
+                          props: {
+                            style: { width: '100%' },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    {content?.content}
+                  </MuiMarkdown>
                 </Stack>
               </Stack>
             </Grid>
