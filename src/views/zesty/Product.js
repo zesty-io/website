@@ -46,6 +46,12 @@ const TableOfContent = dynamic(() =>
   import('components/globals/TableOfContent').then((e) => e.TableOfContent),
 );
 
+// const SearchModal = dynamic(() =>
+//   import('views/Docs/SearchModal').then((e) => e.SearchModal),
+// );
+// const AlgoSearch = dynamic(() =>
+//   import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
+// );
 const ZestyMarkdownParser = dynamic(() =>
   import('components/markdown-styling/ZestyMarkdownParser').then(
     (e) => e.ZestyMarkdownParser,

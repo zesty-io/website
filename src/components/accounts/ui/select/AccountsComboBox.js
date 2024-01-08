@@ -180,14 +180,13 @@ const Index = ({
       filterOptions={filterOptions}
       id="virtualize-demo"
       onChange={handleChange}
-      disablePortal
       size="small"
       sx={(theme) => ({
         width,
         backgroundColor:
           theme.palette.mode === 'light' && theme.palette.common.white,
       })}
-      disableListWrap
+      disablePortal
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
       options={OPTIONS}
