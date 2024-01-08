@@ -96,7 +96,6 @@ const ZestyDoc = (props) => {
     index: props.content.algolia.index,
   };
 
-
   React.useEffect(() => {
     setalgoliaApiKey(algolia.apiKey);
     setalgoliaAppId(algolia.appId);
