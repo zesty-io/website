@@ -1,5 +1,11 @@
 import { React } from 'react';
-import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import Head from 'next/head';
 
 import 'swiper/css';
@@ -61,7 +67,7 @@ const firstImage = `https://kfg6bckb.media.zestyio.com/homepageHero.png`;
 
 export default function Join(props) {
   let abmessage, abbuttontext, abimage;
-
+  const theme = useTheme();
   if (props.campaign !== false) {
     abmessage = (
       <Box>
@@ -114,11 +120,7 @@ export default function Join(props) {
           type="image/png"
         />
       </Head>
-      <Box
-        sx={{
-          background: '#fff',
-        }}
-      >
+      <Box>
         <Stack
           py={4}
           width={1}
@@ -129,7 +131,9 @@ export default function Join(props) {
           }}
         >
           <img
-            src="https://brand.zesty.io/zesty-io-logo-horizontal.png"
+            src={`https://brand.zesty.io/zesty-io-logo-horizontal${
+              theme.palette.mode === 'dark' ? '-light-color' : ''
+            }.png`}
             alt="Zesty.io Logo"
             height={70}
           />
