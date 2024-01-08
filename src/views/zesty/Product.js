@@ -46,12 +46,12 @@ const TableOfContent = dynamic(() =>
   import('components/globals/TableOfContent').then((e) => e.TableOfContent),
 );
 
-const SearchModal = dynamic(() =>
-  import('views/Docs/SearchModal').then((e) => e.SearchModal),
-);
-const AlgoSearch = dynamic(() =>
-  import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
-);
+// const SearchModal = dynamic(() =>
+//   import('views/Docs/SearchModal').then((e) => e.SearchModal),
+// );
+// const AlgoSearch = dynamic(() =>
+//   import('views/Docs/AlgoSearch').then((e) => e.AlgoSearch),
+// );
 const ZestyMarkdownParser = dynamic(() =>
   import('components/markdown-styling/ZestyMarkdownParser').then(
     (e) => e.ZestyMarkdownParser,
@@ -155,7 +155,7 @@ const Product = (props) => {
   });
   const mainKeywords = productGlossary.flatMap((obj) => obj.target_words);
 
-React.useEffect(() => {
+  React.useEffect(() => {
     setalgoliaApiKey(props.content.algolia.apiKey);
     setalgoliaAppId(props.content.algolia.appId);
     setalgoliaIndex(props.content.algolia.index);
@@ -181,7 +181,7 @@ React.useEffect(() => {
           }}
         >
           <AppBar />
-          <DocSearchModal  />
+          <DocSearchModal />
         </Stack>
 
         {/* Navigation mobile */}
@@ -297,7 +297,6 @@ React.useEffect(() => {
 };
 
 export default Product;
-
 
 export function DocSearchModal() {
   const {
