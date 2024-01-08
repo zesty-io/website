@@ -40,6 +40,7 @@ import { TreeNavigation } from 'components/globals/TreeNavigation';
 import { TableOfContent } from 'components/globals/TableOfContent';
 import { DocsAppbar } from 'components/console/DocsAppbar';
 import { setCookie } from 'cookies-next';
+import MuiMarkdown from 'markdown-to-jsx';
 
 // main file
 const ZestyDoc = (props) => {
@@ -212,12 +213,25 @@ const ZestyDoc = (props) => {
                 </Stack>
                 <Stack width={1} height={1}>
                   {/* Component that render the markdown file */}
-                  <ZestyMarkdownParser
+                  {/* <ZestyMarkdownParser
                     isDocs={true}
                     markdown={contentBody}
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}
-                  />
+                  /> */}
+                  <MuiMarkdown
+                    options={{
+                      overrides: {
+                        img: {
+                          props: {
+                            style: { width: '100%' },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    {content?.content}
+                  </MuiMarkdown>
                 </Stack>
               </Stack>
             </Grid>
