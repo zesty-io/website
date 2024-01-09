@@ -117,6 +117,3 @@ input:-webkit-autofill:active{
   max-width: 350px !important;
 }
 
-.swal2-container{
-  z-index: 9999999;
-}
