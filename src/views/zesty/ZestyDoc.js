@@ -39,7 +39,6 @@ import { TreeNavigation } from 'components/globals/TreeNavigation';
 import { TableOfContent } from 'components/globals/TableOfContent';
 import { DocsAppbar } from 'components/console/DocsAppbar';
 import { setCookie } from 'cookies-next';
-import MuiMarkdown from 'markdown-to-jsx';
 
 // main file
 const ZestyDoc = (props) => {
