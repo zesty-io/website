@@ -355,7 +355,6 @@ const Login = ({ content, userEmail }) => {
         md={8.5}
         xl={9}
         xl2={10}
-        position={'relative'}
         bgcolor={(theme) =>
           theme.palette.mode === 'light'
             ? theme.palette.zesty.zestyDarkerBlue
@@ -368,13 +367,8 @@ const Login = ({ content, userEmail }) => {
           overflow={'hidden'}
           display={'flex'}
           justifyContent={'center'}
-          justifyItems={'center'}
-          sx={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%,-50%)',
-          }}
+          alignItems={'center'}
+          width="100%"
         >
           <Stack
             justifyItems={'center'}

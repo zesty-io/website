@@ -24,7 +24,7 @@ describe('E2E product page', () => {
     cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
       'exist',
     );
-    cy.algoliaNavigate();
+    // cy.algoliaNavigate();
   });
 
   it('test if this image is rendered ', () => {

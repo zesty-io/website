@@ -146,7 +146,6 @@ export function SlideMessage({
         container
         direction="row"
         sx={{
-          background: '#fff',
           borderRadius: '5px',
           border: `1px #eee solid`,
           boxShadow: `0px 0px 15px rgba(0,0,0,0.1)`,
@@ -223,7 +222,6 @@ export function SlideMessage({
                   <Paper sx={{ px: 3, py: 3 }}>
                     <Typography
                       variant="h5"
-                      color="black"
                       textAlign={'center'}
                       fontWeight={'bold'}
                       sx={{ mb: 2 }}
@@ -267,7 +265,10 @@ export function SlideMessage({
                   width: 'auto',
                   maxWidth: '120px',
                   maxHeight: '50px',
-                  filter: 'brightness(0%)',
+                  filter:
+                    theme.palette.mode === 'dark'
+                      ? 'brightness(0) invert(1)'
+                      : 'brightness(0%)',
                 }}
                 alt={item?.customer_name || ''}
                 src={item.customer_logo?.data[0]?.url}
@@ -303,7 +304,6 @@ const CustomForm = ({ onSubmit = () => {} }) => {
     <form noValidate onSubmit={formik.handleSubmit}>
       <Typography
         variant="h5"
-        color="black"
         textAlign={'center'}
         fontWeight={'bold'}
         sx={{ mb: 1, pt: 2 }}
