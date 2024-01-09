@@ -117,6 +117,10 @@ const ZestyDoc = (props) => {
   border-left: 4px solid #ccc;
   margin:0;
 }
+
+  p img {
+    width: 100%;
+  }
   
   `;
   // redirecto to docs landing page if url = /docs/
@@ -203,19 +207,9 @@ const ZestyDoc = (props) => {
                   </Typography>
                 </Stack>
                 <Stack width={1} height={1}>
-                  <MuiMarkdown
-                    options={{
-                      overrides: {
-                        img: {
-                          props: {
-                            style: { width: '100%' },
-                          },
-                        },
-                      },
-                    }}
-                  >
-                    {content?.content}
-                  </MuiMarkdown>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: content?.content }}
+                  ></div>
                 </Stack>
               </Stack>
             </Grid>
