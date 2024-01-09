@@ -187,6 +187,7 @@ const Index = ({
         backgroundColor:
           theme.palette.mode === 'light' && theme.palette.common.white,
       })}
+      disablePortal
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
