@@ -63,7 +63,14 @@ const getMonthDates = ({ start = '', end = '' }) => {
 const ReportCard = ({ title = '', data = 0, type = '', _limit = 0 }) => {
   // console.log(limit);
   return (
-    <Card sx={{ py: 4, borderRadius: '20px' }}>
+    <Card
+      sx={{
+        py: 4,
+        borderRadius: '20px',
+        height: '100%',
+        overflowWrap: 'break-word',
+      }}
+    >
       <Typography variant="h4" textAlign={'center'} mb={2}>
         {title}
       </Typography>
@@ -126,10 +133,15 @@ const ThisMonthReport = ({ usage, loading }) => {
           <CircularProgress />
         </Stack>
       ) : (
-        <Grid container px={10} py={5} spacing={8}>
+        <Grid
+          container
+          py={5}
+          spacing={8}
+          sx={(theme) => ({ [theme.breakpoints.up('lg')]: { px: 10 } })}
+        >
           {arr.map((e) => {
             return (
-              <Grid item xs={6}>
+              <Grid item sm={6} xs={12}>
                 <ReportCard
                   title={e.title}
                   data={e.data}
