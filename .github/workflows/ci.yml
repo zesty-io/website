@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: ✅ Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⚡️ Cache dependencies
         uses: actions/cache@v2
@@ -23,6 +23,11 @@ jobs:
         with:
           path: ./*
           key: ${{ github.sha }}
+
+      - name: Setup Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
 
       - name: 🚚 Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -32,13 +37,18 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [16, 18, 20]
+        node-version: [16, 18, 20, 21]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
     steps:
       - name: ✅ Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: ⚡️ Cache dependencies
         uses: actions/cache@v2
@@ -54,13 +64,18 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [18]
+        node-version: [16,18,20,21]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
     steps:
       - name: ✅ Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: ⚡️ Cache dependencies
         uses: actions/cache@v2
@@ -76,13 +91,18 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [18]
+        node-version: [16,18,20,21]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
     steps:
       - name: ✅ Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: ⚡️ Cache dependencies
         uses: actions/cache@v2
@@ -112,7 +132,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [18]
+        node-version: [20]
     runs-on: ${{ matrix.os }}
     env:
       PRODUCTION: 'true'
