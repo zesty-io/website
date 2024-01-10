@@ -47,6 +47,7 @@ const DocsPage = (props) => {
             borderBottom: `1px solid ${theme.palette.zesty.whiteGray}`,
             gap: 2,
             position: 'relative',
+            zIndex: 1,
           }}
         >
           <Box
@@ -72,6 +73,7 @@ const DocsPage = (props) => {
               bottom: 10,
               right: -10,
               opacity: 0.2,
+              zIndex: -1,
             }}
           />
           <Typography
