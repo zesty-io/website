@@ -37,7 +37,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [16, 18, 20, 21]
+        node-version: [18, 20, 21]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [16,18,20,21]
+        node-version: [18,20,21]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
@@ -91,7 +91,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [16,18,20,21]
+        node-version: [18,20,21]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
@@ -122,7 +122,7 @@ jobs:
 
     steps:
       - name: ✅ Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🐳 Docker Build
         run: docker build -t zesty-website:latest .
@@ -139,7 +139,12 @@ jobs:
 
     steps:
       - name: ✅ Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: 🌐 Setup custom host for mylocal
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
