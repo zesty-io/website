@@ -195,6 +195,7 @@ export default function Domains() {
   const headerProps = {
     title: 'Domain',
     description: `Manage your Domains`,
+    info: 'This page allows you to perform several actions related to your desired domains, such as deleting them, managing their settings, and controlling the settings that can impact your selected instance.',
   };
   const domainListingProps = {
     liveDomains,
