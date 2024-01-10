@@ -23,7 +23,7 @@ Marketing Website using NextJS and Zesty.io Headless CMS
 
 ## ⚡ Getting Started
 
-Requires `node version ^16.x.x` and `npm version ^8.x.x`
+Requires `node version ^18.x.x` and `npm version ^8.x.x`
 
 Create a file at the root `.env.local` with `PRODUCTION=false` as the file contents
 
@@ -50,30 +50,39 @@ node scripts/zesty-nextjs.js
 
 This will create new files where needed, but will not overwrite existing files.
 
-## 💡 AutoDeploy
+## 💡 AutoDeploy Overview
 
-Any push or merge to the `dev`,`stage`, or `production` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
+### Branch Deployment Behavior:
 
-`dev` is intended for testing, use as you wish, overwrite at needed.
-`stage` should be ready to review and test before `pre-prod (beta)`
-`accounts` pre production branch (beta) same config as `production`
-`production` should only be merged from `accounts`, after stage is verified good to deploy
+- **`dev` Branch:** Use for testing purposes; feel free to modify as needed.
+- **`stage` Branch:** Review and thoroughly test changes before moving to `pre-prod (beta)`.
+- **`accounts` Branch (pre-production, beta):** Configuration mirrors `production`.
+- **`production` Branch:** Merge from `accounts` after confirming stage readiness.
 
-dev: https://zesty-dev-website-m3rbwjxm5q-uc.a.run.app/
-stage: https://kfg6bckb-dev.webengine.zesty.io OR https://zesty-website-m3rbwjxm5q-uc.a.run.app/
-accounts: https://beta.zesty.io
-production: https://www.zesty.io OR https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
+### Preview Links:
 
-## 💡 Contribution
+- **`dev`:** [Zesty.dev](https://zesty-dev-website-m3rbwjxm5q-uc.a.run.app/)
+- **`stage`:** [WebEngine Stage](https://kfg6bckb-dev.webengine.zesty.io) OR [Zesty Stage](https://zesty-website-m3rbwjxm5q-uc.a.run.app/)
+- **`accounts` (beta):** [Beta Zesty.io](https://beta.zesty.io)
+- **`production`:** [Zesty.io](https://www.zesty.io) OR [Zesty Production](https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/)
 
-1. Create a branch
-2. Make change locally commit
-3. Test your changes with `npm run build`
-4. If build succeeds, create pull request against `stage` (our stage)
+This setup automates deployment upon any push or merge to `dev`, `stage`, or `production` branches. Each branch serves a specific purpose, with accessible preview links for respective environments.
 
-## 💡 Deployment to Production
+## 💡 Contribution Process
 
-After a successfull deploy to `stage` create PR from `stage` to `production`, upon merge a production build will trigger.
+1. **Create a Branch:** Start by creating a new branch for your changes.
+2. **Make Local Changes:** Edit and commit your changes locally.
+3. **Test Changes:** Verify your changes locally using `npm run build`.
+4. **Create Pull Request:** If the local build succeeds, create a pull request targeting the `stage` branch (our staging environment).
+
+## 💡 Deployment to Production Workflow
+
+After successfully deploying changes to the `stage` branch, follow these steps:
+
+1. **Create PR to `production`:** Initiate a pull request from `stage` to `production`.
+2. **Merge to Trigger Production Build:** Upon merging the pull request, an automatic production build will be triggered.
+
+This workflow ensures that changes are thoroughly tested in the staging environment (`stage` branch) before being merged into the production environment (`production` branch). It maintains a structured process for contributing changes and deploying them to production.
 
 ## 💡 CTA Components and Forms
 
