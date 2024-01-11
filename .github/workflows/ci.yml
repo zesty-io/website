@@ -2,7 +2,6 @@ name: Zesty Website CI Dev
 
 on:
   pull_request:
-    types: [opened, edited, reopened, synchronize, ready_for_review]
     branches: [stage, accounts, production, dev]
   workflow_dispatch:
 
@@ -167,15 +166,6 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
 
-  pr-lint:
-    name: Check PR Title 
-    runs-on: ubuntu-latest
-    steps:
-      - uses: amannn/action-semantic-pull-request@v4.5.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          validateSingleCommit: true
 
   tests-pass:
     needs:
@@ -186,7 +176,6 @@ jobs:
         install-dependencies,
         lint,
         unit-tests,
-        pr-lint
       ]
 
     if: always()
