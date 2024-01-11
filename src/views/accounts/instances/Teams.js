@@ -333,6 +333,7 @@ const Main = ({
   const headerProps = {
     title: 'Teams',
     description: `Manage your Teams`,
+    info: 'This page allows you to oversee your teams in this table if you possess the necessary authorization to do so.',
   };
 
   const Nodata = () => {

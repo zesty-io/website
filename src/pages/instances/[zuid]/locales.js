@@ -191,6 +191,7 @@ export default function Locales() {
   const headerProps = {
     title: 'Locales',
     description: 'Manage your languages',
+    info: 'When a Zesty.io Content Instance is created, it uses English as the default language. It is possible to add more languages to a Zesty.io Content Instance. Multi-lang content is premium feature of Zesty.io, reach out to your account manager to learn more.',
   };
   return (
     <InstanceContainer>
