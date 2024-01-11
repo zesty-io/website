@@ -11,7 +11,10 @@ const Index = ({ title, description, info, children }) => {
             <Typography variant="h4" data-testid={title}>
               {title}
             </Typography>
-            <HelpOutlineIcon color="disabled" titleAccess={info} />
+            <HelpOutlineIcon
+              color="disabled"
+              titleAccess={info || description}
+            />
           </Stack>
           <Stack>
             <Typography variant="body2" color="text.secondary">
