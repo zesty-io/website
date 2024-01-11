@@ -37,7 +37,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [18, 20, 21]
+        node-version: [20]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [18,20,21]
+        node-version: [20]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
@@ -91,7 +91,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [18,20,21]
+        node-version: [20]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
 
