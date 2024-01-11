@@ -166,7 +166,7 @@ const Main = ({
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
           borderBottom: (isLoggedIn || isDocsPage) && `1px solid ${grey[200]}`,
-          zIndex: 1500,
+          zIndex: theme.zIndex.appBar,
         }}
         elevation={trigger ? 1 : 0}
       >

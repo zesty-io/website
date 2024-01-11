@@ -52,7 +52,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
-    font-family: 'Mulish, Arial, sans-serif';
+    font-family: Mulish, Arial, sans-serif;
     font-size: 14px
 }
 
@@ -117,6 +117,3 @@ input:-webkit-autofill:active{
   max-width: 350px !important;
 }
 
-.swal2-container{
-  z-index: 9999999;
-}

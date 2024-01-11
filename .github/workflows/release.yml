@@ -1,38 +1,28 @@
-name: Zesty Website Release
+name: Create Release
+
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - production
+
 jobs:
-  build:
-    name: Zesty Website Release
+  create_release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        # Configure git to commit and push to main
-      - name: Setup GIT
-        run: |
-          git switch -c version-branch
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git config user.name "$GITHUB_ACTOR"
+      - name: Get current version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(node -e "console.log(require('./package.json').version)")
 
-      - name: 'Automated Version Bump'
-        run: npm version patch
-
-      - name: Update & Push
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          git add .
-          git commit --allow-empty -m "chore(app):bump version"
-          git push origin version-branch:stage
-
-      # Create Release
-      - name: Release
-        uses: justincy/github-action-npm-release@2.0.2
-        id: release
-      - name: Print release output
-        if: ${{ steps.release.outputs.released == 'true' }}
-        run: echo Release ID ${{ steps.release.outputs.release_id }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          release_name: Release ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
