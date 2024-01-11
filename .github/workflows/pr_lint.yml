@@ -7,9 +7,6 @@ on:
     branches: [stage, accounts, production, dev]
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   pr_lint:

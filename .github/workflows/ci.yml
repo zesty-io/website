@@ -166,7 +166,6 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
 
-
   tests-pass:
     needs:
       [
