@@ -40,6 +40,7 @@ import revampTheme from 'theme/revampTheme';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import Link from 'next/link';
 import { G2Awards, Logos } from 'revamp/ui/GetDemoSection';
+import { pushDataLayer } from 'lib/ga';
 
 const Demo = ({ content }) => {
   const theme = useTheme();
@@ -90,6 +91,12 @@ function EngageTypeCards({ cardData }) {
             <Grid
               key={item}
               component={Link}
+              onClick={() =>
+                pushDataLayer({
+                  buttonText: item?.button_text || '',
+                  targetPage: item.button_link || '#',
+                })
+              }
               href={item.button_link || '#'}
               sx={{ textDecoration: 'none' }}
               item

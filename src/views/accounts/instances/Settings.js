@@ -267,6 +267,7 @@ export const Settings = ({
   const headerProps = {
     title: 'Settings',
     description: `Manage your Settings`,
+    info: 'On this page, you can perform searches, export data, and execute actions to configure certain settings related to your instance that can impact its overall functionality.',
   };
 
   return (
