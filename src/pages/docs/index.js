@@ -105,7 +105,7 @@ const DocsPage = (props) => {
           <Box>
             <Grid container spacing={2}>
               {cardData.map((item, index) => (
-                <Grid item sm={12} md={4} key={index}>
+                <Grid item sm={12} md={4} width="100%" key={index}>
                   <Card
                     variant="outlined"
                     sx={{
