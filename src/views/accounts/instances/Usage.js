@@ -261,6 +261,7 @@ const Main = ({ zuid, usage, loading }) => {
   const headerProps = {
     title: 'Usage',
     description: `View your usage`,
+    info: 'This page allows you to view the total number of requests you have made and the amount of data transferred, known as bandwidth. Additionally, you have the option to export this report for your team to review.',
   };
   const tableProps = {
     zuid,
