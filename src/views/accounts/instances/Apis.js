@@ -488,7 +488,7 @@ export const Apis = ({
   const headerProps = {
     title: 'Apis',
     description: `Manage your API's`,
-    info: `The API of Zesty.io is a set of tools and protocols that allow developers to easily integrate Zesty.io's content management and delivery capabilities into their own applications and websites. `,
+    info: `The API of Zesty.io is a set of tools and protocols that allow developers to easily integrate Zesty.io's content management and delivery capabilities into their own applications and websites.`,
   };
 
   return (
