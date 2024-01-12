@@ -311,6 +311,7 @@ const Index = ({
   const headerProps = {
     title: 'Users',
     description: 'Manage your users and their permissions',
+    info: 'This page allows you to oversee and manage your users in the provided table if you have the necessary authorization, and you can view a list of all users in your instance.',
   };
 
   return (

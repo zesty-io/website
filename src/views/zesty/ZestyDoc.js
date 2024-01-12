@@ -118,7 +118,7 @@ const ZestyDoc = (props) => {
 }
 
   p img {
-    width: 100%;
+    max-width: 100%;
   }
   
   `;
@@ -206,9 +206,9 @@ const ZestyDoc = (props) => {
                   </Typography>
                 </Stack>
                 <Stack width={1} height={1}>
-                  <div
+                  <Box
                     dangerouslySetInnerHTML={{ __html: content?.content }}
-                  ></div>
+                  ></Box>
                 </Stack>
               </Stack>
             </Grid>

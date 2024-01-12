@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
-const Index = ({ title, description, children }) => {
+const Index = ({ title, description, info, children }) => {
   return (
     <Grid item xs={12} px={4} py={3}>
       <Stack direction={{ xs: 'column', md: 'row' }}>
@@ -11,7 +11,10 @@ const Index = ({ title, description, children }) => {
             <Typography variant="h4" data-testid={title}>
               {title}
             </Typography>
-            <HelpOutlineIcon color="disabled" titleAccess={description} />
+            <HelpOutlineIcon
+              color="disabled"
+              titleAccess={info || description}
+            />
           </Stack>
           <Stack>
             <Typography variant="body2" color="text.secondary">
