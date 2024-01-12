@@ -27,9 +27,10 @@ const acorns =
   singlife = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Singlife%20Logo.svg`,
   sony = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Sony%20Logo.svg`,
   wattpad = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Wattpad-logo-vector%201.svg`,
-  pic1 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_HighPerformer_HighPerformer.svg`,
-  pic2 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_EasiestToDoBusinessWith_EaseOfDoingBusinessWith.svg`,
-  pic3 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/WebContentManagement_MomentumLeader_Leader.svg`;
+  pic1 = `https://kfg6bckb.media.zestyio.com/WebContentManagement_EasiestToDoBusinessWith_EaseOfDoingBusinessWith.png`,
+  pic2 = `https://kfg6bckb.media.zestyio.com/WebContentManagement_EasiestToDoBusinessWith_Small-Business_EaseOfDoingBusinessWith.svg`,
+  pic3 = `https://kfg6bckb.media.zestyio.com/WebContentManagement_HighPerformer_HighPerformer.png`,
+  pic4 = `https://kfg6bckb.media.zestyio.com/WebContentManagement_HighPerformer_Americas_HighPerformer.svg`;
 
 const GetDemoSection = ({
   title = 'Connect with Content Experts',
@@ -414,6 +415,13 @@ export function G2Awards({ alignLeft }) {
           alt={generateAlt('')}
           loading="lazy"
           src={pic3}
+          width="92.2px"
+          height="120px"
+        />
+        <img
+          alt={generateAlt('')}
+          loading="lazy"
+          src={pic4}
           width="92.2px"
           height="120px"
         />
