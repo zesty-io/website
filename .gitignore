@@ -37,3 +37,4 @@ cypress.json
 
 cypress/integration/__image_snapshots__
 .vercel
+.idea
