@@ -16,6 +16,7 @@ import { MultiFieldForm } from './MultiFieldForm';
 import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
 import { generateAlt } from 'utils';
 import useGetDynamicData from './useGetDynamicData';
+import { useRouter } from 'next/router';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -38,6 +39,7 @@ const GetDemoSection = ({
   isContact = false,
   formTitle = 'Enter your details to connect with a Content Expert',
 }) => {
+  const router = useRouter();
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
   const { data } = useGetDynamicData();
   let inquiryReasons = [
@@ -49,6 +51,13 @@ const GetDemoSection = ({
     'Press Relations',
   ];
 
+  const getLeadSourceDetail = () => {
+    if (router.asPath.includes('contact')) return 'Contact Us';
+    if (router.asPath.includes('demo')) return 'Demo Sign Up';
+
+    return 'Get a Talk to Us';
+  };
+
   const onSubmit = async (values) => {
     if (values.firstName === '') {
       values.firstName = 'Unknown';
@@ -59,9 +68,9 @@ const GetDemoSection = ({
     let payload = getLeadObjectZOHO(
       values,
       values?.inquiryReason,
-      'Demo Sign Up',
+      getLeadSourceDetail(),
       '',
-      '', // leadsource
+      'Website', // leadsource
       lastVisitedPath,
       lastVisitedURL,
     );
