@@ -119,6 +119,9 @@ const ZestyDoc = (props) => {
 
   p img {
     max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   `;
