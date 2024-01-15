@@ -50,6 +50,7 @@ import AuthorSection from 'revamp/ui/AuthorSection';
 import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
 import { CtaWithInputField } from 'blocks/cta';
+import PopUpLeadCapture from 'components/marketing/PopupLeadCapture';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -110,7 +111,7 @@ function Article({ content }) {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ position: 'relative' }}>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Stack>
           <BlogHero
@@ -604,6 +605,9 @@ function Article({ content }) {
           />
         </Container>
       )}
+
+      {/* Side PopUp */}
+      <PopUpLeadCapture />
     </Box>
   );
 }
