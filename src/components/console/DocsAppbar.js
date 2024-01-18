@@ -73,7 +73,9 @@ export const DocsAppbar = React.memo(() => {
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isLG = useMediaQuery(theme.breakpoints.up('lg'));
+  const isXL = useMediaQuery(theme.breakpoints.up('xl'));
 
   const onChangeDropdown = (data) => {
     let category = data.label;
@@ -138,6 +140,15 @@ export const DocsAppbar = React.memo(() => {
   const isTour = router.asPath.includes('/tour');
   const isGuides = !isApiReference && !isTour;
 
+  const showSearchModal = () => {
+    if (isLoggedIn) {
+      if (isXL) return true;
+    } else {
+      if (isXL) return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
     const routeCategory = router.asPath.split('/').filter((e) => e)[1];
     setSelectedDocsCategory(docsCategory || routeCategory);
@@ -149,7 +160,7 @@ export const DocsAppbar = React.memo(() => {
       alignItems="center"
       justifyContent={'space-between'}
       sx={{
-        px: 2,
+        px: 3,
         py: 1,
         alignItems: isMobile ? 'left' : 'center',
         borderTop: isDarkMode ? ' ' : `1px solid ${grey[200]}`,
@@ -157,10 +168,15 @@ export const DocsAppbar = React.memo(() => {
         background: isDarkMode ? theme.palette.zesty.zestyDarkBlue : 'white',
       }}
     >
-      <Stack pt={1} direction={isMobile ? 'column' : 'row'} spacing={2}>
+      <Stack
+        pt={1}
+        direction={isMobile ? 'column' : 'row'}
+        width="100%"
+        spacing={2}
+      >
         <DocsComboBox
           value={selectedDocsCategory}
-          width={isMobile ? 330 : 400}
+          width={!isLG ? '100%' : '400px'}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
@@ -168,7 +184,7 @@ export const DocsAppbar = React.memo(() => {
           display={'flex'}
           justifyContent={'center'}
           justifyItems={'center'}
-          width={1}
+          width={'100%'}
         >
           <Breadcrumbs
             sx={{
@@ -186,7 +202,8 @@ export const DocsAppbar = React.memo(() => {
         </Stack>
         <Stack
           direction={'row'}
-          bgcolor={'#fff'}
+          // bgcolor={theme.palette.mode === 'dark' ? 'transparent' : '#fff'}
+          width="100%"
           display={isMobile ? 'none' : 'flex'}
         >
           <Button
@@ -203,7 +220,6 @@ export const DocsAppbar = React.memo(() => {
           </Button>
           <Button
             data-testid="api-reference-link"
-            fullWidth
             variant="text"
             color="secondary"
             href={`/docs/${selectedDocsCategory}/api-reference`}
@@ -236,8 +252,15 @@ export const DocsAppbar = React.memo(() => {
       </Stack>
       <Stack direction={'row'} alignItems={'center'} spacing={2}>
         {isApiReference && !isMobile && (
-          <Stack direction={'row'} spacing={1} alignItems="center">
-            <Typography color={'black'}>Language:</Typography>{' '}
+          <Stack
+            direction={'row'}
+            spacing={1}
+            alignItems="center"
+            display={contentModels?.length > 0 && !isXL ? 'none' : 'flex'}
+          >
+            <Typography variant="p" color="text.primary">
+              Language:
+            </Typography>{' '}
             <DocsPopover
               value={language}
               setvalue={setlanguage}
@@ -275,11 +298,14 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
-        {!isMobile && (
-          <Box sx={{ pr: 6, mt: 6 }}>
-            <DocSearchModal />
-          </Box>
-        )}
+        <Box
+          sx={{
+            mt: 6,
+            display: showSearchModal() ? 'block' : 'none',
+          }}
+        >
+          <DocSearchModal />
+        </Box>
       </Stack>
     </Stack>
   );
