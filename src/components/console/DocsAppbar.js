@@ -123,13 +123,17 @@ export const DocsAppbar = React.memo(() => {
 
   const isTourTabVisible = currentURL.includes('/docs/parsley');
 
-  React.useEffect(async () => {
-    const res = await ZestyAPI.getModels(instanceZUID);
-    if (res.status === 200) {
-      setcontentModels(res.data);
-    } else {
-      setcontentModels([]);
-    }
+  React.useEffect(() => {
+    const getModels = async () => {
+      const res = await ZestyAPI.getModels(instanceZUID);
+      if (res.status === 200) {
+        setcontentModels(res.data);
+      } else {
+        setcontentModels([]);
+      }
+    };
+
+    getModels();
   }, [workingInstance]);
 
   const isApiReference = router.asPath.includes('api-reference');
