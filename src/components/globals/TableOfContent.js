@@ -34,11 +34,10 @@ const Main = ({ data, title = '' }) => {
         On this Page
       </Typography>
       <Stack px={0}>
-        {newData.map((e, index) => {
+        {newData.map((e) => {
           const active = currentHash === e.href ? true : false;
           return (
             <Link
-              key={index}
               href={e.href}
               sx={{
                 borderLeft: `3px solid ${
