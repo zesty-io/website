@@ -25,7 +25,12 @@ const Main = ({ data, title = '' }) => {
 
   return (
     <Stack height={1} width={1} data-testid="table-of-contents">
-      <Typography variant="button" color={'black'} fontWeight={700} pl={'20px'}>
+      <Typography
+        variant="button"
+        color="text.primary"
+        fontWeight={700}
+        pl={'20px'}
+      >
         On this Page
       </Typography>
       <Stack px={0}>

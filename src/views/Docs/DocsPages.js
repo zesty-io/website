@@ -1,5 +1,13 @@
 import React from 'react';
-import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Link,
+  Stack,
+  Table,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -16,33 +24,33 @@ import { transFormEndpoint } from 'utils';
 import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
-const muiContentOverrides = {
-  h1: {
-    component: 'h1',
-    props: {
-      style: { fontSize: '2em' },
-    },
-  },
-  h2: {
-    component: 'h2',
-    props: {
-      style: { fontSize: '1.5em' },
-    },
-  },
-  p: {
-    component: 'p',
-    props: {
-      style: { fontSize: '5px' },
-    },
-  },
+// const muiContentOverrides = {
+//   h1: {
+//     component: 'h1',
+//     props: {
+//       style: { fontSize: '2em' },
+//     },
+//   },
+//   h2: {
+//     component: 'h2',
+//     props: {
+//       style: { fontSize: '1.5em' },
+//     },
+//   },
+//   p: {
+//     component: 'p',
+//     props: {
+//       style: { fontSize: '5px' },
+//     },
+//   },
 
-  img: {
-    component: 'img',
-    props: {
-      style: { width: '80%', margin: '10px 10%' },
-    },
-  },
-};
+//   img: {
+//     component: 'img',
+//     props: {
+//       style: { width: '80%', margin: '10px 10%' },
+//     },
+//   },
+// };
 const CodeBlock = dynamic(() =>
   import('./CodeBlock', { loading: () => <>loading </> }).then(
     (mod) => mod.CodeBlock,
@@ -101,6 +109,81 @@ const Main = ({ data }) => {
     threshold: 0,
   });
 
+  const styles = {
+    p(props) {
+      const { ...rest } = props;
+      return (
+        <Typography
+          {...rest}
+          sx={(theme) => ({
+            '& > code': {
+              backgroundColor:
+                theme.palette.mode === 'dark' ? 'darkblue' : '#F5F7F9',
+            },
+          })}
+        />
+      );
+    },
+
+    table(props) {
+      const { ...rest } = props;
+      return (
+        <Table
+          {...rest}
+          sx={(theme) => ({
+            overflowX: 'auto',
+            display: 'block',
+            height: 'auto !important',
+            width: '100% !important',
+            mt: '20px',
+            '& img, span': {
+              mt: '0px !important',
+              objectFit: 'contain',
+              height: '240px',
+            },
+            '& span': {
+              mt: '0px !important',
+              maxWidth: 'auto !important',
+            },
+            '& p': {
+              width: 'auto',
+            },
+            '& tr': {
+              bgcolor: 'transparent !important',
+            },
+            '& td': {
+              color: theme.palette.mode === 'dark' ? 'white' : 'text.primary',
+            },
+          })}
+        />
+      );
+    },
+    code(props) {
+      const { ...rest } = props;
+      return (
+        <code
+          {...rest}
+          style={{
+            backgroundColor:
+              theme.palette.mode === 'dark' ? 'darkblue' : '#F5F7F9',
+          }}
+        />
+      );
+    },
+    blockquote(props) {
+      const { ...rest } = props;
+      return (
+        <blockquote
+          {...rest}
+          style={{
+            backgroundColor:
+              theme.palette.mode === 'dark' ? 'darkblue' : '#F5F7F9',
+          }}
+        />
+      );
+    },
+  };
+
   const result =
     Array.isArray(data.item) &&
     data.item.map((e, i) => {
@@ -135,7 +218,7 @@ const Main = ({ data }) => {
               {e?.name}
             </Typography>
             <Box sx={{ color: theme.palette.zesty.zestyZambezi }}>
-              <ReactMarkdown overrides={muiContentOverrides}>
+              <ReactMarkdown components={{ ...styles }}>
                 {e?.description || ''}
               </ReactMarkdown>
             </Box>
@@ -176,7 +259,10 @@ const Main = ({ data }) => {
                   </Link>
                 </Stack>
 
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{ ...styles }}
+                >
                   {desc}
                 </ReactMarkdown>
               </Stack>
@@ -297,7 +383,7 @@ const Main = ({ data }) => {
       pt={2}
     >
       <Grid container pb={4}>
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12}>
           <Typography
             sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
             variant="h4"
@@ -307,12 +393,15 @@ const Main = ({ data }) => {
             {data.name}
           </Typography>
           <Box sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{ ...styles }}
+            >
               {data?.description}
             </ReactMarkdown>
           </Box>
         </Grid>
-        <Grid item xs={6}></Grid>
+        {/* <Grid item xs={6}></Grid> */}
       </Grid>
       {result}
     </Stack>
