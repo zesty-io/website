@@ -50,6 +50,7 @@ import AuthorSection from 'revamp/ui/AuthorSection';
 import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
 import { CtaWithInputField } from 'blocks/cta';
+import PopUpLeadCapture from 'components/marketing/PopupLeadCapture';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -109,8 +110,20 @@ function Article({ content }) {
     );
   }, []);
 
+  const popupLeadCaptureProps = {
+    title: content?.pop_up_title || 'FREE CMS BUYING GUIDE',
+    description: content?.pop_up_description || 'DOWNLOAD CMS BUYING GUIDE',
+    ctaText: content?.pop_up_cta_text || 'DOWNLOAD NOW',
+    thankYouMessage:
+      content?.pop_up_thank_you ||
+      'Thank you for downloading our CMS buying guide. Reach out to us for a free discovery call, demo call or a free trial',
+    pdfLink:
+      content?.pdf_link ||
+      'https://kfg6bckb.media.zestyio.com/HeadlessCMS-Buyers-Guide-Zesty.H17lCRwtp.pdf',
+  };
+
   return (
-    <Box>
+    <Box sx={{ position: 'relative' }}>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Stack>
           <BlogHero
@@ -604,6 +617,9 @@ function Article({ content }) {
           />
         </Container>
       )}
+
+      {/* Side PopUp */}
+      <PopUpLeadCapture {...popupLeadCaptureProps} />
     </Box>
   );
 }
