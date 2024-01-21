@@ -2,6 +2,7 @@ import { Box, Button, TextField, Typography, useTheme } from '@mui/material';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { setCookie, getCookie, hasCookie } from 'cookies-next';
 
 import * as Yup from 'yup';
 import {
@@ -24,6 +25,8 @@ export default function PopUpForm({
   description,
   thankYouMessage,
   pdfLink,
+  cookieName,
+  setShowPopup,
 }) {
   const theme = useTheme();
 
@@ -51,7 +54,30 @@ export default function PopUpForm({
 
     setSuccess(true);
 
+    // save pathname to cookie after downloading pdf
+    savePathnameToCookie(window.location.pathname);
+
     return values;
+  };
+
+  const savePathnameToCookie = (pathname) => {
+    const cookieOptions = {
+      maxAge: 365 * 24 * 60 * 60 * 1000,
+    };
+    const expiration = new Date();
+    expiration.setDate(new Date().getDate() + 15); // Set to expire after 15 days
+    if (!hasCookie(cookieName)) {
+      setCookie(
+        cookieName,
+        JSON.stringify([{ path: pathname, expire: expiration }]),
+        cookieOptions,
+      );
+      return;
+    }
+
+    let value = JSON.parse(getCookie(cookieName));
+    value.push({ path: pathname, expire: expiration });
+    setCookie(cookieName, JSON.stringify(value), cookieOptions);
   };
   return (
     <Box
@@ -73,7 +99,10 @@ export default function PopUpForm({
       <Box sx={{ p: 2 }}>
         {height ? (
           <CloseIcon
-            onClick={() => setDownloadClick(false)}
+            onClick={() => {
+              setDownloadClick(false);
+              setShowPopup(false);
+            }}
             sx={{
               color: 'white',
               cursor: 'pointer',
