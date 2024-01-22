@@ -17,7 +17,7 @@ export default function PopUpLeadCapture({
   const [isExpanded, setIsExpanded] = useState(true);
   const [downloadClick, setDownloadClick] = useState(false);
   const theme = useTheme();
-
+  
   return (
     <Box
       sx={{

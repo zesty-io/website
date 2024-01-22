@@ -3,7 +3,6 @@ import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { setCookie, getCookie, hasCookie } from 'cookies-next';
-
 import * as Yup from 'yup';
 import {
   getLeadObjectZOHO,
