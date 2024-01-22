@@ -101,7 +101,7 @@ export default function PopUpForm({
           <CloseIcon
             onClick={() => {
               setDownloadClick(false);
-              setShowPopup(false);
+              success && setShowPopup(false);
             }}
             sx={{
               color: 'white',
