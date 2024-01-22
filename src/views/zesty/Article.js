@@ -633,17 +633,15 @@ function Article({ content }) {
         </Stack>
       </ThemeProvider>
 
-      {content?.enable_newsletter_subscription === '1' && (
-        <Container position="relative" zIndex={3}>
-          <CtaWithInputField
-            title={'Subscribe to the zestiest newsletter in the industry'}
-            description={
-              'Get the latest from the Zesty team, from whitepapers to product updates.'
-            }
-            cta={'Subscribe'}
-          />
-        </Container>
-      )}
+      <Container position="relative" zIndex={3}>
+        <CtaWithInputField
+          title={'Subscribe to the zestiest newsletter in the industry'}
+          description={
+            'Get the latest from the Zesty team, from whitepapers to product updates.'
+          }
+          cta={'Subscribe'}
+        />
+      </Container>
 
       {/* Side PopUp */}
       {showPopup && <PopUpLeadCapture {...popupLeadCaptureProps} />}
