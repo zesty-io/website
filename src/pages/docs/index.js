@@ -207,8 +207,23 @@ export function DocSearchModal() {
 
   return (
     <DocSearch
-      transformItems={(item) => {
-        return item.reverse();
+      transformItems={(items) => {
+        const groupBy = items.reduce((acc, item) => {
+          if (!item.hierarchy) {
+            return acc;
+          }
+          const list = acc[item.hierarchy.lvl1] || [];
+
+          return {
+            ...acc,
+            [item.hierarchy.lvl1]: list.concat(item),
+          };
+        }, {});
+
+        return Object.keys(groupBy).map((level) => ({
+          items: groupBy[level],
+          level,
+        }));
       }}
       placeholder="Search docs..."
       maxResultsPerGroup={100}
