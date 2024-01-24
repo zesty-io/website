@@ -207,8 +207,52 @@ export function DocSearchModal() {
 
   return (
     <DocSearch
-      transformItems={(item) => {
-        return item.reverse();
+      transformItems={(items) => {
+        /*
+         * Group items by hierarchy and remove items without hierarchy
+         */
+        const groupBy = items.reduce((acc, item) => {
+          if (!item.hierarchy) {
+            return acc;
+          }
+          const list = acc[item.hierarchy.lvl1] || [];
+
+          return {
+            ...acc,
+            [item.hierarchy.lvl1]: list.concat(item),
+          };
+        }, {});
+
+        /**
+         * Group based on parent page
+         */
+        const groups = Object.keys(groupBy).map((level) => ({
+          items: groupBy[level],
+        }));
+
+        const groupItems = groups?.[0]?.items || [];
+
+        /**
+         * Find the parent page from groupItems
+         */
+        const parent = groupItems?.find((item) => {
+          if (
+            item.hierarchy.lvl1 !== null &&
+            item.hierarchy.lvl2 == null &&
+            item.hierarchy.lvl3 == null &&
+            item.hierarchy.lvl4 == null &&
+            item.hierarchy.lvl5 == null &&
+            item.hierarchy.lvl6 == null
+          ) {
+            return item;
+          }
+        });
+
+        /**
+         * find the index of the parent from groupItems and put it in the first index
+         */
+        const parentIndex = groupItems?.indexOf(parent);
+        return groupItems.splice(parentIndex, 1).concat(groupItems);
       }}
       placeholder="Search docs..."
       maxResultsPerGroup={100}
