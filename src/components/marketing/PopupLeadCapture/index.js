@@ -11,10 +11,13 @@ export default function PopUpLeadCapture({
   ctaText,
   thankYouMessage,
   pdfLink,
+  cookieName,
+  setShowPopup,
 }) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [downloadClick, setDownloadClick] = useState(false);
   const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -101,6 +104,8 @@ export default function PopUpLeadCapture({
           description={description}
           setDownloadClick={setDownloadClick}
           height={downloadClick ? 425 : 0}
+          cookieName={cookieName}
+          setShowPopup={setShowPopup}
         />
       </Box>
     </Box>
