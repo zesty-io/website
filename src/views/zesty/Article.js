@@ -622,6 +622,7 @@ function Article({ content }) {
               {newContent || FillerContent.rich_text}
             </MuiMarkdown>
           </Stack>
+
           <AuthorSection
             authorName={authorName}
             authorDescription={authorDescription}
@@ -662,26 +663,26 @@ function CtaComponent({ title, description, ctaText, ctaLink }) {
             padding: 4,
             gap: 2,
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: 'start',
             height: 'auto',
             width: '100%',
-            backgroundColor: '#f0f0f0',
+            backgroundColor: '#101828',
             borderRadius: '8px',
             boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-            textAlign: 'center',
+            textAlign: 'left',
           }}
         >
-          <Typography variant="h5" fontWeight={700} color="primary">
+          <Typography variant="h5" fontWeight={700} color="white">
             {title || ''}
           </Typography>
           <MuiMarkdown
             options={{
               overrides: {
-                p: {
+                span: {
                   component: Typography,
                   props: {
                     variant: 'body1',
-                    color: 'text.secondary',
+                    color: '#D0D5DD',
                   },
                 },
               },
