@@ -51,6 +51,7 @@ import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
 import { CtaWithInputField } from 'blocks/cta';
 import PopUpLeadCapture from 'components/marketing/PopupLeadCapture';
+import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -80,6 +81,8 @@ function Article({ content }) {
     name: c?.tag,
     link: c?.meta?.web?.uri,
   }));
+  const [showPopup, setShowPopup] = useState(false);
+  const cookieName = 'DOWNLOADED_PDF';
 
   // Define a regular expression pattern to match [_CTA_]
   let regexPattern = /\[CALL TO ACTION\]/g;
@@ -108,7 +111,29 @@ function Article({ content }) {
         '<acronym title="Call to Action"></acronym>',
       ),
     );
+
+    verifyPathnameInCookie(window.location.pathname);
   }, []);
+
+  const verifyPathnameInCookie = (path) => {
+    if (!hasCookie(cookieName)) {
+      setShowPopup(true);
+      return;
+    }
+
+    const value = JSON.parse(getCookie(cookieName));
+    const newValue = value.filter((obj) => !isDateExpired(obj.expire));
+
+    if (value.length !== newValue.length)
+      setCookie(cookieName, newValue, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+
+    if (!newValue.some((item) => item.path === path)) setShowPopup(true);
+  };
+
+  const isDateExpired = (inputDate) => {
+    const currentDate = new Date();
+    return new Date(inputDate) < currentDate;
+  };
 
   const popupLeadCaptureProps = {
     title: content?.pop_up_title || 'FREE CMS BUYING GUIDE',
@@ -120,6 +145,8 @@ function Article({ content }) {
     pdfLink:
       content?.pdf_link ||
       'https://kfg6bckb.media.zestyio.com/HeadlessCMS-Buyers-Guide-Zesty.H17lCRwtp.pdf',
+    cookieName,
+    setShowPopup,
   };
 
   return (
@@ -617,7 +644,7 @@ function Article({ content }) {
       </Container>
 
       {/* Side PopUp */}
-      <PopUpLeadCapture {...popupLeadCaptureProps} />
+      {showPopup && <PopUpLeadCapture {...popupLeadCaptureProps} />}
     </Box>
   );
 }
