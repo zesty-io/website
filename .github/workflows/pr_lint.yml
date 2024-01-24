@@ -1,20 +1,36 @@
-
 name: Zesty Website CI Dev
 
 on:
   pull_request:
-    types: [opened, synchronize,edited]
+    types: [opened, synchronize, edited]
     branches: [stage, accounts, production, dev]
   workflow_dispatch:
-
 
 jobs:
   pr_lint:
     name: Check PR Title 
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@v4.5.0
+      - name: Check PR Title
+        uses: amannn/action-semantic-pull-request@v4.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           validateSingleCommit: true
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Check for Reviewers
+        run: |
+          PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN {FS="/"} {print $3}')
+          REVIEWERS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                       "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/review-requested" | \
+                       jq -r '.users[].login')
+
+          if [ -z "$REVIEWERS" ]; then
+            echo "No reviewers assigned to the pull request."
+            exit 1
+          else
+            echo "Reviewers assigned: $REVIEWERS"
+          fi
