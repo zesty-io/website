@@ -252,7 +252,7 @@ export function DocSearchModal() {
          * find the index of the parent from groupItems and put it in the first index
          */
         const parentIndex = groupItems?.indexOf(parent);
-        return groupItems.splice(parentIndex, 1).concat(groupItems);
+        return groupItems.splice(parentIndex, 1).concat(groupItems.reverse());
       }}
       placeholder="Search docs..."
       maxResultsPerGroup={100}
