@@ -1,16 +1,16 @@
 name: "\U0001F41B Bug Report"
 title: "\U0001F41B [Bug]: "
 description: Create a bug report to help us fix it.
-labels: ["☢️ Bug"]
+labels: ['☢️ Bug']
 body:
   - type: textarea
     id: description
     attributes:
-      label: "Description"
+      label: 'Description'
       description: Please enter an explicit description of your issue
       placeholder: Short and explicit description of your incident...
     validations:
-        required: true
+      required: true
   - type: textarea
     id: reprod
     attributes:

@@ -15,11 +15,12 @@ Please delete options that are not relevant.
 
 # How Has This Been Tested?
 
-Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. 
+Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce.
 
 - [ ] Manual Test
 - [ ] Unit Test
 - [ ] E2E Test
 
 # Screenshots / Screen recording
+
 Please add screenshots or recording if applicable
