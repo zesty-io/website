@@ -685,6 +685,13 @@ function CtaComponent({ title, description, ctaText, ctaLink }) {
                     color: '#D0D5DD',
                   },
                 },
+                span: {
+                  component: Typography,
+                  props: {
+                    variant: 'body1',
+                    color: '#D0D5DD',
+                  },
+                },
               },
             }}
           >
