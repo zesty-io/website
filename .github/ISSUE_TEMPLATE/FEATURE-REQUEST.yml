@@ -1,7 +1,7 @@
 name: "\U0001F680 Feature Request"
 title: "\U0001F680 [Feature]: "
 description: Suggest an idea to improve this project.
-labels: ["✏️ Feature"]
+labels: ['✏️ Feature']
 body:
   - type: markdown
     attributes:
@@ -12,17 +12,16 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: "Feature Description"
-      description: "A clear and detailed description of the feature you would like to see added."
-      placeholder: "Explain your feature clearly, and in detail."
+      label: 'Feature Description'
+      description: 'A clear and detailed description of the feature you would like to see added.'
+      placeholder: 'Explain your feature clearly, and in detail.'
       render: bash
     validations:
       required: true
   - type: textarea
     id: additional-context
     attributes:
-      label: "Additional Context (optional)"
-      description: "If you have something else to describe, write them here."
-      placeholder: "Write here what you can describe differently."
+      label: 'Additional Context (optional)'
+      description: 'If you have something else to describe, write them here.'
+      placeholder: 'Write here what you can describe differently.'
       render: bash
-
