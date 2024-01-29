@@ -120,7 +120,7 @@ function Article({ content }) {
     setRelatedArticles(
       getRelatedArticles(content?.related_articles, latestArticles),
     );
-  }, []);
+  }, [latestArticles]);
 
   const verifyPathnameInCookie = (path) => {
     if (!hasCookie(cookieName)) {
