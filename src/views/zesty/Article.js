@@ -150,7 +150,7 @@ function Article({ content }) {
     let result;
 
     if (related?.data?.length > 4) {
-      totalSliceCount = related.length;
+      totalSliceCount = related.data.length;
       latest = [];
     }
 
