@@ -55,6 +55,7 @@ import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
+  const [relatedArticles, setRelatedArticles] = useState([]);
   const { palette } = useTheme();
 
   const { data: latestArticles } = useFetch(
@@ -115,6 +116,12 @@ function Article({ content }) {
     verifyPathnameInCookie(window.location.pathname);
   }, []);
 
+  useEffect(() => {
+    setRelatedArticles(
+      getRelatedArticles(content?.related_articles, latestArticles),
+    );
+  }, []);
+
   const verifyPathnameInCookie = (path) => {
     if (!hasCookie(cookieName)) {
       setShowPopup(true);
@@ -133,6 +140,55 @@ function Article({ content }) {
   const isDateExpired = (inputDate) => {
     const currentDate = new Date();
     return new Date(inputDate) < currentDate;
+  };
+
+  // Mutate and destructure related articles to match the structure of latestArticles
+  // Prioritize to return related instead of latest articles
+  const getRelatedArticles = (related, latest = []) => {
+    const relatedData = [];
+    let totalSliceCount = 4; // Default number of data to return
+    let result;
+
+    if (related?.data?.length > 4) {
+      totalSliceCount = related.length;
+      latest = [];
+    }
+
+    if (related !== null || related) {
+      related?.data.map(
+        ({ title, description, date, author, hero_image, meta }) => {
+          const articleDate = new Date(date);
+          relatedData.push({
+            title,
+            author: {
+              name: author?.data[0]?.name,
+              image: author?.data[0]?.headshot?.data[0].url,
+            },
+            description,
+            date:
+              articleDate.toLocaleString('default', { month: 'long' }) +
+              ' ' +
+              articleDate.getDate(),
+            image: hero_image?.data
+              ? hero_image.data[0].url
+              : FillerContent.image,
+            path: meta?.web?.uri,
+          });
+        },
+      );
+    }
+
+    // Merge related and latest articles into one array
+    // Removing duplicate and current article from result
+    result = [...relatedData, ...latest].filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) => t.title === value.title && t.title !== content?.title,
+        ),
+    );
+
+    return result.slice(0, totalSliceCount);
   };
 
   const popupLeadCaptureProps = {
@@ -630,7 +686,7 @@ function Article({ content }) {
             tags={tags}
             authorLink={authorLink}
           />
-          <BlogContent title="Related Articles" articles={latestArticles} />
+          <BlogContent title="Related Articles" articles={relatedArticles} />
         </Stack>
       </ThemeProvider>
 
