@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import {
   Box,
-  Container,
+  // Container,
   Card,
   Typography,
   Button,
@@ -12,12 +12,17 @@ import {
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
-import ZestyImage from 'blocks/Image/ZestyImage';
+// import ZestyImage from 'blocks/Image/ZestyImage';
 import fetchTicketThread from 'lib/supportPortal/fetchTicketThreads';
 import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
-// import TextareaAutosize from '@mui/base/TextareaAutosize';
+// import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 // import AttachFileIcon from '@mui/icons-material/AttachFile';
+import {
+  AgentChatBubble,
+  ClientChatBubble,
+  ChatLoadingSpinner,
+} from 'components/accounts/support';
 
 export default function ticketItem() {
   const theme = useTheme();
@@ -25,6 +30,7 @@ export default function ticketItem() {
   const { ticket: ticketData, threadContent } = ticket || {};
   const router = useRouter();
   const { zuid } = router.query;
+  const [loading, setloading] = useState(true);
 
   const req = {
     cookies: {
@@ -32,9 +38,18 @@ export default function ticketItem() {
       ZESTY_WORKING_INSTANCE: zuid,
     },
   };
+
   const getTicket = async () => {
-    const res = await fetchTicketThread(router.query, req);
-    setticket(res);
+    setloading(true);
+    try {
+      const res = await fetchTicketThread(router.query, req);
+      console.log(res);
+      setticket(res);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setloading(false);
+    }
   };
 
   useEffect(() => {
@@ -43,235 +58,226 @@ export default function ticketItem() {
     }
   }, [router]);
 
+  const contentFilter = (content) => {
+    // Regex to match with HTML Breaks
+    const HTMLBreak = /<br\s*\/?>/gi;
+
+    // Regex to match img path
+    const IMAGESource = /src="(\/api.*?)"/g;
+
+    // Regular expression to match from <meta> to the end of the string
+    const metaRegex = /<meta[^>]*>[\s\S]*/;
+
+    // Grab only text contents and remove replies
+    return content
+      .replace(HTMLBreak, '')
+      .replace(IMAGESource, `src="https://desk.zoho.com$1"`)
+      .replace(metaRegex, '');
+  };
+
+  const getResponseTimestamp = (date) => {
+    const dateOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    };
+
+    const timeOptions = {
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+
+    const dateObj = new Date(Date.parse(date));
+
+    const responseDate = `${dateObj.toLocaleDateString('en-US', dateOptions)}`;
+
+    const responseTime = `${dateObj.toLocaleTimeString('en-US', timeOptions)}`;
+
+    return { responseDate, responseTime };
+  };
+
+  const isDifferentDate = (now, prev) => {
+    const dateOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    };
+
+    const nowDate = new Date(Date.parse(now));
+    const prevDate = new Date(Date.parse(prev));
+
+    const res =
+      nowDate.toLocaleDateString('en-US', dateOptions) !==
+      prevDate.toLocaleDateString('en-US', dateOptions);
+
+    return res;
+  };
+
   return (
     <>
       <InstanceContainer>
-        <Container sx={{ mt: 10 }}>
-          <Card
-            elevation={0}
-            sx={{
-              p: { xs: 2, md: 4 },
-            }}
-          >
-            <Button
-              type="button"
-              color="secondary"
-              size="small"
-              variant="contained"
-              onClick={() => router.back()}
+        <Grid
+          container
+          spacing={2}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid item xs={8}>
+            <Card
+              elevation={0}
+              sx={{
+                p: { xs: 2, md: 4 },
+              }}
             >
-              <Typography
-                variant="p"
-                sx={{
-                  whiteSpace: 'nowrap',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
+              <Button
+                type="button"
+                // color="secondary"
+                size="small"
+                variant="contained"
+                onClick={() => router.back()}
               >
-                <ArrowBackIcon /> Go Back
-              </Typography>
-            </Button>
-
-            <Stack direction={'row'} sx={{ mt: 2 }} spacing={2}>
-              <Box>
                 <Typography
-                  sx={{ color: theme.palette.zesty.zesyZambezi }}
-                  variant={'h5'}
-                  fontWeight={700}
-                  align={'left'}
-                >
-                  {ticketData?.subject}
-                </Typography>
-                {ticket.error && (
-                  <Typography
-                    sx={{
-                      color: theme.palette.zesty.zestyOrange,
-                    }}
-                  >
-                    {ticket.error}
-                  </Typography>
-                )}
-
-                <Typography
-                  component="p"
-                  variant={'p'}
-                  dangerouslySetInnerHTML={{
-                    __html: ticketData?.description,
+                  variant="p"
+                  sx={{
+                    whiteSpace: 'nowrap',
+                    display: 'flex',
+                    alignItems: 'center',
                   }}
-                ></Typography>
-              </Box>
-            </Stack>
+                >
+                  <ArrowBackIcon /> Go Back
+                </Typography>
+              </Button>
 
-            <Box sx={{ mt: 5 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Card
-                    sx={{
-                      p: 4,
-                      borderRadius: 5,
-                      minHeight: 300,
-                      maxHeight: 700,
-                      overflowX: 'hidden',
-                      overflowY: 'auto',
-                    }}
-                  >
+              {loading ? (
+                <ChatLoadingSpinner />
+              ) : (
+                <>
+                  <Stack direction={'row'} sx={{ mt: 2 }} spacing={2}>
                     <Box>
-                      {threadContent
-                        ?.slice(0)
-                        .reverse()
-                        .map((item) => {
-                          //const end = item.summary.indexOf('----', start + 1);
+                      <Typography
+                        sx={{ color: theme.palette.zesty.zesyZambezi }}
+                        variant={'h5'}
+                        fontWeight={700}
+                        align={'left'}
+                      >
+                        Subject: {ticketData?.subject}
+                      </Typography>
+                      {ticket.error && (
+                        <Typography
+                          sx={{
+                            color: theme.palette.zesty.zestyOrange,
+                          }}
+                        >
+                          {ticket.error}
+                        </Typography>
+                      )}
 
-                          const attachment = item.attachments.length > 0;
-                          // Regex to match with HTML Breaks
-                          const HTMLBreak = /<br\s*\/?>/gi;
+                      <Typography
+                        sx={{ color: theme.palette.zesty.zesyZambezi }}
+                        variant={'p'}
+                        fontWeight={500}
+                        align={'left'}
+                      >
+                        Description: {ticketData?.description}
+                      </Typography>
+                    </Box>
+                  </Stack>
 
-                          // Regex to match img path
-                          const IMAGESource = /src="(\/api.*?)"/g;
+                  <Box sx={{ mt: 5 }}>
+                    <Card
+                      sx={{
+                        // background: theme.palette.zesty.zestyZambezi,
+                        p: 4,
+                        borderRadius: 5,
+                        minHeight: 300,
+                        maxHeight: 700,
+                        overflowX: 'hidden',
+                        overflowY: 'auto',
+                      }}
+                    >
+                      <Box>
+                        {threadContent
+                          ?.slice(0)
+                          .reverse()
+                          .map((item, index) => {
+                            //const end = item.summary.indexOf('----', start + 1);
 
-                          // Grab only text contents and remove replies
-                          const content = item?.content
-                            .replace(HTMLBreak, '')
-                            .replace(
-                              IMAGESource,
-                              `src="https://desk.zoho.com$1"`,
-                            );
+                            const attachment = item.attachments.length > 0;
 
-                          const options = {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                          };
-                          const date = new Date(Date.parse(item.createdTime));
-                          const responseDate = `${date.toLocaleDateString(
-                            'en-US',
-                            options,
-                          )}  ${date.toLocaleTimeString()}`;
+                            const content = contentFilter(item?.content);
 
-                          return (
-                            <Box key={item.threadId} sx={{ py: 1 }}>
-                              {item?.author?.type === 'AGENT' ? (
-                                <Box
-                                  sx={{
-                                    display: 'flex',
-                                    gap: 1,
-                                    alignItems: 'flex-end',
-                                  }}
-                                >
-                                  <ZestyImage
-                                    alt={'author'}
-                                    src={`https://ui-avatars.com/api/?name=${item?.author?.firstName}+${item?.author?.lastName}&rounded=true&size=35`}
-                                  />
+                            const { responseDate, responseTime } =
+                              getResponseTimestamp(item?.createdTime);
 
-                                  <Stack>
-                                    <Typography
-                                      sx={{
-                                        display: 'block',
-                                        background:
-                                          theme.palette.zesty.zestyZambezi,
-                                        color: theme.palette.common.white,
-                                        p: 2,
-                                        borderTopLeftRadius: 10,
-                                        borderTopRightRadius: 10,
-                                        borderBottomRightRadius: 10,
-                                      }}
-                                      variant={'p'}
-                                      component="p"
-                                      dangerouslySetInnerHTML={{
-                                        __html: content,
-                                      }}
-                                    ></Typography>
-                                    <Box sx={{ display: 'flex' }}>
-                                      <Typography
-                                        variant="caption1"
-                                        sx={{
-                                          color: theme.palette.zesty.zestyGrey,
-                                          fontSize: 12,
-                                          mt: 0.5,
-                                        }}
-                                      >
-                                        {item?.author?.firstName}{' '}
-                                        {item?.author?.lastName}{' '}
-                                      </Typography>
+                            const isDiffDate =
+                              index > 0 &&
+                              isDifferentDate(
+                                item?.createdTime,
+                                threadContent?.slice(0).reverse()[index - 1]
+                                  ?.createdTime,
+                              );
 
-                                      <Typography
-                                        variant="caption1"
-                                        sx={{
-                                          color: theme.palette.zesty.zestyGrey,
-                                          fontSize: 12,
-                                          mt: 0.5,
-                                        }}
-                                      >
-                                        {responseDate}
-                                      </Typography>
-                                    </Box>
-                                  </Stack>
-                                </Box>
-                              ) : (
-                                <Box
-                                  sx={{
-                                    display: 'flex',
-                                    gap: 1,
-                                    alignItems: 'flex-end',
-                                    justifyContent: 'flex-end',
-                                  }}
-                                >
-                                  <Stack
+                            return (
+                              <Box key={item.threadId} sx={{ py: 1 }}>
+                                {(index === 0 || isDiffDate) && (
+                                  <Box
                                     sx={{
-                                      background:
-                                        theme.palette.zesty.zestyOrange,
-                                      color: theme.palette.common.white,
-                                      p: 2,
-                                      borderTopLeftRadius: 10,
-                                      borderTopRightRadius: 10,
-                                      borderBottomLeftRadius: 10,
+                                      display: 'flex',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      // gap: 1,
+                                      mb: 1,
+                                      cursor: 'default',
                                     }}
                                   >
-                                    {attachment && (
-                                      <ZestyImage
-                                        style={{
-                                          borderRadius: 10,
-                                          width: '100%',
-                                          maxWidth: 700,
-                                        }}
-                                        alt="test"
-                                        src={item?.attachments[0]?.previewurl}
-                                      />
-                                    )}
-
                                     <Typography
                                       sx={{
-                                        display: 'block',
-                                        mt: attachment ? 2 : 0,
+                                        color: theme.palette.zesty.zestyGrey,
+                                        fontSize: 12,
+                                        px: 1,
+                                        py: 0.5,
+                                        borderRadius: 5,
+                                        border: `1px solid ${theme.palette.zesty.zestyGrey}`,
                                       }}
-                                      variant={'p'}
-                                      dangerouslySetInnerHTML={{
-                                        __html: content,
-                                      }}
-                                    ></Typography>
-                                  </Stack>
+                                    >
+                                      {responseDate}
+                                    </Typography>
+                                  </Box>
+                                )}
 
-                                  <ZestyImage
-                                    alt={'author'}
-                                    src={`https://ui-avatars.com/api/?name=${item?.author?.firstName}+${item?.author?.lastName}&rounded=true&size=35`}
+                                {item?.author?.type === 'AGENT' ? (
+                                  <AgentChatBubble
+                                    time={responseTime}
+                                    item={item}
+                                    attachment={attachment}
+                                    content={content}
                                   />
-                                </Box>
-                              )}
-                            </Box>
-                          );
-                        })}
-                    </Box>
-                  </Card>
+                                ) : (
+                                  <ClientChatBubble
+                                    time={responseTime}
+                                    item={item}
+                                    attachment={attachment}
+                                    content={content}
+                                  />
+                                )}
+                              </Box>
+                            );
+                          })}
+                      </Box>
+                    </Card>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        mt: 2,
+                        color: theme.palette.zesty.zestyZambezi,
+                      }}
+                    >
+                      Ticket correspondence is sent via email
+                    </Typography>
 
-                  <Typography
-                    variant="caption"
-                    sx={{ mt: 2, color: theme.palette.zesty.zestyZambezi }}
-                  >
-                    Ticket correspondence is sent via email
-                  </Typography>
-
-                  {/* Hide Response Box  */}
-                  {/* <Card
+                    {/* Hide Response Box  */}
+                    {/* <Card
                     sx={{
                       p: 4,
                       borderRadius: 5,
@@ -282,12 +288,13 @@ export default function ticketItem() {
                       <TextareaAutosize
                         minRows={2}
                         aria-label="Message..."
-                        placeholder="Write your response...."
+                        placeholder="Write your response..."
                         style={{
                           outline: 'none',
                           width: '100%',
                           border: 'none',
                           padding: 15,
+                          borderRadius: 10,
                         }}
                       />
 
@@ -311,11 +318,12 @@ export default function ticketItem() {
                       </Box>
                     </Box>
                   </Card> */}
-                </Grid>
-              </Grid>
-            </Box>
-          </Card>
-        </Container>
+                  </Box>
+                </>
+              )}
+            </Card>
+          </Grid>
+        </Grid>
       </InstanceContainer>
     </>
   );
