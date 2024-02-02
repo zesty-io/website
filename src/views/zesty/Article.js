@@ -692,7 +692,7 @@ function Article({ content }) {
       </ThemeProvider>
 
       {(content?.enable_newsletter_subscription === null ||
-        content?.enable_newsletter_subscription === '1') && (
+        content?.enable_newsletter_subscription == '1') && (
         <Container position="relative" zIndex={3}>
           <CtaWithInputField
             title={'Subscribe to the zestiest newsletter in the industry'}
