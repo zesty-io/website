@@ -227,6 +227,7 @@ export default function PopUpForm({
                         />
                       </Box>
                       <Button
+                        id="gated-popup-modal"
                         variant="contained"
                         sx={{ width: '100%' }}
                         color="secondary"
