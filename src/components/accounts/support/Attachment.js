@@ -33,7 +33,7 @@ const DownloadButton = ({ file }) => {
         background: '#F2F2F2',
         borderRadius: 3,
         p: 2,
-        maxWidth: 200,
+        maxWidth: '250px',
         marginBottom: 0.2,
       }}
     >
@@ -46,7 +46,7 @@ const DownloadButton = ({ file }) => {
         }}
       >
         <DescriptionIcon />
-        {truncateText(file?.name, 15)}
+        {truncateText(file?.name, 25)}
       </Typography>
     </Button>
   );
@@ -68,7 +68,7 @@ const ImagePreview = ({ file, handleOpen }) => {
         style={{
           borderRadius: 10,
           width: '100%',
-          maxWidth: 300,
+          maxWidth: '500px',
         }}
         alt="test"
         src={file?.previewurl ?? ''}
@@ -143,8 +143,10 @@ const Attachment = ({ attachments, threadIndex, getPreviewURL }) => {
         >
           <ZestyImage
             style={{
-              borderRadius: 10,
+              // borderRadius: 10,
               width: '80%',
+              height: '90%',
+              objectFit: 'contain',
               // marginBottom: 2,
             }}
             alt="image"

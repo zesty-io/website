@@ -297,6 +297,7 @@ const Chat = ({ loading, ticket, setticket, req }) => {
             pt: 4,
           }}
         >
+          <Info title="ticketID" content={ticketData?.id ?? 'n/a'} />
           <Info title="subject" content={ticketData?.subject ?? 'n/a'} />
           <Info
             title="description"

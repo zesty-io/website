@@ -57,7 +57,8 @@ const ClientChatBubble = ({
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
               borderBottomLeftRadius: 10,
-              width: 'fit-content',
+              maxWidth: '500px',
+              wordWrap: 'break-word',
             }}
             variant={'p'}
             dangerouslySetInnerHTML={{
