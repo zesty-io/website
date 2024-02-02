@@ -1,8 +1,15 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import React from 'react';
+import Attachment from './Attachment';
 
-const ClientChatBubble = ({ item, attachment, content, time }) => {
+const ClientChatBubble = ({
+  item,
+  content,
+  time,
+  threadIndex,
+  getPreviewURL,
+}) => {
   const theme = useTheme();
   return (
     <Box
@@ -31,16 +38,11 @@ const ClientChatBubble = ({ item, attachment, content, time }) => {
         >
           {item?.author?.firstName}, {time}
         </Typography>
-        {attachment && (
-          <ZestyImage
-            style={{
-              borderRadius: 10,
-              width: '100%',
-              maxWidth: 300,
-              marginBottom: 2,
-            }}
-            alt="test"
-            src={item?.attachments[0]?.previewurl}
+        {item?.attachments?.length > 0 && (
+          <Attachment
+            attachments={item?.attachments}
+            threadIndex={threadIndex}
+            getPreviewURL={getPreviewURL}
           />
         )}
 

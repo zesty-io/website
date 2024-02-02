@@ -3,7 +3,13 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 import React from 'react';
 import Attachment from './Attachment';
 
-const AgentChatBubble = ({ item, attachment, content, time }) => {
+const AgentChatBubble = ({
+  item,
+  content,
+  time,
+  threadIndex,
+  getPreviewURL,
+}) => {
   const theme = useTheme();
   return (
     <>
@@ -31,18 +37,12 @@ const AgentChatBubble = ({ item, attachment, content, time }) => {
           >
             {item?.author?.firstName}, {time}
           </Typography>
-          {attachment && (
-            // <ZestyImage
-            //   style={{
-            //     borderRadius: 10,
-            //     width: '100%',
-            //     maxWidth: 300,
-            //     marginBottom: 2,
-            //   }}
-            //   alt="test"
-            //   src={item?.attachments[0]?.previewurl}
-            // />
-            <Attachment attachments={item?.attachments} />
+          {item?.attachments?.length > 0 && (
+            <Attachment
+              attachments={item?.attachments}
+              threadIndex={threadIndex}
+              getPreviewURL={getPreviewURL}
+            />
           )}
           {content && (
             <Typography

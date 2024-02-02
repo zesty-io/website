@@ -14,6 +14,7 @@ const ChatLoadingSpinner = () => {
         height: '100%',
         width: '100%',
         padding: 2,
+        background: 'transparent',
       }}
     >
       <Box
@@ -25,6 +26,7 @@ const ChatLoadingSpinner = () => {
           justifyItems: 'center',
           margin: 'auto',
           alignItems: 'center',
+          background: 'transparent',
         }}
       >
         <CircularProgress color="primary" />
