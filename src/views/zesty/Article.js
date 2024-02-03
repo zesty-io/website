@@ -120,6 +120,7 @@ function Article({ content }) {
     setRelatedArticles(
       getRelatedArticles(content?.related_articles, latestArticles),
     );
+    console.log(content);
   }, [latestArticles]);
 
   const verifyPathnameInCookie = (path) => {
@@ -690,15 +691,18 @@ function Article({ content }) {
         </Stack>
       </ThemeProvider>
 
-      <Container position="relative" zIndex={3}>
-        <CtaWithInputField
-          title={'Subscribe to the zestiest newsletter in the industry'}
-          description={
-            'Get the latest from the Zesty team, from whitepapers to product updates.'
-          }
-          cta={'Subscribe'}
-        />
-      </Container>
+      {(content?.enable_newsletter_subscription === null ||
+        content?.enable_newsletter_subscription == '1') && (
+        <Container position="relative" zIndex={3}>
+          <CtaWithInputField
+            title={'Subscribe to the zestiest newsletter in the industry'}
+            description={
+              'Get the latest from the Zesty team, from whitepapers to product updates.'
+            }
+            cta={'Subscribe'}
+          />
+        </Container>
+      )}
 
       {/* Side PopUp */}
       {showPopup && <PopUpLeadCapture {...popupLeadCaptureProps} />}
