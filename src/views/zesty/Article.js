@@ -738,7 +738,7 @@ function CtaComponent({ title, description, ctaText, ctaLink }) {
           <MuiMarkdown
             options={{
               overrides: {
-                p: {
+                span: {
                   component: Typography,
                   props: {
                     variant: 'body1',
