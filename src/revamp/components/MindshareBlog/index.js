@@ -1,4 +1,5 @@
-import { Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
+import { CtaWithInputField } from 'blocks/cta';
 import useDebounce from 'components/hooks/useDebounce';
 import React, { memo, useEffect, useState } from 'react';
 import BlogContent from 'revamp/ui/BlogContent';
@@ -44,6 +45,15 @@ const MindshareBlog = ({ tags, articles }) => {
           </Typography>
         )}
       </Stack>
+      <Container position="relative" zIndex={3}>
+        <CtaWithInputField
+          title={'Subscribe to the zestiest newsletter in the industry'}
+          description={
+            'Get the latest from the Zesty team, from whitepapers to product updates.'
+          }
+          cta={'Subscribe'}
+        />
+      </Container>
     </>
   );
 };
