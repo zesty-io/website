@@ -32,7 +32,6 @@ const AgentChatBubble = ({
             sx={{
               color: theme.palette.zesty.zestyGrey,
               fontSize: 12,
-              // mt: 0.5,
             }}
           >
             {item?.author?.firstName}, {time}

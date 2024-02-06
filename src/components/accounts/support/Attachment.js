@@ -82,7 +82,6 @@ const Attachment = ({ attachments, threadIndex, getPreviewURL }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const isImage = (file) => {
-    // check based on file extension
     const imageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'];
     return imageExtensions.some((ext) => file.name.toLowerCase().endsWith(ext));
   };
@@ -143,11 +142,9 @@ const Attachment = ({ attachments, threadIndex, getPreviewURL }) => {
         >
           <ZestyImage
             style={{
-              // borderRadius: 10,
               width: '80%',
               height: '90%',
               objectFit: 'contain',
-              // marginBottom: 2,
             }}
             alt="image"
             src={selectedImage}

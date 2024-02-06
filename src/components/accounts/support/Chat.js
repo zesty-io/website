@@ -304,13 +304,6 @@ const Chat = ({ loading, ticket, setticket, req }) => {
             content={ticketData?.description ?? 'n/a'}
           />
           <Info title="status" content={ticketData?.status ?? 'n/a'} />
-          <Info title="assignee" content={ticketData?.assigneeId ?? 'n/a'} />
-          <Info title="due date" content={ticketData?.dueDate ?? 'n/a'} />
-          <Info
-            title="classification"
-            content={ticketData?.classification ?? 'n/a'}
-          />
-          <Info title="channel" content={ticketData?.channel ?? 'n/a'} />
         </Box>
       </Box>
     </>

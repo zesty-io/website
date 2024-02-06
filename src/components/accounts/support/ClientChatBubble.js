@@ -24,7 +24,6 @@ const ClientChatBubble = ({
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          // gap: 1,
           alignItems: 'flex-end',
           justifyContent: 'flex-end',
         }}
@@ -33,7 +32,6 @@ const ClientChatBubble = ({
           sx={{
             color: theme.palette.zesty.zestyGrey,
             fontSize: 12,
-            // mt: 0.5,
           }}
         >
           {item?.author?.firstName}, {time}
@@ -50,7 +48,6 @@ const ClientChatBubble = ({
           <Typography
             sx={{
               display: 'block',
-              // mt: attachment ? 2 : 0,
               background: theme.palette.zesty.zestyOrange,
               color: theme.palette.common.white,
               p: 1,
