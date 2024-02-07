@@ -1,7 +1,7 @@
-name: "🤔 Question"
+name: '🤔 Question'
 title: "\U0001F917 [Question]: "
 description: Ask a question so we can help you easily.
-labels: ["🤔 Question"]
+labels: ['🤔 Question']
 
 body:
   - type: markdown
@@ -14,9 +14,9 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: "Question Description"
-      description: "A clear and detailed description of the question."
-      placeholder: "Explain your question clearly, and in detail."
+      label: 'Question Description'
+      description: 'A clear and detailed description of the question.'
+      placeholder: 'Explain your question clearly, and in detail.'
       render: bash
     validations:
       required: true

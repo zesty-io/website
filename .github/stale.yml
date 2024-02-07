@@ -5,15 +5,15 @@ daysUntilStale: 90
 daysUntilClose: 7
 # Issues with these labels will never be considered stale
 exemptLabels:
-  - "Partner"
-  - "Zesty Core Team"
-  - "Resolution: Backlog"
-  - "Type: Bug"
-  - "Type: ☢️ Bug"
-  - "Type: Needs Investigation"
-  - "Type: High Priority"
+  - 'Partner'
+  - 'Zesty Core Team'
+  - 'Resolution: Backlog'
+  - 'Type: Bug'
+  - 'Type: ☢️ Bug'
+  - 'Type: Needs Investigation'
+  - 'Type: High Priority'
 # Label to use when marking an issue as stale
-staleLabel: "Resolution: Stale"
+staleLabel: 'Resolution: Stale'
 issues:
   # Comment to post when marking an issue as stale.
   markComment: >

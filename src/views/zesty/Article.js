@@ -50,9 +50,12 @@ import AuthorSection from 'revamp/ui/AuthorSection';
 import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
 import { CtaWithInputField } from 'blocks/cta';
+import PopUpLeadCapture from 'components/marketing/PopupLeadCapture';
+import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
+  const [relatedArticles, setRelatedArticles] = useState([]);
   const { palette } = useTheme();
 
   const { data: latestArticles } = useFetch(
@@ -79,6 +82,8 @@ function Article({ content }) {
     name: c?.tag,
     link: c?.meta?.web?.uri,
   }));
+  const [showPopup, setShowPopup] = useState(false);
+  const cookieName = 'DOWNLOADED_PDF';
 
   // Define a regular expression pattern to match [_CTA_]
   let regexPattern = /\[CALL TO ACTION\]/g;
@@ -107,10 +112,102 @@ function Article({ content }) {
         '<acronym title="Call to Action"></acronym>',
       ),
     );
+
+    verifyPathnameInCookie(window.location.pathname);
   }, []);
 
+  useEffect(() => {
+    setRelatedArticles(
+      getRelatedArticles(content?.related_articles, latestArticles),
+    );
+    console.log(content);
+  }, [latestArticles]);
+
+  const verifyPathnameInCookie = (path) => {
+    if (!hasCookie(cookieName)) {
+      setShowPopup(true);
+      return;
+    }
+
+    const value = JSON.parse(getCookie(cookieName));
+    const newValue = value.filter((obj) => !isDateExpired(obj.expire));
+
+    if (value.length !== newValue.length)
+      setCookie(cookieName, newValue, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+
+    if (!newValue.some((item) => item.path === path)) setShowPopup(true);
+  };
+
+  const isDateExpired = (inputDate) => {
+    const currentDate = new Date();
+    return new Date(inputDate) < currentDate;
+  };
+
+  // Mutate and destructure related articles to match the structure of latestArticles
+  // Prioritize to return related instead of latest articles
+  const getRelatedArticles = (related, latest = []) => {
+    const relatedData = [];
+    let totalSliceCount = 4; // Default number of data to return
+    let result;
+
+    if (related?.data?.length > 4) {
+      totalSliceCount = related.data.length;
+      latest = [];
+    }
+
+    if (related !== null || related) {
+      related?.data.map(
+        ({ title, description, date, author, hero_image, meta }) => {
+          const articleDate = new Date(date);
+          relatedData.push({
+            title,
+            author: {
+              name: author?.data[0]?.name,
+              image: author?.data[0]?.headshot?.data[0].url,
+            },
+            description,
+            date:
+              articleDate.toLocaleString('default', { month: 'long' }) +
+              ' ' +
+              articleDate.getDate(),
+            image: hero_image?.data
+              ? hero_image.data[0].url
+              : FillerContent.image,
+            path: meta?.web?.uri,
+          });
+        },
+      );
+    }
+
+    // Merge related and latest articles into one array
+    // Removing duplicate and current article from result
+    result = [...relatedData, ...latest].filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) => t.title === value.title && t.title !== content?.title,
+        ),
+    );
+
+    return result.slice(0, totalSliceCount);
+  };
+
+  const popupLeadCaptureProps = {
+    title: content?.pop_up_title || 'FREE CMS BUYING GUIDE',
+    description: content?.pop_up_description || 'DOWNLOAD CMS BUYING GUIDE',
+    ctaText: content?.pop_up_cta_text || 'DOWNLOAD NOW',
+    thankYouMessage:
+      content?.pop_up_thank_you ||
+      'Thank you for downloading our CMS buying guide. Reach out to us for a free discovery call, demo call or a free trial',
+    pdfLink:
+      content?.pdf_link ||
+      'https://kfg6bckb.media.zestyio.com/HeadlessCMS-Buyers-Guide-Zesty.H17lCRwtp.pdf',
+    cookieName,
+    setShowPopup,
+  };
+
   return (
-    <Box>
+    <Box sx={{ position: 'relative' }}>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Stack>
           <BlogHero
@@ -582,6 +679,7 @@ function Article({ content }) {
               {newContent || FillerContent.rich_text}
             </MuiMarkdown>
           </Stack>
+
           <AuthorSection
             authorName={authorName}
             authorDescription={authorDescription}
@@ -589,11 +687,12 @@ function Article({ content }) {
             tags={tags}
             authorLink={authorLink}
           />
-          <BlogContent title="Related Articles" articles={latestArticles} />
+          <BlogContent title="Related Articles" articles={relatedArticles} />
         </Stack>
       </ThemeProvider>
 
-      {content?.enable_newsletter_subscription === '1' && (
+      {(content?.enable_newsletter_subscription === null ||
+        content?.enable_newsletter_subscription == '1') && (
         <Container position="relative" zIndex={3}>
           <CtaWithInputField
             title={'Subscribe to the zestiest newsletter in the industry'}
@@ -604,6 +703,9 @@ function Article({ content }) {
           />
         </Container>
       )}
+
+      {/* Side PopUp */}
+      {showPopup && <PopUpLeadCapture {...popupLeadCaptureProps} />}
     </Box>
   );
 }
@@ -621,16 +723,16 @@ function CtaComponent({ title, description, ctaText, ctaLink }) {
             padding: 4,
             gap: 2,
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: 'start',
             height: 'auto',
             width: '100%',
-            backgroundColor: '#f0f0f0',
+            backgroundColor: '#101828',
             borderRadius: '8px',
             boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-            textAlign: 'center',
+            textAlign: 'left',
           }}
         >
-          <Typography variant="h5" fontWeight={700} color="primary">
+          <Typography variant="h5" fontWeight={700} color="white">
             {title || ''}
           </Typography>
           <MuiMarkdown
@@ -640,7 +742,14 @@ function CtaComponent({ title, description, ctaText, ctaLink }) {
                   component: Typography,
                   props: {
                     variant: 'body1',
-                    color: 'text.secondary',
+                    color: '#D0D5DD',
+                  },
+                },
+                span: {
+                  component: Typography,
+                  props: {
+                    variant: 'body1',
+                    color: '#D0D5DD',
                   },
                 },
               },
