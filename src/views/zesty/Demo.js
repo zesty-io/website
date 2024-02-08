@@ -65,6 +65,7 @@ function EngageTypeCards({ cardData }) {
       px={{ xs: 2, tablet: 4, lg: 14 }}
       alignItems="center"
       justifyContent="center"
+      textAlign="center"
     >
       <Stack mb={{ xs: 4, lg: 5 }}>
         <Typography
