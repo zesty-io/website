@@ -65,7 +65,6 @@ function EngageTypeCards({ cardData }) {
       px={{ xs: 2, tablet: 4, lg: 14 }}
       alignItems="center"
       justifyContent="center"
-      textAlign="center"
     >
       <Stack mb={{ xs: 4, lg: 5 }}>
         <Typography
@@ -85,6 +84,7 @@ function EngageTypeCards({ cardData }) {
         container
         spacing={{ xs: 4, sm: 1, md: 4 }}
         sx={{ width: '100%', maxWidth: 1200 }}
+        justifyContent="center"
       >
         {cardData?.map((item) => {
           return (
