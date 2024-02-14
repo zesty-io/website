@@ -2709,7 +2709,7 @@ export const flyoutNavigation = [
               },
             ],
           },
-          sort_order: '2',
+          sort_order: '3',
           main_or_blue_secondary_item: '1',
         },
         {
@@ -2964,7 +2964,7 @@ export const flyoutNavigation = [
               },
             ],
           },
-          sort_order: '3',
+          sort_order: '2',
           main_or_blue_secondary_item: '1',
         },
         {
@@ -3003,7 +3003,7 @@ export const flyoutNavigation = [
               },
             ],
           },
-          sort_order: '4',
+          sort_order: '1',
           main_or_blue_secondary_item: '1',
         },
         {
