@@ -55,6 +55,7 @@ import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
+  const [isClient, setIsClient] = useState(false);
   const [relatedArticles, setRelatedArticles] = useState([]);
   const { palette } = useTheme();
 
@@ -120,7 +121,7 @@ function Article({ content }) {
     setRelatedArticles(
       getRelatedArticles(content?.related_articles, latestArticles),
     );
-    console.log(content);
+    setIsClient(true); // set inline styling in client not in server
   }, [latestArticles]);
 
   const verifyPathnameInCookie = (path) => {
@@ -206,20 +207,24 @@ function Article({ content }) {
     setShowPopup,
   };
 
-  const inlineStyles = `
+  const inlineStyles = isClient
+    ? `
 p img[style*="float:left"],  p img[style*="float: left"] {
- width: auto !important;
+  margin-top: 0;
+  width: auto !important;
 }
 
 p img[style*="float:right"],  p img[style*="float: right"] {
- width: auto !important;
+  margin-top: 0;
+  width: auto !important;
 }
 
 p img {
   margin-top: 48px;
   width: 100%;
 }
-}`;
+}`
+    : ``;
 
   return (
     <Box sx={{ position: 'relative' }}>
