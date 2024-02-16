@@ -206,6 +206,16 @@ function Article({ content }) {
     setShowPopup,
   };
 
+  const inlineStyles = `
+p img[style*="float:left"],  p img[style*="float: left"] {
+ width: auto !important;
+}
+
+p img[style*="float:right"],  p img[style*="float: right"] {
+ width: auto !important;
+}
+}`;
+
   return (
     <Box sx={{ position: 'relative' }}>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
@@ -239,6 +249,7 @@ function Article({ content }) {
               },
             })}
           >
+            <style>{inlineStyles}</style>
             <MuiMarkdown
               options={{
                 overrides: {
