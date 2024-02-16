@@ -63,7 +63,7 @@ import React from 'react';
 /**
  * MUI Imports
  */
-import { Box, useTheme, useMediaQuery } from '@mui/material';
+import { Box, useTheme, useMediaQuery, ThemeProvider } from '@mui/material';
 
 /**
  * Helpers Imports
@@ -74,16 +74,24 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import Hero from 'components/marketing/ForPersonas/Hero';
-import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import Benefits from 'blocks/benefits/Benefits';
 import Features from 'blocks/zesty/PageLayouts/Features';
 import ContainerWithBackground from 'components/marketing/ForPersonas/ContainerWithBackground';
 import WordPressMigration from 'blocks/zesty/PageLayouts/WordPressMigration';
 import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
 import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
-import TechStack from 'blocks/integrations/TechStack';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
 import Persona from 'blocks/zesty/Persona/Persona';
+import revampTheme from 'theme/revampTheme';
+import TabSection from 'revamp/ui/TabsSection/TabSection';
+import SimpleCardLogo from 'components/marketing/ForPersonas/SimpleCardLogo';
+import TabsSection from 'revamp/ui/TabsSection';
+import { GetDemoShortForm } from 'blocks/layoutsBlocks';
+import TechStack from 'components/marketing/ForPersonas/TechStack';
+import CaseStudy from 'components/marketing/ForPersonas/CaseStudy';
+import CtaCardStack from 'components/marketing/ForPersonas/CtaCardStack';
+import SingleTestimonial from 'components/marketing/ForPersonas/SingleTestimonial';
+import UseCase from 'components/marketing/ForPersonas/UseCase';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
@@ -200,12 +208,9 @@ function ForPersonasPage({ content }) {
   };
   return (
     <>
+     {/*
       <Hero {...heroProps} />
-      <SimpleCardLogo
-        variant="outlined"
-        heading_text={content?.client_logo_title}
-        logoItems={content?.client_logos?.data}
-      />
+      
       <Benefits {...benefitsProps} />
       <Features {...numbersProps} />
       <ContainerWithBackground {...howItWorksProps} />
@@ -222,6 +227,26 @@ function ForPersonasPage({ content }) {
       )}
       <Bottom {...bottomProps} />
       <Persona {...personaProps} />
+      */}
+<ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+   <Hero />
+   <UseCase />
+   <SimpleCardLogo
+        variant="outlined"
+        heading_text={content?.client_logo_title}
+        logoItems={content?.client_logos?.data}
+      />
+    <TabsSection />
+    <CaseStudy />
+    <SingleTestimonial />
+    {content.integrations_title && content.integrations_logos && (
+        <TechStack {...logoSliderProps} />
+      )}
+
+      <CtaCardStack />
+    <GetDemoShortForm />
+</ThemeProvider>
+     
     </>
   );
 }
