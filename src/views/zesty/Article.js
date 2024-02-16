@@ -214,6 +214,11 @@ p img[style*="float:left"],  p img[style*="float: left"] {
 p img[style*="float:right"],  p img[style*="float: right"] {
  width: auto !important;
 }
+
+p img {
+  margin-top: 48px;
+  width: 100%;
+}
 }`;
 
   return (
@@ -475,12 +480,6 @@ p img[style*="float:right"],  p img[style*="float: right"] {
                   },
                   img: {
                     component: 'img',
-                    props: {
-                      style: {
-                        marginTop: '48px',
-                        width: '100%',
-                      },
-                    },
                   },
                   iframe: {
                     component: ({ children, ...props }) => (
