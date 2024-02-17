@@ -55,6 +55,7 @@ import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
+  const [isClient, setIsClient] = useState(false);
   const [relatedArticles, setRelatedArticles] = useState([]);
   const { palette } = useTheme();
 
@@ -120,7 +121,7 @@ function Article({ content }) {
     setRelatedArticles(
       getRelatedArticles(content?.related_articles, latestArticles),
     );
-    console.log(content);
+    setIsClient(true); // set inline styling in client not in server
   }, [latestArticles]);
 
   const verifyPathnameInCookie = (path) => {
@@ -206,6 +207,25 @@ function Article({ content }) {
     setShowPopup,
   };
 
+  const inlineStyles = isClient
+    ? `
+p img[style*="float:left"],  p img[style*="float: left"] {
+  margin-top: 0;
+  width: auto !important;
+}
+
+p img[style*="float:right"],  p img[style*="float: right"] {
+  margin-top: 0;
+  width: auto !important;
+}
+
+p img {
+  margin-top: 48px;
+  width: 100%;
+}
+}`
+    : ``;
+
   return (
     <Box sx={{ position: 'relative' }}>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
@@ -239,6 +259,7 @@ function Article({ content }) {
               },
             })}
           >
+            <style>{inlineStyles}</style>
             <MuiMarkdown
               options={{
                 overrides: {
@@ -464,12 +485,6 @@ function Article({ content }) {
                   },
                   img: {
                     component: 'img',
-                    props: {
-                      style: {
-                        marginTop: '48px',
-                        width: '100%',
-                      },
-                    },
                   },
                   iframe: {
                     component: ({ children, ...props }) => (
