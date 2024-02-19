@@ -222,6 +222,7 @@ p img[style*="float:right"],  p img[style*="float: right"] {
 p img {
   margin-top: 48px;
   width: 100%;
+  max-width: 100%;
 }
 }`
     : ``;
@@ -644,6 +645,9 @@ p img {
                     props: {
                       color: 'info.main',
                       sx: {
+                        '& img': {
+                          maxWidth: '100%',
+                        },
                         '& > span > span:has(img)': {
                           height: '100%',
                           display: 'inline-block',
