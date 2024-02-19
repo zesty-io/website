@@ -282,18 +282,6 @@ p img {
                       mt: '20px',
                       px: 2,
                       sx: (theme) => ({
-                        [theme.breakpoints.up('xs')]: {
-                          '&:has(img)': {
-                            mt: '0',
-                            px: 0,
-                            width: '100%',
-                          },
-                          '&:has(iframe)': {
-                            mt: '0',
-                            px: 0,
-                            width: '100%',
-                          },
-                        },
                         [theme.breakpoints.up('tablet')]: {
                           width: '640px',
                           mx: 'auto',
