@@ -221,8 +221,11 @@ p img[style*="float:right"],  p img[style*="float: right"] {
 
 p img {
   margin-top: 48px;
-  width: 100%;
+  width: auto;
   max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 }`
     : ``;
