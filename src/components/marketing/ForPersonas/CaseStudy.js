@@ -139,11 +139,7 @@ const CaseStudy = ({
               </Stack>
             ))}
           </Stack>
-          <Button
-            href="#"
-            size="large"
-            sx={{ mt: 4, fontWeight: 'bold' }}
-          >
+          <Button href="#" size="large" sx={{ mt: 4, fontWeight: 'bold' }}>
             Read Case Study <EastIcon sx={{ ml: 1, fontSize: '14px' }} />
           </Button>
         </Stack>

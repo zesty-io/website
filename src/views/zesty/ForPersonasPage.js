@@ -131,9 +131,6 @@ function ForPersonasPage({ content }) {
     data: benefitsData(content.benefits),
   };
 
-
-
-
   const logoSliderProps = {
     text_content: content.integrations_title,
     logos: content.integrations_logos?.data,

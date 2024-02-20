@@ -206,8 +206,7 @@ function Article({ content }) {
     setShowPopup,
   };
 
-
-    const inlineStyles = `
+  const inlineStyles = `
   
   p img {
     max-width: 100%;

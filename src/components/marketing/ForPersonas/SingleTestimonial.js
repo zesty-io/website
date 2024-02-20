@@ -136,11 +136,11 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
             ></Typography>
           </Box>
 
-                    <Button
+          <Button
             href="#"
             size="large"
             sx={{ mt: 4, fontWeight: 'bold' }}
-            variant='contained'
+            variant="contained"
           >
             Read Case Study
           </Button>
