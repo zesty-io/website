@@ -1,4 +1,3 @@
-name: Zesty Website CI Dev
 
 on:
   pull_request:
