@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import React from 'react';
 import EastIcon from '@mui/icons-material/East';
 
@@ -26,7 +26,7 @@ const CaseStudy = ({
   overline = 'CASE STUDIES / SINGLIFE',
   logo = singlife,
   heading = "Singlife's Digital Expansion",
-  description = "Discover how Singlife used Zesty.io to support their global expansion, resulting in a 185% growth in the first year.",
+  description = 'Discover how Singlife used Zesty.io to support their global expansion, resulting in a 185% growth in the first year.',
   statsLists = stats,
 }) => {
   return (
@@ -63,7 +63,7 @@ const CaseStudy = ({
               px: 14,
             },
           })}
-          alignItems='start'
+          alignItems="start"
         >
           <Stack
             mb={{ xs: 4, tablet: 6 }}
@@ -88,11 +88,12 @@ const CaseStudy = ({
               fontWeight={800}
               variant="h1"
               letterSpacing="-0.02em"
-              mb={2}
+              mb={3}
               sx={(theme) => ({
                 [theme.breakpoints.up('tablet')]: {
                   fontSize: '44px',
                   lineHeight: '48px',
+                  mb: 4,
                 },
               })}
             >
@@ -138,7 +139,13 @@ const CaseStudy = ({
               </Stack>
             ))}
           </Stack>
-           <Button href='#' size="large" sx={{mt: 3, ml: -1,  fontWeight: 'bold'}}>Read Case Study <EastIcon sx={{ml: 1, fontSize: '14px'}} /></Button>
+          <Button
+            href="#"
+            size="large"
+            sx={{ mt: 4, fontWeight: 'bold' }}
+          >
+            Read Case Study <EastIcon sx={{ ml: 1, fontSize: '14px' }} />
+          </Button>
         </Stack>
 
         <Stack width={{ lg: '40%' }}>
@@ -166,7 +173,6 @@ const CaseStudy = ({
               [theme.breakpoints.up('desktopWide')]: {
                 maxWidth: '580px',
                 height: '100%',
-                paddingRight: 3
               },
             })}
           />

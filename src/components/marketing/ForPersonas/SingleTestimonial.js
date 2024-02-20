@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
@@ -43,7 +43,6 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
         [theme.breakpoints.up('xl')]: {
           maxWidth: theme.maxWidth,
           mx: 'auto',
-
         },
       })}
     >
@@ -51,7 +50,7 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
         bgcolor="grey.900"
         borderRadius="32px"
         direction={isLG ? 'row' : 'column'}
-
+        spacing={isLG ? 4 : 0}
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
             p: 2,
@@ -59,14 +58,17 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
           [theme.breakpoints.up('tablet')]: {
             p: 6,
           },
-
+          [theme.breakpoints.up('lg')]: {
+            height: '611px',
+          },
         })}
       >
         <Stack
+          mb={4}
           alignItems="center"
           sx={{
             width: {
-              lg: '300px',         
+              lg: '363px',
             },
           }}
         >
@@ -80,14 +82,12 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
               },
               [theme.breakpoints.up('mobile')]: {
                 width: '303.14px',
-                height: 'auto',
+                height: '280px',
               },
               [theme.breakpoints.up('lg')]: {
                 width: '393px',
-                height: 'auto',
+                height: '363px',
               },
-              display: 'flex',
-              justifyContent: 'center'
             })}
           >
             <img
@@ -95,11 +95,11 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
               src={witness}
               loading="lazy"
               alt="zesty-image"
-              width={200}
-              height={200}
+              width={303}
+              height={280}
             />
           </Box>
-          {/* <Typography variant="h5" component="p" color="white" fontWeight={600}>
+          <Typography variant="h5" component="p" color="white" fontWeight={600}>
             {name}
           </Typography>
           <Typography color="white" fontWeight={700} mb="20px">
@@ -112,16 +112,23 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
             width="132.53px"
             height="48px"
             src={logo}
-          /> */}
+          />
         </Stack>
 
-        <Stack py={1} alignItems="start" justifyContent={isLG ? 'start' : 'block'}>
+        <Stack alignItems="start" justifyContent={isLG ? 'center' : 'block'}>
+          <Typography
+            variant={isTablet ? 'h1' : 'h3'}
+            color="white"
+            fontWeight={600}
+            mb={isTablet ? 4 : 3}
+          >
+            {header}
+          </Typography>
 
-          <Box borderLeft="4px solid white" mb={2} p={2} >
+          <Box borderLeft="4px solid white" p={2}>
             <Typography
-              variant={isTablet ? 'h5' : 'body1'}
+              variant={isTablet ? 'body1' : 'body2'}
               color="white"
-              fontWeight={600}
               style={{ whiteSpace: 'pre-line' }}
               dangerouslySetInnerHTML={{
                 __html: quote,
@@ -129,12 +136,14 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
             ></Typography>
           </Box>
 
-           <Box m={2}><Typography fontWeight={500} fontSize={isTablet ? '18px' : '16px'} color="grey.300" variant='body1' component="p">
-                Author's Full Name
-            </Typography>
-            <Typography fontSize={isTablet ? '16px' : '14px'} color="grey.300" variant='body1' component="p">
-                Company Position, Company Name
-            </Typography></Box>
+                    <Button
+            href="#"
+            size="large"
+            sx={{ mt: 4, fontWeight: 'bold' }}
+            variant='contained'
+          >
+            Read Case Study
+          </Button>
         </Stack>
       </Stack>
     </Stack>

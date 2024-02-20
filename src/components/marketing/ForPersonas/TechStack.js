@@ -35,129 +35,129 @@ const TechStack = ({
         background: backgroundColor
           ? backgroundColor
           : theme.palette.background.default,
-        py: 15,
+        py: 10,
       }}
     >
       <Container>
-          <Grid container>
-            <Grid item sm={12} md={6}>
-              <MuiMarkdown
-                options={{
-                  overrides: {
-                    h2: {
-                      component: Typography,
-                      props: {
-                        variant: 'h2',
-                        component: 'h2',
-                        sx: {
-                          fontWeight: 'bold',
-                          color: headerColor
-                            ? headerColor
-                            : theme.palette.text.secondary,
-                        },
-                      },
-                    },
-                    h3: {
-                      component: Typography,
-                      props: {
-                        variant: 'h4',
-                        component: 'h3',
-                        sx: {
-                          mt: 2,
-                          fontWeight: 'bold',
-                          color: theme.palette.text.secondary,
-                        },
-                      },
-                    },
-                    h4: {
-                      component: Typography,
-                      props: {
-                        variant: 'h3',
-                        component: 'h2',
-                        sx: {
-                          fontWeight: 700,
-                          color: theme.palette.primary
-                        },
-                      },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h5',
-                        component: 'p',
-                        sx: {
-                          mt: 2,
-                          color: theme.palette.text.secondary,
-                        },
+        <Grid container>
+          <Grid item sm={12} md={6}>
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h2',
+                      component: 'h2',
+                      sx: {
+                        fontWeight: 'bold',
+                        color: headerColor
+                          ? headerColor
+                          : theme.palette.text.secondary,
                       },
                     },
                   },
-                }}
-              >
-                {text_content.replace(
-                  textHighlight,
-                  `<span>${textHighlight}</span>`,
-                )}
-              </MuiMarkdown>
-              {cta_link && (
-                <Box sx={{ width: '100%', mt: 4 }}>
-                  <DemoCta
-                    icon={false}
-                    fullWidth={isMobile}
-                    variant="contained"
-                    sx={{
-                      background: theme.palette.primary,
-                      px: 6,
-                      fontWeight: 'bold',
-                    }}
-                    text={cta_text || FillerContent.cta}
-                    href={cta_link || FillerContent.href}
-                  />
-                </Box>
+                  h3: {
+                    component: Typography,
+                    props: {
+                      variant: 'h4',
+                      component: 'h3',
+                      sx: {
+                        mt: 2,
+                        fontWeight: 'bold',
+                        color: theme.palette.text.secondary,
+                      },
+                    },
+                  },
+                  h4: {
+                    component: Typography,
+                    props: {
+                      variant: 'h3',
+                      component: 'h2',
+                      sx: {
+                        fontWeight: 700,
+                        color: theme.palette.primary,
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h5',
+                      component: 'p',
+                      sx: {
+                        mt: 2,
+                        color: theme.palette.text.secondary,
+                      },
+                    },
+                  },
+                },
+              }}
+            >
+              {text_content.replace(
+                textHighlight,
+                `<span>${textHighlight}</span>`,
               )}
-            </Grid>
-            <Grid
+            </MuiMarkdown>
+            {cta_link && (
+              <Box sx={{ width: '100%', mt: 4 }}>
+                <DemoCta
+                  icon={false}
+                  fullWidth={isMobile}
+                  variant="contained"
+                  sx={{
+                    background: theme.palette.primary,
+                    px: 6,
+                    fontWeight: 'bold',
+                  }}
+                  text={cta_text || FillerContent.cta}
+                  href={cta_link || FillerContent.href}
+                />
+              </Box>
+            )}
+          </Grid>
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+            item
+            sm={12}
+            md={6}
+          >
+            <Box
               sx={{
+                mt: isMobile ? 4 : 0,
                 display: 'flex',
+                flexWrap: 'wrap',
+                gap: 1.0,
                 justifyContent: 'flex-end',
                 alignItems: 'center',
               }}
-              item
-              sm={12}
-              md={6}
             >
               <Box
                 sx={{
-                  mt: isMobile ? 4 : 0,
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 1.0,
-                  justifyContent: 'flex-end',
-                  alignItems: 'center',
+                  height: 88,
+                  width: 230,
+                  display: isMobile ? 'none' : 'block',
                 }}
-              >
-                <Box
-                  sx={{
-                    height: 88,
-                    width: 230,
-                    display: isMobile ? 'none' : 'block',
-                  }}
-                />
-                {logos?.map((item, idx) => {
-                  return (
-                    <ZestyImage
-                      key={idx}
-                      width={88}
-                      height={88}
-                      style={{ height: 88, width: 'auto' }}
-                      alt="integration logo's"
-                      src={item.logo?.data[0].url}
-                    />
-                  );
-                })}
-              </Box>
-            </Grid>
+              />
+              {logos?.map((item, idx) => {
+                return (
+                  <ZestyImage
+                    key={idx}
+                    width={88}
+                    height={88}
+                    style={{ height: 88, width: 'auto' }}
+                    alt="integration logo's"
+                    src={item.logo?.data[0].url}
+                  />
+                );
+              })}
+            </Box>
           </Grid>
+        </Grid>
       </Container>
     </Box>
   );

@@ -26,8 +26,8 @@ const SimpleCardLogo = ({
   maxWidth = 1500,
   variant = 'contained',
   invertLogo = true,
-  background ="transparent",
-  marginTop = 0,
+  background = 'transparent',
+  marginTop = 8,
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -43,7 +43,7 @@ const SimpleCardLogo = ({
   }
 
   return (
-    <Box component="section" sx={{mt: marginTop, mb: 4}}>
+    <Box component="section" sx={{ mt: marginTop, mb: 4 }}>
       <Container sx={{ maxWidth: maxWidth }}>
         {textOutside && (
           <MuiMarkdown
@@ -52,7 +52,7 @@ const SimpleCardLogo = ({
                 h2: {
                   component: Typography,
                   props: {
-                     variant: 'h2',
+                    variant: 'h2',
                     component: 'h2',
                     sx: {
                       color: 'text.primary',
@@ -112,11 +112,10 @@ const SimpleCardLogo = ({
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex', width: 150 }}>
                   <ZestyImage
-                  
                     loading="lazy"
                     style={{
-                      width:"100%",
-                      height:"auto",
+                      width: '100%',
+                      height: 'auto',
                       filter:
                         invertLogo && isDarkMode
                           ? `${
@@ -127,7 +126,10 @@ const SimpleCardLogo = ({
                           : '',
                     }}
                     alt={item?.customer_name || ''}
-                    src={item.customer_logo?.data[0]?.url || FillerContent.logos[index].url }
+                    src={
+                      item.customer_logo?.data[0]?.url ||
+                      FillerContent.logos[index].url
+                    }
                   />
                 </Box>
               ))}

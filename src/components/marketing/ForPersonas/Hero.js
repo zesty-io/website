@@ -1,34 +1,26 @@
-import { Box, Button, Divider, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import React from 'react';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import MuiMarkdown from 'markdown-to-jsx';
 
-const acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
-  bjs =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bjsHero.svg',
-  phoenixSuns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/phoenixSunsHero.svg',
-  rocketLeague =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/rocketLeagueHero.svg',
-  singlife =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeHero.svg',
-  sony =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sonyHero.svg';
-
-const sampleStats = [
-  { label: '12B+', description: 'Requests served per month' },
-  { label: '99.99%', description: 'Industry leading uptime' },
+const headerList = [
+  { list: 'Lowest TCO' },
+  { list: 'Seamless Integration' },
+  { list: 'Drag and Drop to build Pages' },
+  { list: 'Engage across all touchpoints' },
 ];
 
 const Hero = ({
-  title = 'Elevating Insurance Providers into the Digital Era',
+  overline = 'ZESTY.IO FOR INSURANCE COMPANIES',
   description = 'Elevate insurance experiences with Zesty.io as your core content platform. It’s swift for IT teams to implement, straightforward for content managers to navigate, and integrates flawlessly with your insurance ecosystem.',
-  ctaText = 'Get Started',
-  ctaLink = '/demo',
+  primaryCtaText = 'Get Started',
+  primaryCtaLink = '/demo',
+  secondaryCtaText = 'Watch Demo',
+  secondaryCtaLink = '/demo',
   hero = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Hero Image 2.png',
 }) => {
   return (
-    <Stack mb={4}>
+    <Stack>
       <Stack
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
@@ -51,81 +43,76 @@ const Hero = ({
           },
         })}
       >
-         
         <Stack
           spacing={4}
           justifyContent={{ lg: 'center' }}
           width={{ lg: '456px', desktopWide: '576px' }}
         >
-          
-          <Stack spacing="20px">
+          <Stack>
             <Typography
-              color="text.secondary"
+              color="primary"
               variant="overline"
-              sx={{fontWeight: 'bold', marginBottom: 0}}
+              sx={{ fontWeight: '600' }}
             >
-              ZESTY.IO FOR INSURANCE COMPANIES
+              {overline}
             </Typography>
-            <Typography
-              fontSize="44px"
-              lineHeight="48px"
-              letterSpacing="-0.02em"
-              fontWeight={800}
-              color="text.primary"
-            >
-              {title}
-            </Typography>
-            <Typography
-              color="text.secondary"
-              fontSize="18px"
-              lineHeight="28px"
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  h1: {
+                    component: Typography,
+                    props: {
+                      fontSize: '44px',
+                      lineHeight: '48px',
+                      letterSpacing: '-0.02em',
+                      fontWeight: '800',
+                      color: 'text.primary',
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      fontSize: '18px',
+                      lineHeight: '28px',
+                      color: 'text.secondary',
+                      mt: '20px',
+                    },
+                  },
+                },
+              }}
             >
               {description}
-            </Typography>
-           
-                
-                
+            </MuiMarkdown>
 
-           <Stack rowGap="8px" mb={4}>
-           
-              <Stack direction="row" columnGap="12px">
-                <CheckRoundedIcon color="success" />
-                <Typography fontWeight={700} color="text.secondary">Lowest TCO</Typography>
-              </Stack>
-
-              <Stack direction="row" columnGap="12px">
-                <CheckRoundedIcon color="success" />
-                 <Typography fontWeight={700} color="text.secondary">Seamless Integration</Typography>
-              </Stack>
-
-              <Stack direction="row" columnGap="12px">
-                <CheckRoundedIcon color="success" />
-                <Typography fontWeight={700} color="text.secondary">Drag and Drop to build Pages</Typography>
-              </Stack>
-
-              <Stack direction="row" columnGap="12px">
-                <CheckRoundedIcon color="success" />
-               <Typography fontWeight={700} color="text.secondary">Engage across all touchpoints</Typography>
-              </Stack>
-           
-          </Stack>
+            <Stack rowGap="8px" mt={2}>
+              {headerList.map((item, index) => {
+                return (
+                  <Stack key={index} direction="row" columnGap="12px">
+                    <CheckRoundedIcon color="primary" />
+                    <Typography fontWeight={400} color="text.secondary">
+                      {item.list}
+                    </Typography>
+                  </Stack>
+                );
+              })}
+            </Stack>
           </Stack>
           <Stack gap={1} direction={{ xs: 'column', tablet: 'row' }}>
             <Button
-              href={ctaLink}
+              href={primaryCtaLink}
               size="large"
               color="primary"
               variant="contained"
             >
-              {ctaText}
+              {primaryCtaText}
             </Button>
             <Button
-              href={ctaLink}
+              href={secondaryCtaLink}
               size="large"
               color="primary"
               variant="outlined"
             >
-              Watch Demo
+              {secondaryCtaText}
             </Button>
           </Stack>
         </Stack>
@@ -134,35 +121,15 @@ const Hero = ({
           justifyContent={{ lg: 'space-between' }}
           width={{ lg: '456px', desktopWide: '576px' }}
         >
-          <Stack
-            order={{ xs: 0, lg: 1 }}
-            justifyContent={{ tablet: 'space-between' }}
-            divider={
-              <Divider
-                sx={() => ({
-                  borderRightWidth: 4,
-                  display: { xs: 'none', tablet: 'block' },
-                })}
-                orientation="vertical"
-                flexItem
-              />
-            }
-            direction={{ xs: 'column', tablet: 'row' }}
-            spacing={{ xs: '12px', desktopWide: '24px' }}
-            mb={{ xs: 2, tablet: 4 }}
-          >
-
+          <Stack height="100%" justifyContent="center">
+            <Box
+              mb={{ lg: 4 }}
+              order={{ xs: 1, lg: 0 }}
+              component="img"
+              src={hero}
+              sx={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+            />
           </Stack>
-
-         <Stack height="100%" justifyContent="center">
-           <Box
-            mb={{ lg: 4 }}
-            order={{ xs: 1, lg: 0 }}
-            component="img"
-            src={hero}
-            sx={{ width: '100%', height: 'auto', objectFit: 'contain' }}
-          />
-         </Stack>
         </Stack>
       </Stack>
     </Stack>

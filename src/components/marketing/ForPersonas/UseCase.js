@@ -1,126 +1,156 @@
-import { Box, Stack, Typography, Button } from '@mui/material';
-import React from 'react'
-import EastIcon from '@mui/icons-material/East';
+import { Box, useMediaQuery, Typography, useTheme, Stack, Button, Container } from '@mui/material';
+import React from 'react';
+import MuiMarkdown from 'markdown-to-jsx';
 
-const UseCase = () => {
+
+const UseCase = ({ header,  headerColor,
+  headerTextAlign = 'center', }) => {
+    const theme = useTheme();
+
+  const data = [
+    {
+      icon_image: "https://kfg6bckb.media.zestyio.com/Compliance.png",
+          header: "Achieve compliance and security standards",
+          content: "Make sure your customer data is secure with a platform that can support your needs. Zesty follows SOC II security protocols as well as CCPA, GDPR, and other compliance standards.",
+    },
+     {
+      icon_image: "https://kfg6bckb.media.zestyio.com/Own-data.png",
+          header: "Own your data",
+          content: "Zesty is a unique cloud-native SaaS platform that allows you to own and control your own data while still benefiting from the speed and agility that SaaS platforms offer.",
+    },
+     {
+      icon_image: "https://kfg6bckb.media.zestyio.com/customize-workflows.png",
+          header: "Customize workflows for any team",
+          content: "Whether you need content edits or legal approval, Zesty provides customizable user governance and workflows to match your business needs.",
+    },
+     {
+      icon_image: "https://kfg6bckb.media.zestyio.com/review-site-changes.png",
+          header: "Review historical changes to your site",
+          content: "Zesty provides a robust Activity Log and Audit Report so you can review any changes made to your site, by any user, at any time. Get detailed reports per page, activity, content type, or user.",
+    }
+  ]
   return (
+    <Box mt={10}>
+      <Container>
+          {header && (
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h2',
+                      sx: {
+                        color: headerColor
+                          ? headerColor
+                          :  theme.palette.text.secondary,
+                        fontWeight: 'bold',
+                        textAlign: headerTextAlign,
+                      },
+                    },
+                  },
+                  span: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h4',
+                      sx: {
+                        color: headerColor
+                          ? headerColor
+                          : theme.palette.text.secondary,
+                        fontWeight: 'bold',
+                        textAlign: headerTextAlign,
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      mt: 2,
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.text.secondary,
+                        textAlign: headerTextAlign,
+                      },
+                    },
+                  },
+                },
+              }}
+            >
+              {header || FillerContent.header}
+            </MuiMarkdown>
+          )}
+        </Container>
+      {data.map((item, index) => {
+        return <Stack>
+      <Stack
+        direction={{ xs: 'column', lg: 'row' }}
+        justifyContent={{ desktopWide: 'center' }}
+        sx={(theme) => ({
+          [theme.breakpoints.up('xs')]: {
+            py: 4,
+            px: 2,
+          },
+          [theme.breakpoints.up('tablet')]: {
+           py: 4,
+            px: 4,
+          },
+          [theme.breakpoints.up('lg')]: {
+            
+            maxWidth: theme.maxWidth,
+            mx: 'auto',
+            py: 4,
+            px: 14,
+            gap: 8,
+          },
+        })}
+      >
         <Stack
-      direction="column"
-      sx={(theme) => ({
-        [theme.breakpoints.up('xl')]: {
-          maxWidth: theme.maxWidth,
-          mx: 'auto',
-        },
-      })}
-    >
-            <Stack alignItems='center' justifyContent='center' mb={{ xs: 8, lg: 10 }}>
-        <Typography
-          variant="h1"
+          mb={{ xs: 3, tablet: 6, lg: 0 }}
+          sx={{ width: { lg: '456px', desktopWide: '576px' } }}
+          py={{ desktopWide: 6 }}
+          order={0}
+          justifyContent="center"
+        >
+          <Typography
+            color="primary"
+            letterSpacing="-0.02em"
             fontWeight={800}
-              color="text.primary"
-              textAlign='center'
+            variant="h4"
+            mb="12px"
+          >
+            {item.header}
+          </Typography>
+          <Typography
+            color="text.secondary"
+            fontSize="18px"
+            lineHeight="28px"
+            mb={3}
+          >
+            
+              {item.content}
+          </Typography>
+         
+            <Stack direction="row" columnGap={2}>
+              <Button
+                href="#"
+                variant="contained"
+                size="large"
+              >
+                CTA Button
+              </Button>
+            </Stack>
+         
+        </Stack>
+        <Stack
+          order={1}
+          justifyContent="center"
         >
-          [Use Cases Section Title Here]
-        </Typography>
-        <Typography mt={1}
-                      component='p'
-                      variant='h6'
-                      whiteSpace='pre-line'
-                      color='text.secondary'
-                      fontSize='18px'
-                      lineHeight='28px'
-                      textAlign='center'
-        >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit Fugiat ipsa impedit nostrum
-
-        </Typography>
-      </Stack>
-       <Stack direction={{ xs: 'column', lg: 'row' }}>
-              <Stack
-          sx={(theme) => ({
-            [theme.breakpoints.up('xs')]: {
-              // pt: 4,
-              px: 2,
-              mb: 3,
-            },
-            [theme.breakpoints.up('tablet')]: {
-              // pt: 6,
-              px: 4,
-              mb: 6,
-            },
-            [theme.breakpoints.up('lg')]: {
-              width: '60%',
-              // py: 9,
-              px: 14,
-              mb: 0,
-            },
-            [theme.breakpoints.up('desktopWide')]: {
-              // py: '106px',
-              px: 14,
-            },
-          })}
-          alignItems='start'
-        >
-
-
-                <Box mb={4}>
-          <Typography component="p" variant="h6" fontWeight="bold" color="text.primary"   fontSize="18px"
-              lineHeight="28px">
-          Own your data
-        </Typography>
-         <Typography component="p" variant="body1"  color="text.secondary"   fontSize="18px"
-              lineHeight="28px">
-         Zesty is a unique cloud-native SaaS platform that allows you to own and control your own data while still benefiting from the speed and agility that SaaS platforms offer.
-        </Typography>
-                <Button href='#' size="large" sx={{mt: 1, ml: -1,  fontWeight: 'bold'}}>Check out DAM</Button>
-        </Box>
-
-               <Box mb={4}>
-          <Typography component="p" variant="h6" fontWeight="bold" color="text.primary"   fontSize="18px"
-              lineHeight="28px">
-         Customize workflows for any team
-        </Typography>
-         <Typography component="p" variant="body1"  color="text.secondary"   fontSize="18px"
-              lineHeight="28px">
-        Whether you need content edits or legal approval, Zesty provides customizable user governance and workflows to match your business needs.
-
-        </Typography>
-                <Button href='#' size="large" sx={{mt: 1, ml: -1,  fontWeight: 'bold'}}>Learn More about Workflows</Button>
-        </Box>
-
-                <Box mb={4}>
-          <Typography component="p" variant="h6" fontWeight="bold" color="text.primary"   fontSize="18px"
-              lineHeight="28px">
-          Achieve compliance and security standards
-        </Typography>
-         <Typography component="p" variant="body1"  color="text.secondary"   fontSize="18px"
-              lineHeight="28px">
-         Make sure your customer data is secure with a platform that can support your needs. Zesty.io follows SOC II security protocols as well as CCPA, GDPR, and other compliance standards. 
-
-        </Typography>
-                <Button href='#' size="large" sx={{mt: 1, ml: -1,  fontWeight: 'bold'}}>Secure CMS Trial</Button>
-        </Box>
-
-                 <Box mb={4}>
-          <Typography component="p" variant="h6" fontWeight="bold" color="text.primary"   fontSize="18px"
-              lineHeight="28px"> 
-          Accelerate Your Path to Digital Transformation
-
-        </Typography>
-         <Typography component="p" variant="body1"  color="text.secondary"   fontSize="18px"
-              lineHeight="28px">
-         Unlock new revenue streams through digital channels with our headless CMS, designed to grow with your insurance business, while enjoying the lowest TCO
-
-        </Typography>
-        <Button  href='#' size="large" sx={{mt: 1, ml: -1,  fontWeight: 'bold'}}>Custom Pricing | Custom Demo
-</Button>
-        </Box>
-        
-       </Stack>
-       <Stack width={{ lg: '40%' }}>
           <Box
             component="img"
-            src="https://kfg6bckb.media.zestyio.com/Create-Edit-Publish.svg?width=500"
+            src={item.icon_image}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -129,10 +159,10 @@ const UseCase = () => {
               },
               [theme.breakpoints.up('tablet')]: {
                 maxWidth: '100%',
-                height: '745px',
+                height: '420px',
               },
               [theme.breakpoints.up('lg')]: {
-                maxWidth: '480px',
+                width: '456px',
                 height: '100%',
               },
               [theme.breakpoints.between(1201, 1439)]: {
@@ -140,16 +170,17 @@ const UseCase = () => {
                 height: '100%',
               },
               [theme.breakpoints.up('desktopWide')]: {
-                maxWidth: '580px',
-                height: '100%',
-                paddingRight: 3
+                width: '576px',
+                height: '420px',
               },
             })}
           />
         </Stack>
       </Stack>
-      </Stack>
-  )
-}
+    </Stack>
+      })}
+    </Box>
+  );
+};
 
 export default UseCase;
