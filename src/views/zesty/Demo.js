@@ -85,6 +85,7 @@ function EngageTypeCards({ cardData }) {
         container
         spacing={{ xs: 4, sm: 1, md: 4 }}
         sx={{ width: '100%', maxWidth: 1200 }}
+        justifyContent="center"
       >
         {cardData?.map((item) => {
           return (
