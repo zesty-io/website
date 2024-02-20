@@ -221,7 +221,11 @@ p img[style*="float:right"],  p img[style*="float: right"] {
 
 p img {
   margin-top: 48px;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 }`
     : ``;
@@ -281,18 +285,6 @@ p img {
                       mt: '20px',
                       px: 2,
                       sx: (theme) => ({
-                        [theme.breakpoints.up('xs')]: {
-                          '&:has(img)': {
-                            mt: '0',
-                            px: 0,
-                            width: '100%',
-                          },
-                          '&:has(iframe)': {
-                            mt: '0',
-                            px: 0,
-                            width: '100%',
-                          },
-                        },
                         [theme.breakpoints.up('tablet')]: {
                           width: '640px',
                           mx: 'auto',
@@ -644,6 +636,9 @@ p img {
                     props: {
                       color: 'info.main',
                       sx: {
+                        '& img': {
+                          maxWidth: '100%',
+                        },
                         '& > span > span:has(img)': {
                           height: '100%',
                           display: 'inline-block',
