@@ -2,8 +2,8 @@ name: Create Release
 
 on:
   push:
-    branches:
-      - production
+    tags:
+      - '*'
 
 jobs:
   create_release:
@@ -16,6 +16,12 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::$(node -e "console.log(require('./package.json').version)")
 
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -23,6 +29,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.get_version.outputs.VERSION }}
-          release_name: Zesty Website ${{ steps.get_version.outputs.VERSION }}
+          release_name: ${{ steps.get_version.outputs.VERSION }}
           draft: false
           prerelease: false
+          body: |
+            ${{ steps.Changelog.outputs.changelog }}
