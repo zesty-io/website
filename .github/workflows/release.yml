@@ -12,10 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get current version
-        id: get_version
-        run: echo ::set-output name=VERSION::$(node -e "console.log(require('./package.json').version)")
-
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
@@ -28,8 +24,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get_version.outputs.VERSION }}
-          release_name: ${{ steps.get_version.outputs.VERSION }}
+          tag_name: ${{ github.ref }}
+          release_name: v${{ github.ref }}
           draft: false
           prerelease: false
           body: |
