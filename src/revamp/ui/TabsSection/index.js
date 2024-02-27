@@ -11,6 +11,7 @@ import {
   ScienceRounded as ScienceRoundedIcon,
   PsychologyRounded as PsychologyRoundedIcon,
   SchemaRounded as SchemaRoundedIcon,
+  TimelineRounded as TimelineRounded,
 } from '@mui/icons-material';
 
 const TabSection = dynamic(() => import('./TabSection'), { ssr: false });
@@ -39,6 +40,10 @@ const icons = [
   {
     name: 'TranslateRoundedIcon',
     icon: <TranslateRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'TimelineRounded',
+    icon: <TimelineRounded sx={{ fontSize: '20px' }} />,
   },
 ];
 

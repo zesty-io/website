@@ -102,6 +102,11 @@ export default {
       avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
   ],
+  demo: {
+    title: 'Connect with Content Experts',
+    supportingText: `<p>Book a free 15-minute consultation with a content expert.  Discuss your application, pain points and requirements.  Understand how Zesty's lower total cost of ownership, features, functionality can elevate your business by creating extraordinary digital experiences.</p>`,
+    cta: 'Book Demo',
+  },
   demos: [
     {
       title: '',
@@ -124,6 +129,7 @@ export default {
       bgcolor: 'pink',
     },
   ],
+  avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
   mobileImage: {
     light: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
     dark: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
