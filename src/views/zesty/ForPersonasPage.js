@@ -77,6 +77,7 @@ import Hero from 'components/marketing/ForPersonas/Hero';
 import { ThemeProvider } from '@emotion/react';
 import revampTheme from 'theme/revampTheme';
 import UseCase from 'components/marketing/ForPersonas/UseCase';
+import SimpleCardLogo from 'components/marketing/ForPersonas/SimpleCardLogo';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
@@ -119,7 +120,8 @@ function ForPersonasPage({ content }) {
       (content.header_button_link == 0 && '/join/') ||
       content.header_button_link?.data[0].meta.web.uri,
     secondaryCtaText: content.header_secondary_button_text,
-    secondaryCtaLink: content.header_secondary_button_link?.data[0].meta.web.uri,
+    secondaryCtaLink:
+      content.header_secondary_button_link?.data[0].meta.web.uri,
   };
 
   const useCasesProps = {
@@ -131,6 +133,11 @@ function ForPersonasPage({ content }) {
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Hero {...heroProps} />
       <UseCase {...useCasesProps} />
+      <SimpleCardLogo
+        variant="outlined"
+        heading_text={content?.client_logo_title}
+        logoItems={content?.client_logos?.data}
+      />
     </ThemeProvider>
   );
 }

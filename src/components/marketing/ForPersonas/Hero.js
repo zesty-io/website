@@ -35,7 +35,14 @@ const Hero = ({
   }, []);
 
   return (
-    <Box sx={{ position: 'relative', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+    <Box
+      sx={{
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
       <Grid
         container
         px={{ xs: 2, tablet: 4, lg: 14 }}
@@ -125,15 +132,17 @@ const Hero = ({
               >
                 Get Started
               </Button>
-              {secondaryCtaText && <Button
-                href={secondaryCtaLink}
-                variant="outlined"
-                color="primary"
-                size={isLg ? 'extraLarge' : 'large'}
-                title={secondaryCtaText}
-              >
-                {secondaryCtaText}
-              </Button>}
+              {secondaryCtaText && (
+                <Button
+                  href={secondaryCtaLink}
+                  variant="outlined"
+                  color="primary"
+                  size={isLg ? 'extraLarge' : 'large'}
+                  title={secondaryCtaText}
+                >
+                  {secondaryCtaText}
+                </Button>
+              )}
             </Stack>
           </Stack>
         </Grid>
