@@ -14,7 +14,6 @@ const TechStack = ({
   cta_text,
   cta_link,
   textHighlight,
-  backgroundColor,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

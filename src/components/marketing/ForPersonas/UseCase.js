@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import MuiMarkdown from 'markdown-to-jsx';
+import FillerContent from 'components/globals/FillerContent';
 
 const UseCase = ({ header, data }) => {
   const theme = useTheme();
