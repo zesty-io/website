@@ -81,6 +81,7 @@ import SimpleCardLogo from 'components/marketing/ForPersonas/SimpleCardLogo';
 import TabsSection from 'revamp/ui/TabsSection';
 import CaseStudy from 'components/marketing/ForPersonas/CaseStudy';
 import SingleTestimonial from 'components/marketing/ForPersonas/SingleTesimonial';
+import TechStack from 'components/marketing/ForPersonas/TechStack';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
@@ -160,6 +161,15 @@ function ForPersonasPage({ content }) {
     review_link: content.testimonials?.data[0]?.review_link,
   }
 
+    const logoSliderProps = {
+    text_content: content.integrations_title,
+    logos: content.integrations_logos?.data,
+    headerFontWeight: 700,
+    cta_text: content.integrations_button_text,
+    cta_link: content.integrations_button_link_2,
+  };
+
+
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Hero {...heroProps} />
@@ -172,6 +182,9 @@ function ForPersonasPage({ content }) {
        <TabsSection tabs={content?.features_options} />
        <CaseStudy {...caseStudyProps}/>
         <SingleTestimonial {...testimonialProps}/>
+         {content.integrations_title && content.integrations_logos && (
+          <TechStack {...logoSliderProps} />
+        )}
     </ThemeProvider>
   );
 }
