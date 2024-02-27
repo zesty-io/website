@@ -80,6 +80,7 @@ import UseCase from 'components/marketing/ForPersonas/UseCase';
 import SimpleCardLogo from 'components/marketing/ForPersonas/SimpleCardLogo';
 import TabsSection from 'revamp/ui/TabsSection';
 import CaseStudy from 'components/marketing/ForPersonas/CaseStudy';
+import SingleTestimonial from 'components/marketing/ForPersonas/SingleTesimonial';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
@@ -145,7 +146,18 @@ function ForPersonasPage({ content }) {
     stats_2_description: content.case_studies?.data[0]?.stats_2_description,
         stats_3_number: content.case_studies?.data[0]?.stats_3_number,
     stats_3_description: content.case_studies?.data[0]?.stats_3_description,
+  }
 
+  const testimonialProps = {
+    header: content.testimonials?.data[0]?.title,
+    quote: content.testimonials?.data[0]?.review,
+    link: content.testimonials?.data[0]?.review_link,
+    name: content.testimonials?.data[0]?.reviewer_name,
+    role: content.testimonials?.data[0]?.reviewer_title,
+    witness: content.testimonials?.data[0]?.reviewer_headshot?.data[0]?.url || FillerContent.avatar,
+    logo: content.testimonials?.data[0]?.company_logo,
+    review_link_text: content.testimonials?.data[0]?.review_link_text,
+    review_link: content.testimonials?.data[0]?.review_link,
   }
 
   return (
@@ -159,6 +171,7 @@ function ForPersonasPage({ content }) {
       />
        <TabsSection tabs={content?.features_options} />
        <CaseStudy {...caseStudyProps}/>
+        <SingleTestimonial {...testimonialProps}/>
     </ThemeProvider>
   );
 }
