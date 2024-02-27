@@ -14,6 +14,7 @@ export const MultiFieldForm = ({
   isLong,
   isContact,
   inquiryReasons,
+  cta = 'Book Demo',
 }) => {
   return (
     <>
@@ -130,7 +131,7 @@ export const MultiFieldForm = ({
           size="extraLarge"
           fullWidth
         >
-          Book Demo
+          {cta}
         </Button>
       </Stack>
     </>

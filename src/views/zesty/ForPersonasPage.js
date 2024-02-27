@@ -63,7 +63,7 @@ import React from 'react';
 /**
  * MUI Imports
  */
-import { Box, useTheme, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 /**
  * Helpers Imports
@@ -74,35 +74,18 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import Hero from 'components/marketing/ForPersonas/Hero';
-import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
-import Benefits from 'blocks/benefits/Benefits';
-import Features from 'blocks/zesty/PageLayouts/Features';
-import ContainerWithBackground from 'components/marketing/ForPersonas/ContainerWithBackground';
-import WordPressMigration from 'blocks/zesty/PageLayouts/WordPressMigration';
-import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
-import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
-import TechStack from 'blocks/integrations/TechStack';
-import Bottom from 'blocks/zesty/Bottom/Bottom';
-import Persona from 'blocks/zesty/Persona/Persona';
+import { ThemeProvider } from '@emotion/react';
+import revampTheme from 'theme/revampTheme';
+import UseCase from 'components/marketing/ForPersonas/UseCase';
+import SimpleCardLogo from 'components/marketing/ForPersonas/SimpleCardLogo';
+import TabsSection from 'revamp/ui/TabsSection';
+import CaseStudy from 'components/marketing/ForPersonas/CaseStudy';
+import SingleTestimonial from 'components/marketing/ForPersonas/SingleTesimonial';
+import TechStack from 'components/marketing/ForPersonas/TechStack';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-
-  /* Taking the data from the content model and converting it into a format that the Features component can use. */
-  const featuresData = (dataArray) => {
-    return (
-      dataArray?.data?.reduce((acc, item) => {
-        acc.push({
-          icon_image: item.icon_image?.data[0].url,
-          feature_name: item.feature_name,
-          content: item.content,
-        });
-
-        return acc;
-      }, []) || []
-    );
-  };
 
   const benefitsData = (dataArray) => {
     return (
@@ -111,6 +94,10 @@ function ForPersonasPage({ content }) {
           icon_image: item.benefit_image?.data[0].url,
           header: item.header,
           content: item.benefit_content,
+          primaryCtaText: item.primary_cta_text,
+          secondaryCtaText: item.secondary_cta_text,
+          primaryCtaLink: item.primary_cta_link,
+          secondaryCtaLink: item.secondary_cta_link,
         });
 
         return acc;
@@ -119,110 +106,85 @@ function ForPersonasPage({ content }) {
   };
 
   const heroProps = {
-    headerEyebrow: content.header_eyebrow,
+    overline: content.header_eyebrow,
     description: content.header_text,
-    mainImage: content.header_graphic?.data[0]?.url,
+    heroImage: content.header_graphic?.data[0]?.url,
     primaryCta: content.header_button_text || FillerContent.link,
     primaryCtaLink:
       (content.header_button_link == 0 && '/join/') ||
       content.header_button_link?.data[0].meta.web.uri,
-    cta_left: content.header_button_text,
+    secondaryCtaText: content.header_secondary_button_text,
+    secondaryCtaLink:
+      content.header_secondary_button_link?.data[0].meta.web.uri,
   };
 
-  const benefitsProps = {
+  const useCasesProps = {
     header: content.benefits_title,
     data: benefitsData(content.benefits),
   };
 
-  const numbersProps = {
-    features_header: content.numbers_title,
-    data: featuresData(content.numbers),
-    header_color: theme.palette.zesty.zestyZambezi,
-    header_size: 32,
-    textHighlight: '',
-    card_name_color: theme.palette.zesty.zestyZambezi,
-    background_color: theme.palette.zesty.zestyBackgroundBlue,
-    isFullWidthSection: false,
+  const caseStudyProps = {
+    overline: content.case_studies?.data[0]?.overline,
+    logo: content.case_studies?.data[0]?.logo?.data[0]?.url,
+    heading: content.case_studies?.data[0]?.title,
+    description: content.case_studies?.data[0]?.summary,
+    image: content.case_studies?.data[0]?.image?.data[0]?.url,
+    ctaText: content.case_studies?.data[0]?.cta,
+    ctaLink: content.case_studies?.data[0]?.link,
+    stats_1_number: content.case_studies?.data[0]?.stats_1_number,
+    stats_1_description: content.case_studies?.data[0]?.stats_1_description,
+    stats_2_number: content.case_studies?.data[0]?.stats_2_number,
+    stats_2_description: content.case_studies?.data[0]?.stats_2_description,
+    stats_3_number: content.case_studies?.data[0]?.stats_3_number,
+    stats_3_description: content.case_studies?.data[0]?.stats_3_description,
   };
 
-  const howItWorksProps = {
-    titleAndDescription: content.how_it_works,
-    mainImage: content.how_it_works_video?.data[0]?.url,
-  };
-
-  const featuresProps = {
-    features_header: content.features_header,
-    data: featuresData(content.features),
-    header_color: theme.palette.zesty.zestyZambezi,
-    header_size: 32,
-    textHighlight: '',
-    card_name_color: theme.palette.zesty.zestyZambezi,
-    background_color: theme.palette.zesty.zestyBackgroundBlue,
-    isFullWidthSection: false,
-  };
-
-  const testimonialsProps = {
-    title: content.testimonials_title,
-    data: content.testimonials?.data,
-  };
-
-  const caseStudiesProps = {
-    header: content.case_studies_title,
-    g2BadgesData: content.g2_badges?.data,
-    caseStudiesData: content.case_studies?.data,
-  };
-  const wordpressMigrationProps = {
-    titleAndDescription: content.wordpress_migration_header,
-    mainImage: content?.wordpress_migration_image?.data[0].url,
+  const testimonialProps = {
+    header: content.testimonials?.data[0]?.title,
+    quote: content.testimonials?.data[0]?.review,
+    link: content.testimonials?.data[0]?.review_link,
+    name: content.testimonials?.data[0]?.reviewer_name,
+    role: content.testimonials?.data[0]?.reviewer_title,
+    witness:
+      content.testimonials?.data[0]?.reviewer_headshot?.data[0]?.url ||
+      FillerContent.avatar,
+    logo: content.testimonials?.data[0]?.company_logo,
+    review_link_text: content.testimonials?.data[0]?.review_link_text,
+    review_link: content.testimonials?.data[0]?.review_link,
   };
 
   const logoSliderProps = {
     text_content: content.integrations_title,
     logos: content.integrations_logos?.data,
-    headerColor: theme.palette.zesty.zestyZambezi,
     headerFontWeight: 700,
     cta_text: content.integrations_button_text,
     cta_link: content.integrations_button_link_2,
   };
 
-  const bottomProps = {
-    graphic: content?.footer_cta_graphic?.data[0].url,
-    titleAndDescription: content.footer_cta,
-    cta_text: content.footer_button_text,
-    cta_button_link:
-      (content.footer_button_link == 0 && '/join/') ||
-      content.footer_button_link?.data[0].meta.web.uri,
+  const demoProps = {
+    title: content.demo_title || FillerContent.demo.title,
+    supportingText:
+      content?.demo_description_2 || FillerContent.demo.supportingText,
+    cta: content?.demo_cta || FillerContent.demo.cta,
   };
 
-  const personaProps = {
-    header: content.persona_pages_title,
-    teamLinks: content.persona_pages_links,
-  };
   return (
-    <>
+    <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Hero {...heroProps} />
+      <UseCase {...useCasesProps} />
       <SimpleCardLogo
         variant="outlined"
         heading_text={content?.client_logo_title}
         logoItems={content?.client_logos?.data}
       />
-      <Benefits {...benefitsProps} />
-      <Features {...numbersProps} />
-      <ContainerWithBackground {...howItWorksProps} />
-      <Features {...featuresProps} />
-      <Box sx={{ mt: isSmall ? 0 : -9, pb: 3 }}>
-        <WithHighlightedCard {...testimonialsProps} />
-      </Box>
-      <CaseStudyCards {...caseStudiesProps} />
-      {content.wordpress_migration_header && (
-        <WordPressMigration {...wordpressMigrationProps} />
-      )}
+      <TabsSection tabs={content?.features_options} />
+      <CaseStudy {...caseStudyProps} />
+      <SingleTestimonial {...testimonialProps} />
       {content.integrations_title && content.integrations_logos && (
         <TechStack {...logoSliderProps} />
       )}
-      <Bottom {...bottomProps} />
-      <Persona {...personaProps} />
-    </>
+      <GetDemoSection {...demoProps} />
+    </ThemeProvider>
   );
 }
 

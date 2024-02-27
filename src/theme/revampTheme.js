@@ -6,7 +6,13 @@ const revampTheme = (mode) => {
     ...theme,
     palette:
       mode === 'light'
-        ? theme.palette
+        ? {
+            ...theme.palette,
+            text: {
+              ...theme.palette.text,
+              secondary: '#344054',
+            },
+          }
         : {
             ...theme.palette,
             mode: 'dark',
