@@ -134,7 +134,7 @@ function ForPersonasPage({ content }) {
     data: benefitsData(content.benefits),
   };
 
-    const caseStudyProps = {
+  const caseStudyProps = {
     overline: content.case_studies?.data[0]?.overline,
     logo: content.case_studies?.data[0]?.logo?.data[0]?.url,
     heading: content.case_studies?.data[0]?.title,
@@ -144,11 +144,11 @@ function ForPersonasPage({ content }) {
     ctaLink: content.case_studies?.data[0]?.link,
     stats_1_number: content.case_studies?.data[0]?.stats_1_number,
     stats_1_description: content.case_studies?.data[0]?.stats_1_description,
-        stats_2_number: content.case_studies?.data[0]?.stats_2_number,
+    stats_2_number: content.case_studies?.data[0]?.stats_2_number,
     stats_2_description: content.case_studies?.data[0]?.stats_2_description,
-        stats_3_number: content.case_studies?.data[0]?.stats_3_number,
+    stats_3_number: content.case_studies?.data[0]?.stats_3_number,
     stats_3_description: content.case_studies?.data[0]?.stats_3_description,
-  }
+  };
 
   const testimonialProps = {
     header: content.testimonials?.data[0]?.title,
@@ -156,13 +156,15 @@ function ForPersonasPage({ content }) {
     link: content.testimonials?.data[0]?.review_link,
     name: content.testimonials?.data[0]?.reviewer_name,
     role: content.testimonials?.data[0]?.reviewer_title,
-    witness: content.testimonials?.data[0]?.reviewer_headshot?.data[0]?.url || FillerContent.avatar,
+    witness:
+      content.testimonials?.data[0]?.reviewer_headshot?.data[0]?.url ||
+      FillerContent.avatar,
     logo: content.testimonials?.data[0]?.company_logo,
     review_link_text: content.testimonials?.data[0]?.review_link_text,
     review_link: content.testimonials?.data[0]?.review_link,
-  }
+  };
 
-    const logoSliderProps = {
+  const logoSliderProps = {
     text_content: content.integrations_title,
     logos: content.integrations_logos?.data,
     headerFontWeight: 700,
@@ -177,8 +179,6 @@ function ForPersonasPage({ content }) {
     cta: content?.demo_cta || FillerContent.demo.cta,
   };
 
-
-
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Hero {...heroProps} />
@@ -188,13 +188,13 @@ function ForPersonasPage({ content }) {
         heading_text={content?.client_logo_title}
         logoItems={content?.client_logos?.data}
       />
-       <TabsSection tabs={content?.features_options} />
-       <CaseStudy {...caseStudyProps}/>
-        <SingleTestimonial {...testimonialProps}/>
-         {content.integrations_title && content.integrations_logos && (
-          <TechStack {...logoSliderProps} />
-        )}
-        <GetDemoSection {...demoProps} />
+      <TabsSection tabs={content?.features_options} />
+      <CaseStudy {...caseStudyProps} />
+      <SingleTestimonial {...testimonialProps} />
+      {content.integrations_title && content.integrations_logos && (
+        <TechStack {...logoSliderProps} />
+      )}
+      <GetDemoSection {...demoProps} />
     </ThemeProvider>
   );
 }

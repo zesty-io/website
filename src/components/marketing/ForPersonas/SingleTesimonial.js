@@ -2,7 +2,6 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-
 const SingleTestimonial = ({
   witness,
   review_link,
@@ -103,14 +102,16 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
           <Typography color="white" fontWeight={700} mb="20px">
             {role}
           </Typography>
-          {logo && <Box
-            component="img"
-            alt="zesty-image"
-            loading="lazy"
-            width="132.53px"
-            height="48px"
-            src={logo}
-          />}
+          {logo && (
+            <Box
+              component="img"
+              alt="zesty-image"
+              loading="lazy"
+              width="132.53px"
+              height="48px"
+              src={logo}
+            />
+          )}
         </Stack>
 
         <Stack alignItems="start" justifyContent={isLg ? 'center' : 'block'}>
@@ -134,15 +135,17 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
             ></Typography>
           </Box>
 
-          {review_link_text && <Button
-            href={review_link}
-            target="_blank"
-            size={isLg ? 'extraLarge' : 'large'}
-            sx={{ mt: 6, fontWeight: 'bold' }}
-            variant="contained"
-          >
-            {review_link_text}
-          </Button>}
+          {review_link_text && (
+            <Button
+              href={review_link}
+              target="_blank"
+              size={isLg ? 'extraLarge' : 'large'}
+              sx={{ mt: 6, fontWeight: 'bold' }}
+              variant="contained"
+            >
+              {review_link_text}
+            </Button>
+          )}
         </Stack>
       </Stack>
     </Stack>

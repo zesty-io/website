@@ -7,8 +7,6 @@ const singlife =
   singlifeCS =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeCS.jpg';
 
-
-
 const CaseStudy = ({
   overline = 'CASE STUDIES / SINGLIFE',
   logo = singlife,
@@ -24,22 +22,20 @@ const CaseStudy = ({
   stats_3_number,
   stats_3_description,
 }) => {
-
   const statsLists = [
-  {
-    title: stats_1_number,
-    description: stats_1_description,
-  },
-  {
-    title: stats_2_number,
-    description: stats_2_description,
-  },
-  {
-    title: stats_3_number,
-    description: stats_3_description,
-  },
-];
-
+    {
+      title: stats_1_number,
+      description: stats_1_description,
+    },
+    {
+      title: stats_2_number,
+      description: stats_2_description,
+    },
+    {
+      title: stats_3_number,
+      description: stats_3_description,
+    },
+  ];
 
   return (
     <Stack
@@ -123,37 +119,45 @@ const CaseStudy = ({
             direction={{ xs: 'column', tablet: 'row' }}
             gap={{ xs: 4, tablet: 6, lg: 4 }}
           >
-            {statsLists.filter(item => item?.title).map((stat, index) => (
-              <Stack key={index}>
-                <Typography
-                  mb="9px"
-                  fontSize="40px"
-                  lineHeight="56px"
-                  letterSpacing="-0.02em"
-                  color="text.primary"
-                  fontWeight={800}
-                  sx={(theme) => ({
-                    [theme.breakpoints.up('tablet')]: {
-                      fontSize: '52px',
-                      lineHeight: '56px',
-                    },
-                  })}
-                >
-                  {stat.title}
-                </Typography>
-                <Typography
-                  color="text.secondary"
-                  variant="body2"
-                  fontWeight={800}
-                >
-                  {stat.description}
-                </Typography>
-              </Stack>
-            ))}
+            {statsLists
+              .filter((item) => item?.title)
+              .map((stat, index) => (
+                <Stack key={index}>
+                  <Typography
+                    mb="9px"
+                    fontSize="40px"
+                    lineHeight="56px"
+                    letterSpacing="-0.02em"
+                    color="text.primary"
+                    fontWeight={800}
+                    sx={(theme) => ({
+                      [theme.breakpoints.up('tablet')]: {
+                        fontSize: '52px',
+                        lineHeight: '56px',
+                      },
+                    })}
+                  >
+                    {stat.title}
+                  </Typography>
+                  <Typography
+                    color="text.secondary"
+                    variant="body2"
+                    fontWeight={800}
+                  >
+                    {stat.description}
+                  </Typography>
+                </Stack>
+              ))}
           </Stack>
-          {ctaText && <Button href={ctaLink} size="large" sx={{ mt: 4, fontWeight: 'bold' }}>
-            {ctaText} <EastIcon sx={{ ml: 1, fontSize: '14px' }} />
-          </Button>}
+          {ctaText && (
+            <Button
+              href={ctaLink}
+              size="large"
+              sx={{ mt: 4, fontWeight: 'bold' }}
+            >
+              {ctaText} <EastIcon sx={{ ml: 1, fontSize: '14px' }} />
+            </Button>
+          )}
         </Stack>
 
         <Stack width={{ lg: '40%' }}>
