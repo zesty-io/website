@@ -78,6 +78,7 @@ import { ThemeProvider } from '@emotion/react';
 import revampTheme from 'theme/revampTheme';
 import UseCase from 'components/marketing/ForPersonas/UseCase';
 import SimpleCardLogo from 'components/marketing/ForPersonas/SimpleCardLogo';
+import TabsSection from 'revamp/ui/TabsSection';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
@@ -138,6 +139,7 @@ function ForPersonasPage({ content }) {
         heading_text={content?.client_logo_title}
         logoItems={content?.client_logos?.data}
       />
+       <TabsSection tabs={content?.features_options} />
     </ThemeProvider>
   );
 }
