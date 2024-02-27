@@ -79,6 +79,7 @@ import revampTheme from 'theme/revampTheme';
 import UseCase from 'components/marketing/ForPersonas/UseCase';
 import SimpleCardLogo from 'components/marketing/ForPersonas/SimpleCardLogo';
 import TabsSection from 'revamp/ui/TabsSection';
+import CaseStudy from 'components/marketing/ForPersonas/CaseStudy';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
@@ -130,6 +131,23 @@ function ForPersonasPage({ content }) {
     data: benefitsData(content.benefits),
   };
 
+    const caseStudyProps = {
+    overline: content.case_studies?.data[0]?.overline,
+    logo: content.case_studies?.data[0]?.logo?.data[0]?.url,
+    heading: content.case_studies?.data[0]?.title,
+    description: content.case_studies?.data[0]?.summary,
+    image: content.case_studies?.data[0]?.image?.data[0]?.url,
+    ctaText: content.case_studies?.data[0]?.cta,
+    ctaLink: content.case_studies?.data[0]?.link,
+    stats_1_number: content.case_studies?.data[0]?.stats_1_number,
+    stats_1_description: content.case_studies?.data[0]?.stats_1_description,
+        stats_2_number: content.case_studies?.data[0]?.stats_2_number,
+    stats_2_description: content.case_studies?.data[0]?.stats_2_description,
+        stats_3_number: content.case_studies?.data[0]?.stats_3_number,
+    stats_3_description: content.case_studies?.data[0]?.stats_3_description,
+
+  }
+
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Hero {...heroProps} />
@@ -140,6 +158,7 @@ function ForPersonasPage({ content }) {
         logoItems={content?.client_logos?.data}
       />
        <TabsSection tabs={content?.features_options} />
+       <CaseStudy {...caseStudyProps}/>
     </ThemeProvider>
   );
 }
