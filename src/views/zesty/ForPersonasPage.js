@@ -82,6 +82,7 @@ import TabsSection from 'revamp/ui/TabsSection';
 import CaseStudy from 'components/marketing/ForPersonas/CaseStudy';
 import SingleTestimonial from 'components/marketing/ForPersonas/SingleTesimonial';
 import TechStack from 'components/marketing/ForPersonas/TechStack';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
@@ -169,6 +170,14 @@ function ForPersonasPage({ content }) {
     cta_link: content.integrations_button_link_2,
   };
 
+  const demoProps = {
+    title: content.demo_title || FillerContent.demo.title,
+    supportingText:
+      content?.demo_description_2 || FillerContent.demo.supportingText,
+    cta: content?.demo_cta || FillerContent.demo.cta,
+  };
+
+
 
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
@@ -185,6 +194,7 @@ function ForPersonasPage({ content }) {
          {content.integrations_title && content.integrations_logos && (
           <TechStack {...logoSliderProps} />
         )}
+        <GetDemoSection {...demoProps} />
     </ThemeProvider>
   );
 }

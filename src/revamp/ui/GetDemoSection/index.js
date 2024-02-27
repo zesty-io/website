@@ -39,6 +39,7 @@ const GetDemoSection = ({
   redirect = '/meet',
   isContact = false,
   formTitle = 'Enter your details to connect with a Content Expert',
+  cta,
 }) => {
   const router = useRouter();
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
@@ -228,6 +229,7 @@ const GetDemoSection = ({
                             setFieldValue,
                             values,
                             inquiryReasons,
+                            cta,
                           }}
                         />
                       </>
@@ -264,6 +266,7 @@ const GetDemoSection = ({
                             setFieldValue,
                             values,
                             inquiryReasons,
+                            cta,
                           }}
                         />
                       </>
