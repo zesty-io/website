@@ -74,22 +74,12 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import Hero from 'components/marketing/ForPersonas/Hero';
-import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
-import Benefits from 'blocks/benefits/Benefits';
-import Features from 'blocks/zesty/PageLayouts/Features';
-import ContainerWithBackground from 'components/marketing/ForPersonas/ContainerWithBackground';
-import WordPressMigration from 'blocks/zesty/PageLayouts/WordPressMigration';
-import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
-import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
-import TechStack from 'blocks/integrations/TechStack';
-import Bottom from 'blocks/zesty/Bottom/Bottom';
-import Persona from 'blocks/zesty/Persona/Persona';
 import { ThemeProvider } from '@emotion/react';
 import revampTheme from 'theme/revampTheme';
+import UseCase from 'components/marketing/ForPersonas/UseCase';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   /* Taking the data from the content model and converting it into a format that the Features component can use. */
   const featuresData = (dataArray) => {
@@ -132,9 +122,15 @@ function ForPersonasPage({ content }) {
     secondaryCtaLink: content.header_secondary_button_link?.data[0].meta.web.uri,
   };
 
+  const useCasesProps = {
+    header: content.benefits_title,
+    data: benefitsData(content.benefits),
+  };
+
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Hero {...heroProps} />
+      <UseCase {...useCasesProps} />
     </ThemeProvider>
   );
 }
