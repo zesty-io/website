@@ -139,20 +139,6 @@ function ForPersonasPage({ content }) {
     stats_3_description: content.case_studies?.data[0]?.stats_3_description,
   };
 
-  const testimonialProps = {
-    header: content.testimonials?.data[0]?.title,
-    quote: content.testimonials?.data[0]?.review,
-    link: content.testimonials?.data[0]?.review_link,
-    name: content.testimonials?.data[0]?.reviewer_name,
-    role: content.testimonials?.data[0]?.reviewer_title,
-    witness:
-      content.testimonials?.data[0]?.reviewer_headshot?.data[0]?.url ||
-      FillerContent.avatar,
-    logo: content.testimonials?.data[0]?.company_logo,
-    review_link_text: content.testimonials?.data[0]?.review_link_text,
-    review_link: content.testimonials?.data[0]?.review_link,
-  };
-
   const logoSliderProps = {
     text_content: content.integrations_title,
     logos: content.integrations_logos?.data,
@@ -179,7 +165,7 @@ function ForPersonasPage({ content }) {
       />
       <TabsSection tabs={content?.features_options} />
       <CaseStudy {...caseStudyProps} />
-      <SingleTestimonial {...testimonialProps} />
+      <SingleTestimonial />
       {content.integrations_title && content.integrations_logos && (
         <TechStack {...logoSliderProps} />
       )}
