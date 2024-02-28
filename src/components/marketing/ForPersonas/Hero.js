@@ -94,6 +94,13 @@ const Hero = ({
                         mt: '20px',
                       },
                     },
+                    li: {
+                      props: {
+                        style: {
+                          display: 'none',
+                        },
+                      },
+                    },
                   },
                 }}
               >

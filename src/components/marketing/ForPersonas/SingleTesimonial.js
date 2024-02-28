@@ -1,12 +1,14 @@
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
+const witnessImage = 'https://kfg6bckb.media.zestyio.com/Ben.webp',
+  witnessLogo =
+    'https://kfg6bckb.media.zestyio.com/bluePixelLogo.H1OTqyvkp.svg';
+
 const SingleTestimonial = ({
-  witness,
-  review_link,
-  review_link_text,
-  logo,
+  witness = witnessImage,
+  logo = witnessLogo,
   name = 'Ben Johnson',
   role = 'Director of Technology Operations',
   header = `Our team uses Zesty to support creative, complex campaigns for enterprise clients with global audiences.`,
@@ -134,18 +136,6 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
               }}
             ></Typography>
           </Box>
-
-          {review_link_text && (
-            <Button
-              href={review_link}
-              target="_blank"
-              size={isLg ? 'extraLarge' : 'large'}
-              sx={{ mt: 6, fontWeight: 'bold' }}
-              variant="contained"
-            >
-              {review_link_text}
-            </Button>
-          )}
         </Stack>
       </Stack>
     </Stack>
