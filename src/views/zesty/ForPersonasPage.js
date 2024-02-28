@@ -96,8 +96,8 @@ function ForPersonasPage({ content }) {
           content: item.benefit_content,
           primaryCtaText: item.primary_cta_text,
           secondaryCtaText: item.secondary_cta_text,
-          primaryCtaLink: item.primary_cta_link,
-          secondaryCtaLink: item.secondary_cta_link,
+          primaryCtaLink: item.left_cta_link?.data?.[0].meta?.web?.uri,
+          secondaryCtaLink: item.right_cta_link?.data?.[0].meta?.web?.uri,
         });
 
         return acc;
