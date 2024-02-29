@@ -96,8 +96,8 @@ function ForPersonasPage({ content }) {
           content: item.benefit_content,
           primaryCtaText: item.primary_cta_text,
           secondaryCtaText: item.secondary_cta_text,
-          primaryCtaLink: item.primary_cta_link,
-          secondaryCtaLink: item.secondary_cta_link,
+          primaryCtaLink: item.left_cta_link?.data?.[0].meta?.web?.uri,
+          secondaryCtaLink: item.right_cta_link?.data?.[0].meta?.web?.uri,
         });
 
         return acc;
@@ -130,7 +130,7 @@ function ForPersonasPage({ content }) {
     description: content.case_studies?.data[0]?.summary,
     image: content.case_studies?.data[0]?.image?.data[0]?.url,
     ctaText: content.case_studies?.data[0]?.cta,
-    ctaLink: content.case_studies?.data[0]?.link,
+    ctaLink: content.case_studies?.data[0]?.card_link.data?.[0].meta?.web?.uri,
     stats_1_number: content.case_studies?.data[0]?.stats_1_number,
     stats_1_description: content.case_studies?.data[0]?.stats_1_description,
     stats_2_number: content.case_studies?.data[0]?.stats_2_number,
