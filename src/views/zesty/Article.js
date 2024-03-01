@@ -208,25 +208,9 @@ function Article({ content }) {
   };
 
   const inlineStyles = isClient
-    ? `
-p img[style*="float:left"],  p img[style*="float: left"] {
-  margin-top: 0;
-  width: auto !important;
-}
-
-p img[style*="float:right"],  p img[style*="float: right"] {
-  margin-top: 0;
-  width: auto !important;
-}
-
-p img {
-  margin-top: 48px;
+    ? `:is(span, p, h1, h2, h3, h4, h5, h6) :is(img) {
   width: auto;
   max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
 }`
     : ``;
 
