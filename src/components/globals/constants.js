@@ -4680,7 +4680,7 @@ export const flyoutNavigation = [
     flyout_cta: 'https://www.zesty.io/mindshare/customer-stories/',
     flyout_cta_title: 'See all customer stories',
     column_one_title: 'By Industry',
-    column_two_title: 'By role',
+    column_two_title: 'By Role',
     column_three_title: 'Customer Stories',
     callout_image_2: null,
   },
