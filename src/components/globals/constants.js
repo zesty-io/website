@@ -307,62 +307,6 @@ export const flyoutNavigation = [
           main_or_blue_secondary_item: '1',
         },
         {
-          nav_item_name: 'Find Your Product',
-          page_link: {
-            type: 'relationship',
-            model: 'quiz_landing_pages',
-            totalItems: 1,
-            data: [
-              {
-                quiz_name: 'How should you build your website or mobile app?',
-                link: 'https://form.typeform.com/to/vuaPcBrt?typeform-embed-id=8560125309986844&amp;typeform-embed=embed-widget&amp;typeform-source=127.0.0.1&amp;typeform-medium=embed-sdk&amp;typeform-medium-version=next',
-                embed_code:
-                  '<div data-tf-widget="vuaPcBrt" data-tf-opacity="100" style="width:100%;height:100%;"></div><script src="//embed.typeform.com/next/embed.js"></script>',
-              },
-            ],
-          },
-          external_link_if_needed:
-            '/quiz-how-should-you-build-your-website-or-mobile-app/',
-          parent_nav_item: {
-            type: 'relationship',
-            model: 'sub_nav2022',
-            totalItems: 1,
-            data: [
-              {
-                nav_item_name: 'Product Overview',
-                page_link: {
-                  type: 'relationship',
-                  model: 'technology_overview',
-                  totalItems: 1,
-                  data: [
-                    {
-                      message: 'max hydration depth hit',
-                    },
-                  ],
-                },
-                external_link_if_needed: null,
-                parent_nav_item: '0',
-                icon_image: null,
-                sort_order: '1',
-                main_or_blue_secondary_item: '0',
-              },
-            ],
-          },
-          icon_image: {
-            type: 'images',
-            totalItems: 1,
-            data: [
-              {
-                type: 'image',
-                zuid: '3-ecf2530-gk2klf',
-                url: 'https://kfg6bckb.media.zestyio.com/Find-your-product-nav.png',
-              },
-            ],
-          },
-          sort_order: '3',
-          main_or_blue_secondary_item: '1',
-        },
-        {
           nav_item_name: 'Enterprise CMS',
           page_link: {
             type: 'relationship',
@@ -1529,7 +1473,7 @@ export const flyoutNavigation = [
               },
             ],
           },
-          sort_order: '2',
+          sort_order: '3',
           main_or_blue_secondary_item: '1',
         },
         {
@@ -1846,7 +1790,7 @@ export const flyoutNavigation = [
               },
             ],
           },
-          sort_order: '5',
+          sort_order: '2',
           main_or_blue_secondary_item: '1',
         },
         {
