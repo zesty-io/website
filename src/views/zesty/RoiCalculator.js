@@ -30,90 +30,28 @@
  */
 
 import React from 'react';
-import { Box, Stack, Typography, useTheme } from '@mui/material';
-import { grey } from '@mui/material/colors';
-import revampTheme from 'theme/revampTheme';
-import { ThemeProvider } from '@emotion/react';
-import CustomTextField from 'revamp/components/CustomTextField';
 
-function RoiCalculator() {
-  const theme = useTheme();
+function RoiCalculator({ content }) {
   return (
-    <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-      <Stack alignItems="center" justifyContent="center" py={10} px={14}>
-        <Box maxWidth={1500} mb={8}>
-          <Typography
-            color="text.secondary"
-            component="h2"
-            variant="h2"
-            fontWeight={800}
-            textAlign="center"
-          >
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          </Typography>
-          <Typography
-            color="text.secondary"
-            component="p"
-            variant="p"
-            textAlign="center"
-          >
-            Amet expedita quos beatae architecto ab fugit dignissimos aliquam
-            officia! Odit impedit repudiandae vero atque unde nobis aliquam, id
-            illum deleniti nisi.
-          </Typography>
-        </Box>
-
-        <Box
-          borderRadius="10px"
-          width="100%"
-          maxWidth={600}
-          minHeight={500}
-          p={4}
-          sx={{ border: `1px solid ${grey[300]}` }}
-        >
-          <Stack>
-            <Typography
-              component={'p'}
-              variant="h4"
-              letterSpacing="-0.02em"
-              color="text.secondary"
-              fontWeight={800}
-              mb={3}
-            >
-              ROI Calculator
-            </Typography>
-            <Stack spacing={3} mb={3}>
-              <CustomTextField
-                label="Lorem ipsum dolor sit amet consectetur, adipisicing elit?"
-                name="1stInput"
-              />
-            </Stack>
-
-            <Stack spacing={3} mb={3}>
-              <CustomTextField
-                label="Lorem ipsum dolor sit amet consectetur, adipisicing elit?"
-                name="1stInput"
-              />
-            </Stack>
-
-            <Stack spacing={3} mb={3}>
-              <CustomTextField
-                type="number"
-                label="Lorem ipsum dolor sit amet consectetur, adipisicing elit?"
-                name="1stInput"
-              />
-            </Stack>
-
-            <Stack spacing={3} mb={3}>
-              <CustomTextField
-                label="Lorem ipsum dolor sit amet consectetur, adipisicing elit?"
-                name="1stInput"
-              />
-            </Stack>
-          </Stack>
-        </Box>
-      </Stack>
-    </ThemeProvider>
+    <>
+      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+      <h1
+        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
+      ></h1>
+      <div>{content.meta.web.seo_meta_description}</div>
+      <div
+        style={{
+          background: '#eee',
+          border: '1px #000 solid',
+          margin: '10px',
+          padding: '20px',
+        }}
+      >
+        <h2>Accessible Zesty.io JSON Object</h2>
+        <pre>{JSON.stringify(content, null, 2)}</pre>
+      </div>
+      {/* End of Zesty.io output example */}
+    </>
   );
 }
 
