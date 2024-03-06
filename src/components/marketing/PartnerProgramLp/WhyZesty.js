@@ -2,7 +2,7 @@ import React from 'react';
 /**
  * MUI Imports
  */
-import { Box, Typography, Grid, Container } from '@mui/material';
+import { Box, Typography, Grid, Container, Button } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 
 const WhyZesty = ({
@@ -10,6 +10,8 @@ const WhyZesty = ({
   //  isMobile, isDarkMode,
   content,
   FillerContent,
+  ctaText = 'Discover our Partners',
+  ctaLink,
 }) => {
   return (
     <Box
@@ -82,6 +84,18 @@ const WhyZesty = ({
               >
                 {content.why_zesty || FillerContent.description}
               </MuiMarkdown>
+
+              {ctaLink && (
+                <Button
+                  href={ctaLink}
+                  component="a"
+                  variant="contained"
+                  color="secondary"
+                  sx={{ marginTop: 4 }}
+                >
+                  {ctaText}
+                </Button>
+              )}
             </Box>
           </Grid>
         </Grid>

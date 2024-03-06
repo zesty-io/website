@@ -97,9 +97,7 @@ function PartnerProgramDirectory({ content }) {
     image: content.header_graphic?.data[0]?.url,
     cta_left: content.header_primary_cta_text,
     cta_right: content.header_secondary_cta?.data[0]?.button_text,
-    cta_right_url:
-      content.header_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
-        ?.url,
+    cta_right_url: content.header_secondary_cta?.data[0]?.external_link,
   };
 
   const partnersData =
