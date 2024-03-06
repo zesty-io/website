@@ -28,7 +28,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-
+import FillerContent from 'components/globals/FillerContent';
 /**
  * MUI Imports
  */
@@ -39,6 +39,7 @@ import { useTheme } from '@mui/material';
  */
 import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import Features from 'blocks/zesty/PageLayouts/Features';
+import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
 
 function PartnerProgramDirectory({ content }) {
   const theme = useTheme();
@@ -98,6 +99,7 @@ function PartnerProgramDirectory({ content }) {
     cta_left: content.header_primary_cta_text,
     cta_right: content.header_secondary_cta?.data[0]?.button_text,
     cta_right_url: content.header_secondary_cta?.data[0]?.external_link,
+    target: '_self',
   };
 
   const partnersData =
@@ -121,10 +123,17 @@ function PartnerProgramDirectory({ content }) {
     onClick: handleOnClick,
   };
 
+  const pageData = {
+    theme,
+    content,
+    FillerContent,
+  };
+
   return (
     <>
       <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <Features {...allPartnersProps} />
+      <Bottom {...pageData} />
     </>
   );
 }
