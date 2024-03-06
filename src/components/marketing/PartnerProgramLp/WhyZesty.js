@@ -7,7 +7,6 @@ import MuiMarkdown from 'markdown-to-jsx';
 
 const WhyZesty = ({
   theme,
-  //  isMobile, isDarkMode,
   content,
   FillerContent,
   ctaText = 'Discover our Partners',
