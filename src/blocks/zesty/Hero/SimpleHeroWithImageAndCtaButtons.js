@@ -56,6 +56,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
   isDarkBackground = false,
   isCodeBlock = false,
   dataTestId = '',
+  target = '_self'
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -268,12 +269,14 @@ const SimpleHeroWithImageAndCtaButtons = ({
                     }}
                     text={cta_right || FillerContent.cta}
                     href={cta_right_url || FillerContent.href}
+                    target={target}
                   />
                 ) : (
                   <DemoCta
                     sx={{ color: theme.palette.zesty.zestyOrange }}
                     text={cta_right || FillerContent.cta}
                     href={cta_right_url || FillerContent.href}
+                    target={target}
                   />
                 ))}
             </Box>
