@@ -54,7 +54,7 @@ import PopUpLeadCapture from 'components/marketing/PopupLeadCapture';
 import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 function Article({ content }) {
-  const [newContent, setNewContent] = useState(content.article);
+  const [newContent, setNewContent] = useState(content?.article);
   const [isClient, setIsClient] = useState(false);
   const [relatedArticles, setRelatedArticles] = useState([]);
   const { palette } = useTheme();
@@ -87,7 +87,7 @@ function Article({ content }) {
   const cookieName = 'DOWNLOADED_PDF';
 
   // Define a regular expression pattern to match [_CTA_]
-  let regexPattern = /\[CALL TO ACTION\]/g;
+  let regexPattern = /\[CALL TO ACTION (\d+)\]/g;
 
   useEffect(() => {
     const validateWysiwyg = () => {
@@ -98,7 +98,10 @@ function Article({ content }) {
         );
         return cleanOutErrorHydrating;
       } else {
-        return newContent;
+        return newContent.replace(
+          regexPattern,
+          (match, id) => `<acronym${id}  title="CALL TO ACTION" />`,
+        );
       }
     };
 
@@ -107,17 +110,13 @@ function Article({ content }) {
       txt.innerHTML = str;
       return txt.value;
     }
-    setNewContent(
-      decode(validateWysiwyg()).replace(
-        regexPattern,
-        '<acronym title="Call to Action"></acronym>',
-      ),
-    );
+    setNewContent(decode(validateWysiwyg()));
 
     verifyPathnameInCookie(window.location.pathname);
   }, []);
 
   useEffect(() => {
+    console.log(newContent);
     setRelatedArticles(
       getRelatedArticles(content?.related_articles, latestArticles),
     );
@@ -214,6 +213,28 @@ function Article({ content }) {
 }`
     : ``;
 
+  const testArr = [
+    {
+      sort_id: 1,
+      title: 'CTA Title 1',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro natus impedit consequuntur vitae laudantium in dolore maxime. Non, ea voluptatum!',
+      ctaText: 'CTA Button 1',
+      ctaLink: '#',
+    },
+    {
+      sort_id: 2,
+      title: 'CTA Title 2',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro natus impedit consequuntur vitae laudantium in dolore maxime. Non, ea voluptatum!',
+      ctaText: 'CTA Button 2',
+      ctaLink: '#',
+    },
+  ];
+
+  const ctaComponentProps = (id) =>
+    testArr.filter((item) => item.sort_id === id)[0];
+
   return (
     <Box sx={{ position: 'relative' }}>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
@@ -251,14 +272,21 @@ function Article({ content }) {
             <MuiMarkdown
               options={{
                 overrides: {
-                  acronym: {
+                  acronym1: {
                     component: CtaComponent,
-                    props: {
-                      title: content?.cta_title,
-                      description: content?.cta_description,
-                      ctaText: content?.cta_text,
-                      ctaLink: content?.cta_link,
-                    },
+                    props: ctaComponentProps(1),
+                  },
+                  acronym2: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(2),
+                  },
+                  acronym3: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(3),
+                  },
+                  acronym4: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(4),
                   },
                   p: {
                     component: Typography,
