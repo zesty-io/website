@@ -54,7 +54,7 @@ import PopUpLeadCapture from 'components/marketing/PopupLeadCapture';
 import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 function Article({ content }) {
-  const [newContent, setNewContent] = useState(content.article);
+  const [newContent, setNewContent] = useState(content?.article);
   const [isClient, setIsClient] = useState(false);
   const [relatedArticles, setRelatedArticles] = useState([]);
   const { palette } = useTheme();
@@ -87,7 +87,7 @@ function Article({ content }) {
   const cookieName = 'DOWNLOADED_PDF';
 
   // Define a regular expression pattern to match [_CTA_]
-  let regexPattern = /\[CALL TO ACTION\]/g;
+  let regexPattern = /\[CALL TO ACTION (\d+)\]/g;
 
   useEffect(() => {
     const validateWysiwyg = () => {
@@ -98,7 +98,10 @@ function Article({ content }) {
         );
         return cleanOutErrorHydrating;
       } else {
-        return newContent;
+        return newContent.replace(
+          regexPattern,
+          (match, id) => `<acronym${id}  title="CALL TO ACTION" />`,
+        );
       }
     };
 
@@ -107,13 +110,7 @@ function Article({ content }) {
       txt.innerHTML = str;
       return txt.value;
     }
-    setNewContent(
-      decode(validateWysiwyg()).replace(
-        regexPattern,
-        '<acronym title="Call to Action"></acronym>',
-      ),
-    );
-
+    setNewContent(decode(validateWysiwyg()));
     verifyPathnameInCookie(window.location.pathname);
   }, []);
 
@@ -189,7 +186,6 @@ function Article({ content }) {
           (t) => t.title === value.title && t.title !== content?.title,
         ),
     );
-
     return result.slice(0, totalSliceCount);
   };
 
@@ -213,6 +209,12 @@ function Article({ content }) {
   max-width: 100%;
 }`
     : ``;
+
+  // Match CTA component sort order id from array to return its props
+  const ctaComponentProps = (id) => {
+    const callToActionsArray = content?.call_to_actions?.data || [];
+    return callToActionsArray?.filter((item) => item.sort_order == id)[0];
+  };
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -251,14 +253,29 @@ function Article({ content }) {
             <MuiMarkdown
               options={{
                 overrides: {
-                  acronym: {
+                  acronym1: {
                     component: CtaComponent,
-                    props: {
-                      title: content?.cta_title,
-                      description: content?.cta_description,
-                      ctaText: content?.cta_text,
-                      ctaLink: content?.cta_link,
-                    },
+                    props: ctaComponentProps(1),
+                  },
+                  acronym2: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(2),
+                  },
+                  acronym3: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(3),
+                  },
+                  acronym4: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(4),
+                  },
+                  acronym5: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(5),
+                  },
+                  acronym6: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(6),
                   },
                   p: {
                     component: Typography,
@@ -706,10 +723,10 @@ function Article({ content }) {
 
 export default Article;
 
-function CtaComponent({ title, description, ctaText, ctaLink }) {
+function CtaComponent({ cta_title, cta_description, cta_text, cta_link }) {
   return (
     <>
-      {title && description && (
+      {cta_title && cta_description && (
         <Box
           sx={{
             display: 'flex',
@@ -727,7 +744,7 @@ function CtaComponent({ title, description, ctaText, ctaLink }) {
           }}
         >
           <Typography variant="h5" fontWeight={700} color="white">
-            {title || ''}
+            {cta_title || ''}
           </Typography>
           <MuiMarkdown
             options={{
@@ -749,17 +766,17 @@ function CtaComponent({ title, description, ctaText, ctaLink }) {
               },
             }}
           >
-            {description || ''}
+            {cta_description || ''}
           </MuiMarkdown>
 
           <Button
             target="_blank"
-            href={ctaLink || ''}
+            href={cta_link || ''}
             component="a"
             variant="contained"
             color="primary"
           >
-            {ctaText || ''}
+            {cta_text || ''}
           </Button>
         </Box>
       )}
