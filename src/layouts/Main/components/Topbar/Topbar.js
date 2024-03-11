@@ -167,7 +167,7 @@ const Topbar = ({
               </Box>
               <Box>
                 <TryFreeButton
-                  text="Talk to Us"
+                  text="Contact Sales"
                   variant="contained"
                   component="a"
                   size="large"
