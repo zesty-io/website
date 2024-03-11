@@ -98,10 +98,7 @@ function Article({ content }) {
         );
         return cleanOutErrorHydrating;
       } else {
-        return newContent.replace(
-          regexPattern,
-          (match, id) => `<acronym${id}  title="CALL TO ACTION" />`,
-        );
+        return newContent;
       }
     };
 
@@ -110,7 +107,12 @@ function Article({ content }) {
       txt.innerHTML = str;
       return txt.value;
     }
-    setNewContent(decode(validateWysiwyg()));
+    setNewContent(
+      decode(validateWysiwyg()).replace(
+        regexPattern,
+        (match, id) => `<acronym${id}  title="CALL TO ACTION" />`,
+      ),
+    );
     verifyPathnameInCookie(window.location.pathname);
   }, []);
 
