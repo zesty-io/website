@@ -164,7 +164,7 @@ function ForPersonasPage({ content }) {
         logoItems={content?.client_logos?.data}
       />
       <TabsSection tabs={content?.features_options} />
-      <CaseStudy {...caseStudyProps} />
+      {content?.case_studies && <CaseStudy {...caseStudyProps} />}
       <SingleTestimonial />
       {content.integrations_title && content.integrations_logos && (
         <TechStack {...logoSliderProps} />

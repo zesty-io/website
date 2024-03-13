@@ -43,7 +43,14 @@ export default function DomainSettings({ settings, getSettings }) {
             Custom Domain DNS Configuration
           </Typography>
           <Typography variant="body2" pb={2}>
-            After adding a domain, launch your site following this guide: <a href="https://zesty.org/tools/guides/how-to-launch-an-instance" target="_blank">DNS configuration</a>.
+            After adding a domain, launch your site following this guide:{' '}
+            <a
+              href="https://zesty.org/tools/guides/how-to-launch-an-instance"
+              target="_blank"
+            >
+              DNS configuration
+            </a>
+            .
           </Typography>
         </Grid>
       </Grid>
