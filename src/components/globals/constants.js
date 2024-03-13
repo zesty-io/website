@@ -2912,6 +2912,45 @@ export const flyoutNavigation = [
           main_or_blue_secondary_item: '1',
         },
         {
+          nav_item_name: 'Nonprofits',
+          page_link: {
+            type: 'relationship',
+            model: 'for_industry_pages',
+            totalItems: 1,
+            data: [[]],
+          },
+          external_link_if_needed: '/use-case/nonprofits-cms/',
+          parent_nav_item: {
+            type: 'relationship',
+            model: 'sub_nav2022',
+            totalItems: 1,
+            data: [
+              {
+                nav_item_name: 'By industry',
+                page_link: null,
+                external_link_if_needed: null,
+                parent_nav_item: null,
+                icon_image: null,
+                sort_order: '1',
+                main_or_blue_secondary_item: '0',
+              },
+            ],
+          },
+          icon_image: {
+            type: 'images',
+            totalItems: 1,
+            data: [
+              {
+                type: 'image',
+                zuid: '3-114d52a5-jrh9bp',
+                url: 'https://kfg6bckb.media.zestyio.com/Nonprofits.png',
+              },
+            ],
+          },
+          sort_order: '1',
+          main_or_blue_secondary_item: '1',
+        },
+        {
           nav_item_name: 'Insurance',
           page_link: {
             type: 'relationship',
@@ -11195,6 +11234,11 @@ export const navigationTree = [
     url: '/use-case/gaming-cms/',
     title: 'Headless CMS for gaming companies',
     zuid: '7-dca3f4afc3-67d595',
+  },
+  {
+    url: '/use-case/nonprofits-cms/',
+    title: 'Zesty.io for nonprofits',
+    zuid: '7-f8a4b3a3fa-gmkpnh',
   },
   {
     url: '/use-case/insurance-cms/',

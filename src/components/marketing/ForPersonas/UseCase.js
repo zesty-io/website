@@ -125,7 +125,7 @@ const UseCase = ({ header, data }) => {
               <Stack order={1} justifyContent="center">
                 <Box
                   component="img"
-                  src={item.icon_image}
+                  src={item.icon_image || FillerContent.image}
                   sx={(theme) => ({
                     [theme.breakpoints.up('xs')]: {
                       objectFit: 'contain',
