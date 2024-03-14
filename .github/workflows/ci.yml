@@ -131,7 +131,7 @@ jobs:
   end-to-end-tests-cypress:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [flyci-macos-large-latest-m2]
         node-version: [20]
     runs-on: ${{ matrix.os }}
     env:
