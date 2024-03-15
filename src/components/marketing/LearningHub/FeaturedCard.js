@@ -3,9 +3,6 @@
  */
 import { Box, Card, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-/**
- * Helpers Imports
- */
 
 const VideoCard = ({ title, youtube_link, published_date }) => {
   const theme = useTheme();
@@ -46,15 +43,15 @@ const VideoCard = ({ title, youtube_link, published_date }) => {
         >
           <iframe
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            frameBorder="0"
-            allowfullscreen="allowfullscreen"
-            src={`${youtube_link}atuoplay=1`}
+            allowFullScreen="allowfullscreen"
+            src={youtube_link}
             style={{
               position: 'absolute',
               top: 0,
               left: 0,
               height: '100%',
               width: '100%',
+              border: 'none',
             }}
           ></iframe>
         </Box>
