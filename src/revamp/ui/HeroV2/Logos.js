@@ -15,8 +15,9 @@ const Logos = ({ logos }) => {
       rowGap="24px"
       columnGap="20px"
     >
-      {logos.map((image) => (
+      {logos.map((image, index) => (
         <img
+          key={index}
           src={image.src}
           alt={image.alt}
           loading="eager"
