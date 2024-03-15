@@ -20,6 +20,7 @@ const Hero = ({
   heroImage,
   monbileHeroImage,
   featuredCards = [],
+  tags,
 }) => {
   const theme = useTheme();
 
@@ -30,6 +31,7 @@ const Hero = ({
 
   const filterProps = {
     featuredCards,
+    tags,
   };
 
   return (

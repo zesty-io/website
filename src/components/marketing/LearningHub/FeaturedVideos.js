@@ -16,7 +16,7 @@ import { useContext } from 'react';
 import { LearningHubVideosContext } from './context/LearningHubVideosContext';
 
 const FeaturedVideos = ({ featuredVideos = [] }) => {
-  const { searchKey } = useContext(LearningHubVideosContext);
+  const { searchKey, selectedTags } = useContext(LearningHubVideosContext);
 
   /************************************************
    * Theme Settings
@@ -28,7 +28,7 @@ const FeaturedVideos = ({ featuredVideos = [] }) => {
   return (
     <>
       <Box
-        hidden={searchKey !== '' ? true : false}
+        hidden={searchKey !== '' || selectedTags !== '' ? true : false}
         sx={{
           pt: 10,
           px: 4,

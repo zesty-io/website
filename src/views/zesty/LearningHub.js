@@ -24,6 +24,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+import useFetch from 'components/hooks/useFetch';
 import FeaturedVideos from 'components/marketing/LearningHub/FeaturedVideos';
 import Hero from 'components/marketing/LearningHub/Hero';
 import MainVideos from 'components/marketing/LearningHub/MainVideos';
@@ -31,20 +32,28 @@ import LearningHubVideosProvider from 'components/marketing/LearningHub/context/
 import React, { useEffect } from 'react';
 
 function LearningHub({ content }) {
+  const tags = useFetch(
+    '/-/all-learning-hub-videos-tags.json?limit=100',
+    content.zestyProductionMode,
+  );
+
+  const videos = useFetch(
+    '/-/all-learning-hub-videos.json?limit=100',
+    content.zestyProductionMode,
+  );
+
   const heroProps = {
     title: content?.title,
     description: content?.header_description,
     heroImage: content?.hero_image,
     monbileHeroImage: content?.mobile_hero_image,
     featuredCards: content?.cards?.data,
+    tags: tags?.data,
   };
 
-  useEffect(() => {
-    console.log(content);
-  }, []);
   return (
     <>
-      <LearningHubVideosProvider inititalEntities={content?.videos?.data}>
+      <LearningHubVideosProvider inititalEntities={videos?.data}>
         <Hero {...heroProps} />
         <FeaturedVideos featuredVideos={content?.featured_videos?.data} />
         <MainVideos />

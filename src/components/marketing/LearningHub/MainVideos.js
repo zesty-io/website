@@ -11,15 +11,18 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 /**
  * React Imports
  */
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { LearningHubVideosContext } from './context/LearningHubVideosContext';
 import VideoCard from './FeaturedCard';
 
 const MainVideos = () => {
-  const { entities, searchKey } = useContext(LearningHubVideosContext);
+  const { entities, searchKey, selectedTags } = useContext(
+    LearningHubVideosContext,
+  );
 
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
+
   return (
     <>
       <Box
@@ -47,13 +50,16 @@ const MainVideos = () => {
               textAlign: isExtraSmall ? 'center' : 'text-left',
             }}
           >
-            {searchKey !== '' ? 'Results' : 'All Videos'}
+            {searchKey !== '' || selectedTags !== '' ? 'Results' : 'All Videos'}
           </Typography>
           <Grid container spacing={2}>
             {entities
+              .filter((vid) => {
+                if (selectedTags === '') return vid;
+                return vid.tags.includes(selectedTags);
+              })
               .filter((value) => {
                 if (searchKey === '') return value;
-
                 if (value.title.toLowerCase().includes(searchKey.toLowerCase()))
                   return value;
               })
