@@ -29,19 +29,31 @@ import LearningHubVideosProvider from 'components/marketing/LearningHub/context/
 import FeaturedVideos from 'components/marketing/LearningHub/FeaturedVideos';
 import MainVideos from 'components/marketing/LearningHub/MainVideos';
 import React from 'react';
+import useFetch from 'components/hooks/useFetch';
 
 function LearningHub({ content }) {
+  const tags = useFetch(
+    '/-/all-learning-hub-videos-tags.json?limit=100',
+    content.zestyProductionMode,
+  );
+
+  const videos = useFetch(
+    '/-/all-learning-hub-videos.json?limit=140',
+    content.zestyProductionMode,
+  );
+
   const heroProps = {
     title: content?.title,
     description: content?.header_description,
     heroImage: content?.hero_image,
     monbileHeroImage: content?.mobile_hero_image,
     featuredCards: content?.cards?.data,
+    tags: tags?.data,
   };
 
   return (
     <>
-      <LearningHubVideosProvider inititalEntities={content?.videos?.data}>
+      <LearningHubVideosProvider inititalEntities={videos?.data}>
         <Hero {...heroProps} />
         <FeaturedVideos featuredVideos={content?.featured_videos?.data} />
         <MainVideos />

@@ -13,6 +13,16 @@ const VideoCard = ({ title, youtube_link, published_date }) => {
     return date.toLocaleDateString('en-US', options);
   };
 
+  function convertToNoCookie(url) {
+    if (!url) return;
+    // Replace "www.youtube.com" with "www.youtube-nocookie.com"
+    // Also remove the "/embed/" part
+    return url.replace(
+      'www.youtube.com/embed/',
+      'www.youtube-nocookie.com/embed/',
+    );
+  }
+
   return (
     <Box sx={{ textDecoration: 'none' }}>
       <Card
@@ -44,7 +54,7 @@ const VideoCard = ({ title, youtube_link, published_date }) => {
           <iframe
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen="allowfullscreen"
-            src={youtube_link}
+            src={convertToNoCookie(youtube_link)}
             style={{
               position: 'absolute',
               top: 0,

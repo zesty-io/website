@@ -6,10 +6,11 @@ const LearningHubVideosProvider = ({ inititalEntities, children }) => {
   const [entities, setEntities] = useState([]);
   const [searchKey, setSearchKey] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedTags, setSelectedTags] = useState('');
 
   useEffect(() => {
     setEntities(inititalEntities || []);
-  }, []);
+  }, [inititalEntities]);
 
   return (
     <LearningHubVideosContext.Provider
@@ -20,6 +21,8 @@ const LearningHubVideosProvider = ({ inititalEntities, children }) => {
         setIsSearching,
         searchKey,
         setSearchKey,
+        selectedTags,
+        setSelectedTags,
       }}
     >
       {children}

@@ -16,7 +16,9 @@ import { LearningHubVideosContext } from './context/LearningHubVideosContext';
 import VideoCard from './FeaturedCard';
 
 const MainVideos = () => {
-  const { entities, searchKey } = useContext(LearningHubVideosContext);
+  const { entities, searchKey, selectedTags } = useContext(
+    LearningHubVideosContext,
+  );
 
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
@@ -51,6 +53,10 @@ const MainVideos = () => {
           </Typography>
           <Grid container spacing={2}>
             {entities
+              .filter((vid) => {
+                if (selectedTags === '') return vid;
+                return vid.tags.includes(selectedTags);
+              })
               .filter((value) => {
                 if (searchKey === '') return value;
 
