@@ -25,6 +25,7 @@
  */
 
 import Hero from 'components/marketing/LearningHub/Hero';
+import LearningHubVideosProvider from 'components/marketing/LearningHub/context/LearningHubVideosContext';
 import React from 'react';
 
 function LearningHub({ content }) {
@@ -38,7 +39,9 @@ function LearningHub({ content }) {
 
   return (
     <>
-      <Hero {...heroProps} />
+      <LearningHubVideosProvider inititalEntities={content?.videos?.data}>
+        <Hero {...heroProps} />
+      </LearningHubVideosProvider>
     </>
   );
 }
