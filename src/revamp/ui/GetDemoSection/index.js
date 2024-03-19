@@ -40,6 +40,7 @@ const GetDemoSection = ({
   isContact = false,
   formTitle = 'Enter your details to connect with a Content Expert',
   cta,
+  id,
 }) => {
   const router = useRouter();
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
@@ -55,9 +56,8 @@ const GetDemoSection = ({
 
   const getLeadSourceDetail = () => {
     if (router.asPath.includes('contact')) return 'Contact Us';
-    if (router.asPath.includes('demo')) return 'Demo Sign Up';
 
-    return 'Get a Talk to Us';
+    return 'Demo Sign Up';
   };
 
   const onSubmit = async (values) => {
@@ -230,6 +230,7 @@ const GetDemoSection = ({
                             values,
                             inquiryReasons,
                             cta,
+                            id,
                           }}
                         />
                       </>
@@ -267,6 +268,7 @@ const GetDemoSection = ({
                             values,
                             inquiryReasons,
                             cta,
+                            id,
                           }}
                         />
                       </>

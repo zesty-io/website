@@ -4,7 +4,7 @@
 import { Box, Card, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-const VideoCard = ({ title, youtube_link, published_date }) => {
+const VideoCard = ({ title, youtube_link, published_date, video_length }) => {
   const theme = useTheme();
 
   const formatDate = (date) => {
@@ -68,14 +68,14 @@ const VideoCard = ({ title, youtube_link, published_date }) => {
         </Box>
       </Card>
 
-      <Typography
-        mt={1}
-        component="h4"
-        variant="body1"
-        sx={{ fontWeight: 'bold' }}
-      >
+      <Typography component="h4" variant="body1" sx={{ fontWeight: 'bold' }}>
         {title}
       </Typography>
+      {video_length && (
+        <Typography component="p" variant="subtitle2">
+          {video_length}
+        </Typography>
+      )}
       <Typography component="p" variant="subtitle2">
         {formatDate(published_date)}
       </Typography>
