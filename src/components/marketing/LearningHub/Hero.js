@@ -70,11 +70,10 @@ const Hero = ({
 
         <Box
           sx={{
-            top: isExtraSmall ? '8%' : isTablet ? '8%' : '10%',
+            top: isExtraSmall ? '4%' : isTablet ? '8%' : '10%',
             position: 'absolute',
             width: '100%',
             zIndex: 1,
-            top: isTablet ? '10%' : '20%',
           }}
         >
           <Box

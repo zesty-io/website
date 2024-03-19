@@ -52,8 +52,9 @@ const VideoCard = ({ title, youtube_link, published_date }) => {
           }}
         >
           <iframe
+            title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen="allowfullscreen"
+            allowfullscreen
             src={convertToNoCookie(youtube_link)}
             style={{
               position: 'absolute',

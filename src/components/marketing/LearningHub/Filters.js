@@ -47,7 +47,6 @@ const Filters = ({ featuredCards, tags }) => {
             <Box
               href={item.uri}
               component="a"
-              fullWidth={true}
               p={1}
               sx={{
                 textDecoration: 'none',
@@ -122,7 +121,6 @@ const Filters = ({ featuredCards, tags }) => {
           <Grid key={idx} item sm={6} md={4} lg={2}>
             <Box
               onClick={() => setSelectedTags(item.tag_name)}
-              fullWidth={true}
               sx={{
                 textDecoration: 'none',
                 border: item.isActive

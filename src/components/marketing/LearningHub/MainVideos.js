@@ -11,17 +11,16 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 /**
  * React Imports
  */
-import { useContext } from 'react';
+import { useContext, memo } from 'react';
 import { LearningHubVideosContext } from './context/LearningHubVideosContext';
 import VideoCard from './FeaturedCard';
 
 const MainVideos = () => {
-  const { entities, searchKey, selectedTags } = useContext(
-    LearningHubVideosContext,
-  );
+  const { entities, searchKey } = useContext(LearningHubVideosContext);
 
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
+
   return (
     <>
       <Box
@@ -52,26 +51,15 @@ const MainVideos = () => {
             {searchKey !== '' ? 'Results' : 'All Videos'}
           </Typography>
           <Grid container spacing={2}>
-            {entities
-              .filter((vid) => {
-                if (selectedTags === '') return vid;
-                return vid.tags.includes(selectedTags);
-              })
-              .filter((value) => {
-                if (searchKey === '') return value;
-
-                if (value.title.toLowerCase().includes(searchKey.toLowerCase()))
-                  return value;
-              })
-              .map((item, idx) => {
-                return (
-                  <Grid key={idx} item xs={12} md={6} lg={4}>
-                    <Box sx={{ textDecoration: 'none' }}>
-                      <VideoCard {...item} />
-                    </Box>
-                  </Grid>
-                );
-              })}
+            {entities?.map((item, idx) => {
+              return (
+                <Grid key={idx} item xs={12} md={6} lg={4}>
+                  <Box sx={{ textDecoration: 'none' }}>
+                    <VideoCard {...item} />
+                  </Box>
+                </Grid>
+              );
+            })}
           </Grid>
         </Box>
       </Box>
@@ -79,4 +67,4 @@ const MainVideos = () => {
   );
 };
 
-export default MainVideos;
+export default memo(MainVideos);
