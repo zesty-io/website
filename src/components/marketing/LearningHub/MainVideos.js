@@ -23,7 +23,9 @@ import { useContext, memo, useState, useEffect } from 'react';
 import revampTheme from 'theme/revampTheme';
 
 const MainVideos = ({ withPagination = false }) => {
-  const { entities, searchKey } = useContext(LearningHubVideosContext);
+  const { entities, searchKey, selectedTags } = useContext(
+    LearningHubVideosContext,
+  );
 
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
@@ -50,8 +52,23 @@ const MainVideos = ({ withPagination = false }) => {
   const pageNum = [];
   const videoList = !withPagination
     ? entities
-    : entities.slice(indexOfFirst, indexOfLast);
-  for (let i = 1; i <= Math.ceil(entities.length / postPerPage); i++) {
+    : entities
+        ?.filter((vid) => {
+          if (selectedTags === '') return vid;
+          return vid.tags.includes(selectedTags);
+        })
+        .slice(indexOfFirst, indexOfLast);
+  for (
+    let i = 1;
+    i <=
+    Math.ceil(
+      entities?.filter((vid) => {
+        if (selectedTags === '') return vid;
+        return vid.tags.includes(selectedTags);
+      }).length / postPerPage,
+    );
+    i++
+  ) {
     pageNum.push(i);
   }
   const handlePageChange = (_event, value) => {
@@ -105,6 +122,12 @@ const MainVideos = ({ withPagination = false }) => {
           </Grid>
         </Box>
       </Box>
+
+      {videoList?.length === 0 && (
+        <Typography mb={2} textAlign="center" variant="h6" py={2}>
+          No results found
+        </Typography>
+      )}
 
       {withPagination && videoList?.length ? (
         <Stack
