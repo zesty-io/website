@@ -56,7 +56,7 @@ function LearningHub({ content }) {
       <LearningHubVideosProvider inititalEntities={videos?.data}>
         <Hero {...heroProps} />
         <FeaturedVideos featuredVideos={content?.featured_videos?.data} />
-        <MainVideos />
+        <MainVideos withPagination={true} />
       </LearningHubVideosProvider>
     </>
   );
