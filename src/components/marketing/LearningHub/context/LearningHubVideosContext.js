@@ -16,17 +16,12 @@ const LearningHubVideosProvider = ({ inititalEntities, children }) => {
 
   function handleSearch() {
     setEntities(
-      inititalEntities
-        ?.filter((vid) => {
-          if (selectedTags === '') return vid;
-          return vid.tags.includes(selectedTags);
-        })
-        .filter((value) => {
-          if (searchKey === '') return value;
+      inititalEntities.filter((value) => {
+        if (searchKey === '') return value;
 
-          if (value.title.toLowerCase().includes(values.toLowerCase()))
-            return value;
-        }),
+        if (value.title.toLowerCase().includes(values.toLowerCase()))
+          return value;
+      }),
     );
   }
 
