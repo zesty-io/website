@@ -37,6 +37,7 @@ function Contact({ content }) {
     supportingText: content?.demo_section_supportingtext,
     formTitle: content?.demo_section_formtitle,
     cta: content?.cta_button_text,
+    id: '#contact-cta',
   };
 
   return (

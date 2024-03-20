@@ -147,6 +147,7 @@ const Career = dynamic(() => import('./Career'));
 const DeveloperResource = dynamic(() => import('./DeveloperResource'));
 const EventsAndWebinar = dynamic(() => import('./EventsAndWebinar'));
 const Demo = dynamic(() => import('./Demo'));
+const LearningHub = dynamic(() => import('./LearningHub'));
 
 const Ppc = dynamic(() => import('./Ppc'));
 const Brand = dynamic(() => import('./Brand'));
@@ -338,6 +339,7 @@ export {
   DeveloperResource,
   EventsAndWebinar,
   Demo,
+  LearningHub,
   Ppc,
   Brand,
   Integration,

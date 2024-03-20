@@ -6144,8 +6144,47 @@ export const flyoutNavigation = [
     column_2_items: {
       type: 'relationship',
       model: 'sub_nav2022',
-      totalItems: 4,
+      totalItems: 5,
       data: [
+        {
+          nav_item_name: 'Learning Hub Videos',
+          page_link: {
+            type: 'relationship',
+            model: 'for_industry_pages',
+            totalItems: 1,
+            data: [[]],
+          },
+          external_link_if_needed: '/learning-hub/',
+          parent_nav_item: {
+            type: 'relationship',
+            model: 'sub_nav2022',
+            totalItems: 1,
+            data: [
+              {
+                nav_item_name: 'Industry learning',
+                page_link: null,
+                external_link_if_needed: null,
+                parent_nav_item: null,
+                icon_image: null,
+                sort_order: '2',
+                main_or_blue_secondary_item: '0',
+              },
+            ],
+          },
+          icon_image: {
+            type: 'images',
+            totalItems: 1,
+            data: [
+              {
+                type: 'image',
+                zuid: '3-11555e5b-gtgn5t',
+                url: 'https://kfg6bckb.media.zestyio.com/Learning-Hub.png',
+              },
+            ],
+          },
+          sort_order: '1',
+          main_or_blue_secondary_item: '1',
+        },
         {
           nav_item_name: 'Blog',
           page_link: {
@@ -11355,6 +11394,15 @@ export const navigationCustom = [
     url: '/about/',
     title: 'About Zesty',
     zuid: '7-8ed2b6a189-w85cqt',
+    children: [],
+  },
+  {
+    external: false,
+    parentZUID: null,
+    sort: '1',
+    url: '/learning-hub/',
+    title: 'Learning Hub Videos',
+    zuid: '7-cc809dacb1-hxjshj',
     children: [],
   },
   {
