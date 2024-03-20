@@ -288,9 +288,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
           >
             {!video ? (
               <ZestyImage
-                src={image || FillerContent.image}
-                width={600}
-                height={350}
+                src={'https://kfg6bckb.media.zestyio.com/optimizilla.jpg' || FillerContent.image}
                 style={{ width: '100%', height: 'auto', objectFit: 'contain'}}
                 alt={
                   mainTitle ||

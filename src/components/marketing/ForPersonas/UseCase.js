@@ -1,6 +1,5 @@
 import {
   Box,
-  useMediaQuery,
   Typography,
   useTheme,
   Stack,
@@ -9,6 +8,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import MuiMarkdown from 'markdown-to-jsx';
+import FillerContent from 'components/globals/FillerContent';
 
 const UseCase = ({ header, headerColor, headerTextAlign = 'center' }) => {
   const theme = useTheme();
@@ -95,7 +95,7 @@ const UseCase = ({ header, headerColor, headerTextAlign = 'center' }) => {
       </Container>
       {data.map((item, index) => {
         return (
-          <Stack>
+          <Stack key={index}>
             <Stack
               direction={{ xs: 'column', lg: 'row' }}
               justifyContent={{ desktopWide: 'center' }}

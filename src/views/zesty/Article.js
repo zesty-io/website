@@ -206,21 +206,8 @@ function Article({ content }) {
     setShowPopup,
   };
 
-  const inlineStyles = `
-  
-  p img {
-    max-width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto !important;
-  }
-  
-  `;
-
   return (
     <Box sx={{ position: 'relative' }}>
-      {/* <style>{inlineStyles}</style> */}
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Stack>
           <BlogHero

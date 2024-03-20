@@ -31,8 +31,6 @@ const SimpleCardLogo = ({
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
-  const sunsDarkLogoUrl =
-    'https://kfg6bckb.media.zestyio.com/sunsdark.1fc97b3c326478bf6afcb60e52679656.png?width=241';
 
   // check if features_header richtext if not convert it to richtext format for consistency
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');

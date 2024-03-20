@@ -58,12 +58,12 @@
  * React Imports
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 
 /**
  * MUI Imports
  */
-import { Box, useTheme, useMediaQuery, ThemeProvider } from '@mui/material';
+import { useTheme, ThemeProvider } from '@mui/material';
 
 /**
  * Helpers Imports
@@ -86,21 +86,6 @@ import UseCase from 'components/marketing/ForPersonas/UseCase';
 
 function ForPersonasPage({ content }) {
   const theme = useTheme();
-
-  /* Taking the data from the content model and converting it into a format that the Features component can use. */
-  const featuresData = (dataArray) => {
-    return (
-      dataArray?.data?.reduce((acc, item) => {
-        acc.push({
-          icon_image: item.icon_image?.data[0].url,
-          feature_name: item.feature_name,
-          content: item.content,
-        });
-
-        return acc;
-      }, []) || []
-    );
-  };
 
   const benefitsData = (dataArray) => {
     return (

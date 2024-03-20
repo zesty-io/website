@@ -246,8 +246,7 @@ const CtaCardStack = () => {
                       },
                     }}
                   >
-                    Let's discuss your content challenges together. Book your
-                    discovery call now.
+                    {`${"Let's discuss your content challenges together. Book your discovery call now."}`}
                   </MuiMarkdown>
                 </Stack>
 
