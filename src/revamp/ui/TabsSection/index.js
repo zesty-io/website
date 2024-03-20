@@ -258,10 +258,10 @@ const TabsSection = ({
             my: 1,
           }}
         >
-          {list.map((e) => {
+          {list.map((e, index) => {
             const isActive = e.name === value;
             return (
-              <Stack mx={'8px'}>
+              <Stack key={index} mx={'8px'}>
                 <Button
                   title={e.name}
                   sx={{
