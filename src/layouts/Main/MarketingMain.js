@@ -19,6 +19,7 @@ import { Topbar } from './components';
 
 import dynamic from 'next/dynamic';
 import revampTheme from 'theme/revampTheme';
+import useFetch from 'components/hooks/useFetch';
 
 const Footer = dynamic(() => import('./components/Footer/FooterDynamic'));
 const Sidebar = dynamic(() => import('./components').then((e) => e.Sidebar));
@@ -99,6 +100,8 @@ const MarketingMain = ({
     }
   }, [userInfo]);
 
+  const data = useFetch('/-/demo-cta.json');
+
   return (
     <>
       {isLoggedIn === false && !isLoginPage && <SiteBanner />}
@@ -163,6 +166,7 @@ const MarketingMain = ({
                 isAuthenticated={isLoggedIn}
                 userInfo={userInfo?.data}
                 loading={loading}
+                cta={data?.data?.demo_cta}
               />
             </Stack>
           </Container>
