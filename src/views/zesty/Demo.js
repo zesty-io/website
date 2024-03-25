@@ -23,178 +23,27 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import { React } from 'react';
-import { useTheme } from '@mui/material/styles';
-import {
-  Box,
-  Button,
-  Card,
-  Grid,
-  Stack,
-  ThemeProvider,
-  Typography,
-  alpha,
-} from '@mui/material';
-import MuiMarkdown from 'markdown-to-jsx';
+import React from 'react';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
 import revampTheme from 'theme/revampTheme';
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import Link from 'next/link';
-import { G2Awards, Logos } from 'revamp/ui/GetDemoSection';
-import { pushDataLayer } from 'lib/ga';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
 
-const Demo = ({ content }) => {
+function Demo({ content }) {
   const theme = useTheme();
 
-  const cardData = content?.dynamic_contact_page?.data;
+  const getDemoSectionProps = {
+    title: content?.demo_section_title,
+    supportingText: content?.demo_section_supportingtext,
+    formTitle: content?.demo_section_formtitle,
+    cta: content?.cta_button_text,
+    id: '#demo-cta',
+  };
+
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-      <EngageTypeCards cardData={cardData} />
-      {/* <GetDemoSection /> */}
+      <GetDemoSection {...getDemoSectionProps} />
     </ThemeProvider>
   );
-};
+}
 
 export default Demo;
-
-function EngageTypeCards({ cardData }) {
-  const theme = useTheme();
-  return (
-    <Stack
-      bgcolor="grey.900"
-      py={{ xs: 4, tablet: 6, lg: 10 }}
-      px={{ xs: 2, tablet: 4, lg: 14 }}
-      alignItems="center"
-      justifyContent="center"
-      textAlign="center"
-    >
-      <Stack mb={{ xs: 4, lg: 5 }}>
-        <Typography
-          py={0}
-          fontWeight={800}
-          fontSize={{ xs: 36, tablet: 52 }}
-          lineHeight={{ xs: '44px', tablet: '56px' }}
-          mb={{ xs: 2, tablet: '24px' }}
-          letterSpacing="-0.02em"
-          color="#fff"
-        >
-          How would you like to engage?
-        </Typography>
-      </Stack>
-
-      <Grid
-        container
-        spacing={{ xs: 4, sm: 1, md: 4 }}
-        sx={{ width: '100%', maxWidth: 1200 }}
-        justifyContent="center"
-      >
-        {cardData?.map((item) => {
-          return (
-            <Grid
-              key={item}
-              component={Link}
-              onClick={() =>
-                pushDataLayer({
-                  buttonText: item?.button_text || '',
-                  targetPage: item.button_link || '#',
-                })
-              }
-              href={item.button_link || '#'}
-              sx={{ textDecoration: 'none' }}
-              item
-              xs={12}
-              sm={4}
-            >
-              <Stack
-                height={'100%'}
-                minHeight={250}
-                component={Card}
-                sx={(theme) => ({
-                  '&:hover': {
-                    background:
-                      theme.palette.mode === 'light'
-                        ? theme.palette.grey[200]
-                        : theme.palette.grey[800],
-                  },
-                })}
-                borderRadius="8px"
-              >
-                <Stack sx={{ height: '100%' }}>
-                  <Box
-                    p="20px"
-                    spacing={1}
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      width: '100%',
-                    }}
-                  >
-                    <Typography
-                      variant="h5"
-                      letterSpacing="-0.02em"
-                      color="text.primary"
-                      fontWeight={600}
-                    >
-                      {item?.title || ''}
-                    </Typography>
-
-                    <ArrowForwardRoundedIcon
-                      sx={{
-                        width: '16px',
-                        height: '16px',
-                        alignSelf: 'center',
-                        fill: alpha(theme.palette.grey[900], '.4'),
-                      }}
-                    />
-                  </Box>
-                  <Box
-                    sx={{
-                      mb: 2,
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <Stack gap={2} px="20px">
-                      <MuiMarkdown
-                        options={{
-                          overrides: {
-                            p: {
-                              component: Typography,
-                              props: {
-                                sx: {
-                                  textAlign: 'left',
-                                  fontSize: { sm: 14, md: 'unset' },
-                                },
-                                color: 'text.secondary',
-                              },
-                            },
-                          },
-                        }}
-                      >
-                        {item?.description || ''}
-                      </MuiMarkdown>
-                    </Stack>
-
-                    <Button sx={{ mx: 2 }} variant="contained" size="medium">
-                      {item?.button_text || ''}
-                    </Button>
-                  </Box>
-                </Stack>
-              </Stack>
-            </Grid>
-          );
-        })}
-      </Grid>
-
-      <Grid container spacing={4} sx={{ width: '100%', maxWidth: 1200, mt: 8 }}>
-        <Grid item xs={12} md={6}>
-          <Logos />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <G2Awards />
-        </Grid>
-      </Grid>
-    </Stack>
-  );
-}
