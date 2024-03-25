@@ -38,7 +38,7 @@ const ZestyImage = ({
       const newUrl = `${acc}${idx === 0 ? '?' : '&'}${item[0]}=${item[1]}`;
       return newUrl;
     },
-    src ? src : FillerContent.photos[0].src,
+    src ? `${src}?raw=true` : FillerContent.photos[0].src,
   );
 
 

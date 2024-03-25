@@ -286,9 +286,13 @@ const SimpleHeroWithImageAndCtaButtons = ({
             xs={12}
             md={6}
           >
+
+            {/* https://kfg6bckb.media.zestyio.com/Content---AI-Generator.SyiuofJyC.jpg */}
+            {/* https://kfg6bckb.media.zestyio.com/optimizilla.jpg */}
             {!video ? (
               <ZestyImage
                 src={'https://kfg6bckb.media.zestyio.com/optimizilla.jpg' || FillerContent.image}
+                // width={1440}
                 style={{ width: '100%', height: 'auto', objectFit: 'contain'}}
                 alt={
                   mainTitle ||
