@@ -141,7 +141,7 @@ const StyledPopper = styled(Popper)({
 
 const filterOptions = createFilterOptions({
   matchFrom: 'any',
-  stringify: (option) => option.name + option.value,
+  stringify: (option) => option.name + option.value + option.id,
 });
 
 const Index = ({
@@ -161,6 +161,7 @@ const Index = ({
     return {
       name: e.name,
       value: e.ZUID,
+      id: e.ID,
     };
   });
 
