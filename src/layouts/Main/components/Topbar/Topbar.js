@@ -35,6 +35,7 @@ const Topbar = ({
   userInfo = {},
   loading = false,
   flyoutNavigation: data = [],
+  cta,
 }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -167,7 +168,7 @@ const Topbar = ({
               </Box>
               <Box>
                 <TryFreeButton
-                  text="Contact Sales"
+                  text={cta}
                   variant="contained"
                   component="a"
                   size="large"
