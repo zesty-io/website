@@ -93,6 +93,7 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
   if (isDocsPage) {
     return <></>;
   }
+
   return (
     <Box
       width={1}
