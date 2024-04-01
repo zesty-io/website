@@ -2248,6 +2248,11 @@ export const flyoutNavigation = [
             ],
           },
           related_articles: null,
+          meta: {
+            web: {
+              uri: '/mindshare/customer-stories/rocket-league-launches-e-sports-site-celebrating-players-and-tournaments/',
+            },
+          },
         },
       ],
     },
@@ -2383,6 +2388,11 @@ export const flyoutNavigation = [
             ],
           },
           related_articles: null,
+          meta: {
+            web: {
+              uri: '/mindshare/customer-stories/cornershop-by-uber-selects-zesty-io-to-drive-global-expansion-effort/',
+            },
+          },
         },
       ],
     },
