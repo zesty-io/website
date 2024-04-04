@@ -82,8 +82,8 @@ export async function getServerSideProps({ req, res }) {
     (await isUserAuthenticated(req, true, isProd)) || getIsAuthenticated(res);
   const response = await fetch(url, { cache: 'no-cache' });
   const loginResponse = await fetch(loginUrl, { cache: 'no-cache' });
-  const loginData = await loginResponse.json();
   const data = await response.json();
+  const loginData = await loginResponse.json();
 
   return {
     props: {
