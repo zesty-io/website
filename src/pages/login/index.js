@@ -16,14 +16,15 @@ const site = 'https://www.zesty.io';
 const Login = (props) => {
   const router = useRouter();
   const content = props.data.data[0].content;
+  const loginContent = props.loginData.data[0].content;
   const ogimage = content?.feature_image?.data[0]?.url;
 
   const preview = ogimage.replace(
     'kfg6bckb.media.zestyio.com',
     'kfg6bckb.media.zesty.site',
   );
-  const title = content.seo_meta_title;
-  const description = content.seo_meta_description;
+  const title = loginContent.seo_meta_title;
+  const description = loginContent.seo_meta_description;
   const canonicalURL = site + router.asPath;
 
   const isLoggedIn = useIsLoggedIn();
@@ -66,22 +67,31 @@ const Login = (props) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const isProd = process.env.PRODUCTION === 'true' ? true : false;
+  const isProd = process.env.PRODUCTION === 'true';
+  const baseUrl = isProd
+    ? 'https://www.zesty.io'
+    : 'https://kfg6bckb-dev.webengine.zesty.io';
 
-  let url = 'https://www.zesty.io/-/instant/6-90fbdcadfc-4lc0s5.json';
-  if (!isProd) {
-    url =
-      'https://kfg6bckb-dev.webengine.zesty.io/-/instant/6-90fbdcadfc-4lc0s5.json';
-  }
+  const url = `${baseUrl}/-/instant/6-90fbdcadfc-4lc0s5.json`;
+  const loginUrl = `${baseUrl}/-/instant/6-ccb9ca9fc1-06fhhc.json`;
 
   let isAuthenticated =
     (await isUserAuthenticated(req, true, isProd)) || getIsAuthenticated(res);
-  const response = await fetch(url, { cache: 'no-cache' });
-  const data = await response.json();
+
+  const [response, loginResponse] = await Promise.all([
+    fetch(url, { cache: 'no-cache' }),
+    fetch(loginUrl, { cache: 'no-cache' }),
+  ]);
+
+  const [data, loginData] = await Promise.all([
+    response.json(),
+    loginResponse.json(),
+  ]);
 
   return {
     props: {
       data,
+      loginData,
       isAuthenticated,
     },
   };
