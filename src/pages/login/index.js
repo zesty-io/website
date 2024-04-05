@@ -67,23 +67,26 @@ const Login = (props) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const isProd = process.env.PRODUCTION === 'true' ? true : false;
+  const isProd = process.env.PRODUCTION === 'true';
+  const baseUrl = isProd
+    ? 'https://www.zesty.io'
+    : 'https://kfg6bckb-dev.webengine.zesty.io';
 
-  let url = 'https://www.zesty.io/-/instant/6-90fbdcadfc-4lc0s5.json';
-  let loginUrl = 'https://www.zesty.io/-/instant/6-ccb9ca9fc1-06fhhc.json';
-  if (!isProd) {
-    url =
-      'https://kfg6bckb-dev.webengine.zesty.io/-/instant/6-90fbdcadfc-4lc0s5.json';
-    loginUrl =
-      'https://kfg6bckb-dev.webengine.zesty.io/-/instant/6-ccb9ca9fc1-06fhhc.json';
-  }
+  const url = `${baseUrl}/-/instant/6-90fbdcadfc-4lc0s5.json`;
+  const loginUrl = `${baseUrl}/-/instant/6-ccb9ca9fc1-06fhhc.json`;
 
   let isAuthenticated =
     (await isUserAuthenticated(req, true, isProd)) || getIsAuthenticated(res);
-  const response = await fetch(url, { cache: 'no-cache' });
-  const loginResponse = await fetch(loginUrl, { cache: 'no-cache' });
-  const data = await response.json();
-  const loginData = await loginResponse.json();
+
+  const [response, loginResponse] = await Promise.all([
+    fetch(url, { cache: 'no-cache' }),
+    fetch(loginUrl, { cache: 'no-cache' }),
+  ]);
+
+  const [data, loginData] = await Promise.all([
+    response.json(),
+    loginResponse.json(),
+  ]);
 
   return {
     props: {
