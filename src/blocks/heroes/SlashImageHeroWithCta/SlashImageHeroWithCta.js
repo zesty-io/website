@@ -109,6 +109,7 @@ const Hero = ({
           </>
         )}
 
+
         <Stack
           sx={{
             display: 'flex',
@@ -126,7 +127,7 @@ const Hero = ({
               {cta_left || FillerContent.cta}
             </Button>
           ) : (
-            <TryFreeButton
+            cta_left && <TryFreeButton
               text={cta_left}
               variant="contained"
               size="large"
