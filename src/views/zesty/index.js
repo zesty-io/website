@@ -210,6 +210,7 @@ const DocsOverview = dynamic(() => import('./DocsOverview'));
 const CmWorldDemo = dynamic(() => import('./CmWorldDemo'));
 const Header = dynamic(() => import('./Header'));
 const Footer = dynamic(() => import('./Footer'));
+const Freestyle = dynamic(() => import('./Freestyle'));
 
 export {
   Clipping,
@@ -393,4 +394,5 @@ export {
   CmWorldDemo,
   Footer,
   Header,
+  Freestyle,
 };
