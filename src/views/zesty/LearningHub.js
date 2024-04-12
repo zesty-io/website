@@ -24,6 +24,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+import { Box } from '@mui/material';
 import Hero from 'components/marketing/LearningHub/Hero';
 import LearningHubVideosProvider from 'components/marketing/LearningHub/context/LearningHubVideosContext';
 import FeaturedVideos from 'components/marketing/LearningHub/FeaturedVideos';
@@ -55,8 +56,19 @@ function LearningHub({ content }) {
     <>
       <LearningHubVideosProvider inititalEntities={videos?.data}>
         <Hero {...heroProps} />
-        <FeaturedVideos featuredVideos={content?.featured_videos?.data} />
+        <Box sx={{ pt: 10 }}>
+          <FeaturedVideos
+            title="Featured Videos"
+            featuredVideos={content?.featured_videos?.data}
+          />
+        </Box>
         <MainVideos withPagination={true} />
+        <Box sx={{ pb: 10 }}>
+          <FeaturedVideos
+            title="Featured Tutorials"
+            featuredVideos={content?.featured_tutorials?.data}
+          />
+        </Box>
       </LearningHubVideosProvider>
     </>
   );
