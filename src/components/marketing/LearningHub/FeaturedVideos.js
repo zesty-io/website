@@ -15,7 +15,7 @@ import VideoCard from './FeaturedCard';
 import { useContext } from 'react';
 import { LearningHubVideosContext } from './context/LearningHubVideosContext';
 
-const FeaturedVideos = ({ featuredVideos = [] }) => {
+const FeaturedVideos = ({ title, featuredVideos = [] }) => {
   const { searchKey, selectedTags } = useContext(LearningHubVideosContext);
 
   /************************************************
@@ -30,7 +30,6 @@ const FeaturedVideos = ({ featuredVideos = [] }) => {
       <Box
         hidden={searchKey !== '' || selectedTags !== '' ? true : false}
         sx={{
-          pt: 10,
           px: 4,
         }}
         component="section"
@@ -45,7 +44,7 @@ const FeaturedVideos = ({ featuredVideos = [] }) => {
               textAlign: isExtraSmall ? 'center' : 'text-left',
             }}
           >
-            Featured Videos
+            {title}
           </Typography>
           <Grid container spacing={2}>
             {featuredVideos?.map((item, idx) => {
