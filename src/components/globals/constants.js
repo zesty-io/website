@@ -666,6 +666,39 @@ export const flyoutNavigation = [
       totalItems: 3,
       data: [
         {
+          nav_item_name: 'Drag and Drop Page Designer',
+          page_link: {
+            type: 'relationship',
+            model: 'freestyle',
+            totalItems: 1,
+            data: [{}],
+          },
+          external_link_if_needed: '/freestyle',
+          parent_nav_item: {
+            type: 'relationship',
+            model: 'sub_nav2022',
+            totalItems: 1,
+            data: [
+              {
+                message: 'max hydration depth hit',
+              },
+            ],
+          },
+          icon_image: {
+            type: 'images',
+            totalItems: 1,
+            data: [
+              {
+                type: 'image',
+                zuid: '3-11748308-nvd2g3',
+                url: 'https://kfg6bckb.media.zestyio.com/website-design.png',
+              },
+            ],
+          },
+          sort_order: '0',
+          main_or_blue_secondary_item: '1',
+        },
+        {
           nav_item_name: 'SEO',
           page_link: {
             type: 'relationship',
@@ -11413,6 +11446,15 @@ export const navigationCustom = [
     url: '/learning-hub/',
     title: 'Learning Hub Videos',
     zuid: '7-cc809dacb1-hxjshj',
+    children: [],
+  },
+  {
+    external: false,
+    parentZUID: null,
+    sort: '1',
+    url: '/freestyle/',
+    title: 'Freestyle',
+    zuid: '7-d0c28d93ea-vqbq8j',
     children: [],
   },
   {
