@@ -49,6 +49,7 @@ const Filters = ({ featuredCards, tags }) => {
               component="a"
               p={1}
               sx={{
+                cursor: 'pointer',
                 textDecoration: 'none',
                 width: '100%',
                 maxWidth: isTablet ? 'auto' : 550,
@@ -72,6 +73,7 @@ const Filters = ({ featuredCards, tags }) => {
                   ? theme.palette.zesty.zestyBlue
                   : theme.palette.background.paper,
               }}
+              onClick={() => setSelectedTags(item.title)}
             >
               <Typography
                 sx={{
