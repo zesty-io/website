@@ -8,6 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  * Components Imports
  */
 import VideoCard from './FeaturedCard';
+import WistiaVideoCard from './FeaturedWistiaCard';
 
 /**
  * React Imports
@@ -51,7 +52,11 @@ const FeaturedVideos = ({ title, featuredVideos = [] }) => {
               return (
                 <Grid key={idx} item xs={12} md={6} lg={4}>
                   <Box sx={{ textDecoration: 'none' }}>
-                    <VideoCard {...item} />
+                    {item?.youtube_link ? (
+                      <VideoCard {...item} />
+                    ) : (
+                      <WistiaVideoCard {...item} />
+                    )}
                   </Box>
                 </Grid>
               );
