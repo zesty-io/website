@@ -18,7 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 /**
  * React Imports
  */
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { LearningHubVideosContext } from './context/LearningHubVideosContext';
 
 const Filters = ({ featuredCards, tags }) => {
@@ -32,6 +32,16 @@ const Filters = ({ featuredCards, tags }) => {
   const { setSearchKey, selectedTags, setSelectedTags } = useContext(
     LearningHubVideosContext,
   );
+
+  const scrollToVideos = () => {
+    document.getElementById('scrollTop').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (selectedTags) {
+      scrollToVideos();
+    }
+  }, [selectedTags]);
 
   return (
     <Container>
@@ -73,7 +83,9 @@ const Filters = ({ featuredCards, tags }) => {
                   ? theme.palette.zesty.zestyBlue
                   : theme.palette.background.paper,
               }}
-              onClick={() => setSelectedTags(item.title)}
+              onClick={() => {
+                setSelectedTags(item.title);
+              }}
             >
               <Typography
                 sx={{
@@ -122,7 +134,9 @@ const Filters = ({ featuredCards, tags }) => {
         {tags.map((item, idx) => (
           <Grid key={idx} item sm={6} md={4} lg={2}>
             <Box
-              onClick={() => setSelectedTags(item.tag_name)}
+              onClick={() => {
+                setSelectedTags(item.tag_name);
+              }}
               sx={{
                 textDecoration: 'none',
                 border: item.isActive
