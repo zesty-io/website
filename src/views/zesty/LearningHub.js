@@ -59,7 +59,7 @@ function LearningHub({ content }) {
         <Box sx={{ pt: 10 }}>
           <FeaturedVideos
             title="Featured Videos"
-            featuredVideos={content?.featured_videos?.data}
+            featuredVideos={content?.featured_wistia_videos?.data}
           />
         </Box>
         <MainVideos withPagination={true} />
