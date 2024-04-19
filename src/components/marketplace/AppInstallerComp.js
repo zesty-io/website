@@ -122,12 +122,12 @@ export const AppInstallerComp = ({ data }) => {
         loading={loading || (isInstalled && selectInstance)}
       >
         {!appSID
-          ? 'Please Login to continue'
+          ? 'Get Started'
           : !instanceZUID
-          ? 'Select an Instance to continue'
+          ? 'Get Started'
           : isInstalled && !selectInstance
           ? `App Installed in ${instanceName}`
-          : `Install  ${data?.name} in ${instanceName}`}
+          : `Get Started`}
       </LoadingButton>
       {isInstalled && (
         <LoadingButton
