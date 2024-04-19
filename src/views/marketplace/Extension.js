@@ -39,7 +39,7 @@ const InstallButton = ({ data, theme }) => {
         color="secondary"
         fullWidth
       >
-        Install {data.name}
+        Get Started
       </Button>
     );
   } else if (data.github_url && !data.app_zuid && !data.resource_link) {
@@ -162,8 +162,11 @@ const Extension = (props) => {
               <Typography
                 variant="h5"
                 component="p"
-                color="text.secondary"
                 mb={1}
+                sx={{
+                  color: theme.palette.zesty.zestyZambezi,
+                  fontWeight: 'bold',
+                }}
               >
                 {props.subtitle}
               </Typography>
@@ -192,9 +195,56 @@ const Extension = (props) => {
                         props: {
                           sx: {
                             color: theme.palette.zesty.zestyZambezi,
+                            marginTop: 2,
                           },
-                          variant: 'h5',
+                          variant: 'h6',
                           component: 'p',
+                        },
+                      },
+                      h4: {
+                        component: Typography,
+                        props: {
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                            marginTop: 4,
+                            fontWeight: 'bold',
+                          },
+                          variant: 'h6',
+                          component: 'p',
+                        },
+                      },
+                      h3: {
+                        component: Typography,
+                        props: {
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                            marginTop: 4,
+                            fontWeight: 'bold',
+                          },
+                          variant: 'h6',
+                          component: 'p',
+                        },
+                      },
+                      h2: {
+                        component: Typography,
+                        props: {
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                            marginTop: 4,
+                            fontWeight: 'bold',
+                          },
+                          variant: 'h6',
+                          component: 'p',
+                        },
+                      },
+                      li: {
+                        component: Typography,
+                        props: {
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
+                          variant: 'h6',
+                          component: 'li',
                         },
                       },
                       img: {

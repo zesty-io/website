@@ -15,9 +15,7 @@ const ExtensionsIntaller = ({ extensionName, githubUrl, data }) => {
   const { setworkingInstance } = useZestyStore((state) => state);
   const [instances, setinstances] = React.useState([]);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const instanceName = instances?.data?.find(
-    (e) => e.ZUID === instanceZUID,
-  )?.name;
+
   let ZestyAPI = useZestyStore((state) => state.ZestyAPI);
 
   // TEMPLATE URL can be access in env files
@@ -171,14 +169,14 @@ const ExtensionsIntaller = ({ extensionName, githubUrl, data }) => {
       loading={loading}
     >
       {!appSID
-        ? 'Please Login To Continue'
+        ? 'Get Started'
         : !instanceZUID
-        ? `Select Instance to continue`
+        ? `Get Started`
         : loading && !finishInstall
         ? `Installing ${extensionName}`
         : !loading && finishInstall
         ? `${extensionName} has been Installed`
-        : `Install ${extensionName} to ${instanceName}`}
+        : `Get Started`}
     </LoadingButton>
   );
 };
