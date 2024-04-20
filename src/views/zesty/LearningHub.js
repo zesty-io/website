@@ -66,7 +66,7 @@ function LearningHub({ content }) {
         <Box sx={{ pb: 10 }}>
           <FeaturedVideos
             title="Featured Tutorials"
-            featuredVideos={content?.featured_tutorials?.data}
+            featuredVideos={content?.featured_wistia_channels?.data}
           />
         </Box>
       </LearningHubVideosProvider>
