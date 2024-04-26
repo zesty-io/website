@@ -58,6 +58,7 @@ import SingleTestimonial from 'components/marketing/Freestyle/SingleTesimonial';
 import TechStack from 'components/marketing/Freestyle/TechStack';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import FAQs from 'components/marketing/Freestyle/FAQs';
+import FeaturedUseCase from 'components/marketing/Freestyle/FeaturedUseCase';
 
 const benefitsData = (dataArray) => {
   return (
@@ -70,6 +71,20 @@ const benefitsData = (dataArray) => {
         secondaryCtaText: item.secondary_cta_text,
         primaryCtaLink: item.left_cta_link?.data?.[0].meta?.web?.uri,
         secondaryCtaLink: item.right_cta_link?.data?.[0].meta?.web?.uri,
+      });
+
+      return acc;
+    }, []) || []
+  );
+};
+
+const featureUseCaseData = (dataArray) => {
+  return (
+    dataArray?.data?.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.use_case_image?.data[0].url,
+        title: item.header,
+        content: item.use_case_content,
       });
 
       return acc;
@@ -112,9 +127,15 @@ function Freestyle({ content }) {
     cta_link: content.integration_button_link,
   };
 
+  const featuredUseCaseProps = {
+    title: content.featured_use_cases_title,
+    data: featureUseCaseData(content.featured_use_cases),
+  };
+
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Hero {...heroProps} />
+      <FeaturedUseCase {...featuredUseCaseProps} />
       <UseCase {...useCasesProps} />
       <SimpleCardLogo
         variant="outlined"
