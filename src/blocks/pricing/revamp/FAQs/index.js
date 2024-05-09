@@ -57,7 +57,7 @@ const FAQs = ({ faqs, title, subtitle }) => {
             </Typography>
           </Grid>
           <Grid item xs={0} lg={2} />
-          {subtitle === '' && subtitle && (
+          {subtitle !== '' && subtitle && (
             <Grid item xs={12} md={6} lg={6}>
               <Typography
                 sx={{
