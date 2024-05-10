@@ -14,7 +14,7 @@ export const MultiFieldForm = ({
   isLong,
   isContact,
   inquiryReasons,
-  cta = 'Book Demo',
+  cta = 'Contact Sales',
   id,
 }) => {
   return (
