@@ -4,11 +4,15 @@ import { useTheme } from '@mui/material/styles';
 import MuiMarkdown from 'markdown-to-jsx';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { useEffect, useState } from 'react';
+import FillerContent from 'components/globals/FillerContent';
+import ZestyImage from 'blocks/Image/ZestyImage';
+import ReactPlayer from 'react-player';
 
 const Hero = ({
   overline = '',
   description,
   heroImage = 'https://kfg6bckb.media.zestyio.com/Hero-Image-2.webp',
+  heroVideo,
   primaryCta = 'Talk to Us',
   primaryCtaLink = '/demo?ab=light',
   secondaryCtaText,
@@ -153,15 +157,36 @@ const Hero = ({
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={12} lg={6} sx={{ position: 'relative', zIndex: 1 }}>
-          <img
-            loading="eager"
-            src={heroImage}
-            width="100%"
-            height="100%"
-            alt="Zesty Image"
-            style={{ objectFit: 'contain ' }}
-          />
+        <Grid item xs={12} lg={6}>
+          <Box
+            sx={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              iframe: {
+                borderRadius: 5,
+              },
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            {!heroVideo ? (
+              <ZestyImage
+                src={heroImage || FillerContent.image}
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
+            ) : (
+              <ReactPlayer
+                width={'100%'}
+                url={heroVideo || FillerContent.videoUrl}
+                muted={false}
+                playing={false}
+                loop={true}
+                controls={true}
+              />
+            )}
+          </Box>
         </Grid>
       </Grid>
     </Box>
