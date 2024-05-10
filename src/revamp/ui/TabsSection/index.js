@@ -203,7 +203,7 @@ const TabsSection = ({
           return list[nextIndex]?.name;
         });
       }
-    }, 2500);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [list, trigger]);
