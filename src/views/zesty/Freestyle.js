@@ -59,6 +59,8 @@ import TechStack from 'components/marketing/Freestyle/TechStack';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import FAQs from 'components/marketing/Freestyle/FAQs';
 import FeaturedUseCase from 'components/marketing/Freestyle/FeaturedUseCase';
+import Resources from 'components/marketing/IntegrationsIndividualPage/Resources';
+import { useMediaQuery } from '@mui/material';
 
 const benefitsData = (dataArray) => {
   return (
@@ -95,10 +97,17 @@ const featureUseCaseData = (dataArray) => {
 function Freestyle({ content }) {
   const theme = useTheme();
 
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
   const heroProps = {
     overline: content.header_eyebrow,
     description: content.hero_description,
     heroImage: content.header_graphic?.data[0]?.url,
+    heroVideo: content.hero_promo_video,
     primaryCta: content.hero_primary_cta_text || FillerContent.link,
     primaryCtaLink:
       (content.hero_primary_cta_link == 0 && '/join/') ||
@@ -130,12 +139,34 @@ function Freestyle({ content }) {
   const featuredUseCaseProps = {
     title: content.featured_use_cases_title,
     data: featureUseCaseData(content.featured_use_cases),
+    imageWidth: 150,
+  };
+
+  const faqsProps = {
+    faqs: content?.faqs.data,
+    title: content?.faq_title,
+    subtitle: content?.faq_subtitle,
+  };
+
+  const resourcesProps = {
+    theme,
+    isSmall,
+    isMedium,
+    isLarge,
+    isExtraLarge,
+    isDarkMode,
+    content: {
+      resources_title: content?.resources_title,
+      resources_buttons: content?.resources_buttons,
+    },
+    FillerContent,
   };
 
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Hero {...heroProps} />
       <FeaturedUseCase {...featuredUseCaseProps} />
+      <Resources {...resourcesProps} />
       <UseCase {...useCasesProps} />
       <SimpleCardLogo
         variant="outlined"
@@ -148,7 +179,7 @@ function Freestyle({ content }) {
       {content.integrations_title && content.integration_logos && (
         <TechStack {...integrationProps} />
       )}
-      <FAQs faqsData={content?.faqs.data} />
+      <FAQs {...faqsProps} />
     </ThemeProvider>
   );
 }
