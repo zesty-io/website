@@ -28,7 +28,7 @@ import React from 'react';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 import revampTheme from 'theme/revampTheme';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
-import FAQs from 'components/marketing/Freestyle/FAQs';
+import FAQs from 'revamp/ui/GetDemoSection/FAQs';
 
 function Contact({ content }) {
   const theme = useTheme();

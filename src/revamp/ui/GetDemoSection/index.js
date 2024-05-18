@@ -153,7 +153,7 @@ const GetDemoSection = ({
                 {data?.description || supportingText}
               </MuiMarkdown>
             </Stack>
-            <Testimonial review={review} />
+            {review && <Testimonial review={review} />}
             <TrustLogos />
           </Stack>
 
