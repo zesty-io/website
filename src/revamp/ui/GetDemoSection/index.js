@@ -17,6 +17,7 @@ import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
 import { generateAlt } from 'utils';
 import useGetDynamicData from './useGetDynamicData';
 import { useRouter } from 'next/router';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -41,6 +42,7 @@ const GetDemoSection = ({
   formTitle = 'Enter your details to connect with a Content Expert',
   cta,
   id,
+  review,
 }) => {
   const router = useRouter();
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
@@ -90,154 +92,156 @@ const GetDemoSection = ({
   };
 
   return (
-    <Stack bgcolor="grey.900">
-      <Stack
-        sx={(theme) => ({
-          [theme.breakpoints.up('xs')]: {
-            maxWidth: theme.maxWidth,
-            mx: 'auto',
-            py: 4,
-            px: 2,
-          },
-          [theme.breakpoints.up('tablet')]: {
-            py: 6,
-            px: 4,
-          },
-          [theme.breakpoints.up('lg')]: {
-            flexDirection: 'row',
-            py: 10,
-            px: 14,
-            gap: 8,
-          },
-          [theme.breakpoints.up('desktopWide')]: {
-            gap: 15,
-          },
-        })}
-      >
+    <>
+      <Stack bgcolor="grey.900">
         <Stack
-          spacing={8}
-          mb={{ xs: 8, lg: 0 }}
-          width={{ lg: '456px', desktopWide: '548px' }}
+          sx={(theme) => ({
+            [theme.breakpoints.up('xs')]: {
+              maxWidth: theme.maxWidth,
+              mx: 'auto',
+              py: 4,
+              px: 2,
+            },
+            [theme.breakpoints.up('tablet')]: {
+              py: 6,
+              px: 4,
+            },
+            [theme.breakpoints.up('lg')]: {
+              flexDirection: 'row',
+              py: 10,
+              px: 14,
+              gap: 8,
+            },
+            [theme.breakpoints.up('desktopWide')]: {
+              gap: 15,
+            },
+          })}
         >
-          <Stack>
-            <Typography
-              variant="h1"
-              fontWeight={800}
-              letterSpacing="-0.02em"
-              color="white"
-            >
-              {data?.title || title}
-            </Typography>
+          <Stack
+            spacing={4}
+            mb={{ xs: 8, lg: 0 }}
+            width={{ lg: '456px', desktopWide: '548px' }}
+          >
+            <Stack>
+              <Typography
+                variant="h1"
+                fontWeight={800}
+                letterSpacing="-0.02em"
+                color="white"
+              >
+                {data?.title || title}
+              </Typography>
 
-            <MuiMarkdown
-              options={{
-                overrides: {
-                  p: {
-                    component: Typography,
-                    props: {
-                      mt: 2,
-                      component: 'p',
-                      variant: 'h6',
-                      whiteSpace: 'pre-line',
-                      color: 'grey.300',
-                      fontSize: '18px',
-                      lineHeight: '28px',
+              <MuiMarkdown
+                options={{
+                  overrides: {
+                    p: {
+                      component: Typography,
+                      props: {
+                        mt: 1,
+                        component: 'p',
+                        variant: 'h6',
+                        whiteSpace: 'pre-line',
+                        color: 'grey.300',
+                        fontSize: '18px',
+                        lineHeight: '28px',
+                      },
                     },
                   },
-                },
-              }}
-            >
-              {data?.description || supportingText}
-            </MuiMarkdown>
+                }}
+              >
+                {data?.description || supportingText}
+              </MuiMarkdown>
+            </Stack>
+            <Testimonial review={review} />
+            <TrustLogos />
           </Stack>
-          <TrustLogos />
-        </Stack>
 
-        <Stack>
-          <Stack
-            borderRadius="8px"
-            sx={(theme) => ({
-              height: '100%',
-              alignSelf: { lg: !isLong && 'center' },
-              p: 4,
-              bgcolor: theme.palette.mode === 'light' ? 'white' : 'grey.800',
-              width: { xs: '100%', lg: '456px', desktopWide: '548px' },
-            })}
-          >
-            <Formik
-              enableReinitialize
-              initialValues={{
-                firstName: '',
-                lastName: '',
-                company: '',
-                email: '',
-                phoneNumber: '',
-                message: '',
-                jobTitle: '',
-                businessEmail: '',
-                linkedIn: '',
-                inquiryReason: isContact ? 'General' : '',
-              }}
-              validationSchema={
-                isLong && !isContact
-                  ? validationSchema
-                  : isContact
-                  ? contactPageValidation
-                  : shortValidationSchema
-              }
-              onSubmit={async (values) => {
-                await onSubmit(values);
-              }}
+          <Stack>
+            <Stack
+              borderRadius="8px"
+              sx={(theme) => ({
+                height: '100%',
+                alignSelf: { lg: !isLong && 'center' },
+                p: 4,
+                bgcolor: theme.palette.mode === 'light' ? 'white' : 'grey.800',
+                width: { xs: '100%', lg: '456px', desktopWide: '548px' },
+              })}
             >
-              {({
-                handleSubmit,
-                getFieldProps,
-                errors,
-                touched,
-                initialValues,
-                isSubmitting,
-                setFieldValue,
-                values,
-              }) => (
-                <Form id="site-form" onSubmit={handleSubmit}>
-                  <Stack>
-                    <Typography
-                      component={'p'}
-                      variant="h4"
-                      letterSpacing="-0.02em"
-                      color="text.primary"
-                      fontWeight={800}
-                      mb={3}
-                    >
-                      {formTitle}
-                    </Typography>
+              <Formik
+                enableReinitialize
+                initialValues={{
+                  firstName: '',
+                  lastName: '',
+                  company: '',
+                  email: '',
+                  phoneNumber: '',
+                  message: '',
+                  jobTitle: '',
+                  businessEmail: '',
+                  linkedIn: '',
+                  inquiryReason: isContact ? 'General' : '',
+                }}
+                validationSchema={
+                  isLong && !isContact
+                    ? validationSchema
+                    : isContact
+                    ? contactPageValidation
+                    : shortValidationSchema
+                }
+                onSubmit={async (values) => {
+                  await onSubmit(values);
+                }}
+              >
+                {({
+                  handleSubmit,
+                  getFieldProps,
+                  errors,
+                  touched,
+                  initialValues,
+                  isSubmitting,
+                  setFieldValue,
+                  values,
+                }) => (
+                  <Form id="site-form" onSubmit={handleSubmit}>
+                    <Stack>
+                      <Typography
+                        component={'p'}
+                        variant="h4"
+                        letterSpacing="-0.02em"
+                        color="text.primary"
+                        fontWeight={800}
+                        mb={3}
+                      >
+                        {formTitle}
+                      </Typography>
 
-                    {/* Save this component as backup */}
+                      {/* Save this component as backup */}
 
-                    {isContact ? (
-                      <>
-                        <MultiFieldForm
-                          {...{
-                            isLong,
-                            isContact,
-                            handleSubmit,
-                            getFieldProps,
-                            errors,
-                            touched,
-                            initialValues,
-                            isSubmitting,
-                            setFieldValue,
-                            values,
-                            inquiryReasons,
-                            cta,
-                            id,
-                          }}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        {/* Singleform field component */}
-                        {/* <SingleFieldForm
+                      {isContact ? (
+                        <>
+                          <MultiFieldForm
+                            {...{
+                              isLong,
+                              isContact,
+                              handleSubmit,
+                              getFieldProps,
+                              errors,
+                              touched,
+                              initialValues,
+                              isSubmitting,
+                              setFieldValue,
+                              values,
+                              inquiryReasons,
+                              cta,
+                              id,
+                            }}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          {/* Singleform field component */}
+                          {/* <SingleFieldForm
                           formButtonText={formCtaText}
                           {...{
                             isLong,
@@ -254,43 +258,69 @@ const GetDemoSection = ({
                           }}
                         /> */}
 
-                        <MultiFieldForm
-                          {...{
-                            isLong,
-                            isContact,
-                            handleSubmit,
-                            getFieldProps,
-                            errors,
-                            touched,
-                            initialValues,
-                            isSubmitting,
-                            setFieldValue,
-                            values,
-                            inquiryReasons,
-                            cta,
-                            id,
-                          }}
-                        />
-                      </>
-                    )}
-                  </Stack>
-                </Form>
-              )}
-            </Formik>
+                          <MultiFieldForm
+                            {...{
+                              isLong,
+                              isContact,
+                              handleSubmit,
+                              getFieldProps,
+                              errors,
+                              touched,
+                              initialValues,
+                              isSubmitting,
+                              setFieldValue,
+                              values,
+                              inquiryReasons,
+                              cta,
+                              id,
+                            }}
+                          />
+                        </>
+                      )}
+                    </Stack>
+                  </Form>
+                )}
+              </Formik>
+            </Stack>
           </Stack>
         </Stack>
       </Stack>
-    </Stack>
+    </>
   );
 };
 
 export default GetDemoSection;
 
+function Testimonial({ review }) {
+  return (
+    <Stack gap={2}>
+      <Typography color={'white'} fontStyle={'italic'}>
+        {review?.review}
+      </Typography>
+      <Stack direction={'row'} gap={2} sx={{ alignItems: 'center' }}>
+        <ZestyImage
+          width={64}
+          height={64}
+          style={{ borderRadius: '50%' }}
+          src={review?.reviewer_headshot.data[0].url}
+          alt={generateAlt('')}
+        />
+        <Box>
+          <Typography color={'white'} fontWeight={'bold'}>
+            {review?.reviewer_name}
+          </Typography>
+          <Typography color={'white'}>{review?.reviewer_title}</Typography>
+        </Box>
+      </Stack>
+    </Stack>
+  );
+}
+
 function TrustLogos() {
   return (
     <Stack>
       <Logos alignLeft />
-      <Box sx={{ mt: 8 }}>
+      <Box sx={{ mt: 4 }}>
         <G2Awards alignLeft />
       </Box>
     </Stack>
