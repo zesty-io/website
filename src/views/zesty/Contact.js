@@ -28,6 +28,7 @@ import React from 'react';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 import revampTheme from 'theme/revampTheme';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
+import FAQs from 'revamp/ui/GetDemoSection/FAQs';
 
 function Contact({ content }) {
   const theme = useTheme();
@@ -38,11 +39,19 @@ function Contact({ content }) {
     formTitle: content?.demo_section_formtitle,
     cta: content?.cta_button_text,
     id: '#contact-cta',
+    review: content?.review.data[0],
+  };
+
+  const faqsProps = {
+    faqs: content?.faqs.data,
+    title: content?.faq_title,
+    subtitle: content?.faq_subtitle,
   };
 
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <GetDemoSection {...getDemoSectionProps} />
+      <FAQs {...faqsProps} />
     </ThemeProvider>
   );
 }
