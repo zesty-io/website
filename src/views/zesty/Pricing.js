@@ -32,79 +32,137 @@
  */
 
 // Mui Imports
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 
 // Components Import
-import PricingHero from '../../blocks/pricing/revamp/PricingHero';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+// import Container from 'components/Container';
+import Container from 'blocks/container/Container';
+import PricingHero from '../../blocks/pricing/PricingHero/PricingHero';
+import SupportBanner from '../../blocks/pricing/SupportBanner/SupportBanner';
+import Faq from '../../blocks/pricing/Faq/Faq';
 import useFetch from 'components/hooks/useFetch';
 import FillerContent from 'components/globals/FillerContent';
-import { PricingTierCards } from 'blocks/pricing/revamp/PricingTierCards';
-import PricingTable from 'blocks/pricing/revamp/PricingTable';
-import AdditionalFeatures from 'blocks/pricing/revamp/AdditionalFeatures';
-import Testimonial from 'blocks/pricing/revamp/Testimonial';
-import FAQs from 'blocks/pricing/revamp/FAQs';
-import Brands from 'blocks/pricing/revamp/Brands';
 
-const filterAdditionalFeatures = (features) => {
-  return features.filter((feature) => feature.classification[0] === "Add-on's");
-};
-
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
 function Pricing({ content }) {
-  const { data: levers } = useFetch(
-    `/-/pricing-levers-revamp.json`,
-    content.zestyProductionMode,
-  );
-
-  const { data: leverClassification } = useFetch(
-    `/-/pricing-levers-classification.json`,
-    content.zestyProductionMode,
-  );
-
+  const theme = useTheme();
   const heroProps = {
     title: content.title,
     subtitle: content.instance_definition,
     tiers: content.tiers.data,
   };
 
-  const faqsProps = {
-    faqs: content?.related_faqs?.data,
-    title: content?.faqs_title,
-    subtitle: content?.faqs_subtitle,
-  };
+  const [, setCategories] = useState([]);
 
-  const additionalFeaturesProps = {
-    features: filterAdditionalFeatures(levers),
-    title: content.additional_features_title,
-  };
+  const { data: pricingData } = useFetch(
+    `/-/pricing-levers.json`,
+    content.zestyProductionMode,
+  );
 
-  const pricingTableProps = {
-    levers: levers,
-    classification: leverClassification,
-    tiers: content.pricing_tiers_revamp.data,
-  };
+  useEffect(() => {
+    let leverCategories = [];
+    pricingData.forEach((item) => {
+      leverCategories.push(item.classification);
+    });
+    leverCategories.filter(onlyUnique);
+    let cats = [...new Set(leverCategories)];
+    setCategories(cats);
+  }, [pricingData]);
 
-  const testimonialProps = {
-    testimonials: content.testimonials.data,
-    title: content.testimonial_title,
-  };
+  // const [active, setActive] = useState(false);
+  // const featuresHandler = () => {
+  //   setActive(!active);
+  // };
+
+  // const pricingCompareTableData = content.tiers.data;
 
   return (
     <>
       <PricingHero {...heroProps} />
-      <PricingTierCards pricingTiers={content.pricing_tiers_revamp.data} />
-      <Brands
+      <SimpleCardLogo
         heading_text={
           content.logos_header || FillerContent.rich_text_sub_heading
         }
         variant=""
         logoItems={content.logos?.data}
         maxWidth={1400}
-        marginTop={10}
       />
-      <Testimonial {...testimonialProps} />
-      <PricingTable {...pricingTableProps} />
-      <AdditionalFeatures {...additionalFeaturesProps} />
-      <FAQs {...faqsProps} />
+
+      {/* {Pricing Comparison Table} */}
+      {/* <Container sx={{ mt: 10, maxWidth: 1400 }}>
+        <Card
+          variant="outlined"
+          sx={{
+            background: theme.palette.alternate.main,
+          }}
+        >
+          <Box
+            sx={{
+              py: 5,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography
+              variant="h4"
+              sx={{
+                color: theme.palette.zesty.zestyZambezi,
+                fontWeight: 'bold',
+                textAlign: 'center',
+              }}
+            >
+              {content?.comparison_heading}
+            </Typography>
+            <Button
+              onClick={featuresHandler}
+              sx={{ mt: 2 }}
+              variant="contained"
+              color="secondary"
+            >
+              {active ? content.show_comparison_ : content.hide_comparison}
+            </Button>
+          </Box>
+          {active && (
+            <Box sx={{ mt: 4 }}>
+              {categories.map((cat, idx) => (
+                <PricingCompareTable
+                  id={idx}
+                  tiers={content.tiers.data}
+                  category={cat}
+                  pricingLevers={pricingData}
+                />
+              ))}
+            </Box>
+          )}
+        </Card>
+      </Container> */}
+
+      <Box
+        sx={{
+          mt: 10,
+          background: theme.palette.zesty.zestyPurple,
+          color: 'white',
+        }}
+      >
+        <SupportBanner text_content={content.banner_content} />
+      </Box>
+
+      {/* <Container></Container> */}
+      {/* <Container maxWidth={400} paddingY={'0 !important'}>
+        <Divider />
+      </Container> */}
+      <Box sx={{ py: 10 }}>
+        <Container>
+          <Faq />
+        </Container>
+      </Box>
     </>
   );
 }
