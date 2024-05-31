@@ -25,6 +25,7 @@ import { AccountsPopover } from 'components/accounts/ui/popover';
 
 const MySwal = withReactContent(Swal);
 import dynamic from 'next/dynamic';
+import { baseroles } from 'components/accounts/users/baseroles';
 
 const AccountsTable = dynamic(() =>
   import('components/accounts').then((e) => e.AccountsTable),
@@ -248,7 +249,10 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
   });
 
   const newOptions = options.map((e) => {
-    return { ...e, value: e.accessLevel };
+    const res = baseroles.find((x) => x.ZUID === e.systemRoleZUID);
+
+    // accessLevel is needed for createInvite API
+    return { ...e, value: res.accessLevel };
   });
 
   return (
