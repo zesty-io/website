@@ -14,7 +14,6 @@ import {
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import AddIcon from '@mui/icons-material/Add';
-import { baseroles } from 'components/accounts/users/baseroles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
@@ -329,7 +328,7 @@ const Index = ({
           onClick={() =>
             handleInviteUserModal(
               createInvite,
-              baseroles.filter((c) => c.value !== 'owner'),
+              instanceRoles.filter((c) => c.value !== 'owner'),
               instanceZUID,
             )
           }
