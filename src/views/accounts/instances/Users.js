@@ -237,12 +237,14 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
       accessLevel: '',
     },
     onSubmit: async (values) => {
+      const res = newOptions.find((x) => x.ZUID === values.accessLevel);
       const val = {
         inviteeName: values.name,
         inviteeEmail: values.email,
         entityZUID: instanceZUID,
-        accessLevel: values.accessLevel,
+        accessLevel: res.accessLevel,
       };
+
       await onSubmit(val);
       formik.resetForm();
     },
@@ -252,7 +254,7 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
     const res = baseroles.find((x) => x.ZUID === e.systemRoleZUID);
 
     // accessLevel is needed for createInvite API
-    return { ...e, value: res.accessLevel };
+    return { ...e, value: res.accessLevel, accessLevel: res.accessLevel };
   });
 
   return (

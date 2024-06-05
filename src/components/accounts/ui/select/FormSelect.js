@@ -11,11 +11,6 @@ export const FormSelect = ({ name = '', formik, label = '', options = [] }) => {
         sx={{
           height: 54,
           textAlign: 'left',
-          // '& .MuiOutlinedInput-root.Mui-focused': {
-          //   '& > fieldset': {
-          //     border: '1px solid #c4c4c4',
-          //   },
-          // },
           '& .MuiOutlinedInput-root:hover': {
             '& > fieldset': {
               border: '1px solid #c4c4c4',
@@ -34,7 +29,7 @@ export const FormSelect = ({ name = '', formik, label = '', options = [] }) => {
         helperText={formik.touched[name] && formik.errors[name]}
       >
         {options.map((option) => (
-          <MenuItem key={option?.id} value={option.value}>
+          <MenuItem key={option?.id} value={option.ZUID}>
             {option.label}
           </MenuItem>
         ))}
