@@ -152,7 +152,9 @@ const CustomTable = ({
       editable: false,
       renderHeader: () => <AccountsTableHead>Last Active</AccountsTableHead>,
       renderCell: (params) => {
-        const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
+        const date = !dayjs(params.row.lastLogin).isValid()
+          ? ''
+          : dayjs(params.row.lastLogin).format('MMM DD, YYYY');
         return (
           <Typography variant="body2" color={'text.secondary'}>
             {date}
