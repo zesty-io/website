@@ -107,7 +107,9 @@ export default function DomainListings({
         renderCell: (params) => {
           return (
             <Typography variant="body2">
-              {dayjs(params.row.createdAt).format('MMM DD, YYYY')}
+              {!dayjs(params.row.createdAt).isValid()
+                ? ''
+                : dayjs(params.row.createdAt).format('MMM DD, YYYY')}
             </Typography>
           );
         },
