@@ -118,7 +118,7 @@ const GetDemoSection = ({
           })}
         >
           <Stack
-            spacing={4}
+            spacing={10}
             mb={{ xs: 8, lg: 0 }}
             width={{ lg: '456px', desktopWide: '548px' }}
           >
@@ -144,7 +144,7 @@ const GetDemoSection = ({
                         whiteSpace: 'pre-line',
                         color: 'grey.300',
                         fontSize: '18px',
-                        lineHeight: '22px',
+                        lineHeight: '24px',
                       },
                     },
                   },
