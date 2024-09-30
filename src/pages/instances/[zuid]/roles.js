@@ -1,12 +1,58 @@
+import { useState, useEffect, useMemo } from 'react';
+import { useRouter } from 'next/router';
+
+import { useZestyStore } from 'store';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import { Roles } from 'views/accounts';
+import { ErrorMsg } from 'components/accounts';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function RolesPage() {
+  const router = useRouter();
+  const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+  const [isLoading, setIsLoading] = useState(false);
+  const [usersWithRoles, setUsersWithRoles] = useState([]);
+
+  const { zuid } = router.query;
+
+  const hasPermission = useMemo(() => {
+    if (!userInfo?.ZUID || !usersWithRoles?.length) return false;
+
+    return ['admin', 'owner'].includes(
+      usersWithRoles
+        ?.find((user) => user.ZUID === userInfo?.ZUID)
+        ?.role?.name?.toLowerCase(),
+    );
+  }, [userInfo, usersWithRoles]);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setIsLoading(true);
+
+      Promise.all([getInstanceUserWithRoles()]).finally(() =>
+        setIsLoading(false),
+      );
+    }
+  }, [router.isReady]);
+
+  const getInstanceUserWithRoles = async () => {
+    const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
+
+    if (res.error) {
+      ErrorMsg({ text: res.error });
+    } else {
+      setUsersWithRoles(res.data);
+    }
+  };
+
   return (
     <InstanceContainer>
-      <Roles />
+      <Roles
+        isLoading={isLoading}
+        usersWithRoles={usersWithRoles}
+        hasPermission={hasPermission}
+      />
     </InstanceContainer>
   );
 }

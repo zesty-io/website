@@ -11,10 +11,8 @@ import {
 import { Search, AddRounded } from '@mui/icons-material';
 import { AccountsHeader } from 'components/accounts';
 
-export const Roles = ({}) => {
+export const Roles = ({ hasPermission }) => {
   // const theme = useTheme();
-
-  const hasPermission = true;
 
   return (
     <Box>
