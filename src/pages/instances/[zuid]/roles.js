@@ -13,7 +13,7 @@ export default function RolesPage() {
   const router = useRouter();
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const { usersWithRoles, setUsersWithRoles } = useRoles((state) => state);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isInitializingData, setIsInitializingData] = useState(true);
 
   const { zuid } = router.query;
 
@@ -29,10 +29,8 @@ export default function RolesPage() {
 
   useEffect(() => {
     if (router.isReady) {
-      setIsLoading(true);
-
       Promise.all([getInstanceUserWithRoles()]).finally(() =>
-        setIsLoading(false),
+        setIsInitializingData(false),
       );
     }
   }, [router.isReady]);
@@ -50,7 +48,7 @@ export default function RolesPage() {
 
   return (
     <InstanceContainer>
-      <Roles isLoading={isLoading} hasPermission={hasPermission} />
+      <Roles isLoading={isInitializingData} hasPermission={hasPermission} />
     </InstanceContainer>
   );
 }

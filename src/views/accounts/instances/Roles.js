@@ -4,6 +4,7 @@ import {
   Stack,
   InputAdornment,
   ThemeProvider,
+  CircularProgress,
 } from '@mui/material';
 import { Search, AddRounded } from '@mui/icons-material';
 
@@ -12,8 +13,33 @@ import { AccountsHeader } from 'components/accounts';
 import { NoPermission } from 'components/globals/NoPermission';
 import { theme } from '@zesty-io/material';
 
-export const Roles = ({ hasPermission }) => {
+export const Roles = ({ isLoading, hasPermission }) => {
   const { usersWithRoles } = useRoles((state) => state);
+
+  if (isLoading) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Stack height="100%">
+          <AccountsHeader
+            title="Roles & Permissions"
+            description="Manage your roles and their permissions"
+            info="Lorem ipsum sit dolor"
+          ></AccountsHeader>
+          <Stack
+            ml={1}
+            mr={3}
+            bgcolor="grey.50"
+            flex={1}
+            borderRadius={2}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <CircularProgress />
+          </Stack>
+        </Stack>
+      </ThemeProvider>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>
