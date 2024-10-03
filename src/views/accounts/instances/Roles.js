@@ -5,6 +5,7 @@ import {
   InputAdornment,
   ThemeProvider,
   CircularProgress,
+  Typography,
 } from '@mui/material';
 import { Search, AddRounded } from '@mui/icons-material';
 
@@ -41,6 +42,31 @@ export const Roles = ({ isLoading, hasPermission }) => {
     );
   }
 
+  if (!hasPermission) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Stack height="100%">
+          <AccountsHeader
+            title="Roles & Permissions"
+            description="Manage your roles and their permissions"
+            info="Lorem ipsum sit dolor"
+          ></AccountsHeader>
+          <Stack
+            ml={1}
+            mr={3}
+            bgcolor="grey.50"
+            flex={1}
+            borderRadius={2}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <NoPermission users={usersWithRoles} />
+          </Stack>
+        </Stack>
+      </ThemeProvider>
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Stack height="100%">
@@ -49,29 +75,27 @@ export const Roles = ({ isLoading, hasPermission }) => {
           description="Manage your roles and their permissions"
           info="Lorem ipsum sit dolor"
         >
-          {hasPermission && (
-            <Stack gap={2} direction="row">
-              <TextField
-                size="small"
-                placeholder="Search Roles"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search color="disabled" />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Button
-                size="small"
-                color="primary"
-                variant="contained"
-                startIcon={<AddRounded />}
-              >
-                Create Custom Role
-              </Button>
-            </Stack>
-          )}
+          <Stack gap={2} direction="row">
+            <TextField
+              size="small"
+              placeholder="Search Roles"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search color="disabled" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              size="small"
+              color="primary"
+              variant="contained"
+              startIcon={<AddRounded />}
+            >
+              Create Custom Role
+            </Button>
+          </Stack>
         </AccountsHeader>
         <Stack
           ml={1}
@@ -82,7 +106,7 @@ export const Roles = ({ isLoading, hasPermission }) => {
           alignItems="center"
           justifyContent="center"
         >
-          <NoPermission users={usersWithRoles} />
+          <Typography>Roles page</Typography>
         </Stack>
       </Stack>
     </ThemeProvider>

@@ -11,7 +11,7 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 
 export default function RolesPage() {
   const router = useRouter();
-  const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+  const { ZestyAPI, userInfo, loading } = useZestyStore((state) => state);
   const { usersWithRoles, setUsersWithRoles } = useRoles((state) => state);
   const [isInitializingData, setIsInitializingData] = useState(true);
 
@@ -48,7 +48,10 @@ export default function RolesPage() {
 
   return (
     <InstanceContainer>
-      <Roles isLoading={isInitializingData} hasPermission={hasPermission} />
+      <Roles
+        isLoading={isInitializingData || loading}
+        hasPermission={hasPermission}
+      />
     </InstanceContainer>
   );
 }
