@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 import { useZestyStore } from 'store';
+import { useRoles } from 'store/roles';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import { Roles } from 'views/accounts';
 import { ErrorMsg } from 'components/accounts';
@@ -11,8 +12,8 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 export default function RolesPage() {
   const router = useRouter();
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+  const { usersWithRoles, setUsersWithRoles } = useRoles((state) => state);
   const [isLoading, setIsLoading] = useState(false);
-  const [usersWithRoles, setUsersWithRoles] = useState([]);
 
   const { zuid } = router.query;
 
@@ -41,6 +42,7 @@ export default function RolesPage() {
 
     if (res.error) {
       ErrorMsg({ text: res.error });
+      setUsersWithRoles([]);
     } else {
       setUsersWithRoles(res.data);
     }
@@ -48,11 +50,7 @@ export default function RolesPage() {
 
   return (
     <InstanceContainer>
-      <Roles
-        isLoading={isLoading}
-        usersWithRoles={usersWithRoles}
-        hasPermission={hasPermission}
-      />
+      <Roles isLoading={isLoading} hasPermission={hasPermission} />
     </InstanceContainer>
   );
 }

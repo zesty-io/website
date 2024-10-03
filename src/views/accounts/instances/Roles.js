@@ -1,53 +1,64 @@
-// import { memo } from 'react';
 import {
-  // useTheme,
-  Box,
-  Typography,
   Button,
   TextField,
   Stack,
   InputAdornment,
+  ThemeProvider,
 } from '@mui/material';
 import { Search, AddRounded } from '@mui/icons-material';
+
+import { useRoles } from 'store/roles';
 import { AccountsHeader } from 'components/accounts';
+import { NoPermission } from 'components/globals/NoPermission';
+import { theme } from '@zesty-io/material';
 
 export const Roles = ({ hasPermission }) => {
-  // const theme = useTheme();
+  const { usersWithRoles } = useRoles((state) => state);
 
   return (
-    <Box>
-      <AccountsHeader
-        title="Roles & Permissions"
-        description="Manage your roles and their permissions"
-        info="Lorem ipsum sit dolor"
-      >
-        {hasPermission && (
-          <Stack gap={2} direction="row">
-            <TextField
-              size="small"
-              placeholder="Search Roles"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search color="disabled" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <Button
-              size="small"
-              color="primary"
-              variant="contained"
-              startIcon={<AddRounded />}
-            >
-              Create Custom Role
-            </Button>
-          </Stack>
-        )}
-      </AccountsHeader>
-      <Typography>Roles page</Typography>
-    </Box>
+    <ThemeProvider theme={theme}>
+      <Stack height="100%">
+        <AccountsHeader
+          title="Roles & Permissions"
+          description="Manage your roles and their permissions"
+          info="Lorem ipsum sit dolor"
+        >
+          {hasPermission && (
+            <Stack gap={2} direction="row">
+              <TextField
+                size="small"
+                placeholder="Search Roles"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search color="disabled" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Button
+                size="small"
+                color="primary"
+                variant="contained"
+                startIcon={<AddRounded />}
+              >
+                Create Custom Role
+              </Button>
+            </Stack>
+          )}
+        </AccountsHeader>
+        <Stack
+          ml={1}
+          mr={3}
+          bgcolor="grey.50"
+          flex={1}
+          borderRadius={2}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <NoPermission users={usersWithRoles} />
+        </Stack>
+      </Stack>
+    </ThemeProvider>
   );
 };
-
-// export const Roles = memo(Index);
