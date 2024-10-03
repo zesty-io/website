@@ -27,8 +27,7 @@ export const Roles = ({ isLoading, hasPermission }) => {
             info="Lorem ipsum sit dolor"
           ></AccountsHeader>
           <Stack
-            ml={1}
-            mr={3}
+            mx={4}
             bgcolor="grey.50"
             flex={1}
             borderRadius={2}
@@ -52,8 +51,7 @@ export const Roles = ({ isLoading, hasPermission }) => {
             info="Lorem ipsum sit dolor"
           ></AccountsHeader>
           <Stack
-            ml={1}
-            mr={3}
+            mx={4}
             bgcolor="grey.50"
             flex={1}
             borderRadius={2}
@@ -98,8 +96,7 @@ export const Roles = ({ isLoading, hasPermission }) => {
           </Stack>
         </AccountsHeader>
         <Stack
-          ml={1}
-          mr={3}
+          mx={4}
           bgcolor="grey.50"
           flex={1}
           borderRadius={2}
