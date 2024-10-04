@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Button,
   TextField,
@@ -15,9 +16,12 @@ import { NoPermission } from 'components/globals/NoPermission';
 import { BaseRoles } from 'components/accounts/roles/BaseRoles';
 import { NoCustomRoles } from 'components/accounts/roles/NoCustomRoles';
 import { CustomRoles } from 'components/accounts/roles/CustomRoles';
+import { CreateCustomRoleDialog } from 'components/accounts/roles/CreateCustomRoleDialog';
 
 export const Roles = ({ isLoading, hasPermission }) => {
   const { usersWithRoles, customRoles } = useRoles((state) => state);
+  const [isCreateCustomRoleDialogOpen, setIsCreateCustomRoleDialogOpen] =
+    useState(false);
 
   if (isLoading) {
     return (
@@ -92,16 +96,30 @@ export const Roles = ({ isLoading, hasPermission }) => {
               color="primary"
               variant="contained"
               startIcon={<AddRounded />}
+              onClick={() => setIsCreateCustomRoleDialogOpen(true)}
             >
               Create Custom Role
             </Button>
           </Stack>
         </AccountsHeader>
         <Stack gap={2} mx={4}>
-          {customRoles?.length ? <CustomRoles /> : <NoCustomRoles />}
+          {customRoles?.length ? (
+            <CustomRoles />
+          ) : (
+            <NoCustomRoles
+              onCreateCustomRoleClick={() =>
+                setIsCreateCustomRoleDialogOpen(true)
+              }
+            />
+          )}
           <BaseRoles />
         </Stack>
       </Stack>
+      {isCreateCustomRoleDialogOpen && (
+        <CreateCustomRoleDialog
+          onClose={() => setIsCreateCustomRoleDialogOpen(false)}
+        />
+      )}
     </ThemeProvider>
   );
 };
