@@ -37,10 +37,12 @@ export const CreateCustomRoleDialog = ({ onClose }) => {
   const baseRoleOptions = useMemo(() => {
     if (!baseRoles?.length) return [];
 
-    return baseRoles?.map((role) => ({
-      label: role.name,
-      value: role.systemRoleZUID,
-    }));
+    return baseRoles
+      ?.filter((role) => role.name.toLowerCase() !== 'owner')
+      ?.map((role) => ({
+        label: role.name,
+        value: role.systemRoleZUID,
+      }));
   }, [baseRoles]);
 
   return (
