@@ -14,9 +14,10 @@ import { AccountsHeader } from 'components/accounts';
 import { NoPermission } from 'components/globals/NoPermission';
 import { BaseRoles } from 'components/accounts/roles/BaseRoles';
 import { NoCustomRoles } from 'components/accounts/roles/NoCustomRoles';
+import { CustomRoles } from 'components/accounts/roles/CustomRoles';
 
 export const Roles = ({ isLoading, hasPermission }) => {
-  const { usersWithRoles } = useRoles((state) => state);
+  const { usersWithRoles, customRoles } = useRoles((state) => state);
 
   if (isLoading) {
     return (
@@ -97,7 +98,7 @@ export const Roles = ({ isLoading, hasPermission }) => {
           </Stack>
         </AccountsHeader>
         <Stack gap={2} mx={4}>
-          <NoCustomRoles />
+          {customRoles?.length ? <CustomRoles /> : <NoCustomRoles />}
           <BaseRoles />
         </Stack>
       </Stack>
