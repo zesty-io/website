@@ -14,12 +14,196 @@ import {
   InputLabel,
   Tooltip,
 } from '@mui/material';
-import { LocalPoliceOutlined, Close, InfoRounded } from '@mui/icons-material';
+import {
+  LocalPoliceOutlined,
+  Close,
+  InfoRounded,
+  Check,
+  EditRounded,
+  ImageRounded,
+  CodeRounded,
+  RecentActorsRounded,
+  BarChartRounded,
+  MonitorHeartRounded,
+  HistoryRounded,
+  SettingsRounded,
+} from '@mui/icons-material';
+import { Database } from '@zesty-io/material';
 
 import { useRoles } from 'store/roles';
+import { useZestyStore } from 'store';
+
+const BASE_ROLE_PERMISSIONS = Object.freeze({
+  '31-71cfc74-0wn3r': {
+    actions: {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+      grant: true,
+      super: true,
+    },
+    products: {
+      content: true,
+      schema: true,
+      media: true,
+      code: true,
+      leads: true,
+      analytics: true,
+      health: true,
+      activityLog: true,
+      settings: true,
+    },
+  },
+  '31-71cfc74-4dm13': {
+    actions: {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+      grant: true,
+      super: false,
+    },
+    products: {
+      content: true,
+      schema: true,
+      media: true,
+      code: true,
+      leads: true,
+      analytics: true,
+      health: true,
+      activityLog: true,
+      settings: true,
+    },
+  },
+  '31-71cfc74-d3v3l0p3r': {
+    actions: {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+      grant: false,
+      super: false,
+    },
+    products: {
+      content: true,
+      schema: true,
+      media: true,
+      code: true,
+      leads: true,
+      analytics: false,
+      health: true,
+      activityLog: false,
+      settings: true,
+    },
+  },
+  '31-71cfc74-p0bl1shr': {
+    actions: {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+      grant: false,
+      super: false,
+    },
+    products: {
+      content: true,
+      schema: false,
+      media: true,
+      code: false,
+      leads: true,
+      analytics: false,
+      health: false,
+      activityLog: false,
+      settings: false,
+    },
+  },
+  '31-71cfc74-c0ntr1b0t0r': {
+    actions: {
+      create: true,
+      read: true,
+      update: true,
+      delete: false,
+      grant: false,
+      super: false,
+    },
+    products: {
+      content: true,
+      schema: true,
+      media: true,
+      code: true,
+      leads: true,
+      analytics: true,
+      health: true,
+      activityLog: true,
+      settings: true,
+    },
+  },
+  '31-71cfc74-s30': {
+    actions: {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+      grant: false,
+      super: false,
+    },
+    products: {
+      content: true,
+      schema: false,
+      media: true,
+      code: false,
+      leads: true,
+      analytics: false,
+      health: true,
+      activityLog: false,
+      settings: false,
+    },
+  },
+});
+const PRODUCT_DETAILS = Object.freeze({
+  content: {
+    name: 'Content',
+    icon: <EditRounded color="action" sx={{ fontSize: 16 }} />,
+  },
+  schema: {
+    name: 'Schema',
+    icon: <Database color="action" sx={{ fontSize: 16 }} />,
+  },
+  media: {
+    name: 'Media',
+    icon: <ImageRounded color="action" sx={{ fontSize: 16 }} />,
+  },
+  code: {
+    name: 'Code (Zesty IDE)',
+    icon: <CodeRounded color="action" sx={{ fontSize: 16 }} />,
+  },
+  leads: {
+    name: 'Leads',
+    icon: <RecentActorsRounded color="action" sx={{ fontSize: 16 }} />,
+  },
+  analytics: {
+    name: 'Analytics',
+    icon: <BarChartRounded color="action" sx={{ fontSize: 16 }} />,
+  },
+  health: {
+    name: 'Health',
+    icon: <MonitorHeartRounded color="action" sx={{ fontSize: 16 }} />,
+  },
+  activityLog: {
+    name: 'Activity Log',
+    icon: <HistoryRounded color="action" sx={{ fontSize: 16 }} />,
+  },
+  settings: {
+    name: 'Settings',
+    icon: <SettingsRounded color="action" sx={{ fontSize: 16 }} />,
+  },
+});
 
 export const CreateCustomRoleDialog = ({ onClose }) => {
   const { baseRoles } = useRoles((state) => state);
+  const { instance } = useZestyStore((state) => state);
+
   const [fieldData, updateFieldData] = useReducer(
     (state, data) => {
       return {
@@ -37,12 +221,10 @@ export const CreateCustomRoleDialog = ({ onClose }) => {
   const baseRoleOptions = useMemo(() => {
     if (!baseRoles?.length) return [];
 
-    return baseRoles
-      ?.filter((role) => role.name.toLowerCase() !== 'owner')
-      ?.map((role) => ({
-        label: role.name,
-        value: role.systemRoleZUID,
-      }));
+    return baseRoles?.map((role) => ({
+      label: role.name,
+      value: role.systemRoleZUID,
+    }));
   }, [baseRoles]);
 
   return (
@@ -142,6 +324,61 @@ export const CreateCustomRoleDialog = ({ onClose }) => {
             options={baseRoleOptions}
             renderInput={(params) => <TextField {...params} />}
           />
+        </Box>
+        <Box>
+          <Typography variant="body2" fontWeight={700} mb={1.5}>
+            {instance?.name} Base Permissions
+          </Typography>
+          <Stack direction="row">
+            {Object.entries(
+              BASE_ROLE_PERMISSIONS[fieldData.systemRoleZUID]?.actions || {},
+            )?.map(([name, permission]) => (
+              <Stack width={80} gap={0.5}>
+                <Typography
+                  variant="body2"
+                  fontWeight={600}
+                  sx={{ textTransform: 'capitalize' }}
+                >
+                  {name}
+                </Typography>
+                {!!permission ? (
+                  <Check color="success" />
+                ) : (
+                  <Close color="error" />
+                )}
+              </Stack>
+            ))}
+          </Stack>
+        </Box>
+        <Box component="ul" pl={2.5} my={0}>
+          <Box component="li">
+            <Typography variant="body2" mb={2}>
+              Has access to:
+            </Typography>
+            <Stack direction="row" gap={1.5}>
+              {Object.entries(
+                BASE_ROLE_PERMISSIONS[fieldData.systemRoleZUID]?.products || {},
+              )?.map(([product, hasAccess]) => {
+                if (hasAccess && !!PRODUCT_DETAILS[product]) {
+                  return (
+                    <Stack direction="row" gap={0.5} alignItems="center">
+                      {PRODUCT_DETAILS[product]?.icon}
+                      <Typography variant="body3">
+                        {PRODUCT_DETAILS[product]?.name}
+                      </Typography>
+                    </Stack>
+                  );
+                }
+              })}
+            </Stack>
+          </Box>
+          <Box component="li">
+            <Typography variant="body2" mt={2}>
+              {fieldData.systemRoleZUID === '31-71cfc74-0wn3r'
+                ? 'Can delete users'
+                : 'Cannot delete other users'}
+            </Typography>
+          </Box>
         </Box>
       </DialogContent>
       <DialogActions sx={{ p: 2.5, gap: 1 }}>
