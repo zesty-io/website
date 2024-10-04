@@ -69,7 +69,12 @@ export const NoPermission = ({ users }) => {
           ))}
         </List>
       </Box>
-      <Box component="img" src={shield?.src} alt="shield" />
+      <Box
+        component="img"
+        src={shield?.src}
+        alt={shield?.title}
+        loading="lazy"
+      />
     </Stack>
   );
 };

@@ -5,7 +5,6 @@ import {
   InputAdornment,
   ThemeProvider,
   CircularProgress,
-  Box,
 } from '@mui/material';
 import { Search, AddRounded } from '@mui/icons-material';
 import { theme } from '@zesty-io/material';
@@ -14,6 +13,7 @@ import { useRoles } from 'store/roles';
 import { AccountsHeader } from 'components/accounts';
 import { NoPermission } from 'components/globals/NoPermission';
 import { BaseRoles } from 'components/accounts/roles/BaseRoles';
+import { NoCustomRoles } from 'components/accounts/roles/NoCustomRoles';
 
 export const Roles = ({ isLoading, hasPermission }) => {
   const { usersWithRoles } = useRoles((state) => state);
@@ -96,9 +96,10 @@ export const Roles = ({ isLoading, hasPermission }) => {
             </Button>
           </Stack>
         </AccountsHeader>
-        <Box mx={4}>
+        <Stack gap={2} mx={4}>
+          <NoCustomRoles />
           <BaseRoles />
-        </Box>
+        </Stack>
       </Stack>
     </ThemeProvider>
   );
