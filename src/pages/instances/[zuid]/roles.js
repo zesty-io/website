@@ -12,7 +12,8 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 export default function RolesPage() {
   const router = useRouter();
   const { ZestyAPI, userInfo, loading } = useZestyStore((state) => state);
-  const { usersWithRoles, setUsersWithRoles } = useRoles((state) => state);
+  const { usersWithRoles, setUsersWithRoles, setCustomRoles, setBaseRoles } =
+    useRoles((state) => state);
   const [isInitializingData, setIsInitializingData] = useState(true);
 
   const { zuid } = router.query;
@@ -29,8 +30,8 @@ export default function RolesPage() {
 
   useEffect(() => {
     if (router.isReady) {
-      Promise.all([getInstanceUserWithRoles()]).finally(() =>
-        setIsInitializingData(false),
+      Promise.all([getInstanceUserWithRoles(), getInstanceRoles()]).finally(
+        () => setIsInitializingData(false),
       );
     }
   }, [router.isReady]);
@@ -43,6 +44,38 @@ export default function RolesPage() {
       setUsersWithRoles([]);
     } else {
       setUsersWithRoles(res.data);
+    }
+  };
+
+  const getInstanceRoles = async () => {
+    const res = await ZestyAPI.getInstanceRoles(zuid);
+
+    if (res.error) {
+      ErrorMsg({ text: res.error });
+    } else {
+      const baseRoles = [];
+      const customRoles = [];
+
+      // Separate base roles from custom roles
+      res.data?.forEach((role) => {
+        if (
+          [
+            'owner',
+            'admin',
+            'developer',
+            'seo',
+            'publisher',
+            'contributor',
+          ].includes(role.name?.toLowerCase())
+        ) {
+          baseRoles.push(role);
+        } else {
+          customRoles.push(role);
+        }
+      });
+
+      setBaseRoles(baseRoles);
+      setCustomRoles(customRoles);
     }
   };
 
