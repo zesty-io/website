@@ -5,7 +5,7 @@ import dataTable from '../../../../../../../public/assets/images/data_table.svg'
 
 export const NoRules = ({ onAddRulesClick }) => {
   return (
-    <>
+    <Box borderRadius={2} border={1} borderColor="border">
       <Stack
         direction="row"
         bgcolor="grey.100"
@@ -13,6 +13,8 @@ export const NoRules = ({ onAddRulesClick }) => {
         borderRadius="8px 8px 0px 0px"
         alignItems="center"
         textAlign="center"
+        borderBottom={1}
+        borderColor="border"
       >
         <Typography fontWeight={600} flex={1} textAlign="left" pl={2}>
           Resource Name
@@ -71,6 +73,6 @@ export const NoRules = ({ onAddRulesClick }) => {
           Add Rule
         </Button>
       </Stack>
-    </>
+    </Box>
   );
 };

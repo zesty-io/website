@@ -56,6 +56,7 @@ export const EditCustomRoleDialog = ({ ZUID, onClose }) => {
         sx: {
           maxWidth: 960,
           width: 960,
+          minHeight: 800,
         },
       }}
     >
