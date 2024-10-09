@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from 'react';
+import { useReducer } from 'react';
 import {
   Typography,
   Avatar,
@@ -30,7 +30,6 @@ import {
 } from '@mui/icons-material';
 import { Database } from '@zesty-io/material';
 
-import { useRoles } from 'store/roles';
 import { useZestyStore } from 'store';
 
 const BASE_ROLE_PERMISSIONS = Object.freeze({
@@ -249,9 +248,42 @@ const PRODUCT_DETAILS = Object.freeze({
     icon: <SettingsRounded color="action" sx={{ fontSize: 16 }} />,
   },
 });
+const BASE_ROLE_OPTIONS = Object.freeze([
+  {
+    value: '31-71cfc74-0wn3r',
+    label: 'Owner',
+  },
+  {
+    value: '31-71cfc74-4dm13',
+    label: 'Admin',
+  },
+  {
+    value: '31-71cfc74-4cc4dm13',
+    label: 'Access Admin',
+  },
+  {
+    value: '31-71cfc74-d3v3l0p3r',
+    label: 'Developer',
+  },
+  {
+    value: '31-71cfc74-d3vc0n',
+    label: 'Developer Contributor',
+  },
+  {
+    value: '31-71cfc74-p0bl1shr',
+    label: 'Publisher',
+  },
+  {
+    value: '31-71cfc74-s30',
+    label: 'SEO',
+  },
+  {
+    value: '31-71cfc74-c0ntr1b0t0r',
+    label: 'Contributor',
+  },
+]);
 
 export const CreateCustomRoleDialog = ({ onClose }) => {
-  const { baseRoles } = useRoles((state) => state);
   const { instance } = useZestyStore((state) => state);
 
   const [fieldData, updateFieldData] = useReducer(
@@ -267,15 +299,6 @@ export const CreateCustomRoleDialog = ({ onClose }) => {
       systemRoleZUID: '31-71cfc74-4dm13',
     },
   );
-
-  const baseRoleOptions = useMemo(() => {
-    if (!baseRoles?.length) return [];
-
-    return baseRoles?.map((role) => ({
-      label: role.name,
-      value: role.systemRoleZUID,
-    }));
-  }, [baseRoles]);
 
   return (
     <Dialog
@@ -365,13 +388,13 @@ export const CreateCustomRoleDialog = ({ onClose }) => {
           </Stack>
           <Autocomplete
             disableClearable
-            value={baseRoleOptions.find(
+            value={BASE_ROLE_OPTIONS.find(
               (role) => role.value === fieldData.systemRoleZUID,
             )}
             onChange={(_, value) =>
               updateFieldData({ systemRoleZUID: value.value })
             }
-            options={baseRoleOptions}
+            options={BASE_ROLE_OPTIONS}
             renderInput={(params) => <TextField {...params} />}
           />
         </Box>
