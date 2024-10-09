@@ -319,6 +319,8 @@ export const CreateCustomRoleDialog = ({ onClose }) => {
         boxSizing="border-box"
         justifyContent="space-between"
         alignItems="flex-start"
+        borderBottom="2px solid"
+        borderColor="border"
       >
         <Stack direction="row" gap={1.5} alignItems="center">
           <Avatar sx={{ bgcolor: 'blue.100' }}>
@@ -454,7 +456,9 @@ export const CreateCustomRoleDialog = ({ onClose }) => {
           </Box>
         </Box>
       </DialogContent>
-      <DialogActions sx={{ p: 2.5, gap: 1 }}>
+      <DialogActions
+        sx={{ p: 2.5, gap: 1, borderTop: '2px solid', borderColor: 'border' }}
+      >
         <Button variant="outlined" color="inherit" onClick={() => onClose?.()}>
           Cancel
         </Button>
