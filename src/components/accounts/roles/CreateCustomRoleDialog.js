@@ -32,7 +32,7 @@ import { Database } from '@zesty-io/material';
 
 import { useZestyStore } from 'store';
 
-const BASE_ROLE_PERMISSIONS = Object.freeze({
+export const BASE_ROLE_PERMISSIONS = Object.freeze({
   '31-71cfc74-0wn3r': {
     actions: {
       create: true,
@@ -210,7 +210,7 @@ const BASE_ROLE_PERMISSIONS = Object.freeze({
     },
   },
 });
-const PRODUCT_DETAILS = Object.freeze({
+export const PRODUCT_DETAILS = Object.freeze({
   content: {
     name: 'Content',
     icon: <EditRounded color="action" sx={{ fontSize: 16 }} />,
@@ -248,7 +248,7 @@ const PRODUCT_DETAILS = Object.freeze({
     icon: <SettingsRounded color="action" sx={{ fontSize: 16 }} />,
   },
 });
-const BASE_ROLE_OPTIONS = Object.freeze([
+export const BASE_ROLE_OPTIONS = Object.freeze([
   {
     value: '31-71cfc74-0wn3r',
     label: 'Owner',

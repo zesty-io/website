@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useReducer } from 'react';
 import {
   Typography,
   Avatar,
@@ -32,6 +32,20 @@ export const EditCustomRoleDialog = ({ ZUID, onClose }) => {
   const roleData = useMemo(() => {
     return customRoles?.find((role) => role.ZUID === ZUID);
   }, [ZUID, customRoles]);
+
+  const [detailsData, updateDetailsData] = useReducer(
+    (state, data) => {
+      return {
+        ...state,
+        ...data,
+      };
+    },
+    {
+      name: roleData?.name || '',
+      description: roleData?.description || '',
+      systemRoleZUID: roleData?.systemRoleZUID || '31-71cfc74-4dm13',
+    },
+  );
 
   return (
     <Dialog
@@ -111,7 +125,9 @@ export const EditCustomRoleDialog = ({ ZUID, onClose }) => {
           bgcolor: 'grey.50',
         }}
       >
-        {activeTab === 'details' && <Details />}
+        {activeTab === 'details' && (
+          <Details data={detailsData} onUpdateData={updateDetailsData} />
+        )}
         {activeTab === 'permissions' && <Permissions />}
         {activeTab === 'users' && <Users />}
       </DialogContent>
