@@ -20,10 +20,12 @@ import {
 } from '@mui/icons-material';
 
 import { useRoles } from 'store/roles';
+import { EditCustomRoleDialog } from './EditCustomRoleDialog';
 
 export const CustomRoles = () => {
   const { customRoles } = useRoles((state) => state);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [ZUIDToEdit, setZUIDToEdit] = useState(null);
 
   return (
     <>
@@ -33,78 +35,91 @@ export const CustomRoles = () => {
         </Typography>
         <List sx={{ p: 0 }}>
           {customRoles?.map((role, index) => (
-            <ListItemButton
-              disableRipple
-              key={role.ZUID}
-              sx={{
-                p: 2,
-                border: (theme) => `1px solid ${theme.palette.border}`,
-                borderRadius: 2,
-                mb: index + 1 < customRoles?.length ? 1 : 0,
-              }}
-              onClick={() => {
-                console.log('open edit custom role');
-              }}
-            >
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: 'blue.100' }}>
-                  <LocalPoliceOutlined color="info" />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <Typography
-                    variant="h6"
-                    fontWeight={700}
-                    color="text.primary"
-                  >
-                    {role.name}
-                  </Typography>
-                }
-                secondary={
-                  <Typography variant="body2" color="text.secondary">
-                    {role.description || ''}
-                  </Typography>
-                }
-              />
-              <IconButton
-                onClick={(evt) => {
-                  evt.stopPropagation();
-                  setAnchorEl(evt.currentTarget);
+            <>
+              <ListItemButton
+                disableRipple
+                key={role.ZUID}
+                sx={{
+                  p: 2,
+                  border: (theme) => `1px solid ${theme.palette.border}`,
+                  borderRadius: 2,
+                  mb: index + 1 < customRoles?.length ? 1 : 0,
+                }}
+                onClick={() => {
+                  setZUIDToEdit(role.ZUID);
                 }}
               >
-                <MoreHorizRounded />
-              </IconButton>
-            </ListItemButton>
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: 'blue.100' }}>
+                    <LocalPoliceOutlined color="info" />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <Typography
+                      variant="h6"
+                      fontWeight={700}
+                      color="text.primary"
+                    >
+                      {role.name}
+                    </Typography>
+                  }
+                  secondary={
+                    <Typography variant="body2" color="text.secondary">
+                      {role.description || ''}
+                    </Typography>
+                  }
+                />
+                <IconButton
+                  onClick={(evt) => {
+                    evt.stopPropagation();
+                    setAnchorEl(evt.currentTarget);
+                  }}
+                >
+                  <MoreHorizRounded />
+                </IconButton>
+              </ListItemButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={!!anchorEl}
+                onClose={() => setAnchorEl(null)}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                    setZUIDToEdit(role.ZUID);
+                  }}
+                >
+                  <ListItemIcon>
+                    <EditRounded />
+                  </ListItemIcon>
+                  <ListItemText>Edit</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => console.log('open delete modal')}>
+                  <ListItemIcon>
+                    <DeleteRounded />
+                  </ListItemIcon>
+                  <ListItemText>Delete</ListItemText>
+                </MenuItem>
+              </Menu>
+            </>
           ))}
         </List>
       </Box>
-      <Menu
-        anchorEl={anchorEl}
-        open={!!anchorEl}
-        onClose={() => setAnchorEl(null)}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <MenuItem onClick={() => console.log('open edit modal')}>
-          <ListItemIcon>
-            <EditRounded />
-          </ListItemIcon>
-          <ListItemText>Edit</ListItemText>
-        </MenuItem>
-        <MenuItem onClick={() => console.log('open delete modal')}>
-          <ListItemIcon>
-            <DeleteRounded />
-          </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
-        </MenuItem>
-      </Menu>
+      {!!ZUIDToEdit && (
+        <EditCustomRoleDialog
+          ZUID={ZUIDToEdit}
+          onClose={() => setZUIDToEdit(null)}
+        />
+      )}
     </>
   );
 };
