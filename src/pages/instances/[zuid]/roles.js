@@ -9,6 +9,18 @@ import { ErrorMsg } from 'components/accounts';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
+// const SYSTEM_ROLE_ZUIDS = [
+//   '31-71cfc74-0wn3r',
+//   '31-71cfc74-4dm13',
+//   '31-71cfc74-4cc4dm13',
+//   '31-71cfc74-d3v3l0p3r',
+//   '31-71cfc74-d3vc0n',
+//   '31-71cfc74-p0bl1shr',
+//   '31-71cfc74-s30',
+//   '31-71cfc74-c0ntr1b0t0r',
+//   '31-71cfc74-m3d14',
+// ];
+
 export default function RolesPage() {
   const router = useRouter();
   const { ZestyAPI, userInfo, loading } = useZestyStore((state) => state);
@@ -58,16 +70,8 @@ export default function RolesPage() {
 
       // Separate base roles from custom roles
       res.data?.forEach((role) => {
-        if (
-          [
-            'owner',
-            'admin',
-            'developer',
-            'seo',
-            'publisher',
-            'contributor',
-          ].includes(role.name?.toLowerCase())
-        ) {
+        console.log(res.data);
+        if (role.static) {
           baseRoles.push(role);
         } else {
           customRoles.push(role);
