@@ -11,6 +11,9 @@ import { Search, AddRounded } from '@mui/icons-material';
 
 import { NoRules } from './NoRules';
 import { useZestyStore } from 'store';
+import useDebounce from 'components/hooks/useDebounce';
+import { GranularRole } from 'store/types';
+import { ErrorMsg } from 'components/accounts/ui';
 
 // const DUMMY_PERMISSIONS = [
 //   {
@@ -54,9 +57,27 @@ import { useZestyStore } from 'store';
 //   },
 // ];
 
-export const Permissions = () => {
+type PermissionsProps = {
+  ZUID: string;
+};
+export const Permissions = ({ ZUID }: PermissionsProps) => {
   const { ZestyAPI } = useZestyStore((state: any) => state);
   const [filterKeyword, setFilterKeyword] = useState<string>('');
+  const [permissions, setPermissions] = useState<GranularRole[]>([]);
+
+  useEffect(() => {
+    if (!ZUID) return;
+
+    getPermissions(ZUID);
+  }, [ZUID]);
+
+  const debouncedFilterKeyword = useDebounce(
+    filterKeyword,
+    () => {
+      getContentItems(debouncedFilterKeyword);
+    },
+    500,
+  );
 
   const getContentItems = async (filterKeyword: string) => {
     const res = await ZestyAPI.searchItems(
@@ -66,10 +87,16 @@ export const Permissions = () => {
     console.log(res);
   };
 
-  // TODO: Need to debounce
-  useEffect(() => {
-    getContentItems(filterKeyword);
-  }, [filterKeyword]);
+  const getPermissions = async (ZUID: string) => {
+    const res = await ZestyAPI.getAllGranularRoles(ZUID);
+
+    if (res.error) {
+      ErrorMsg({ text: res.error });
+      setPermissions([]);
+    } else {
+      console.log(res.data);
+    }
+  };
 
   return (
     <Box>
@@ -101,7 +128,11 @@ export const Permissions = () => {
           </Button>
         </Box>
       </Stack>
-      <NoRules onAddRulesClick={() => console.log('Open add rules')} />
+      {permissions?.length ? (
+        <Typography>permissions table</Typography>
+      ) : (
+        <NoRules onAddRulesClick={() => console.log('Open add rules')} />
+      )}
     </Box>
   );
 };

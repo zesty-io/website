@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import {
   Typography,
   Avatar,
@@ -28,9 +28,12 @@ import {
   HistoryRounded,
   SettingsRounded,
 } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 import { Database } from '@zesty-io/material';
+import { useRouter } from 'next/router';
 
 import { useZestyStore } from 'store';
+import { ErrorMsg } from '../ui';
 
 export const BASE_ROLE_PERMISSIONS = Object.freeze({
   '31-71cfc74-0wn3r': {
@@ -295,7 +298,9 @@ type CreateCustomRoleDialogProps = {
 export const CreateCustomRoleDialog = ({
   onClose,
 }: CreateCustomRoleDialogProps) => {
-  const { instance } = useZestyStore((state) => state);
+  const router = useRouter();
+  const { instance, ZestyAPI } = useZestyStore((state) => state);
+  const [isCreatingRole, setIsCreatingRole] = useState(false);
 
   const [fieldData, updateFieldData] = useReducer(
     (state: RoleDetails, data: Partial<RoleDetails>) => {
@@ -310,6 +315,26 @@ export const CreateCustomRoleDialog = ({
       systemRoleZUID: '31-71cfc74-4dm13',
     },
   );
+
+  const handleCreateRole = async () => {
+    if (!fieldData.name && !fieldData.systemRoleZUID) return;
+
+    setIsCreatingRole(true);
+    const res = await ZestyAPI.createRole(
+      fieldData.name,
+      router?.query?.zuid,
+      fieldData.systemRoleZUID,
+    );
+
+    if (res.error) {
+      ErrorMsg({ title: 'Failed to create role' });
+      console.error('Failed to create role: ', res.error);
+      setIsCreatingRole(false);
+    } else {
+      setIsCreatingRole(false);
+      onClose?.();
+    }
+  };
 
   return (
     <Dialog
@@ -373,6 +398,7 @@ export const CreateCustomRoleDialog = ({
             onChange={(evt) => updateFieldData({ name: evt.target.value })}
             placeholder="e.g. Lawyer"
             fullWidth
+            disabled={isCreatingRole}
           />
         </Box>
         <Box>
@@ -391,6 +417,7 @@ export const CreateCustomRoleDialog = ({
             multiline
             fullWidth
             rows={4}
+            disabled={isCreatingRole}
           />
         </Box>
         <Box>
@@ -410,6 +437,7 @@ export const CreateCustomRoleDialog = ({
             }
             options={BASE_ROLE_OPTIONS}
             renderInput={(params) => <TextField {...params} />}
+            disabled={isCreatingRole}
           />
         </Box>
         <Box>
@@ -471,16 +499,22 @@ export const CreateCustomRoleDialog = ({
       <DialogActions
         sx={{ p: 2.5, gap: 1, borderTop: '2px solid', borderColor: 'border' }}
       >
-        <Button variant="outlined" color="inherit" onClick={() => onClose?.()}>
+        <Button
+          variant="outlined"
+          color="inherit"
+          onClick={() => onClose?.()}
+          disabled={isCreatingRole}
+        >
           Cancel
         </Button>
-        <Button
+        <LoadingButton
+          loading={isCreatingRole}
           variant="contained"
           color="primary"
-          onClick={() => console.log('create custom role')}
+          onClick={handleCreateRole}
         >
           Create
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );
