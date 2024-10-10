@@ -79,6 +79,7 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
     500,
   );
 
+  // TODO: Move this to zustand
   const getContentItems = async (filterKeyword: string) => {
     const res = await ZestyAPI.searchItems(
       !!filterKeyword ? { q: filterKeyword } : {},

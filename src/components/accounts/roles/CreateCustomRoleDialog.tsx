@@ -33,7 +33,7 @@ import { Database } from '@zesty-io/material';
 import { useRouter } from 'next/router';
 
 import { useZestyStore } from 'store';
-import { ErrorMsg } from '../ui';
+import { useRoles } from 'store/roles';
 
 export const BASE_ROLE_PERMISSIONS = Object.freeze({
   '31-71cfc74-0wn3r': {
@@ -286,7 +286,7 @@ export const BASE_ROLE_OPTIONS = Object.freeze([
   },
 ]);
 
-type RoleDetails = {
+export type RoleDetails = {
   name: string;
   description: string;
   systemRoleZUID: string;
@@ -299,7 +299,8 @@ export const CreateCustomRoleDialog = ({
   onClose,
 }: CreateCustomRoleDialogProps) => {
   const router = useRouter();
-  const { instance, ZestyAPI } = useZestyStore((state) => state);
+  const { instance } = useZestyStore((state) => state);
+  const { createRole } = useRoles((state) => state);
   const [isCreatingRole, setIsCreatingRole] = useState(false);
 
   const [fieldData, updateFieldData] = useReducer(
@@ -316,24 +317,19 @@ export const CreateCustomRoleDialog = ({
     },
   );
 
-  const handleCreateRole = async () => {
+  const handleCreateRole = () => {
     if (!fieldData.name && !fieldData.systemRoleZUID) return;
 
     setIsCreatingRole(true);
-    const res = await ZestyAPI.createRole(
-      fieldData.name,
-      router?.query?.zuid,
-      fieldData.systemRoleZUID,
-    );
-
-    if (res.error) {
-      ErrorMsg({ title: 'Failed to create role' });
-      console.error('Failed to create role: ', res.error);
-      setIsCreatingRole(false);
-    } else {
+    createRole({
+      name: fieldData.name,
+      description: fieldData.description,
+      systemRoleZUID: fieldData.systemRoleZUID,
+      instanceZUID: String(router?.query?.zuid),
+    }).finally(() => {
       setIsCreatingRole(false);
       onClose?.();
-    }
+    });
   };
 
   return (

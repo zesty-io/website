@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { UserRole, Role } from './types';
 import { getZestyAPI } from 'store';
 import { ErrorMsg } from 'components/accounts';
+import { RoleDetails } from 'components/accounts/roles/CreateCustomRoleDialog';
 
 const ZestyAPI = getZestyAPI();
 
@@ -14,9 +15,10 @@ type RolesState = {
 type RolesAction = {
   getUsersWithRoles: (instanceZUID: string) => Promise<void>;
   getRoles: (instanceZUID: string) => Promise<void>;
+  createRole: (data: RoleDetails & { instanceZUID: string }) => Promise<void>;
 };
 
-export const useRoles = create<RolesState & RolesAction>((set) => ({
+export const useRoles = create<RolesState & RolesAction>((set, get) => ({
   usersWithRoles: [],
   getUsersWithRoles: async (instanceZUID) => {
     try {
@@ -62,6 +64,23 @@ export const useRoles = create<RolesState & RolesAction>((set) => ({
     } catch (err) {
       ErrorMsg({ title: 'Failed to fetch roles' });
       console.error('getRoles error: ', err);
+    }
+  },
+  createRole: async ({ name, description, systemRoleZUID, instanceZUID }) => {
+    console.log(description);
+    if (!name && !systemRoleZUID) return;
+
+    try {
+      const res = await ZestyAPI.createRole(name, instanceZUID, systemRoleZUID);
+
+      if (res.error) {
+        throw new Error(res.error);
+      } else {
+        get().getRoles(instanceZUID);
+      }
+    } catch (err) {
+      ErrorMsg({ title: 'Failed to create role' });
+      console.error('Failed to create role: ', err);
     }
   },
 }));
