@@ -3,7 +3,10 @@ import { AddRounded } from '@mui/icons-material';
 
 import dataTable from '../../../../../../../public/assets/images/data_table.svg';
 
-export const NoRules = ({ onAddRulesClick }) => {
+type NoRulesProps = {
+  onAddRulesClick: () => void;
+};
+export const NoRules = ({ onAddRulesClick }: NoRulesProps) => {
   return (
     <Box borderRadius={2} border={1} borderColor="border">
       <Stack

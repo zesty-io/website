@@ -18,7 +18,11 @@ import { NoCustomRoles } from 'components/accounts/roles/NoCustomRoles';
 import { CustomRoles } from 'components/accounts/roles/CustomRoles';
 import { CreateCustomRoleDialog } from 'components/accounts/roles/CreateCustomRoleDialog';
 
-export const Roles = ({ isLoading, hasPermission }) => {
+type RolesProps = {
+  isLoading: boolean;
+  hasPermission: boolean;
+};
+export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
   const { usersWithRoles, customRoles } = useRoles((state) => state);
   const [isCreateCustomRoleDialogOpen, setIsCreateCustomRoleDialogOpen] =
     useState(false);
@@ -27,6 +31,7 @@ export const Roles = ({ isLoading, hasPermission }) => {
     return (
       <ThemeProvider theme={theme}>
         <Stack height="100%">
+          {/* @ts-expect-error untyped component */}
           <AccountsHeader
             title="Roles & Permissions"
             description="Manage your roles and their permissions"
@@ -51,6 +56,7 @@ export const Roles = ({ isLoading, hasPermission }) => {
     return (
       <ThemeProvider theme={theme}>
         <Stack height="100%">
+          {/* @ts-expect-error untyped component */}
           <AccountsHeader
             title="Roles & Permissions"
             description="Manage your roles and their permissions"

@@ -283,11 +283,22 @@ export const BASE_ROLE_OPTIONS = Object.freeze([
   },
 ]);
 
-export const CreateCustomRoleDialog = ({ onClose }) => {
+type RoleDetails = {
+  name: string;
+  description: string;
+  systemRoleZUID: string;
+};
+
+type CreateCustomRoleDialogProps = {
+  onClose: () => void;
+};
+export const CreateCustomRoleDialog = ({
+  onClose,
+}: CreateCustomRoleDialogProps) => {
   const { instance } = useZestyStore((state) => state);
 
   const [fieldData, updateFieldData] = useReducer(
-    (state, data) => {
+    (state: RoleDetails, data: Partial<RoleDetails>) => {
       return {
         ...state,
         ...data,

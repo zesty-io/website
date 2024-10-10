@@ -25,7 +25,7 @@ import { EditCustomRoleDialog } from './EditCustomRoleDialog';
 export const CustomRoles = () => {
   const { customRoles } = useRoles((state) => state);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [ZUIDToEdit, setZUIDToEdit] = useState(null);
+  const [ZUIDToEdit, setZUIDToEdit] = useState<string>(null);
 
   return (
     <>

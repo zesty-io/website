@@ -3,7 +3,12 @@ import { Add } from '@mui/icons-material';
 
 import addUser from '../../../../public/assets/images/add_user.svg';
 
-export const NoCustomRoles = ({ onCreateCustomRoleClick }) => {
+type NoCustomRolesProps = {
+  onCreateCustomRoleClick: () => void;
+};
+export const NoCustomRoles = ({
+  onCreateCustomRoleClick,
+}: NoCustomRolesProps) => {
   return (
     <Box>
       <Typography variant="h5" fontWeight={700} mb={2}>

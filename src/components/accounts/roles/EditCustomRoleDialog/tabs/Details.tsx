@@ -15,8 +15,13 @@ import {
   BASE_ROLE_OPTIONS,
   PRODUCT_DETAILS,
 } from '../../CreateCustomRoleDialog';
+import { RoleDetails } from '../index';
 
-export const Details = ({ data, onUpdateData }) => {
+type DetailsProps = {
+  data: RoleDetails;
+  onUpdateData: (data: Partial<RoleDetails>) => void;
+};
+export const Details = ({ data, onUpdateData }: DetailsProps) => {
   const { instance } = useZestyStore((state) => state);
 
   return (

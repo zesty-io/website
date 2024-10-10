@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import { useRoles } from 'store/roles';
 import { useInstance } from 'store/instance';
+import { Role } from 'store/types';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import { Roles } from 'views/accounts';
 import { ErrorMsg } from 'components/accounts';
@@ -15,7 +16,7 @@ export default function RolesPage() {
   const { ZestyAPI, userInfo, loading } = useZestyStore((state) => state);
   const { usersWithRoles, setUsersWithRoles, setCustomRoles, setBaseRoles } =
     useRoles((state) => state);
-  const { setInstanceModels } = useInstance((state) => state);
+  const { setInstanceContentModels } = useInstance((state) => state);
   const [isInitializingData, setIsInitializingData] = useState(true);
 
   const { zuid } = router.query;
@@ -57,11 +58,11 @@ export default function RolesPage() {
     if (res.error) {
       ErrorMsg({ text: res.error });
     } else {
-      const baseRoles = [];
-      const customRoles = [];
+      const baseRoles: Role[] = [];
+      const customRoles: Role[] = [];
 
       // Separate base roles from custom roles
-      res.data?.forEach((role) => {
+      res.data?.forEach((role: Role) => {
         if (role.static) {
           baseRoles.push(role);
         } else {
@@ -79,9 +80,9 @@ export default function RolesPage() {
 
     if (res.error) {
       ErrorMsg({ text: res.error });
-      setInstanceModels([]);
+      setInstanceContentModels([]);
     } else {
-      setInstanceModels(res.data);
+      setInstanceContentModels(res.data);
     }
   };
 

@@ -25,7 +25,20 @@ import { Details } from './tabs/Details';
 import { Permissions } from './tabs/Permissions';
 import { Users } from './tabs/Users';
 
-export const EditCustomRoleDialog = ({ ZUID, onClose }) => {
+export type RoleDetails = {
+  name: string;
+  description: string;
+  systemRoleZUID: string;
+};
+
+type EditCustomRoleDialogProps = {
+  ZUID: string;
+  onClose: () => void;
+};
+export const EditCustomRoleDialog = ({
+  ZUID,
+  onClose,
+}: EditCustomRoleDialogProps) => {
   const { customRoles } = useRoles((state) => state);
   const [activeTab, setActiveTab] = useState('details');
 
@@ -34,7 +47,7 @@ export const EditCustomRoleDialog = ({ ZUID, onClose }) => {
   }, [ZUID, customRoles]);
 
   const [detailsData, updateDetailsData] = useReducer(
-    (state, data) => {
+    (state: RoleDetails, data: Partial<RoleDetails>) => {
       return {
         ...state,
         ...data,
