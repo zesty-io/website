@@ -1,19 +1,21 @@
 import { create } from 'zustand';
-import { ContentModel } from './types';
+import { ContentItem, ContentModel } from './types';
 import { getZestyAPI } from 'store';
 import { ErrorMsg } from 'components/accounts';
 
 const ZestyAPI = getZestyAPI();
 
 type InstanceState = {
-  instanceContentModels: ContentModel[];
+  instanceModels: ContentModel[];
+  instanceContentItems: ContentItem[];
 };
 type InstanceAction = {
   getInstanceModels: () => Promise<void>;
+  getInstanceContentItems: () => Promise<void>;
 };
 
 export const useInstance = create<InstanceState & InstanceAction>((set) => ({
-  instanceContentModels: [],
+  instanceModels: [],
   getInstanceModels: async () => {
     try {
       const response = await ZestyAPI.getModels();
@@ -22,12 +24,30 @@ export const useInstance = create<InstanceState & InstanceAction>((set) => ({
         throw new Error(response.error);
       } else {
         set({
-          instanceContentModels: response.data,
+          instanceModels: response.data,
         });
       }
     } catch (err) {
       ErrorMsg({ text: 'Failed to fetch content models' });
       console.error('getInstanceModels error: ', err);
+    }
+  },
+
+  instanceContentItems: [],
+  getInstanceContentItems: async () => {
+    try {
+      const response = await ZestyAPI.searchItems();
+
+      if (response.error) {
+        throw new Error(response.error);
+      } else {
+        set({
+          instanceContentItems: response.data,
+        });
+      }
+    } catch (err) {
+      ErrorMsg({ text: 'Failed to fetch content items' });
+      console.error('getInstanceContentItems error: ', err);
     }
   },
 }));

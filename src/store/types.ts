@@ -75,3 +75,48 @@ export type ContentModel = {
 };
 
 export type ModelType = 'pageset' | 'templateset' | 'dataset';
+
+export type ContentItem = {
+  web: Web;
+  meta: Meta;
+  siblings: [{ [key: number]: { value: string; id: number } }] | [];
+  data: Data;
+  publishAt?: any;
+};
+
+export type Web = {
+  version: number;
+  versionZUID: string;
+  metaDescription: string;
+  metaTitle: string;
+  metaLinkText: string;
+  metaKeywords?: any;
+  parentZUID?: any;
+  pathPart: string;
+  path: string;
+  sitemapPriority: number;
+  canonicalTagMode: number;
+  canonicalQueryParamWhitelist?: any;
+  canonicalTagCustomValue?: any;
+  createdByUserZUID: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Meta = {
+  ZUID: string;
+  zid: number;
+  masterZUID: string;
+  contentModelZUID: string;
+  sort: number;
+  listed: boolean;
+  version: number;
+  langID: number;
+  createdAt: string;
+  updatedAt: string;
+  createdByUserZUID: string;
+};
+
+export type Data = {
+  [key: string]: number | string | null | undefined;
+};

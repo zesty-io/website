@@ -11,9 +11,9 @@ import { Search, AddRounded } from '@mui/icons-material';
 
 import { NoRules } from './NoRules';
 import { useZestyStore } from 'store';
-import useDebounce from 'components/hooks/useDebounce';
 import { GranularRole } from 'store/types';
 import { ErrorMsg } from 'components/accounts/ui';
+import { AddRule } from './AddRule';
 
 // const DUMMY_PERMISSIONS = [
 //   {
@@ -57,13 +57,21 @@ import { ErrorMsg } from 'components/accounts/ui';
 //   },
 // ];
 
+export type NewGranularRole = Pick<
+  GranularRole,
+  'resourceZUID' | 'create' | 'read' | 'update' | 'delete' | 'publish'
+>;
 type PermissionsProps = {
   ZUID: string;
 };
 export const Permissions = ({ ZUID }: PermissionsProps) => {
   const { ZestyAPI } = useZestyStore((state: any) => state);
   const [filterKeyword, setFilterKeyword] = useState<string>('');
-  const [permissions, setPermissions] = useState<GranularRole[]>([]);
+  const [granularRoles, setGranularRoles] = useState<GranularRole[]>([]);
+  const [showAddRule, setShowAddRule] = useState(false);
+  // const [pendingNewGranularRoles, setPendingNewGranularRoles] = useState<
+  //   NewGranularRole[]
+  // >([]);
 
   useEffect(() => {
     if (!ZUID) return;
@@ -71,31 +79,14 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
     getPermissions(ZUID);
   }, [ZUID]);
 
-  const debouncedFilterKeyword = useDebounce(
-    filterKeyword,
-    () => {
-      getContentItems(debouncedFilterKeyword);
-    },
-    500,
-  );
-
-  // TODO: Move this to zustand
-  const getContentItems = async (filterKeyword: string) => {
-    const res = await ZestyAPI.searchItems(
-      !!filterKeyword ? { q: filterKeyword } : {},
-    );
-
-    console.log(res);
-  };
-
   const getPermissions = async (ZUID: string) => {
     const res = await ZestyAPI.getAllGranularRoles(ZUID);
 
     if (res.error) {
       ErrorMsg({ text: res.error });
-      setPermissions([]);
+      setGranularRoles([]);
     } else {
-      console.log(res.data);
+      setGranularRoles(res.data);
     }
   };
 
@@ -124,15 +115,28 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
               ),
             }}
           />
-          <Button variant="outlined" startIcon={<AddRounded />} sx={{ ml: 1 }}>
+          <Button
+            variant="outlined"
+            startIcon={<AddRounded />}
+            sx={{ ml: 1 }}
+            onClick={() => setShowAddRule(true)}
+          >
             Add Rule
           </Button>
         </Box>
       </Stack>
-      {permissions?.length ? (
-        <Typography>permissions table</Typography>
-      ) : (
-        <NoRules onAddRulesClick={() => console.log('Open add rules')} />
+      {!granularRoles?.length && !showAddRule && (
+        <NoRules onAddRulesClick={() => setShowAddRule(true)} />
+      )}
+      {!!granularRoles?.length && <Typography>permissions table</Typography>}
+      {showAddRule && (
+        <AddRule
+          onCancel={() => setShowAddRule(false)}
+          onAddRuleClick={(newRuleData) => {
+            console.log('new rule', newRuleData);
+            setShowAddRule(false);
+          }}
+        />
       )}
     </Box>
   );

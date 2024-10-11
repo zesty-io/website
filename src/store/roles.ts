@@ -67,11 +67,15 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
     }
   },
   createRole: async ({ name, description, systemRoleZUID, instanceZUID }) => {
-    console.log(description);
     if (!name && !systemRoleZUID) return;
 
     try {
-      const res = await ZestyAPI.createRole(name, instanceZUID, systemRoleZUID);
+      const res = await ZestyAPI.createRole(
+        name,
+        instanceZUID,
+        systemRoleZUID,
+        description,
+      );
 
       if (res.error) {
         throw new Error(res.error);
