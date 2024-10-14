@@ -120,3 +120,13 @@ export type Meta = {
 export type Data = {
   [key: string]: number | string | null | undefined;
 };
+
+export type Language = {
+  ID: number;
+  code: string;
+  name: string;
+  default: boolean;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+};

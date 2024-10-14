@@ -15,9 +15,8 @@ export default function RolesPage() {
   const { usersWithRoles, getRoles, getUsersWithRoles } = useRoles(
     (state) => state,
   );
-  const { getInstanceModels, getInstanceContentItems } = useInstance(
-    (state) => state,
-  );
+  const { getInstanceModels, getInstanceContentItems, getLanguages } =
+    useInstance((state) => state);
   const [isInitializingData, setIsInitializingData] = useState(true);
 
   const { zuid } = router.query;
@@ -41,6 +40,7 @@ export default function RolesPage() {
         getRoles(instanceZUID),
         getInstanceModels(),
         getInstanceContentItems(),
+        getLanguages('all'),
       ]).finally(() => setIsInitializingData(false));
     }
   }, [router.isReady]);
