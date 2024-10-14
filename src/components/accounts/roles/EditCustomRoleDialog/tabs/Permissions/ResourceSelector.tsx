@@ -29,8 +29,12 @@ const getLangCode = (content: ContentItem) => {
 
 type ResourceSelectorProps = {
   onChange: (zuid: string) => void;
+  initialValue?: string;
 };
-export const ResourceSelector = ({ onChange }: ResourceSelectorProps) => {
+export const ResourceSelector = ({
+  onChange,
+  initialValue,
+}: ResourceSelectorProps) => {
   const { instanceModels, instanceContentItems } = useInstance(
     (state) => state,
   );
@@ -61,6 +65,7 @@ export const ResourceSelector = ({ onChange }: ResourceSelectorProps) => {
       fullWidth
       disableClearable
       options={options}
+      defaultValue={options?.find((option) => option.value === initialValue)}
       renderInput={(params) => (
         <TextField {...params} placeholder="Select Resource" />
       )}

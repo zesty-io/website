@@ -15,6 +15,7 @@ import { GranularRole } from 'store/types';
 import { ErrorMsg } from 'components/accounts/ui';
 import { AddRule } from './AddRule';
 import { Loading } from './Loading';
+import { Table } from './Table';
 
 // const DUMMY_PERMISSIONS = [
 //   {
@@ -136,7 +137,7 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
         <NoRules onAddRulesClick={() => setShowAddRule(true)} />
       )}
       {!isLoading && !!granularRoles?.length && (
-        <Typography>permissions table</Typography>
+        <Table granularRoles={granularRoles} />
       )}
       {!isLoading && showAddRule && (
         <AddRule
