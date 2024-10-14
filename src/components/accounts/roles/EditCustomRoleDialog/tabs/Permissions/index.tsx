@@ -14,6 +14,7 @@ import { useZestyStore } from 'store';
 import { GranularRole } from 'store/types';
 import { ErrorMsg } from 'components/accounts/ui';
 import { AddRule } from './AddRule';
+import { Loading } from './Loading';
 
 // const DUMMY_PERMISSIONS = [
 //   {
@@ -69,6 +70,7 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
   const [filterKeyword, setFilterKeyword] = useState<string>('');
   const [granularRoles, setGranularRoles] = useState<GranularRole[]>([]);
   const [showAddRule, setShowAddRule] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // const [pendingNewGranularRoles, setPendingNewGranularRoles] = useState<
   //   NewGranularRole[]
   // >([]);
@@ -76,7 +78,9 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
   useEffect(() => {
     if (!ZUID) return;
 
-    getPermissions(ZUID);
+    getPermissions(ZUID).finally(() => {
+      setIsLoading(false);
+    });
   }, [ZUID]);
 
   const getPermissions = async (ZUID: string) => {
@@ -105,6 +109,7 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
           <TextField
             value={filterKeyword}
             onChange={(evt) => setFilterKeyword(evt.target.value)}
+            disabled={isLoading}
             size="small"
             placeholder="Filter Resources"
             InputProps={{
@@ -118,6 +123,7 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
           <Button
             variant="outlined"
             startIcon={<AddRounded />}
+            disabled={isLoading}
             sx={{ ml: 1 }}
             onClick={() => setShowAddRule(true)}
           >
@@ -125,11 +131,14 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
           </Button>
         </Box>
       </Stack>
-      {!granularRoles?.length && !showAddRule && (
+      {isLoading && <Loading />}
+      {!isLoading && !granularRoles?.length && !showAddRule && (
         <NoRules onAddRulesClick={() => setShowAddRule(true)} />
       )}
-      {!!granularRoles?.length && <Typography>permissions table</Typography>}
-      {showAddRule && (
+      {!isLoading && !!granularRoles?.length && (
+        <Typography>permissions table</Typography>
+      )}
+      {!isLoading && showAddRule && (
         <AddRule
           onCancel={() => setShowAddRule(false)}
           onAddRuleClick={(newRuleData) => {

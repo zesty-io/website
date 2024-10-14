@@ -1,4 +1,4 @@
-import { useMemo, useState, useReducer, Suspense } from 'react';
+import { useMemo, useState, useReducer } from 'react';
 import {
   Typography,
   Avatar,
@@ -139,13 +139,11 @@ export const EditCustomRoleDialog = ({
           bgcolor: 'grey.50',
         }}
       >
-        <Suspense fallback={<Typography>Loading...</Typography>}>
-          {activeTab === 'details' && (
-            <Details data={detailsData} onUpdateData={updateDetailsData} />
-          )}
-          {activeTab === 'permissions' && <Permissions ZUID={ZUID} />}
-          {activeTab === 'users' && <Users />}
-        </Suspense>
+        {activeTab === 'details' && (
+          <Details data={detailsData} onUpdateData={updateDetailsData} />
+        )}
+        {activeTab === 'permissions' && <Permissions ZUID={ZUID} />}
+        {activeTab === 'users' && <Users />}
       </DialogContent>
       <DialogActions
         sx={{ p: 2.5, gap: 1, borderTop: '2px solid', borderColor: 'border' }}
