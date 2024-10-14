@@ -137,7 +137,13 @@ export const Permissions = ({ ZUID }: PermissionsProps) => {
         <NoRules onAddRulesClick={() => setShowAddRule(true)} />
       )}
       {!isLoading && !!granularRoles?.length && (
-        <Table granularRoles={granularRoles} />
+        <Table
+          granularRoles={granularRoles}
+          onDataChange={(roleData) => {
+            //TODO: This does not sync data. Also need to confirm with Markel on how granular role update works
+            console.log('new data', roleData);
+          }}
+        />
       )}
       {!isLoading && showAddRule && (
         <AddRule

@@ -5,6 +5,7 @@ import { Checkbox } from '@mui/material';
 import { ResourceSelector } from './ResourceSelector';
 import { GranularRole } from 'store/types';
 import { GridRenderCellParams } from '@mui/x-data-grid';
+import { NewGranularRole } from './index';
 
 const DataGrid = dynamic(() =>
   import('@mui/x-data-grid').then((e) => e.DataGrid),
@@ -12,8 +13,9 @@ const DataGrid = dynamic(() =>
 
 type TableProps = {
   granularRoles: GranularRole[];
+  onDataChange: (roleData: NewGranularRole) => void;
 };
-export const Table = ({ granularRoles }: TableProps) => {
+export const Table = ({ granularRoles, onDataChange }: TableProps) => {
   const COLUMNS = useMemo(
     () => [
       {
@@ -21,17 +23,20 @@ export const Table = ({ granularRoles }: TableProps) => {
         headerName: 'Resource Name',
         width: 380,
         sortable: false,
-        renderCell: (params: GridRenderCellParams) => (
-          <ResourceSelector
-            initialValue={params.value}
-            onChange={(zuid) =>
-              // updateRuleData({
-              //   resourceZUID: zuid,
-              // })
-              console.log(zuid)
-            }
-          />
-        ),
+        renderCell: (params: GridRenderCellParams) => {
+          console.log(params);
+          return (
+            <ResourceSelector
+              initialValue={params.value}
+              onChange={(zuid) =>
+                onDataChange({
+                  ...params.row,
+                  resourceZUID: zuid,
+                })
+              }
+            />
+          );
+        },
       },
       {
         field: 'create',
@@ -39,8 +44,10 @@ export const Table = ({ granularRoles }: TableProps) => {
         sortable: false,
         renderCell: (params: GridRenderCellParams) => (
           <Checkbox
-            checked={!!params.value}
-            // onChange={(evt) => updateRuleData({ create: evt.target.checked })}
+            defaultChecked={!!params.value}
+            onChange={(evt) =>
+              onDataChange({ ...params.row, create: evt.target.checked })
+            }
           />
         ),
       },
@@ -50,8 +57,10 @@ export const Table = ({ granularRoles }: TableProps) => {
         sortable: false,
         renderCell: (params: GridRenderCellParams) => (
           <Checkbox
-            checked={!!params.value}
-            // onChange={(evt) => updateRuleData({ read: evt.target.checked })}
+            defaultChecked={!!params.value}
+            onChange={(evt) =>
+              onDataChange({ ...params.row, read: evt.target.checked })
+            }
           />
         ),
       },
@@ -61,8 +70,10 @@ export const Table = ({ granularRoles }: TableProps) => {
         sortable: false,
         renderCell: (params: GridRenderCellParams) => (
           <Checkbox
-            checked={!!params.value}
-            // onChange={(evt) => updateRuleData({ update: evt.target.checked })}
+            defaultChecked={!!params.value}
+            onChange={(evt) =>
+              onDataChange({ ...params.row, update: evt.target.checked })
+            }
           />
         ),
       },
@@ -72,8 +83,10 @@ export const Table = ({ granularRoles }: TableProps) => {
         sortable: false,
         renderCell: (params: GridRenderCellParams) => (
           <Checkbox
-            checked={!!params.value}
-            // onChange={(evt) => updateRuleData({ delete: evt.target.checked })}
+            defaultChecked={!!params.value}
+            onChange={(evt) =>
+              onDataChange({ ...params.row, delete: evt.target.checked })
+            }
           />
         ),
       },
@@ -83,8 +96,10 @@ export const Table = ({ granularRoles }: TableProps) => {
         sortable: false,
         renderCell: (params: GridRenderCellParams) => (
           <Checkbox
-            checked={!!params.value}
-            // onChange={(evt) => updateRuleData({ publish: evt.target.checked })}
+            defaultChecked={!!params.value}
+            onChange={(evt) =>
+              onDataChange({ ...params.row, publish: evt.target.checked })
+            }
           />
         ),
       },
