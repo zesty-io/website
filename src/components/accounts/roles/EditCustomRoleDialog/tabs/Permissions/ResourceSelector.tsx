@@ -11,9 +11,20 @@ import { Database } from '@zesty-io/material';
 
 import { useInstance } from 'store/instance';
 import { VirtualizedList } from 'components/accounts/ui/VirtualizedList';
+import { ContentItem } from 'store/types';
 
 const VirtualizedListComp = (defaultprops: any, ref) => {
   return <VirtualizedList ref={ref} {...defaultprops} rowheight={36} />;
+};
+
+const getLangCode = (content: ContentItem) => {
+  if (!Object.keys(content)?.length) {
+    return '';
+  }
+
+  const { languages } = useInstance.getState();
+
+  return languages?.find((lang) => lang.ID === content?.meta?.langID)?.code;
 };
 
 type ResourceSelectorProps = {
@@ -25,18 +36,19 @@ export const ResourceSelector = ({ onChange }: ResourceSelectorProps) => {
   );
 
   const options = useMemo(() => {
-    console.log('run options');
     if (!instanceModels?.length && !instanceContentItems?.length) return [];
 
     const models = instanceModels?.map((model) => ({
       label: model.label,
       value: model.ZUID,
       type: 'model',
+      langCode: null,
     }));
     const items = instanceContentItems?.map((item) => ({
-      label: item?.web?.metaTitle || '',
+      label: item?.web?.metaTitle || 'Missing Meta Title',
       value: item?.meta?.ZUID,
       type: 'item',
+      langCode: getLangCode(item),
     }));
 
     return [...models, ...items].sort(
@@ -74,13 +86,18 @@ export const ResourceSelector = ({ onChange }: ResourceSelectorProps) => {
                 wordWrap: 'break-word',
               }}
             >
-              {option.label}
+              {!!option.langCode
+                ? `(${option.langCode}) ${option.label}`
+                : option.label}
             </ListItemText>
           </ListItem>
         );
       }}
       onChange={(_, value) => onChange(value?.value || '')}
       ListboxComponent={forwardRef(VirtualizedListComp)}
+      onKeyDown={(evt) => {
+        evt.stopPropagation();
+      }}
     />
   );
 };
