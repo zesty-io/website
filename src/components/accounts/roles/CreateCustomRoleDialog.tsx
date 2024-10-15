@@ -322,8 +322,8 @@ export const CreateCustomRoleDialog = ({
 
     setIsCreatingRole(true);
     createRole({
-      name: fieldData.name,
-      description: fieldData.description,
+      name: fieldData.name.replace(/[^\w\s\n]/g, ''),
+      description: fieldData.description.replace(/[^\w\s\n]/g, ''),
       systemRoleZUID: fieldData.systemRoleZUID,
       instanceZUID: String(router?.query?.zuid),
     }).finally(() => {
