@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { Checkbox } from '@mui/material';
+import { Checkbox, Typography } from '@mui/material';
+import { Database } from '@zesty-io/material';
+import { EditRounded } from '@mui/icons-material';
 
-import { ResourceSelector } from './ResourceSelector';
 import { GranularRole } from 'store/types';
-import { GridRenderCellParams } from '@mui/x-data-grid';
+import { GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid';
 import { NewGranularRole } from './index';
+import { useInstance } from 'store/instance';
 
 const DataGrid = dynamic(() =>
   import('@mui/x-data-grid').then((e) => e.DataGrid),
@@ -16,6 +18,25 @@ type TableProps = {
   onDataChange: (roleData: NewGranularRole) => void;
 };
 export const Table = ({ granularRoles, onDataChange }: TableProps) => {
+  const { instanceModels, instanceContentItems } = useInstance(
+    (state) => state,
+  );
+
+  const resolveResourceZUID = (zuid: string) => {
+    if (zuid?.startsWith('6-')) {
+      return (
+        instanceModels?.find((model) => model.ZUID === zuid)?.label || zuid
+      );
+    } else if (zuid?.startsWith('7-')) {
+      return (
+        instanceContentItems?.find((item) => item.meta.ZUID === zuid)?.web
+          ?.metaTitle || zuid
+      );
+    } else {
+      return zuid;
+    }
+  };
+
   const COLUMNS = useMemo(
     () => [
       {
@@ -23,20 +44,18 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
         headerName: 'Resource Name',
         width: 380,
         sortable: false,
-        renderCell: (params: GridRenderCellParams) => {
-          console.log(params);
-          return (
-            <ResourceSelector
-              initialValue={params.value}
-              onChange={(zuid) =>
-                onDataChange({
-                  ...params.row,
-                  resourceZUID: zuid,
-                })
-              }
-            />
-          );
-        },
+        renderCell: (params: GridValueGetterParams) => (
+          <>
+            {params.value?.startsWith('6-') ? (
+              <Database fontSize="small" color="action" />
+            ) : (
+              <EditRounded fontSize="small" color="action" />
+            )}
+            <Typography variant="body2" pl={1.5} fontWeight={600}>
+              {resolveResourceZUID(params.value)}
+            </Typography>
+          </>
+        ),
       },
       {
         field: 'create',
@@ -104,7 +123,7 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
         ),
       },
     ],
-    [],
+    [instanceModels, instanceContentItems],
   );
   const rows = useMemo(() => {
     return granularRoles?.map((role, index) => {
