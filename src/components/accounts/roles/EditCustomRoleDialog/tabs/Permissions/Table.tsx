@@ -12,7 +12,7 @@ const DataGrid = dynamic(() =>
 );
 
 type TableProps = {
-  granularRoles: GranularRole[];
+  granularRoles: Partial<GranularRole>[];
   onDataChange: (roleData: NewGranularRole) => void;
 };
 export const Table = ({ granularRoles, onDataChange }: TableProps) => {

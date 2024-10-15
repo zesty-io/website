@@ -1,4 +1,4 @@
-import { useMemo, useState, useReducer } from 'react';
+import { useMemo, useState, useReducer, useEffect } from 'react';
 import {
   Typography,
   Avatar,
@@ -24,6 +24,9 @@ import { useRoles } from 'store/roles';
 import { Details } from './tabs/Details';
 import { Permissions } from './tabs/Permissions';
 import { Users } from './tabs/Users';
+import { GranularRole } from 'store/types';
+import { useZestyStore } from 'store';
+import { ErrorMsg } from 'components/accounts/ui';
 
 export type RoleDetails = {
   name: string;
@@ -39,12 +42,16 @@ export const EditCustomRoleDialog = ({
   ZUID,
   onClose,
 }: EditCustomRoleDialogProps) => {
+  const { ZestyAPI } = useZestyStore((state: any) => state);
   const { customRoles } = useRoles((state) => state);
   const [activeTab, setActiveTab] = useState('details');
 
   const roleData = useMemo(() => {
     return customRoles?.find((role) => role.ZUID === ZUID);
   }, [ZUID, customRoles]);
+  const [granularRoles, setGranularRoles] = useState<Partial<GranularRole>[]>(
+    [],
+  );
 
   const [detailsData, updateDetailsData] = useReducer(
     (state: RoleDetails, data: Partial<RoleDetails>) => {
@@ -59,6 +66,23 @@ export const EditCustomRoleDialog = ({
       systemRoleZUID: roleData?.systemRoleZUID || '31-71cfc74-4dm13',
     },
   );
+
+  useEffect(() => {
+    if (!ZUID) return;
+
+    getPermissions(ZUID);
+  }, [ZUID]);
+
+  const getPermissions = async (ZUID: string) => {
+    const res = await ZestyAPI.getAllGranularRoles(ZUID);
+
+    if (res.error) {
+      ErrorMsg({ text: res.error });
+      setGranularRoles([]);
+    } else {
+      setGranularRoles(res.data);
+    }
+  };
 
   return (
     <Dialog
@@ -142,7 +166,14 @@ export const EditCustomRoleDialog = ({
         {activeTab === 'details' && (
           <Details data={detailsData} onUpdateData={updateDetailsData} />
         )}
-        {activeTab === 'permissions' && <Permissions ZUID={ZUID} />}
+        {activeTab === 'permissions' && (
+          <Permissions
+            granularRoles={granularRoles}
+            onAddNewGranularRole={(newRoleData) =>
+              setGranularRoles((prev) => [...prev, newRoleData])
+            }
+          />
+        )}
         {activeTab === 'users' && <Users />}
       </DialogContent>
       <DialogActions
