@@ -30,10 +30,12 @@ const getLangCode = (content: ContentItem) => {
 type ResourceSelectorProps = {
   onChange: (zuid: string) => void;
   initialValue?: string;
+  resourcesToFilter: string[];
 };
 export const ResourceSelector = ({
   onChange,
   initialValue,
+  resourcesToFilter,
 }: ResourceSelectorProps) => {
   const { instanceModels, instanceContentItems } = useInstance(
     (state) => state,
@@ -60,11 +62,17 @@ export const ResourceSelector = ({
     );
   }, [instanceModels, instanceContentItems]);
 
+  const filteredOptions = useMemo(() => {
+    return options?.filter(
+      (option) => !resourcesToFilter.includes(option.value),
+    );
+  }, [options, resourcesToFilter]);
+
   return (
     <Autocomplete
       fullWidth
       disableClearable
-      options={options}
+      options={filteredOptions}
       defaultValue={options?.find((option) => option.value === initialValue)}
       renderInput={(params) => (
         <TextField {...params} placeholder="Select Resource" />

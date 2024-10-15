@@ -85,6 +85,7 @@ export const Permissions = ({
             onAddNewGranularRole(newRoleData);
             setShowAddRule(false);
           }}
+          granularRoles={granularRoles}
         />
       )}
     </Box>

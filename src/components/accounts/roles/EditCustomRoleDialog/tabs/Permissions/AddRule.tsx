@@ -5,6 +5,7 @@ import { useMemo, useReducer } from 'react';
 
 import { NewGranularRole } from './index';
 import { ResourceSelector } from './ResourceSelector';
+import { GranularRole } from 'store/types';
 
 const DataGrid = dynamic(() =>
   import('@mui/x-data-grid').then((e) => e.DataGrid),
@@ -13,8 +14,13 @@ const DataGrid = dynamic(() =>
 type AddRuleProps = {
   onAddRuleClick: (data: NewGranularRole) => void;
   onCancel: () => void;
+  granularRoles: Partial<GranularRole>[];
 };
-export const AddRule = ({ onAddRuleClick, onCancel }: AddRuleProps) => {
+export const AddRule = ({
+  onAddRuleClick,
+  onCancel,
+  granularRoles,
+}: AddRuleProps) => {
   const [ruleData, updateRuleData] = useReducer(
     (state: NewGranularRole, data: Partial<NewGranularRole>) => {
       return {
@@ -32,6 +38,8 @@ export const AddRule = ({ onAddRuleClick, onCancel }: AddRuleProps) => {
     },
   );
 
+  const resourcesToFilter = granularRoles?.map((role) => role.resourceZUID);
+
   const COLUMNS = useMemo(
     () => [
       {
@@ -46,6 +54,7 @@ export const AddRule = ({ onAddRuleClick, onCancel }: AddRuleProps) => {
                 resourceZUID: zuid,
               })
             }
+            resourcesToFilter={resourcesToFilter}
           />
         ),
       },
