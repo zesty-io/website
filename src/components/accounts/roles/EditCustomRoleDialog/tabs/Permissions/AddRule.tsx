@@ -184,6 +184,7 @@ export const AddRule = ({
           variant="contained"
           startIcon={<Check />}
           onClick={() => onAddRuleClick(ruleData)}
+          disabled={!ruleData.resourceZUID}
         >
           Done
         </Button>
