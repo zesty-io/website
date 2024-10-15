@@ -18,7 +18,7 @@ type TableProps = {
   onDataChange: (roleData: NewGranularRole) => void;
 };
 export const Table = ({ granularRoles, onDataChange }: TableProps) => {
-  const { instanceModels, instanceContentItems } = useInstance(
+  const { instanceModels, instanceContentItems, languages } = useInstance(
     (state) => state,
   );
 
@@ -28,10 +28,15 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
         instanceModels?.find((model) => model.ZUID === zuid)?.label || zuid
       );
     } else if (zuid?.startsWith('7-')) {
-      return (
-        instanceContentItems?.find((item) => item.meta.ZUID === zuid)?.web
-          ?.metaTitle || zuid
+      const contentItem = instanceContentItems?.find(
+        (item) => item.meta.ZUID === zuid,
       );
+      const name = contentItem?.web?.metaTitle || zuid;
+      const langCode = languages?.find(
+        (lang) => lang.ID === contentItem?.meta?.langID,
+      )?.code;
+
+      return langCode ? `(${langCode}) ${name}` : name;
     } else {
       return zuid;
     }
