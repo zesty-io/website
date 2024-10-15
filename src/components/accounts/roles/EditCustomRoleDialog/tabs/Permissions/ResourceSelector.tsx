@@ -1,10 +1,11 @@
-import { useMemo, forwardRef } from 'react';
+import { useMemo, forwardRef, useState } from 'react';
 import {
   TextField,
   Autocomplete,
   ListItem,
   ListItemIcon,
   ListItemText,
+  InputAdornment,
 } from '@mui/material';
 import { EditRounded } from '@mui/icons-material';
 import { Database } from '@zesty-io/material';
@@ -18,7 +19,7 @@ const VirtualizedListComp = (defaultprops: any, ref) => {
 };
 
 const getLangCode = (content: ContentItem) => {
-  if (!Object.keys(content)?.length) {
+  if (!content || !Object.keys(content)?.length) {
     return '';
   }
 
@@ -48,17 +49,21 @@ export const ResourceSelector = ({
       label: model.label,
       value: model.ZUID,
       type: 'model',
-      langCode: null,
+      sortText: model.label,
     }));
-    const items = instanceContentItems?.map((item) => ({
-      label: item?.web?.metaTitle || 'Missing Meta Title',
-      value: item?.meta?.ZUID,
-      type: 'item',
-      langCode: getLangCode(item),
-    }));
+    const items = instanceContentItems?.map((item) => {
+      const label = item?.web?.metaTitle || 'Missing Meta Title';
+
+      return {
+        label: getLangCode(item) ? `(${getLangCode(item)}) ${label}` : label,
+        value: item?.meta?.ZUID,
+        type: 'item',
+        sortText: label,
+      };
+    });
 
     return [...models, ...items].sort(
-      (a, b) => a?.label?.localeCompare(b?.label),
+      (a, b) => a?.sortText?.localeCompare(b?.sortText),
     );
   }, [instanceModels, instanceContentItems]);
 
@@ -68,14 +73,30 @@ export const ResourceSelector = ({
     );
   }, [options, resourcesToFilter]);
 
+  const [value, setValue] = useState(
+    options?.find((option) => option.value === initialValue),
+  );
+
   return (
     <Autocomplete
       fullWidth
       disableClearable
       options={filteredOptions}
-      defaultValue={options?.find((option) => option.value === initialValue)}
+      value={value}
       renderInput={(params) => (
-        <TextField {...params} placeholder="Select Resource" />
+        <TextField
+          {...params}
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <InputAdornment position="start">
+                {value?.value?.startsWith('6-') && <Database />}
+                {value?.value?.startsWith('7-') && <EditRounded />}
+              </InputAdornment>
+            ),
+          }}
+          placeholder="Select Resource"
+        />
       )}
       renderOption={(props, option) => {
         return (
@@ -99,14 +120,15 @@ export const ResourceSelector = ({
                 wordWrap: 'break-word',
               }}
             >
-              {!!option.langCode
-                ? `(${option.langCode}) ${option.label}`
-                : option.label}
+              {option.label}
             </ListItemText>
           </ListItem>
         );
       }}
-      onChange={(_, value) => onChange(value?.value || '')}
+      onChange={(_, value) => {
+        onChange(value?.value || '');
+        setValue(value);
+      }}
       ListboxComponent={forwardRef(VirtualizedListComp)}
       onKeyDown={(evt) => {
         evt.stopPropagation();
