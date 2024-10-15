@@ -43,8 +43,10 @@ export const EditCustomRoleDialog = ({
   onClose,
 }: EditCustomRoleDialogProps) => {
   const { ZestyAPI } = useZestyStore((state: any) => state);
-  const { customRoles } = useRoles((state) => state);
-  const [activeTab, setActiveTab] = useState('details');
+  const { customRoles, updateGranularRole } = useRoles((state) => state);
+  const [activeTab, setActiveTab] = useState<
+    'details' | 'permissions' | 'users'
+  >('details');
 
   const roleData = useMemo(() => {
     return customRoles?.find((role) => role.ZUID === ZUID);
@@ -81,6 +83,36 @@ export const EditCustomRoleDialog = ({
       setGranularRoles([]);
     } else {
       setGranularRoles(res.data);
+    }
+  };
+
+  const handleSave = () => {
+    switch (activeTab) {
+      case 'details':
+        break;
+
+      case 'permissions':
+        const payload = granularRoles?.map((role) => ({
+          resourceZUID: role.resourceZUID,
+          create: role.create,
+          read: role.read,
+          update: role.update,
+          delete: role.delete,
+          publish: role.publish,
+          grant: false,
+          name: '',
+        }));
+
+        updateGranularRole({ roleZUID: ZUID, granularRoles: payload }).then(
+          () => getPermissions(ZUID),
+        );
+        break;
+
+      case 'users':
+        break;
+
+      default:
+        break;
     }
   };
 
@@ -182,11 +214,7 @@ export const EditCustomRoleDialog = ({
         <Button variant="outlined" color="inherit" onClick={() => onClose?.()}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => console.log('create custom role')}
-        >
+        <Button variant="contained" color="primary" onClick={handleSave}>
           Save
         </Button>
       </DialogActions>

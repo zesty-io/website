@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { UserRole, Role } from './types';
+import { UserRole, Role, GranularRole } from './types';
 import { getZestyAPI } from 'store';
 import { ErrorMsg } from 'components/accounts';
 import { RoleDetails } from 'components/accounts/roles/CreateCustomRoleDialog';
@@ -16,6 +16,13 @@ type RolesAction = {
   getUsersWithRoles: (instanceZUID: string) => Promise<void>;
   getRoles: (instanceZUID: string) => Promise<void>;
   createRole: (data: RoleDetails & { instanceZUID: string }) => Promise<void>;
+  updateGranularRole: ({
+    roleZUID,
+    granularRoles,
+  }: {
+    roleZUID: string;
+    granularRoles: Partial<GranularRole>[];
+  }) => Promise<void>;
 };
 
 export const useRoles = create<RolesState & RolesAction>((set, get) => ({
@@ -84,6 +91,25 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
       }
     } catch (err) {
       ErrorMsg({ title: 'Failed to create role' });
+      console.error('Failed to create role: ', err);
+    }
+  },
+  updateGranularRole: async ({ roleZUID, granularRoles }) => {
+    if (!roleZUID || !granularRoles) return;
+
+    try {
+      const res = await ZestyAPI.updateGranularRolesBatch(
+        roleZUID,
+        granularRoles,
+      );
+
+      if (res.error) {
+        throw new Error(res.error);
+      } else {
+        return res;
+      }
+    } catch (err) {
+      ErrorMsg({ title: 'Failed to update granular role' });
       console.error('Failed to create role: ', err);
     }
   },
