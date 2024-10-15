@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { Checkbox, Typography } from '@mui/material';
+import { Checkbox, Typography, IconButton, Tooltip } from '@mui/material';
 import { Database } from '@zesty-io/material';
-import { EditRounded } from '@mui/icons-material';
+import { EditRounded, InfoRounded, DeleteRounded } from '@mui/icons-material';
 
 import { GranularRole } from 'store/types';
 import { GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid';
@@ -47,7 +47,7 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
       {
         field: 'resourceZUID',
         headerName: 'Resource Name',
-        width: 380,
+        width: 300,
         sortable: false,
         renderCell: (params: GridValueGetterParams) => (
           <>
@@ -127,6 +127,42 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
           />
         ),
       },
+      {
+        field: 'actions',
+        headerName: '',
+        sortable: false,
+        renderCell: (params: GridRenderCellParams) => {
+          const title = `Name: ${resolveResourceZUID(params.value)} \n ${
+            params.value?.startsWith('6-')
+              ? 'Model'
+              : !!params.value?.startsWith('7-')
+              ? 'Item'
+              : ''
+          } ZUID: ${params.value}`;
+
+          return (
+            <>
+              <Tooltip
+                placement="right"
+                title={title}
+                disableInteractive
+                slotProps={{
+                  tooltip: {
+                    sx: {
+                      whiteSpace: 'pre-line',
+                    },
+                  },
+                }}
+              >
+                <InfoRounded color="action" fontSize="small" />
+              </Tooltip>
+              <IconButton size="small" sx={{ ml: 2 }}>
+                <DeleteRounded fontSize="small" />
+              </IconButton>
+            </>
+          );
+        },
+      },
     ],
     [instanceModels, instanceContentItems],
   );
@@ -140,6 +176,7 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
         update: role.update,
         delete: role.delete,
         publish: role.publish,
+        actions: role.resourceZUID,
       };
     });
   }, [granularRoles]);
