@@ -137,8 +137,6 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
         },
 
         '& .MuiDataGrid-cell': {
-          borderBottom: 0,
-
           '&:focus-within': {
             outline: 'none',
           },
@@ -146,6 +144,10 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
 
         '& .MuiDataGrid-columnHeader:focus-within': {
           outline: 'none',
+        },
+
+        '& .MuiDataGrid-row': {
+          bgcolor: 'background.paper',
         },
       }}
     />
