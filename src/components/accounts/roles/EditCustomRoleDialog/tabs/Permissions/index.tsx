@@ -24,11 +24,13 @@ type PermissionsProps = {
   granularRoles: Partial<GranularRole>[];
   onAddNewGranularRole: (roleData: NewGranularRole) => void;
   onUpdateGranularRole: (roleData: UpdateGranularRole) => void;
+  onDeleteGranularRole: (resourceZUID: string) => void;
 };
 export const Permissions = ({
   granularRoles,
   onAddNewGranularRole,
   onUpdateGranularRole,
+  onDeleteGranularRole,
 }: PermissionsProps) => {
   const [filterKeyword, setFilterKeyword] = useState<string>('');
   const [showAddRule, setShowAddRule] = useState(false);
@@ -76,6 +78,7 @@ export const Permissions = ({
           <Table
             granularRoles={granularRoles}
             onDataChange={(roleData) => onUpdateGranularRole(roleData)}
+            onDelete={onDeleteGranularRole}
           />
         </Box>
       )}

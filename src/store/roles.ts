@@ -40,6 +40,13 @@ type RolesAction = {
     roleZUID: string;
     granularRoles: Partial<GranularRole>[];
   }) => Promise<void>;
+  deleteGranularRole: ({
+    roleZUID,
+    resourceZUIDs,
+  }: {
+    roleZUID: string;
+    resourceZUIDs: string[];
+  }) => Promise<void>;
 };
 
 export const useRoles = create<RolesState & RolesAction>((set, get) => ({
@@ -168,6 +175,28 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
     } catch (err) {
       ErrorMsg({ title: 'Failed to update granular role' });
       console.error('Failed to update granular role: ', err);
+    }
+  },
+  deleteGranularRole: async ({ roleZUID, resourceZUIDs }) => {
+    if (!roleZUID || !resourceZUIDs || !resourceZUIDs?.length) return;
+
+    try {
+      // const res = await ZestyAPI.deleteGranularRole()
+      Promise.all([
+        resourceZUIDs.forEach((zuid) =>
+          ZestyAPI.deleteGranularRole(roleZUID, zuid),
+        ),
+      ])
+        .then((res) => {
+          console.log('delete response', res);
+          return res;
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
+    } catch (err) {
+      ErrorMsg({ title: 'Failed to delete granular role' });
+      console.error('Failed to delete granular role: ', err);
     }
   },
 }));

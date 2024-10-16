@@ -52,6 +52,7 @@ export const EditCustomRoleDialog = ({
     updateGranularRole,
     updateRole,
     createGranularRole,
+    deleteGranularRole,
   } = useRoles((state) => state);
   const [activeTab, setActiveTab] = useState<
     'details' | 'permissions' | 'users'
@@ -61,8 +62,10 @@ export const EditCustomRoleDialog = ({
   const { zuid: instanceZUID } = router.query;
 
   const roleData = customRoles?.find((role) => role.ZUID === ZUID);
-  console.log('roleData', roleData);
   const [granularRoles, setGranularRoles] = useState<Partial<GranularRole>[]>(
+    [],
+  );
+  const [resourceZUIDsToDelete, setResourceZUIDsToDelete] = useState<string[]>(
     [],
   );
 
@@ -113,7 +116,22 @@ export const EditCustomRoleDialog = ({
       case 'permissions':
         setIsSaving(true);
 
-        const payload = granularRoles?.map((role) => ({
+        let granularRolesClone: GranularRole[] = JSON.parse(
+          JSON.stringify(granularRoles || []),
+        );
+
+        if (!!resourceZUIDsToDelete?.length) {
+          granularRolesClone = granularRolesClone?.filter((role) => {
+            return !resourceZUIDsToDelete.includes(role.resourceZUID);
+          });
+
+          deleteGranularRole({
+            roleZUID: ZUID,
+            resourceZUIDs: resourceZUIDsToDelete,
+          });
+        }
+
+        let payload = granularRolesClone?.map((role) => ({
           resourceZUID: role.resourceZUID,
           create: role.create,
           read: role.read,
@@ -253,6 +271,26 @@ export const EditCustomRoleDialog = ({
             granularRoles={granularRoles}
             onAddNewGranularRole={(newRoleData) => {
               setGranularRoles((prev) => [...prev, newRoleData]);
+            }}
+            onDeleteGranularRole={(resourceZUID) => {
+              setResourceZUIDsToDelete((prevState) => {
+                try {
+                  const resourceZUIDsToDeleteClone = JSON.parse(
+                    JSON.stringify(prevState),
+                  );
+                  resourceZUIDsToDeleteClone.push(resourceZUID);
+
+                  return Array.from(new Set(resourceZUIDsToDeleteClone));
+                } catch (err) {
+                  console.error(err);
+                }
+              });
+              setGranularRoles(
+                (prevState) =>
+                  prevState?.filter(
+                    (role) => role.resourceZUID !== resourceZUID,
+                  ),
+              );
             }}
             onUpdateGranularRole={(updatedRoleData) => {
               setGranularRoles((prevState) => {

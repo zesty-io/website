@@ -16,8 +16,13 @@ const DataGrid = dynamic(() =>
 type TableProps = {
   granularRoles: Partial<GranularRole>[];
   onDataChange: (roleData: UpdateGranularRole) => void;
+  onDelete: (resourceZUID: string) => void;
 };
-export const Table = ({ granularRoles, onDataChange }: TableProps) => {
+export const Table = ({
+  granularRoles,
+  onDataChange,
+  onDelete,
+}: TableProps) => {
   const { instanceModels, instanceContentItems, languages } = useInstance(
     (state) => state,
   );
@@ -171,7 +176,11 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
               >
                 <InfoRounded color="action" fontSize="small" />
               </Tooltip>
-              <IconButton size="small" sx={{ ml: 2 }}>
+              <IconButton
+                size="small"
+                sx={{ ml: 2 }}
+                onClick={() => onDelete(params.value)}
+              >
                 <DeleteRounded fontSize="small" />
               </IconButton>
             </>
