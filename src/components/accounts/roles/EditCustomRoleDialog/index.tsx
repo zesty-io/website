@@ -95,6 +95,13 @@ export const EditCustomRoleDialog = ({
 
       case 'permissions':
         setIsSaving(true);
+        // Check role if granularRoleZUID already exists
+        // If yes, just use PUT and pass in the array of roles in body
+        // If no, check granularRoles array length
+        // If more than 1, use the first role for a POST request to generate a new granularRoleZUID
+        // Once api call above is done, perform PUT for all the remaining roles if any
+        // If just 1, just do a POST request first to generate a new granularRoleZUID
+
         const payload = granularRoles?.map((role) => ({
           resourceZUID: role.resourceZUID,
           create: role.create,

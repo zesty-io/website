@@ -504,6 +504,7 @@ export const CreateCustomRoleDialog = ({
           Cancel
         </Button>
         <LoadingButton
+          disabled={!fieldData.systemRoleZUID || !fieldData.name}
           loading={isCreatingRole}
           variant="contained"
           color="primary"
