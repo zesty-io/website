@@ -12,6 +12,7 @@ import {
   Tabs,
   Tab,
 } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import {
   LocalPoliceOutlined,
   Close,
@@ -47,6 +48,7 @@ export const EditCustomRoleDialog = ({
   const [activeTab, setActiveTab] = useState<
     'details' | 'permissions' | 'users'
   >('details');
+  const [isSaving, setIsSaving] = useState(false);
 
   const roleData = useMemo(() => {
     return customRoles?.find((role) => role.ZUID === ZUID);
@@ -92,6 +94,7 @@ export const EditCustomRoleDialog = ({
         break;
 
       case 'permissions':
+        setIsSaving(true);
         const payload = granularRoles?.map((role) => ({
           resourceZUID: role.resourceZUID,
           create: role.create,
@@ -104,7 +107,10 @@ export const EditCustomRoleDialog = ({
         }));
 
         updateGranularRole({ roleZUID: ZUID, granularRoles: payload }).then(
-          () => getPermissions(ZUID),
+          () => {
+            getPermissions(ZUID);
+            setIsSaving(false);
+          },
         );
         break;
 
@@ -214,9 +220,14 @@ export const EditCustomRoleDialog = ({
         <Button variant="outlined" color="inherit" onClick={() => onClose?.()}>
           Cancel
         </Button>
-        <Button variant="contained" color="primary" onClick={handleSave}>
+        <LoadingButton
+          loading={isSaving}
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+        >
           Save
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );
