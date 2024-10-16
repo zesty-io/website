@@ -146,18 +146,22 @@ export const EditCustomRoleDialog = ({
     setIsSaving(true);
 
     Promise.all([
+      // Update role details
       updateRole({
         roleZUID: ZUID,
         name: detailsData.name?.replace(/[^\w\s\n]/g, ''),
         description: detailsData.description?.replace(/[^\w\s\n]/g, ''),
       }),
+      // Delete a granular role if there's any to delete
       ...(!!resourceZUIDsToDelete && [
         deleteGranularRole({
           roleZUID: ZUID,
           resourceZUIDs: resourceZUIDsToDelete,
         }),
       ]),
+      // Perform all granular role updates
       saveGranularRoleUpdates(),
+      // TODO: Add api call to manager users
     ])
       .then((responses) => console.log(responses))
       .finally(() => {

@@ -190,20 +190,18 @@ export const Table = ({
     ],
     [instanceModels, instanceContentItems],
   );
-  const rows = useMemo(() => {
-    return granularRoles?.map((role, index) => {
-      return {
-        id: index,
-        resourceZUID: role.resourceZUID,
-        create: role.create,
-        read: role.read,
-        update: role.update,
-        delete: role.delete,
-        publish: role.publish,
-        actions: role.resourceZUID,
-      };
-    });
-  }, [granularRoles]);
+  const rows = granularRoles?.map((role) => {
+    return {
+      id: role.resourceZUID,
+      resourceZUID: role.resourceZUID,
+      create: role.create,
+      read: role.read,
+      update: role.update,
+      delete: role.delete,
+      publish: role.publish,
+      actions: role.resourceZUID,
+    };
+  });
 
   return (
     <DataGrid
