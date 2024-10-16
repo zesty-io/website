@@ -46,9 +46,13 @@ export const EditCustomRoleDialog = ({
 }: EditCustomRoleDialogProps) => {
   const router = useRouter();
   const { ZestyAPI } = useZestyStore((state: any) => state);
-  const { getRoles, customRoles, updateGranularRole, updateRole } = useRoles(
-    (state) => state,
-  );
+  const {
+    getRoles,
+    customRoles,
+    updateGranularRole,
+    updateRole,
+    createGranularRole,
+  } = useRoles((state) => state);
   const [activeTab, setActiveTab] = useState<
     'details' | 'permissions' | 'users'
   >('details');
@@ -57,6 +61,7 @@ export const EditCustomRoleDialog = ({
   const { zuid: instanceZUID } = router.query;
 
   const roleData = customRoles?.find((role) => role.ZUID === ZUID);
+  console.log('roleData', roleData);
   const [granularRoles, setGranularRoles] = useState<Partial<GranularRole>[]>(
     [],
   );
@@ -107,12 +112,6 @@ export const EditCustomRoleDialog = ({
 
       case 'permissions':
         setIsSaving(true);
-        // Check role if granularRoleZUID already exists
-        // If yes, just use PUT and pass in the array of roles in body
-        // If no, check granularRoles array length
-        // If more than 1, use the first role for a POST request to generate a new granularRoleZUID
-        // Once api call above is done, perform PUT for all the remaining roles if any
-        // If just 1, just do a POST request first to generate a new granularRoleZUID
 
         const payload = granularRoles?.map((role) => ({
           resourceZUID: role.resourceZUID,
@@ -121,13 +120,42 @@ export const EditCustomRoleDialog = ({
           update: role.update,
           delete: role.delete,
           publish: role.publish,
-          grant: false,
           name: '',
         }));
 
-        updateGranularRole({ roleZUID: ZUID, granularRoles: payload })
-          .then(() => getPermissions(ZUID))
-          .finally(() => setIsSaving(false));
+        if (!!roleData?.granularRoleZUID) {
+          // If a granularRoleZUID is already attached to the role, we can just
+          // do an update to add the new granular roles
+          updateGranularRole({ roleZUID: ZUID, granularRoles: payload })
+            .then(() => getPermissions(ZUID))
+            .finally(() => setIsSaving(false));
+        } else {
+          // If the role doesn't have any granularRoleZUID attached, we need to create a
+          // granular role first
+          const granularRoleInitiator = payload?.[0];
+
+          if (granularRoleInitiator) {
+            createGranularRole({ roleZUID: ZUID, data: granularRoleInitiator })
+              .then(() => {
+                // If there are any other granular roles aside from the one we used to
+                // initiate a new granular role zuid, we then use the update endpoint to
+                // add those in as well
+                if (payload?.length > 1) {
+                  return updateGranularRole({
+                    roleZUID: ZUID,
+                    granularRoles: payload,
+                  });
+                }
+              })
+              .then(() => {
+                getRoles(String(instanceZUID));
+                getPermissions(ZUID);
+              })
+              .finally(() => setIsSaving(false));
+          } else {
+            setIsSaving(false);
+          }
+        }
         break;
 
       case 'users':

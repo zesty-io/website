@@ -4,6 +4,7 @@ import { UserRole, Role, GranularRole } from './types';
 import { getZestyAPI } from 'store';
 import { ErrorMsg } from 'components/accounts';
 import { RoleDetails } from 'components/accounts/roles/CreateCustomRoleDialog';
+import { NewGranularRole } from 'components/accounts/roles/EditCustomRoleDialog/tabs/Permissions';
 
 const ZestyAPI = getZestyAPI();
 
@@ -24,6 +25,13 @@ type RolesAction = {
     roleZUID: string;
     name: string;
     description: string;
+  }) => Promise<void>;
+  createGranularRole: ({
+    roleZUID,
+    data,
+  }: {
+    roleZUID: string;
+    data: NewGranularRole & { name: string };
   }) => Promise<void>;
   updateGranularRole: ({
     roleZUID,
@@ -118,11 +126,36 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
       console.error('Failed to update role: ', err);
     }
   },
+
+  createGranularRole: async ({ roleZUID, data }) => {
+    if (!roleZUID || !data || !Object.keys(data)?.length) return;
+
+    try {
+      const res = await ZestyAPI.createGranularRole(
+        roleZUID,
+        data.resourceZUID,
+        data.create,
+        data.read,
+        data.update,
+        data.delete,
+        data.publish,
+      );
+
+      if (res.error) {
+        throw new Error(res.error);
+      } else {
+        return res;
+      }
+    } catch (err) {
+      ErrorMsg({ title: 'Failed to create granular role' });
+      console.error('Failed to update role: ', err);
+    }
+  },
   updateGranularRole: async ({ roleZUID, granularRoles }) => {
     if (!roleZUID || !granularRoles) return;
 
     try {
-      const res = await ZestyAPI.updateGranularRolesBatch(
+      const res = await ZestyAPI.batchUpdateGranularRoles(
         roleZUID,
         granularRoles,
       );
@@ -134,7 +167,7 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
       }
     } catch (err) {
       ErrorMsg({ title: 'Failed to update granular role' });
-      console.error('Failed to create role: ', err);
+      console.error('Failed to update granular role: ', err);
     }
   },
 }));
