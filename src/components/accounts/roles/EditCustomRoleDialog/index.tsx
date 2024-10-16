@@ -1,4 +1,4 @@
-import { useMemo, useState, useReducer, useEffect } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 import {
   Typography,
   Avatar,
@@ -20,6 +20,7 @@ import {
   RuleRounded,
   GroupsRounded,
 } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 import { useRoles } from 'store/roles';
 import { Details } from './tabs/Details';
@@ -43,16 +44,19 @@ export const EditCustomRoleDialog = ({
   ZUID,
   onClose,
 }: EditCustomRoleDialogProps) => {
+  const router = useRouter();
   const { ZestyAPI } = useZestyStore((state: any) => state);
-  const { customRoles, updateGranularRole } = useRoles((state) => state);
+  const { getRoles, customRoles, updateGranularRole, updateRole } = useRoles(
+    (state) => state,
+  );
   const [activeTab, setActiveTab] = useState<
     'details' | 'permissions' | 'users'
   >('details');
   const [isSaving, setIsSaving] = useState(false);
 
-  const roleData = useMemo(() => {
-    return customRoles?.find((role) => role.ZUID === ZUID);
-  }, [ZUID, customRoles]);
+  const { zuid: instanceZUID } = router.query;
+
+  const roleData = customRoles?.find((role) => role.ZUID === ZUID);
   const [granularRoles, setGranularRoles] = useState<Partial<GranularRole>[]>(
     [],
   );
@@ -91,6 +95,14 @@ export const EditCustomRoleDialog = ({
   const handleSave = () => {
     switch (activeTab) {
       case 'details':
+        setIsSaving(true);
+        updateRole({
+          roleZUID: ZUID,
+          name: detailsData.name?.replace(/[^\w\s\n]/g, ''),
+          description: detailsData.description?.replace(/[^\w\s\n]/g, ''),
+        })
+          .then(() => getRoles(String(instanceZUID)))
+          .finally(() => setIsSaving(false));
         break;
 
       case 'permissions':
@@ -113,12 +125,9 @@ export const EditCustomRoleDialog = ({
           name: '',
         }));
 
-        updateGranularRole({ roleZUID: ZUID, granularRoles: payload }).then(
-          () => {
-            getPermissions(ZUID);
-            setIsSaving(false);
-          },
-        );
+        updateGranularRole({ roleZUID: ZUID, granularRoles: payload })
+          .then(() => getPermissions(ZUID))
+          .finally(() => setIsSaving(false));
         break;
 
       case 'users':
