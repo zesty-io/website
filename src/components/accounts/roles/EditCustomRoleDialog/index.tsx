@@ -100,88 +100,71 @@ export const EditCustomRoleDialog = ({
     }
   };
 
-  const handleSave = () => {
-    switch (activeTab) {
-      case 'details':
-        setIsSaving(true);
-        updateRole({
+  const saveGranularRoleUpdates = async () => {
+    const granularRolesClone: GranularRole[] = JSON.parse(
+      JSON.stringify(granularRoles || []),
+    );
+    const payload = granularRolesClone?.map((role) => ({
+      resourceZUID: role.resourceZUID,
+      create: role.create,
+      read: role.read,
+      update: role.update,
+      delete: role.delete,
+      publish: role.publish,
+      name: '',
+    }));
+
+    if (!!roleData?.granularRoleZUID) {
+      // If a granularRoleZUID is already attached to the role, we can just
+      // do an update to add the new granular roles
+      return updateGranularRole({ roleZUID: ZUID, granularRoles: payload });
+    } else {
+      // If the role doesn't have any granularRoleZUID attached, we need to create a
+      // granular role first
+      const granularRoleInitiator = payload?.[0];
+
+      if (granularRoleInitiator) {
+        return createGranularRole({
           roleZUID: ZUID,
-          name: detailsData.name?.replace(/[^\w\s\n]/g, ''),
-          description: detailsData.description?.replace(/[^\w\s\n]/g, ''),
-        })
-          .then(() => getRoles(String(instanceZUID)))
-          .finally(() => setIsSaving(false));
-        break;
-
-      case 'permissions':
-        setIsSaving(true);
-
-        let granularRolesClone: GranularRole[] = JSON.parse(
-          JSON.stringify(granularRoles || []),
-        );
-
-        if (!!resourceZUIDsToDelete?.length) {
-          granularRolesClone = granularRolesClone?.filter((role) => {
-            return !resourceZUIDsToDelete.includes(role.resourceZUID);
-          });
-
-          deleteGranularRole({
-            roleZUID: ZUID,
-            resourceZUIDs: resourceZUIDsToDelete,
-          });
-        }
-
-        let payload = granularRolesClone?.map((role) => ({
-          resourceZUID: role.resourceZUID,
-          create: role.create,
-          read: role.read,
-          update: role.update,
-          delete: role.delete,
-          publish: role.publish,
-          name: '',
-        }));
-
-        if (!!roleData?.granularRoleZUID) {
-          // If a granularRoleZUID is already attached to the role, we can just
-          // do an update to add the new granular roles
-          updateGranularRole({ roleZUID: ZUID, granularRoles: payload })
-            .then(() => getPermissions(ZUID))
-            .finally(() => setIsSaving(false));
-        } else {
-          // If the role doesn't have any granularRoleZUID attached, we need to create a
-          // granular role first
-          const granularRoleInitiator = payload?.[0];
-
-          if (granularRoleInitiator) {
-            createGranularRole({ roleZUID: ZUID, data: granularRoleInitiator })
-              .then(() => {
-                // If there are any other granular roles aside from the one we used to
-                // initiate a new granular role zuid, we then use the update endpoint to
-                // add those in as well
-                if (payload?.length > 1) {
-                  return updateGranularRole({
-                    roleZUID: ZUID,
-                    granularRoles: payload,
-                  });
-                }
-              })
-              .then(() => {
-                getRoles(String(instanceZUID));
-                getPermissions(ZUID);
-              })
-              .finally(() => setIsSaving(false));
-          } else {
-            setIsSaving(false);
+          data: granularRoleInitiator,
+        }).then(() => {
+          // If there are any other granular roles aside from the one we used to
+          // initiate a new granular role zuid, we then use the update endpoint to
+          // add those in as well
+          if (payload?.length > 1) {
+            return updateGranularRole({
+              roleZUID: ZUID,
+              granularRoles: payload,
+            });
           }
-        }
-        break;
-
-      case 'users':
-        break;
-
-      default:
-        break;
+        });
+      }
     }
+  };
+
+  const handleSave = () => {
+    setIsSaving(true);
+
+    Promise.all([
+      updateRole({
+        roleZUID: ZUID,
+        name: detailsData.name?.replace(/[^\w\s\n]/g, ''),
+        description: detailsData.description?.replace(/[^\w\s\n]/g, ''),
+      }),
+      ...(!!resourceZUIDsToDelete && [
+        deleteGranularRole({
+          roleZUID: ZUID,
+          resourceZUIDs: resourceZUIDsToDelete,
+        }),
+      ]),
+      saveGranularRoleUpdates(),
+    ])
+      .then((responses) => console.log(responses))
+      .finally(() => {
+        getRoles(String(instanceZUID));
+        getPermissions(ZUID);
+        setIsSaving(false);
+      });
   };
 
   return (
