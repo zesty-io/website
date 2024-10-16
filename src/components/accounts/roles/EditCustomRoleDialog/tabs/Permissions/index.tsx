@@ -14,6 +14,8 @@ import { GranularRole } from 'store/types';
 import { AddRule } from './AddRule';
 import { Table } from './Table';
 
+export type UpdateGranularRole = Pick<NewGranularRole, 'resourceZUID'> &
+  Partial<Omit<NewGranularRole, 'resourceZUID'>>;
 export type NewGranularRole = Pick<
   GranularRole,
   'resourceZUID' | 'create' | 'read' | 'update' | 'delete' | 'publish'
@@ -21,10 +23,12 @@ export type NewGranularRole = Pick<
 type PermissionsProps = {
   granularRoles: Partial<GranularRole>[];
   onAddNewGranularRole: (roleData: NewGranularRole) => void;
+  onUpdateGranularRole: (roleData: UpdateGranularRole) => void;
 };
 export const Permissions = ({
   granularRoles,
   onAddNewGranularRole,
+  onUpdateGranularRole,
 }: PermissionsProps) => {
   const [filterKeyword, setFilterKeyword] = useState<string>('');
   const [showAddRule, setShowAddRule] = useState(false);
@@ -71,10 +75,7 @@ export const Permissions = ({
         <Box pb={2}>
           <Table
             granularRoles={granularRoles}
-            onDataChange={(roleData) => {
-              //TODO: This does not sync data. Also need to confirm with Markel on how granular role update works
-              console.log('new data', roleData);
-            }}
+            onDataChange={(roleData) => onUpdateGranularRole(roleData)}
           />
         </Box>
       )}

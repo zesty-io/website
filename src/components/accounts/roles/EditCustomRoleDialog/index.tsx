@@ -207,9 +207,33 @@ export const EditCustomRoleDialog = ({
         {activeTab === 'permissions' && (
           <Permissions
             granularRoles={granularRoles}
-            onAddNewGranularRole={(newRoleData) =>
-              setGranularRoles((prev) => [...prev, newRoleData])
-            }
+            onAddNewGranularRole={(newRoleData) => {
+              setGranularRoles((prev) => [...prev, newRoleData]);
+            }}
+            onUpdateGranularRole={(updatedRoleData) => {
+              setGranularRoles((prevState) => {
+                try {
+                  const granularRolesClone: GranularRole[] = JSON.parse(
+                    JSON.stringify(prevState),
+                  );
+                  const index = granularRolesClone?.findIndex(
+                    (role) =>
+                      role.resourceZUID === updatedRoleData?.resourceZUID,
+                  );
+
+                  if (index === -1) return prevState;
+
+                  granularRolesClone[index] = {
+                    ...granularRolesClone[index],
+                    ...updatedRoleData,
+                  };
+
+                  return granularRolesClone;
+                } catch (err) {
+                  console.error(err);
+                }
+              });
+            }}
           />
         )}
         {activeTab === 'users' && <Users />}

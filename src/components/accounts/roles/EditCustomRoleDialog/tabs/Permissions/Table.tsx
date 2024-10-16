@@ -6,7 +6,7 @@ import { EditRounded, InfoRounded, DeleteRounded } from '@mui/icons-material';
 
 import { GranularRole } from 'store/types';
 import { GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid';
-import { NewGranularRole } from './index';
+import { UpdateGranularRole } from './index';
 import { useInstance } from 'store/instance';
 
 const DataGrid = dynamic(() =>
@@ -15,7 +15,7 @@ const DataGrid = dynamic(() =>
 
 type TableProps = {
   granularRoles: Partial<GranularRole>[];
-  onDataChange: (roleData: NewGranularRole) => void;
+  onDataChange: (roleData: UpdateGranularRole) => void;
 };
 export const Table = ({ granularRoles, onDataChange }: TableProps) => {
   const { instanceModels, instanceContentItems, languages } = useInstance(
@@ -70,7 +70,10 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
           <Checkbox
             defaultChecked={!!params.value}
             onChange={(evt) =>
-              onDataChange({ ...params.row, create: evt.target.checked })
+              onDataChange({
+                resourceZUID: params.row?.resourceZUID,
+                create: evt.target.checked,
+              })
             }
           />
         ),
@@ -83,7 +86,10 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
           <Checkbox
             defaultChecked={!!params.value}
             onChange={(evt) =>
-              onDataChange({ ...params.row, read: evt.target.checked })
+              onDataChange({
+                resourceZUID: params.row?.resourceZUID,
+                read: evt.target.checked,
+              })
             }
           />
         ),
@@ -96,7 +102,10 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
           <Checkbox
             defaultChecked={!!params.value}
             onChange={(evt) =>
-              onDataChange({ ...params.row, update: evt.target.checked })
+              onDataChange({
+                resourceZUID: params.row?.resourceZUID,
+                update: evt.target.checked,
+              })
             }
           />
         ),
@@ -109,7 +118,10 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
           <Checkbox
             defaultChecked={!!params.value}
             onChange={(evt) =>
-              onDataChange({ ...params.row, delete: evt.target.checked })
+              onDataChange({
+                resourceZUID: params.row?.resourceZUID,
+                delete: evt.target.checked,
+              })
             }
           />
         ),
@@ -122,7 +134,10 @@ export const Table = ({ granularRoles, onDataChange }: TableProps) => {
           <Checkbox
             defaultChecked={!!params.value}
             onChange={(evt) =>
-              onDataChange({ ...params.row, publish: evt.target.checked })
+              onDataChange({
+                resourceZUID: params.row?.resourceZUID,
+                publish: evt.target.checked,
+              })
             }
           />
         ),
