@@ -12,8 +12,11 @@ import { InfoRounded } from '@mui/icons-material';
 
 const emailAddressRegexp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-export const Users = () => {
-  const [emails, setEmails] = useState([]);
+type UsersProps = {
+  userEmails: string[];
+  onUpdateUserEmails: (emails: string[]) => void;
+};
+export const Users = ({ userEmails, onUpdateUserEmails }: UsersProps) => {
   const [inputValue, setInputValue] = useState('');
   const [emailError, setEmailError] = useState(false);
   const emailChipsRef = useRef([]);
@@ -29,7 +32,7 @@ export const Users = () => {
       </Stack>
       <Autocomplete
         multiple
-        value={emails}
+        value={userEmails}
         options={[]}
         freeSolo
         inputValue={inputValue}
@@ -40,12 +43,14 @@ export const Users = () => {
             sx={{
               '.MuiOutlinedInput-root ': {
                 alignItems: 'baseline',
-                minHeight: 93,
+                minHeight: 106,
               },
             }}
             ref={autocompleteRef}
             error={emailError}
-            placeholder={emails.length ? '' : 'Email, comma or space separated'}
+            placeholder={
+              userEmails.length ? '' : 'Email, comma or space separated'
+            }
             helperText={
               emailError ? 'Please enter a valid email address.' : ' '
             }
@@ -59,8 +64,8 @@ export const Users = () => {
                 if (inputValue && !inputValue.match(/^\s+$/)) {
                   if (inputValue.trim().match(emailAddressRegexp)) {
                     event.preventDefault();
-                    setEmails(
-                      Array.from(new Set([...emails, inputValue.trim()])),
+                    onUpdateUserEmails(
+                      Array.from(new Set([...userEmails, inputValue.trim()])),
                     );
                     setInputValue('');
                   } else {
@@ -103,7 +108,9 @@ export const Users = () => {
                   }
                 });
 
-                setEmails(Array.from(new Set([...emails, ...validEmails])));
+                onUpdateUserEmails(
+                  Array.from(new Set([...userEmails, ...validEmails])),
+                );
 
                 if (invalidEmails?.length) {
                   setEmailError(true);
@@ -117,7 +124,7 @@ export const Users = () => {
           />
         )}
         renderTags={(tagValue, getTagProps) =>
-          emails.map((email, index) => (
+          userEmails.map((email, index) => (
             <Chip
               {...getTagProps({ index })}
               ref={(el) => (emailChipsRef.current[index] = el)}
@@ -133,14 +140,16 @@ export const Users = () => {
               label={email}
               onDelete={(evt) => {
                 if (evt.type === 'click') {
-                  setEmails(emails.filter((_, i) => i !== index));
+                  onUpdateUserEmails(userEmails.filter((_, i) => i !== index));
                 }
               }}
               onKeyDown={(event) => {
                 if (event.key === 'Backspace') {
                   // HACK: Needed to override the default behavior of autocomplete where it automatically selects the next tag after deleting a diff tag via backspace
                   setTimeout(() => {
-                    setEmails(emails.filter((_, i) => i !== index));
+                    onUpdateUserEmails(
+                      userEmails.filter((_, i) => i !== index),
+                    );
                     autocompleteRef.current?.querySelector('input')?.focus();
                   }, 150);
                 }

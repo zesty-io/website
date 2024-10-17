@@ -35,7 +35,7 @@ export const CustomRoles = () => {
         </Typography>
         <List sx={{ p: 0 }}>
           {customRoles?.map((role, index) => (
-            <>
+            <Box key={role.ZUID}>
               <ListItemButton
                 disableRipple
                 key={role.ZUID}
@@ -110,7 +110,7 @@ export const CustomRoles = () => {
                   <ListItemText>Delete</ListItemText>
                 </MenuItem>
               </Menu>
-            </>
+            </Box>
           ))}
         </List>
       </Box>

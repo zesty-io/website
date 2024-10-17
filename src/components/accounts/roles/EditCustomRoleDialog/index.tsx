@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from 'react';
+import { useMemo, useState, useReducer, useEffect } from 'react';
 import {
   Typography,
   Avatar,
@@ -53,11 +53,21 @@ export const EditCustomRoleDialog = ({
     updateRole,
     createGranularRole,
     deleteGranularRole,
+    usersWithRoles,
   } = useRoles((state) => state);
   const [activeTab, setActiveTab] = useState<
     'details' | 'permissions' | 'users'
   >('details');
   const [isSaving, setIsSaving] = useState(false);
+
+  const roleUsers = useMemo(() => {
+    if (!usersWithRoles?.length) return [];
+
+    return usersWithRoles?.filter((user) => user.role?.ZUID === ZUID);
+  }, [usersWithRoles, customRoles]);
+  const [userEmails, setUserEmails] = useState<string[]>(
+    roleUsers?.map((user) => user.email) || [],
+  );
 
   const { zuid: instanceZUID } = router.query;
 
@@ -305,7 +315,12 @@ export const EditCustomRoleDialog = ({
             }}
           />
         )}
-        {activeTab === 'users' && <Users />}
+        {activeTab === 'users' && (
+          <Users
+            userEmails={userEmails}
+            onUpdateUserEmails={(emails) => setUserEmails(emails)}
+          />
+        )}
       </DialogContent>
       <DialogActions
         sx={{ p: 2.5, gap: 1, borderTop: '2px solid', borderColor: 'border' }}
