@@ -49,7 +49,7 @@ type RolesAction = {
   }) => Promise<void>;
 };
 
-export const useRoles = create<RolesState & RolesAction>((set, get) => ({
+export const useRoles = create<RolesState & RolesAction>((set) => ({
   usersWithRoles: [],
   getUsersWithRoles: async (instanceZUID) => {
     try {
@@ -59,6 +59,7 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
         throw new Error(response.error);
       } else {
         set({ usersWithRoles: response.data });
+        return response.data;
       }
     } catch (err) {
       ErrorMsg({ text: 'Failed to fetch users' });
@@ -111,7 +112,7 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
       if (res.error) {
         throw new Error(res.error);
       } else {
-        get().getRoles(instanceZUID);
+        return res.data;
       }
     } catch (err) {
       ErrorMsg({ title: 'Failed to create role' });
@@ -126,7 +127,7 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
       if (res.error) {
         throw new Error(res.error);
       } else {
-        return res;
+        return res.data;
       }
     } catch (err) {
       ErrorMsg({ title: 'Failed to update role' });
@@ -151,7 +152,7 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
       if (res.error) {
         throw new Error(res.error);
       } else {
-        return res;
+        return res.data;
       }
     } catch (err) {
       ErrorMsg({ title: 'Failed to create granular role' });
@@ -170,7 +171,7 @@ export const useRoles = create<RolesState & RolesAction>((set, get) => ({
       if (res.error) {
         throw new Error(res.error);
       } else {
-        return res;
+        return res.data;
       }
     } catch (err) {
       ErrorMsg({ title: 'Failed to update granular role' });

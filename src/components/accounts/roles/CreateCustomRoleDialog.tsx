@@ -294,13 +294,15 @@ export type RoleDetails = {
 
 type CreateCustomRoleDialogProps = {
   onClose: () => void;
+  onRoleCreated: (ZUID: string) => void;
 };
 export const CreateCustomRoleDialog = ({
   onClose,
+  onRoleCreated,
 }: CreateCustomRoleDialogProps) => {
   const router = useRouter();
   const { instance } = useZestyStore((state) => state);
-  const { createRole } = useRoles((state) => state);
+  const { createRole, getRoles } = useRoles((state) => state);
   const [isCreatingRole, setIsCreatingRole] = useState(false);
 
   const [fieldData, updateFieldData] = useReducer(
@@ -318,6 +320,8 @@ export const CreateCustomRoleDialog = ({
   );
 
   const handleCreateRole = () => {
+    const instanceZUID = String(router?.query?.zuid);
+
     if (!fieldData.name && !fieldData.systemRoleZUID) return;
 
     setIsCreatingRole(true);
@@ -325,11 +329,17 @@ export const CreateCustomRoleDialog = ({
       name: fieldData.name.replace(/[^\w\s\n]/g, ''),
       description: fieldData.description.replace(/[^\w\s\n]/g, ''),
       systemRoleZUID: fieldData.systemRoleZUID,
-      instanceZUID: String(router?.query?.zuid),
-    }).finally(() => {
-      setIsCreatingRole(false);
-      onClose?.();
-    });
+      instanceZUID,
+    })
+      .then((response: any) => {
+        getRoles(instanceZUID).then(() => {
+          onRoleCreated(response?.ZUID);
+          onClose?.();
+        });
+      })
+      .finally(() => {
+        setIsCreatingRole(false);
+      });
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { forwardRef, useState, useImperativeHandle } from 'react';
 import {
   List,
   ListItemButton,
@@ -23,11 +23,15 @@ import { useRoles } from 'store/roles';
 import { EditCustomRoleDialog } from './EditCustomRoleDialog';
 import { DeleteCustomRoleDialog } from './DeleteCustomRoleDialog';
 
-export const CustomRoles = () => {
+export const CustomRoles = forwardRef(({}, ref) => {
   const { customRoles } = useRoles((state) => state);
   const [anchorEl, setAnchorEl] = useState(null);
   const [ZUIDToEdit, setZUIDToEdit] = useState<string>(null);
   const [ZUIDToDelete, setZUIDToDelete] = useState<string>(null);
+
+  useImperativeHandle(ref, () => ({
+    updateZUIDToEdit: (ZUID: string) => setZUIDToEdit(ZUID),
+  }));
 
   return (
     <>
@@ -135,4 +139,4 @@ export const CustomRoles = () => {
       )}
     </>
   );
-};
+});

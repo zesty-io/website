@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   Button,
   TextField,
@@ -24,6 +24,7 @@ type RolesProps = {
 };
 export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
   const { usersWithRoles, customRoles } = useRoles((state) => state);
+  const customRolesRef = useRef(null);
   const [isCreateCustomRoleDialogOpen, setIsCreateCustomRoleDialogOpen] =
     useState(false);
 
@@ -110,7 +111,7 @@ export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
         </AccountsHeader>
         <Stack gap={2} mx={4}>
           {customRoles?.length ? (
-            <CustomRoles />
+            <CustomRoles ref={customRolesRef} />
           ) : (
             <NoCustomRoles
               onCreateCustomRoleClick={() =>
@@ -124,6 +125,9 @@ export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
       {isCreateCustomRoleDialogOpen && (
         <CreateCustomRoleDialog
           onClose={() => setIsCreateCustomRoleDialogOpen(false)}
+          onRoleCreated={(ZUID) =>
+            customRolesRef.current?.updateZUIDToEdit?.(ZUID)
+          }
         />
       )}
     </ThemeProvider>
