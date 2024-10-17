@@ -21,11 +21,13 @@ import {
 
 import { useRoles } from 'store/roles';
 import { EditCustomRoleDialog } from './EditCustomRoleDialog';
+import { DeleteCustomRoleDialog } from './DeleteCustomRoleDialog';
 
 export const CustomRoles = () => {
   const { customRoles } = useRoles((state) => state);
   const [anchorEl, setAnchorEl] = useState(null);
   const [ZUIDToEdit, setZUIDToEdit] = useState<string>(null);
+  const [ZUIDToDelete, setZUIDToDelete] = useState<string>(null);
 
   return (
     <>
@@ -103,7 +105,12 @@ export const CustomRoles = () => {
                   </ListItemIcon>
                   <ListItemText>Edit</ListItemText>
                 </MenuItem>
-                <MenuItem onClick={() => console.log('open delete modal')}>
+                <MenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                    setZUIDToDelete(role.ZUID);
+                  }}
+                >
                   <ListItemIcon>
                     <DeleteRounded />
                   </ListItemIcon>
@@ -118,6 +125,12 @@ export const CustomRoles = () => {
         <EditCustomRoleDialog
           ZUID={ZUIDToEdit}
           onClose={() => setZUIDToEdit(null)}
+        />
+      )}
+      {!!ZUIDToDelete && (
+        <DeleteCustomRoleDialog
+          ZUID={ZUIDToDelete}
+          onClose={() => setZUIDToDelete(null)}
         />
       )}
     </>
