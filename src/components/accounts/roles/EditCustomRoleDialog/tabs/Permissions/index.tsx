@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useDeferredValue, useMemo } from 'react';
 import {
   Box,
   Stack,
@@ -13,7 +13,11 @@ import { NoRules } from './NoRules';
 import { GranularRole } from 'store/types';
 import { AddRule } from './AddRule';
 import { Table } from './Table';
+import { useInstance } from 'store/instance';
 
+export type GranularRoleWithResourceName = GranularRole & {
+  resourceName: string;
+};
 export type UpdateGranularRole = Pick<NewGranularRole, 'resourceZUID'> &
   Partial<Omit<NewGranularRole, 'resourceZUID'>>;
 export type NewGranularRole = Pick<
@@ -32,8 +36,50 @@ export const Permissions = ({
   onUpdateGranularRole,
   onDeleteGranularRole,
 }: PermissionsProps) => {
+  const { instanceModels, instanceContentItems, languages } = useInstance(
+    (state) => state,
+  );
   const [filterKeyword, setFilterKeyword] = useState<string>('');
   const [showAddRule, setShowAddRule] = useState(false);
+  const deferredFilterKeyword = useDeferredValue(filterKeyword);
+
+  const resolveResourceZUID = (zuid: string) => {
+    if (zuid?.startsWith('6-')) {
+      return (
+        instanceModels?.find((model) => model.ZUID === zuid)?.label || zuid
+      );
+    } else if (zuid?.startsWith('7-')) {
+      const contentItem = instanceContentItems?.find(
+        (item) => item.meta.ZUID === zuid,
+      );
+      const name = contentItem?.web?.metaTitle || zuid;
+      const langCode = languages?.find(
+        (lang) => lang.ID === contentItem?.meta?.langID,
+      )?.code;
+
+      return langCode ? `(${langCode}) ${name}` : name;
+    } else {
+      return zuid;
+    }
+  };
+
+  const granularRolesWithResourceNames = useMemo(() => {
+    return granularRoles?.map((role) => ({
+      ...role,
+      resourceName: resolveResourceZUID(role.resourceZUID),
+    }));
+  }, [granularRoles]);
+
+  const filteredGranularRoles = useMemo(() => {
+    if (!deferredFilterKeyword) return granularRolesWithResourceNames;
+
+    return granularRolesWithResourceNames?.filter(
+      (role) =>
+        role.resourceName
+          ?.toLowerCase()
+          ?.includes(deferredFilterKeyword.toLowerCase()),
+    );
+  }, [granularRolesWithResourceNames, deferredFilterKeyword]);
 
   return (
     <Box>
@@ -73,10 +119,10 @@ export const Permissions = ({
       {!granularRoles?.length && !showAddRule && (
         <NoRules onAddRulesClick={() => setShowAddRule(true)} />
       )}
-      {!!granularRoles?.length && (
+      {!!filteredGranularRoles?.length && (
         <Box pb={2}>
           <Table
-            granularRoles={granularRoles}
+            granularRoles={filteredGranularRoles}
             onDataChange={(roleData) => onUpdateGranularRole(roleData)}
             onDelete={onDeleteGranularRole}
           />
