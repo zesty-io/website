@@ -1,4 +1,4 @@
-import { useState, useDeferredValue, useMemo } from 'react';
+import { useRef, useState, useDeferredValue, useMemo, useEffect } from 'react';
 import {
   Box,
   Stack,
@@ -14,6 +14,7 @@ import { GranularRole } from 'store/types';
 import { AddRule } from './AddRule';
 import { Table } from './Table';
 import { useInstance } from 'store/instance';
+import { NoFilterMatches } from './NoFilterMatches';
 
 export type GranularRoleWithResourceName = GranularRole & {
   resourceName: string;
@@ -42,6 +43,8 @@ export const Permissions = ({
   const [filterKeyword, setFilterKeyword] = useState<string>('');
   const [showAddRule, setShowAddRule] = useState(false);
   const deferredFilterKeyword = useDeferredValue(filterKeyword);
+  const searchFieldRef = useRef(null);
+  const addGranularRoleRef = useRef(null);
 
   const resolveResourceZUID = (zuid: string) => {
     if (zuid?.startsWith('6-')) {
@@ -81,9 +84,17 @@ export const Permissions = ({
     );
   }, [granularRolesWithResourceNames, deferredFilterKeyword]);
 
+  useEffect(() => {
+    if (showAddRule) {
+      setTimeout(() => {
+        addGranularRoleRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+  }, [showAddRule, addGranularRoleRef]);
+
   return (
     <Box>
-      <Stack direction="row" justifyContent="space-between" mb={2}>
+      <Stack direction="row" justifyContent="space-between" mb={2} height={48}>
         <Box>
           <Typography variant="h5" fontWeight={700}>
             Resource Permissions
@@ -94,6 +105,7 @@ export const Permissions = ({
         </Box>
         <Box>
           <TextField
+            ref={searchFieldRef}
             value={filterKeyword}
             onChange={(evt) => setFilterKeyword(evt.target.value)}
             size="small"
@@ -116,27 +128,36 @@ export const Permissions = ({
           </Button>
         </Box>
       </Stack>
-      {!granularRoles?.length && !showAddRule && (
+      {!granularRoles?.length && !showAddRule && !deferredFilterKeyword && (
         <NoRules onAddRulesClick={() => setShowAddRule(true)} />
       )}
       {!!filteredGranularRoles?.length && (
-        <Box pb={2}>
-          <Table
-            granularRoles={filteredGranularRoles}
-            onDataChange={(roleData) => onUpdateGranularRole(roleData)}
-            onDelete={onDeleteGranularRole}
-          />
-        </Box>
+        <Table
+          granularRoles={filteredGranularRoles}
+          onDataChange={(roleData) => onUpdateGranularRole(roleData)}
+          onDelete={onDeleteGranularRole}
+        />
+      )}
+      {!filteredGranularRoles?.length && !!deferredFilterKeyword && (
+        <NoFilterMatches
+          keyword={deferredFilterKeyword}
+          onSearchAgain={() => {
+            setFilterKeyword('');
+            searchFieldRef.current?.querySelector('input')?.focus();
+          }}
+        />
       )}
       {showAddRule && (
-        <AddRule
-          onCancel={() => setShowAddRule(false)}
-          onAddRuleClick={(newRoleData) => {
-            onAddNewGranularRole(newRoleData);
-            setShowAddRule(false);
-          }}
-          granularRoles={granularRoles}
-        />
+        <Box pt={2} ref={addGranularRoleRef}>
+          <AddRule
+            onCancel={() => setShowAddRule(false)}
+            onAddRuleClick={(newRoleData) => {
+              onAddNewGranularRole(newRoleData);
+              setShowAddRule(false);
+            }}
+            granularRoles={granularRoles}
+          />
+        </Box>
       )}
     </Box>
   );

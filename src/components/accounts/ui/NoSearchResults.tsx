@@ -30,7 +30,11 @@ export const NoSearchResults = ({
       <Box mt={4} mb={3} width={387} textAlign="center">
         <Typography variant="h4" fontWeight={600} mb={1}>
           Your filter{' '}
-          <Box component="span" fontWeight={700}>
+          <Box
+            component="span"
+            fontWeight={700}
+            sx={{ wordBreak: 'break-all' }}
+          >
             &quot;{keyword}&quot;
           </Box>{' '}
           could not find any results
