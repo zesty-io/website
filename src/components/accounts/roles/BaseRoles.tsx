@@ -13,7 +13,7 @@ import {
   RecommendRounded,
   BorderColorRounded,
 } from '@mui/icons-material';
-import { useRoles } from 'store/roles';
+import { Role } from 'store/types';
 
 const BASE_ROLES_CONFIG = Object.freeze({
   owner: {
@@ -106,9 +106,10 @@ const BASE_ROLES_CONFIG = Object.freeze({
   },
 });
 
-export const BaseRoles = () => {
-  const { baseRoles } = useRoles((state) => state);
-
+type BaseRolesProps = {
+  baseRoles: Role[];
+};
+export const BaseRoles = ({ baseRoles }: BaseRolesProps) => {
   return (
     <Box>
       <Typography variant="h5" fontWeight={700} mb={2}>

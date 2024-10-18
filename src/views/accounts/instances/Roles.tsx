@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useMemo, useState, useRef, useDeferredValue } from 'react';
 import {
   Button,
   TextField,
@@ -17,16 +17,40 @@ import { BaseRoles } from 'components/accounts/roles/BaseRoles';
 import { NoCustomRoles } from 'components/accounts/roles/NoCustomRoles';
 import { CustomRoles } from 'components/accounts/roles/CustomRoles';
 import { CreateCustomRoleDialog } from 'components/accounts/roles/CreateCustomRoleDialog';
+import { NoSearchResults } from 'components/accounts/ui/NoSearchResults';
 
 type RolesProps = {
   isLoading: boolean;
   hasPermission: boolean;
 };
 export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
-  const { usersWithRoles, customRoles } = useRoles((state) => state);
+  const { usersWithRoles, customRoles, baseRoles } = useRoles((state) => state);
   const customRolesRef = useRef(null);
+  const searchFieldRef = useRef(null);
   const [isCreateCustomRoleDialogOpen, setIsCreateCustomRoleDialogOpen] =
     useState(false);
+  const [filterKeyword, setFilterKeyword] = useState('');
+  const deferredFilterKeyword = useDeferredValue(filterKeyword);
+
+  const filteredRoles = useMemo(() => {
+    const keyword = deferredFilterKeyword?.toLowerCase();
+
+    if (!keyword) {
+      return {
+        baseRoles,
+        customRoles,
+      };
+    }
+
+    return {
+      baseRoles: baseRoles?.filter((role) =>
+        role.name.toLowerCase().includes(keyword),
+      ),
+      customRoles: customRoles?.filter((role) =>
+        role.name.toLowerCase().includes(keyword),
+      ),
+    };
+  }, [baseRoles, customRoles, deferredFilterKeyword]);
 
   if (isLoading) {
     return (
@@ -90,6 +114,9 @@ export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
             <TextField
               size="small"
               placeholder="Search Roles"
+              value={filterKeyword}
+              onChange={(evt) => setFilterKeyword(evt.target.value)}
+              ref={searchFieldRef}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -110,16 +137,35 @@ export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
           </Stack>
         </AccountsHeader>
         <Stack gap={2} mx={4}>
-          {customRoles?.length ? (
-            <CustomRoles ref={customRolesRef} />
-          ) : (
-            <NoCustomRoles
-              onCreateCustomRoleClick={() =>
-                setIsCreateCustomRoleDialogOpen(true)
-              }
+          {!filteredRoles?.customRoles?.length &&
+          !filteredRoles?.baseRoles?.length &&
+          deferredFilterKeyword ? (
+            <NoSearchResults
+              keyword={deferredFilterKeyword}
+              onSearchAgain={() => {
+                setFilterKeyword('');
+                searchFieldRef.current?.querySelector('input')?.focus();
+              }}
             />
+          ) : (
+            <>
+              {filteredRoles?.customRoles?.length ||
+              (!filteredRoles?.customRoles?.length &&
+                !!deferredFilterKeyword) ? (
+                <CustomRoles
+                  customRoles={filteredRoles?.customRoles}
+                  ref={customRolesRef}
+                />
+              ) : (
+                <NoCustomRoles
+                  onCreateCustomRoleClick={() =>
+                    setIsCreateCustomRoleDialogOpen(true)
+                  }
+                />
+              )}
+              <BaseRoles baseRoles={filteredRoles?.baseRoles} />
+            </>
           )}
-          <BaseRoles />
         </Stack>
       </Stack>
       {isCreateCustomRoleDialogOpen && (
