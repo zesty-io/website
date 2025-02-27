@@ -67,7 +67,7 @@ const Hero = ({
             },
           })}
         >
-          <Stack py={{ lg: '92px' }}>
+          <Stack mt={{ lg: '92px' }}>
             <Typography
               color="primary"
               variant="overline"
