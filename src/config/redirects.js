@@ -1,5 +1,10 @@
 const docsRedirects = [
   {
+    source: '/docs/',
+    destination: 'https://docs.zesty.io/',
+    permanent: true,
+  },
+  {
     source: '/docs/instances/api-reference/:path*',
     destination: 'https://docs.zesty.io/reference/instances-api-reference',
     permanent: true,
