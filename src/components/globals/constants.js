@@ -11509,16 +11509,7 @@ export const navigationCustom = [
         title: 'Hybrid CMS',
         zuid: '7-f0bbf4b083-v2pnsn',
         children: [],
-      },
-      {
-        external: false,
-        parentZUID: '7-d4dfcad2b7-b2z47h',
-        sort: '5',
-        url: '/quiz-how-should-you-build-your-website-or-mobile-app/',
-        title: 'Which product is right for you?',
-        zuid: '7-d08ef5afe8-0xk1fd',
-        children: [],
-      },
+      }
     ],
   },
   {
