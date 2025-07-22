@@ -143,12 +143,16 @@ export default function UsersPage() {
     userInfo,
   );
 
-  const filteredUsers = instanceUserWithRoles?.filter((e) => {
-    const name = `${e?.firstName?.toLowerCase() || '-'} ${
-      e?.lastName?.toLowerCase() || '-'
-    }`;
-    return name?.includes(search?.toLowerCase());
+  const filteredUsers = instanceUserWithRoles?.filter((user) => {
+    const formattedSearchKeyword = search?.toLowerCase()?.trim();
+    const userFullName = `${user?.firstName || '-'} ${user?.lastName || '-'}`;
+
+    return (
+      userFullName?.toLowerCase()?.includes(formattedSearchKeyword) ||
+      user?.email?.toLowerCase()?.includes(formattedSearchKeyword)
+    );
   });
+
   const userProps = {
     updateRole,
     roles: filteredUsers,
