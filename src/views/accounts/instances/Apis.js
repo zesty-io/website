@@ -463,7 +463,6 @@ export const Apis = ({
   // arrToSubmit,
   // setarrToSubmit,
   // updateSetting,
-  search,
   setsearch,
 }) => {
   const handleCreateTokenModal = () => {
@@ -494,11 +493,7 @@ export const Apis = ({
   return (
     <Grid container>
       <AccountsHeader {...headerProps}>
-        <AccountsInput
-          search={search}
-          setsearch={setsearch}
-          placeholder=" Seach tokens"
-        />
+        <AccountsInput setsearch={setsearch} placeholder=" Seach tokens" />
         {isInstanceOwner && (
           <Button
             onClick={handleCreateTokenModal}

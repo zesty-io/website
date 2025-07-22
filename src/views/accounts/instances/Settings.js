@@ -274,11 +274,7 @@ export const Settings = ({
     <Grid container>
       <AccountsHeader {...headerProps}>
         <Stack>
-          <AccountsInput
-            search={search}
-            setsearch={setsearch}
-            placeholder=" Search settings"
-          />
+          <AccountsInput setsearch={setsearch} placeholder=" Search settings" />
         </Stack>
 
         <Stack>
