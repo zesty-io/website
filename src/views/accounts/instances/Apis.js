@@ -493,7 +493,7 @@ export const Apis = ({
   return (
     <Grid container>
       <AccountsHeader {...headerProps}>
-        <AccountsInput setsearch={setsearch} placeholder=" Seach tokens" />
+        <AccountsInput setsearch={setsearch} placeholder=" Search tokens" />
         {isInstanceOwner && (
           <Button
             onClick={handleCreateTokenModal}
