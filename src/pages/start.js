@@ -3,6 +3,7 @@ import { useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
+import { useRouter } from 'next/router';
 
 // confetti
 import Confetti from 'react-confetti';
@@ -65,6 +66,7 @@ const getTemplate = async (zuid, setrepository, isProduction) => {
   });
 };
 export default function Start(props) {
+  const router = useRouter();
   const params = new URLSearchParams(
     typeof window !== 'undefined' && window.location.search,
   );
@@ -102,9 +104,15 @@ export default function Start(props) {
   const handlePrev = useCallback(() => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+
+      if (!sliderRef.current) {
+        return;
+      }
+
+      sliderRef.current.swiper.slidePrev();
     }
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slidePrev();
+
+    router.back();
   }, [currentStep]);
 
   // moves user forward a slide in the onboard process
