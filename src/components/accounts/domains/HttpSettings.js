@@ -43,38 +43,42 @@ export default function HttpSettings({ settings, updateSetting }) {
 
   return (
     <Box mt={2}>
-      {settings?.map((setting) => {
-        const isDataChange = helper
-          .removeDupsInArrObj(arrToSubmit, 'keyFriendly')
-          .find((x) => x.ZUID === setting.ZUID);
-        return (
-          <Grid container key={setting.key} mb={2} spacing={1}>
-            <Grid item xs={6} alignContent={'center'} alignSelf={'center'}>
-              <Typography variant="subtitle1">{setting.keyFriendly}</Typography>
+      {settings
+        ?.filter((e) => e.keyFriendly !== 'Always prepend WWW to my domain?')
+        ?.map((setting) => {
+          const isDataChange = helper
+            .removeDupsInArrObj(arrToSubmit, 'keyFriendly')
+            .find((x) => x.ZUID === setting.ZUID);
+          return (
+            <Grid container key={setting.key} mb={2} spacing={1}>
+              <Grid item xs={6} alignContent={'center'} alignSelf={'center'}>
+                <Typography variant="subtitle1">
+                  {setting.keyFriendly}
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <SettingsToggle
+                  arrToSubmit={arrToSubmit}
+                  setarrToSubmit={setarrToSubmit}
+                  data={setting}
+                  updateSetting={updateSetting}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                {isDataChange && (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleUpdateSetting(setting)}
+                  >
+                    Save
+                  </Button>
+                )}
+              </Grid>
             </Grid>
-            <Grid item xs={3}>
-              <SettingsToggle
-                arrToSubmit={arrToSubmit}
-                setarrToSubmit={setarrToSubmit}
-                data={setting}
-                updateSetting={updateSetting}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              {isDataChange && (
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleUpdateSetting(setting)}
-                >
-                  Save
-                </Button>
-              )}
-            </Grid>
-          </Grid>
-        );
-      })}
+          );
+        })}
     </Box>
   );
 }

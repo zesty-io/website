@@ -3,18 +3,13 @@ import { Container, Stack, Box, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
-// import Image from 'next/image';
-
-function random_boolean(seed) {
-  return seed < 0.5;
-}
 
 function ActionAreaCard({
   question,
-  title = '',
+  _title = '',
   asset = '',
   storeValue,
-  animation,
+  _animation,
   answer,
   callback,
   cardStyles = {},
@@ -74,10 +69,6 @@ export const SlideQuestions = ({
   hoverAnimation,
   storeValue = false,
 }) => {
-  React.useEffect(() => {
-    // setCurrentStep(1);
-  }, []);
-
   return (
     <Container>
       <Box

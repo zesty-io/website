@@ -2,7 +2,6 @@ import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import {
   AccountsHeader,
   AccountsPopover,
-  AccountsTable,
   AccountsTableHead,
   accountsValidations,
   DeleteMsg,
@@ -19,6 +18,11 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { accounts } from 'components/accounts/constants';
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const MySwal = withReactContent(Swal);
 

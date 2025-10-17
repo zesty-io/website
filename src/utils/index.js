@@ -139,6 +139,13 @@ export const isProd =
     ? false
     : true;
 
+export const isProdClient = () => {
+  if (getCookie('PRODUCTION') === 'true') {
+    return true;
+  }
+  return false;
+};
+
 export const fetchWrapperOptions = () => {
   const dev = {
     sitesServiceURL: 'https://svc.dev.zesty.io/sites-service/',
@@ -257,9 +264,9 @@ export const notistackMessage = async (
 
 export const parseCookie = (str) =>
   str
-    .split(';')
-    .map((v) => v.split('='))
-    .reduce((acc, v) => {
+    ?.split(';')
+    ?.map((v) => v.split('='))
+    ?.reduce((acc, v) => {
       acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
       return acc;
     }, {});
@@ -357,31 +364,35 @@ export const transFormEndpoint = ({
     }
   };
   const res = url
-    .replaceAll('{{protocol}}', 'https')
-    .replaceAll('{{accounts_api_url}}', 'accounts.api.zesty.io')
-    .replaceAll('{{instances_api_url}}', 'instances.api.zesty.io')
-    .replaceAll('{{accounts_api_version}}', 'v1')
-    .replaceAll('{{instances_api_version}}', 'v1')
-    .replaceAll('{{api_version}}', 'v1')
-    .replaceAll(
+    ?.replaceAll('{{protocol}}', 'https')
+    ?.replaceAll('{{accounts_api_url}}', 'accounts.api.zesty.io')
+    ?.replaceAll('{{instances_api_url}}', 'instances.api.zesty.io')
+    ?.replaceAll('{{accounts_api_version}}', 'v1')
+    ?.replaceAll('{{instances_api_version}}', 'v1')
+    ?.replaceAll('{{api_version}}', 'v1')
+    ?.replaceAll(
       '{{instance_zuid}}',
       validateZuid(instanceZUID.startsWith('8-'))
         ? instanceZUID
         : '8-xxxxxxxxx',
     )
-    .replaceAll('{{user_zuid}}', appUserZuid)
-    .replaceAll('{{link_zuid}}', '7-xxxxxxxxxx')
-    .replaceAll(
+    ?.replaceAll('{{user_zuid}}', appUserZuid)
+    ?.replaceAll('{{link_zuid}}', '7-xxxxxxxxxx')
+    ?.replaceAll(
       '{{site_zuid}}',
       validateZuid(instanceZUID.startsWith('8-'))
         ? instanceZUID
         : '8-xxxxxxxxx',
     )
-    .replaceAll(
+    ?.replaceAll(
       '{{content_model_zuid}}',
       validateZuid(contentModelZUID.length !== 0 ? true : false)
         ? contentModelZUID
         : '6-xxxxxxxxx',
     );
+
   return { endpoint: res };
+};
+export const generateAlt = (name) => {
+  return `zesty customer logo ${name}`;
 };

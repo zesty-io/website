@@ -56,6 +56,7 @@ export const AccountsNavItem = ({ title, id, items, colorInvert = false }) => {
       <Popover
         elevation={3}
         id={id}
+        disablePortal
         open={openedPopoverId === id}
         anchorEl={anchorEl}
         onClose={handleClose}

@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
-import create from 'zustand';
+import { create } from 'zustand';
 
 const getInstanceZUID = () => {
   if (typeof window !== 'undefined') {
@@ -83,5 +83,9 @@ export const useZestyStore = create((set) => {
 
     language: 'Javascript',
     setlanguage: (data) => set(() => ({ language: data })),
+
+    selectedDocsCategory: 'Instances',
+    setSelectedDocsCategory: (data) =>
+      set(() => ({ selectedDocsCategory: data })),
   };
 });

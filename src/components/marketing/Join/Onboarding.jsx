@@ -58,11 +58,6 @@ export default function Onboarding({ role }) {
             </Button>
           </Stack>
         </Box>
-        {/* <Box paddingY={3}>
-          <Divider>
-            <Chip label="More Resources" />
-          </Divider>
-        </Box> */}
         {role == 'Marketer' && <Marketer {...cards} />}
         {role == 'Developer' && <Developer {...cards} />}
         {role == 'Manager' && <Manager {...cards} />}
@@ -70,30 +65,6 @@ export default function Onboarding({ role }) {
     </>
   );
 }
-
-const ScheduleOnboardingSpecialist = ({
-  link = 'https://www.zesty.io/meet/',
-}) => (
-  <Card sx={{ marginBottom: '16px' }}>
-    <CardActionArea onClick={() => handleClick(link)}>
-      <CardMedia
-        component="img"
-        height="140"
-        image="/assets/images/onboarding/discord.png"
-        alt="discord header"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Community Chat
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Intereact with the community and Zesty.io developers. Ask questions,
-          share ideas and projects. Click here to be invited.
-        </Typography>
-      </CardContent>
-    </CardActionArea>
-  </Card>
-);
 
 const DiscordCard = () => (
   <Card sx={{ marginBottom: '16px' }}>
@@ -155,7 +126,7 @@ const YoutubeCard = () => {
   );
 };
 
-const CaseStudiesCard = ({ developer, marketer }) => {
+const CaseStudiesCard = ({ marketer }) => {
   const theme = useTheme();
   return (
     <Card sx={{}}>

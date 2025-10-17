@@ -6,13 +6,11 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { Stack } from '@mui/material';
 import { AccountsComboBox, SuccessMsg } from 'components/accounts';
-import { useTheme } from '@emotion/react';
 import { isProd } from 'utils';
 const MySwal = withReactContent(Swal);
 
 export const AppInstallerComp = ({ data }) => {
   const [selectInstance, setselectInstance] = React.useState(false);
-  const theme = useTheme();
   const { setworkingInstance } = useZestyStore((state) => state);
   const [installedApps, setinstalledApps] = React.useState([]);
   const [loading, setloading] = React.useState(false);
@@ -82,8 +80,7 @@ export const AppInstallerComp = ({ data }) => {
     MySwal.fire({
       title: 'Select an Instance to Continue',
       html: <InstanceForm />,
-      showConfirmButton: true,
-      confirmButtonColor: theme?.palette?.zesty?.zestyOrange,
+      showConfirmButton: false,
     });
   };
   const InstallApp = async () => {
@@ -125,12 +122,12 @@ export const AppInstallerComp = ({ data }) => {
         loading={loading || (isInstalled && selectInstance)}
       >
         {!appSID
-          ? 'Please Login to continue'
+          ? 'Get Started'
           : !instanceZUID
-          ? 'Select an Instance to continue'
+          ? 'Get Started'
           : isInstalled && !selectInstance
           ? `App Installed in ${instanceName}`
-          : `Install  ${data?.name} in ${instanceName}`}
+          : `Get Started`}
       </LoadingButton>
       {isInstalled && (
         <LoadingButton

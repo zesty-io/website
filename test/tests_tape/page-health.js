@@ -11,7 +11,6 @@ const stageURL = 'https://kfg6bckb-dev.webengine.zesty.io';
 const routingPath = '/-/headless/routing.json';
 
 const test = require('tape-async');
-const fetch = require('node-fetch');
 const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };

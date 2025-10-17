@@ -31,7 +31,7 @@
  */
 
 import React from 'react';
-import { Box, Link, Table, useTheme } from '@mui/material';
+import { Box, Button, Container, Link, Table, useTheme } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import {
   List,
@@ -45,35 +45,27 @@ import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import dayjs from 'dayjs';
-import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import AuthorSection from 'revamp/ui/AuthorSection';
 import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
+import { CtaWithInputField } from 'blocks/cta';
+import PopUpLeadCapture from 'components/marketing/PopupLeadCapture';
+import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 function Article({ content }) {
-  const [newContent, setNewContent] = useState(content.article);
+  const [newContent, setNewContent] = useState(content?.article);
+  const [isClient, setIsClient] = useState(false);
+  const [relatedArticles, setRelatedArticles] = useState([]);
   const { palette } = useTheme();
-  const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
 
-  const { data: latestArticles, isPending: latestPending } = useFetch(
+  const { data: latestArticles } = useFetch(
     '/-/all-articles-hydrated.json?limit=4',
     content.zestyProductionMode,
   );
 
-  // const {
-  //   data: tagArticles,
-  //   //  isPending: tagsPending
-  // } = useFetch(
-  //   `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
-  //   content.zestyProductionMode,
-  // );
-
   const removeErrorHandlingString = /Error hydrating/gi;
   let cleanOutErrorHydrating;
-
-  // Check if "Error hydrating" is being injected and clean out
-  // Skip if wysiwyg is empty to avoid error
 
   const authorImage =
     content.author?.data[0]?.headshot?.data[0]?.url || FillerContent.image;
@@ -91,6 +83,31 @@ function Article({ content }) {
     name: c?.tag,
     link: c?.meta?.web?.uri,
   }));
+  const [showPopup, setShowPopup] = useState(false);
+  const cookieName = 'DOWNLOADED_PDF';
+
+  // Define a regular expression pattern to match [_CTA_]
+  let regexPattern = /\[CALL TO ACTION (\d+)\]/g;
+
+  useEffect(() => {
+    const removeSpansInHeadings = (html) => {
+      let tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+
+      let headings = tempDiv.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+      headings.forEach((heading) => {
+        let spans = heading.querySelectorAll('span');
+        spans.forEach((span) => {
+          span.replaceWith(...span.childNodes);
+        });
+      });
+
+      return tempDiv.innerHTML;
+    };
+
+    setNewContent(removeSpansInHeadings(newContent));
+  }, [newContent]);
 
   useEffect(() => {
     const validateWysiwyg = () => {
@@ -110,17 +127,122 @@ function Article({ content }) {
       txt.innerHTML = str;
       return txt.value;
     }
-    setNewContent(decode(validateWysiwyg()));
+    setNewContent(
+      decode(validateWysiwyg()).replace(
+        regexPattern,
+        (match, id) => `<acronym${id}  title="CALL TO ACTION" />`,
+      ),
+    );
+    verifyPathnameInCookie(window.location.pathname);
   }, []);
 
-  const MyZoomImg = ({ children, ...props }) => (
-    <Zoom wrapElement="span">
-      <Box component="img" {...props} />
-    </Zoom>
-  );
+  useEffect(() => {
+    setRelatedArticles(
+      getRelatedArticles(content?.related_articles, latestArticles),
+    );
+    setIsClient(true); // set inline styling in client not in server
+  }, [latestArticles]);
+
+  const verifyPathnameInCookie = (path) => {
+    if (!hasCookie(cookieName)) {
+      setShowPopup(true);
+      return;
+    }
+
+    const value = JSON.parse(getCookie(cookieName));
+    const newValue = value.filter((obj) => !isDateExpired(obj.expire));
+
+    if (value.length !== newValue.length)
+      setCookie(cookieName, newValue, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+
+    if (!newValue.some((item) => item.path === path)) setShowPopup(true);
+  };
+
+  const isDateExpired = (inputDate) => {
+    const currentDate = new Date();
+    return new Date(inputDate) < currentDate;
+  };
+
+  // Mutate and destructure related articles to match the structure of latestArticles
+  // Prioritize to return related instead of latest articles
+  const getRelatedArticles = (related, latest = []) => {
+    const relatedData = [];
+    let totalSliceCount = 4; // Default number of data to return
+    let result;
+
+    if (related?.data?.length > 4) {
+      totalSliceCount = related.data.length;
+      latest = [];
+    }
+
+    if (related !== null || related) {
+      related?.data.map(
+        ({ title, description, date, author, hero_image, meta }) => {
+          const articleDate = new Date(date);
+          relatedData.push({
+            title,
+            author: {
+              name: author?.data[0]?.name,
+              image: author?.data[0]?.headshot?.data[0].url,
+            },
+            description,
+            date:
+              articleDate.toLocaleString('default', { month: 'long' }) +
+              ' ' +
+              articleDate.getDate(),
+            image: hero_image?.data
+              ? hero_image.data[0].url
+              : FillerContent.image,
+            path: meta?.web?.uri,
+          });
+        },
+      );
+    }
+
+    // Merge related and latest articles into one array
+    // Removing duplicate and current article from result
+    result = [...relatedData, ...latest].filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) => t.title === value.title && t.title !== content?.title,
+        ),
+    );
+    return result.slice(0, totalSliceCount);
+  };
+
+  const popupLeadCaptureProps = {
+    title: content?.pop_up_title || 'FREE CMS BUYING GUIDE',
+    description: content?.pop_up_description || 'DOWNLOAD CMS BUYING GUIDE',
+    ctaText: content?.pop_up_cta_text || 'DOWNLOAD NOW',
+    thankYouMessage:
+      content?.pop_up_thank_you ||
+      'Thank you for downloading our CMS buying guide. Reach out to us for a free discovery call, demo call or a free trial',
+    pdfLink:
+      content?.pdf_link ||
+      'https://kfg6bckb.media.zestyio.com/HeadlessCMS-Buyers-Guide-Zesty.H17lCRwtp.pdf',
+    cookieName,
+    setShowPopup,
+  };
+
+  const inlineStyles = isClient
+    ? `:is(span, p, h1, h2, h3, h4, h5, h6) :is(img) {
+  width: auto;
+  max-width: 100%;
+  }
+  :h1 span, :h2 span {
+    color: black;
+  }`
+    : ``;
+
+  // Match CTA component sort order id from array to return its props
+  const ctaComponentProps = (id) => {
+    const callToActionsArray = content?.call_to_actions?.data || [];
+    return callToActionsArray?.filter((item) => item.sort_order == id)[0];
+  };
 
   return (
-    <Box>
+    <Box sx={{ position: 'relative' }}>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Stack>
           <BlogHero
@@ -152,9 +274,34 @@ function Article({ content }) {
               },
             })}
           >
+            <style>{inlineStyles}</style>
             <MuiMarkdown
               options={{
                 overrides: {
+                  acronym1: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(1),
+                  },
+                  acronym2: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(2),
+                  },
+                  acronym3: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(3),
+                  },
+                  acronym4: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(4),
+                  },
+                  acronym5: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(5),
+                  },
+                  acronym6: {
+                    component: CtaComponent,
+                    props: ctaComponentProps(6),
+                  },
                   p: {
                     component: Typography,
                     props: {
@@ -164,18 +311,6 @@ function Article({ content }) {
                       mt: '20px',
                       px: 2,
                       sx: (theme) => ({
-                        [theme.breakpoints.up('xs')]: {
-                          '&:has(img)': {
-                            mt: '0',
-                            px: 0,
-                            width: '100%',
-                          },
-                          '&:has(iframe)': {
-                            mt: '0',
-                            px: 0,
-                            width: '100%',
-                          },
-                        },
                         [theme.breakpoints.up('tablet')]: {
                           width: '640px',
                           mx: 'auto',
@@ -188,7 +323,7 @@ function Article({ content }) {
                     component: Typography,
                     props: {
                       component: 'strong',
-                      sx: (theme) => ({
+                      sx: () => ({
                         color: 'text.primary',
                         fontSize: '18px',
                         lineHeight: '28px',
@@ -219,6 +354,9 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
+                        },
                       }),
                     },
                   },
@@ -245,6 +383,9 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
+                        },
                       }),
                     },
                   },
@@ -269,6 +410,9 @@ function Article({ content }) {
                           width: '640px',
                           mx: 'auto',
                           px: 0,
+                        },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
                         },
                       }),
                     },
@@ -295,6 +439,9 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
+                        },
                       }),
                     },
                   },
@@ -319,6 +466,9 @@ function Article({ content }) {
                           width: '640px',
                           mx: 'auto',
                           px: 0,
+                        },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
                         },
                       }),
                     },
@@ -345,17 +495,14 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                        '& + p > span > span > img': {
+                          mt: '20px !important',
+                        },
                       }),
                     },
                   },
                   img: {
-                    component: MyZoomImg,
-                    props: {
-                      style: {
-                        marginTop: '48px',
-                        width: '100%',
-                      },
-                    },
+                    component: 'img',
                   },
                   iframe: {
                     component: ({ children, ...props }) => (
@@ -385,7 +532,6 @@ function Article({ content }) {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
                           color: 'text.secondary',
-                          listStyleType: 'disc',
                           fontSize: '18px',
                           lineHeight: '28px',
                           fontWeight: 500,
@@ -393,9 +539,10 @@ function Article({ content }) {
                           mt: '20px',
                           '& .MuiListItem-root': {
                             display: 'list-item',
+                            listStyleType: 'disc',
                           },
                           mx: 3,
-                          // pl: 2,
+
                           '& ul': {
                             mt: '12px',
                             mx: 2,
@@ -408,7 +555,6 @@ function Article({ content }) {
                           px: 0,
                           '& ul': {
                             mx: 2,
-                            // pl: 2,
                           },
                         },
                       }),
@@ -416,7 +562,9 @@ function Article({ content }) {
                   },
                   ol: {
                     component: List,
+
                     props: {
+                      component: 'ol',
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
                           color: 'text.secondary',
@@ -425,8 +573,9 @@ function Article({ content }) {
                           fontWeight: 500,
                           '& .MuiListItem-root': {
                             display: 'list-item',
+                            listStyleType: 'auto',
                           },
-                          // pl: 2,
+
                           mx: 3,
                         },
                         [theme.breakpoints.up('tablet')]: {
@@ -442,6 +591,7 @@ function Article({ content }) {
                     props: {
                       sx: (theme) => ({
                         [theme.breakpoints.up('xs')]: {
+                          listStyleType: 'initial',
                           px: 0,
                           pt: 0,
                           pb: '12px',
@@ -485,8 +635,6 @@ function Article({ content }) {
                         mt: '20px',
                         '& img, span': {
                           mt: '0px !important',
-                          // p: 1,
-                          // maxWidth: 'auto !important',
                           objectFit: 'contain',
                           height: '240px',
                         },
@@ -497,11 +645,13 @@ function Article({ content }) {
                         '& p': {
                           width: 'auto',
                         },
-
+                        '& tr': {
+                          bgcolor: 'transparent !important',
+                        },
                         '& td': {
                           color:
                             theme.palette.mode === 'dark'
-                              ? 'black'
+                              ? 'white'
                               : 'text.primary',
                         },
                       }),
@@ -511,6 +661,20 @@ function Article({ content }) {
                     component: Link,
                     props: {
                       color: 'info.main',
+                      sx: {
+                        '& img': {
+                          maxWidth: '100%',
+                        },
+                        '& > span > span:has(img)': {
+                          height: '100%',
+                          display: 'inline-block',
+                          width: '100%',
+                        },
+                        '& > span > span > img': {
+                          cursor: 'pointer',
+                          pointerEvents: 'none',
+                        },
+                      },
                     },
                   },
                   sub: {
@@ -529,12 +693,29 @@ function Article({ content }) {
                       },
                     },
                   },
+                  code: {
+                    props: {
+                      style: {
+                        backgroundColor:
+                          palette.mode === 'dark' ? 'darkblue' : '#F5F7F9',
+                      },
+                    },
+                  },
+                  pre: {
+                    props: {
+                      style: {
+                        backgroundColor:
+                          palette.mode === 'dark' ? 'transparent' : '#F5F7F9',
+                      },
+                    },
+                  },
                 },
               }}
             >
               {newContent || FillerContent.rich_text}
             </MuiMarkdown>
           </Stack>
+
           <AuthorSection
             authorName={authorName}
             authorDescription={authorDescription}
@@ -542,11 +723,88 @@ function Article({ content }) {
             tags={tags}
             authorLink={authorLink}
           />
-          <BlogContent title="Related Articles" articles={latestArticles} />
+          <BlogContent title="Related Articles" articles={relatedArticles} />
         </Stack>
       </ThemeProvider>
+
+      {(content?.enable_newsletter_subscription === null ||
+        content?.enable_newsletter_subscription == '1') && (
+        <Container position="relative" zIndex={3}>
+          <CtaWithInputField
+            title={'Subscribe to the zestiest newsletter in the industry'}
+            description={
+              'Get the latest from the Zesty team, from whitepapers to product updates.'
+            }
+            cta={'Subscribe'}
+          />
+        </Container>
+      )}
+
+      {/* Side PopUp */}
+      {showPopup && <PopUpLeadCapture {...popupLeadCaptureProps} />}
     </Box>
   );
 }
 
 export default Article;
+
+function CtaComponent({ cta_title, cta_description, cta_text, cta_link }) {
+  return (
+    <>
+      {cta_title && cta_description && (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: 4,
+            gap: 2,
+            justifyContent: 'center',
+            alignItems: 'start',
+            height: 'auto',
+            width: '100%',
+            backgroundColor: '#101828',
+            borderRadius: '8px',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+            textAlign: 'left',
+          }}
+        >
+          <Typography variant="h5" fontWeight={700} color="white">
+            {cta_title || ''}
+          </Typography>
+          <MuiMarkdown
+            options={{
+              overrides: {
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'body1',
+                    color: '#D0D5DD',
+                  },
+                },
+                span: {
+                  component: Typography,
+                  props: {
+                    variant: 'body1',
+                    color: '#D0D5DD',
+                  },
+                },
+              },
+            }}
+          >
+            {cta_description || ''}
+          </MuiMarkdown>
+
+          <Button
+            target="_blank"
+            href={cta_link || ''}
+            component="a"
+            variant="contained"
+            color="primary"
+          >
+            {cta_text || ''}
+          </Button>
+        </Box>
+      )}
+    </>
+  );
+}

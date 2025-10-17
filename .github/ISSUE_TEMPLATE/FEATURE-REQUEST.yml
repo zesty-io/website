@@ -1,0 +1,27 @@
+name: "\U0001F680 Feature Request"
+title: "\U0001F680 [Feature]: "
+description: Suggest an idea to improve this project.
+labels: ['✏️ Feature']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Notice
+        - If you think this is just a bug, open the issue with the **☢️ Bug Report** template.
+        - Write your issue with clear and understandable English.
+  - type: textarea
+    id: description
+    attributes:
+      label: 'Feature Description'
+      description: 'A clear and detailed description of the feature you would like to see added.'
+      placeholder: 'Explain your feature clearly, and in detail.'
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 'Additional Context (optional)'
+      description: 'If you have something else to describe, write them here.'
+      placeholder: 'Write here what you can describe differently.'
+      render: bash

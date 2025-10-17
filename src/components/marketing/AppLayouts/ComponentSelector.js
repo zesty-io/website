@@ -22,7 +22,6 @@ const ComponentSelector = (props) => {
     // Read the context and grab component data
     const content = ctx[props.data.name.toLowerCase()]?.data[0];
 
-    // console.log('content', content);
     return <Component {...content} />;
   }
 

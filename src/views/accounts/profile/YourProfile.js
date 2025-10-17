@@ -12,7 +12,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import {
   AccountsHeader,
   AccountsPopover,
-  AccountsTable,
   AccountsTableHead,
   EmailForm,
   ErrorMsg,
@@ -24,6 +23,12 @@ import {
 import { useFormik } from 'formik';
 import { accountsValidations } from 'components/accounts';
 import { zohoPostObject } from 'components/accounts/join/zohoPostObject';
+
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const MySwal = withReactContent(Swal);
 

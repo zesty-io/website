@@ -28,10 +28,12 @@
  */
 
 import {
+  Box,
   Card,
   Container,
   Grid,
   Stack,
+  ThemeProvider,
   Typography,
   useMediaQuery,
   useTheme,
@@ -43,6 +45,8 @@ import React from 'react';
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import FillerContent from 'components/globals/FillerContent';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
+import revampTheme from 'theme/revampTheme';
 
 function LandingPages2023({ content }) {
   const theme = useTheme();
@@ -91,9 +95,18 @@ function LandingPages2023({ content }) {
             </Grid>
             <Grid item xs={12} md={6}>
               <Card sx={{ p: 4 }}>
-                <Typography sx={{ pb: 2 }}>
-                  {content?.form_title || FillerContent.header}
-                </Typography>
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="h5" sx={{ pb: 2 }}>
+                    {content?.form_title || FillerContent.header}
+                  </Typography>
+
+                  {content?.form_subtext && (
+                    <Typography variant="p" sx={{ pb: 2 }}>
+                      {content?.form_subtext}
+                    </Typography>
+                  )}
+                </Box>
+
                 <StandardFormWithSelect hideSelect={true} />
               </Card>
             </Grid>
@@ -107,6 +120,10 @@ function LandingPages2023({ content }) {
           component: ComponentSelector,
         }}
       />
+
+      <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+        <GetDemoSection />
+      </ThemeProvider>
     </>
   );
 }

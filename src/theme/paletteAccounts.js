@@ -31,6 +31,7 @@ export const light = {
   text: {
     primary: '#1e2022',
     secondary: '#5b667d',
+    dark: '#E5EAF9',
   },
   divider: 'rgba(0, 0, 0, 0.12)',
   background: {
@@ -85,6 +86,7 @@ export const light = {
     zestyLightOrange: '#F5F1F1',
     zestyDarkText: '#2D3748',
     lightPink: '#FFF6F1',
+    agentChatBubble: '#5b5b5b',
   },
 };
 
@@ -115,6 +117,7 @@ export const dark = {
   text: {
     primary: '#EEEEEF',
     secondary: '#AEB0B4',
+    dark: '#2D3748',
   },
   divider: 'rgba(255, 255, 255, 0.12)',
   background: {
@@ -158,5 +161,6 @@ export const dark = {
     zestyTealWhite: '#1AE8FF',
     zestyLightText: '#a1a1a1',
     zestyLightOrange: '#2B252A',
+    agentChatBubble: '#fff4e5',
   },
 };

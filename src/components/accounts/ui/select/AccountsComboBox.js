@@ -57,62 +57,61 @@ function useResetCache(data) {
 }
 
 // Adapter for react-window
-const ListboxComponent = React.forwardRef(function ListboxComponent(
-  props,
-  ref,
-) {
-  const { children, ...other } = props;
-  const itemData = [];
-  children.forEach((item) => {
-    itemData.push(item);
-    itemData.push(...(item.children || []));
-  });
+const ListboxComponent = React.forwardRef(
+  function ListboxComponent(props, ref) {
+    const { children, ...other } = props;
+    const itemData = [];
+    children.forEach((item) => {
+      itemData.push(item);
+      itemData.push(...(item.children || []));
+    });
 
-  const theme = useTheme();
-  const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
-    noSsr: true,
-  });
+    const theme = useTheme();
+    const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
+      noSsr: true,
+    });
 
-  const itemCount = itemData.length;
-  const itemSize = smUp ? 36 : 48;
+    const itemCount = itemData.length;
+    const itemSize = smUp ? 36 : 48;
 
-  const getChildSize = (child) => {
-    if (child.hasOwnProperty('group')) {
-      return 48;
-    }
+    const getChildSize = (child) => {
+      if (child.hasOwnProperty('group')) {
+        return 48;
+      }
 
-    return itemSize;
-  };
+      return itemSize;
+    };
 
-  const getHeight = () => {
-    if (itemCount > 8) {
-      return 8 * itemSize;
-    }
-    return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
-  };
+    const getHeight = () => {
+      if (itemCount > 8) {
+        return 8 * itemSize;
+      }
+      return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
+    };
 
-  const gridRef = useResetCache(itemCount);
+    const gridRef = useResetCache(itemCount);
 
-  return (
-    <div ref={ref}>
-      <OuterElementContext.Provider value={other}>
-        <VariableSizeList
-          itemData={itemData}
-          height={getHeight() + 2 * LISTBOX_PADDING}
-          width="100%"
-          ref={gridRef}
-          outerElementType={OuterElementType}
-          innerElementType="ul"
-          itemSize={(index) => getChildSize(itemData[index])}
-          overscanCount={5}
-          itemCount={itemCount}
-        >
-          {renderRow}
-        </VariableSizeList>
-      </OuterElementContext.Provider>
-    </div>
-  );
-});
+    return (
+      <div ref={ref}>
+        <OuterElementContext.Provider value={other}>
+          <VariableSizeList
+            itemData={itemData}
+            height={getHeight() + 2 * LISTBOX_PADDING}
+            width="100%"
+            ref={gridRef}
+            outerElementType={OuterElementType}
+            innerElementType="ul"
+            itemSize={(index) => getChildSize(itemData[index])}
+            overscanCount={5}
+            itemCount={itemCount}
+          >
+            {renderRow}
+          </VariableSizeList>
+        </OuterElementContext.Provider>
+      </div>
+    );
+  },
+);
 
 ListboxComponent.propTypes = {
   children: PropTypes.node,
@@ -142,7 +141,7 @@ const StyledPopper = styled(Popper)({
 
 const filterOptions = createFilterOptions({
   matchFrom: 'any',
-  stringify: (option) => option.name + option.value,
+  stringify: (option) => option.name + option.value + option.id,
 });
 
 const Index = ({
@@ -162,6 +161,7 @@ const Index = ({
     return {
       name: e.name,
       value: e.ZUID,
+      id: e.ID,
     };
   });
 
@@ -181,13 +181,13 @@ const Index = ({
       filterOptions={filterOptions}
       id="virtualize-demo"
       onChange={handleChange}
+      disablePortal
       size="small"
       sx={(theme) => ({
         width,
         backgroundColor:
           theme.palette.mode === 'light' && theme.palette.common.white,
       })}
-      disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
       options={OPTIONS}
@@ -202,6 +202,9 @@ const Index = ({
               '& fieldset': {
                 border: `1px solid ${grey[200]}`,
                 borderRadius: '8px',
+              },
+              '& .MuiInputBase-root': {
+                bgcolor: 'transparent',
               },
             }}
             placeholder={placeholder}

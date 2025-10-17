@@ -2,8 +2,11 @@ import axios from 'axios';
 import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { ErrorPage } from 'views/error';
 import * as helper from 'utils';
+
+import dynamic from 'next/dynamic';
+
+const ErrorPage = dynamic(() => import('views/error').then((e) => e.ErrorPage));
 
 const slackErrorUrl =
   'https://hooks.slack.com/services/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';

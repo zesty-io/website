@@ -227,7 +227,7 @@ const GridCompetitorListing = ({
 
       <Stack direction="row" spacing="12px" justifyContent="center">
         <Button variant="contained" size="extraLarge" href="/demo">
-          Schedule Demo
+          Talk to Us
         </Button>
         <Button variant="outlined" size="extraLarge" href="/pricing">
           View Pricing

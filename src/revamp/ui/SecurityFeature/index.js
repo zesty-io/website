@@ -1,8 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React from 'react';
 
 const featureContent =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/certified-security-compliance.webp';
+  'https://kfg6bckb.media.zestyio.com/certified-security-compliance.webp';
 
 const SecurityFeature = ({
   overline = 'GET PEACE OF MIND',
@@ -62,18 +61,13 @@ const SecurityFeature = ({
       </Stack>
       <Stack order={{ xs: 2, lg: 1 }}>
         <Box
-          component="img"
-          src={image}
           sx={(theme) => ({
             [theme.breakpoints.up('xs')]: {
               objectFit: 'contain',
               maxWidth: '100%',
               height: '100%',
+              display: { xs: 'none', lg: 'flex' },
             },
-            // [theme.breakpoints.up('mobile')]: {
-            //   maxWidth: '704px',
-            //   height: '343px',
-            // },
             [theme.breakpoints.up('tablet')]: {
               maxWidth: '100%',
               height: '420px',
@@ -83,7 +77,7 @@ const SecurityFeature = ({
               height: '100%',
             },
             [theme.breakpoints.between(1201, 1439)]: {
-              maxWidth: '100%',
+              maxWidth: '600px',
               height: '100%',
             },
             [theme.breakpoints.up('desktopWide')]: {
@@ -91,7 +85,16 @@ const SecurityFeature = ({
               height: '420px',
             },
           })}
-        />
+        >
+          <img
+            src={image}
+            loading="lazy"
+            alt="zesty-image"
+            style={{ width: '100%', height: '100%' }}
+            width={700}
+            height={420}
+          />
+        </Box>
       </Stack>
     </Stack>
   );

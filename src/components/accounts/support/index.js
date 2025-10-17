@@ -3,3 +3,8 @@ export { default as TicketsModal } from './TicketsModal';
 export { default as PopupBox } from './PopupBox';
 export { default as TicketsTable } from './TicketsTable';
 export { default as CreateTicket } from './CreateTicket';
+export { default as AgentChatBubble } from './AgentChatBubble';
+export { default as ClientChatBubble } from './ClientChatBubble';
+export { default as Attachment } from './Attachment';
+export { default as ChatLoadingSpinner } from './ChatLoadingSpinner';
+export { default as Chat } from './Chat';

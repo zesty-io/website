@@ -1,15 +1,15 @@
-const {
-  Box,
-  TextField,
-  Typography,
-  InputAdornment,
-  IconButton,
-} = require('@mui/material');
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import PasswordIcon from '@mui/icons-material/Password';
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React, { useState } from 'react';
 
-const Index = ({
+function Index({
   name,
   formik,
   label,
@@ -21,8 +21,10 @@ const Index = ({
   hasHelperText = true,
   hasError = true,
   customLabelVariant = 'h6',
+  customHeight = '40px',
+  customFontSize = '14px',
   ...props
-}) => {
+}) {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -47,8 +49,12 @@ const Index = ({
   };
   return (
     <Box width={props.fullWidth ? '100%' : 'auto'} mb={boxGutterBottom ? 1 : 0}>
-      {customLabel && (
+      {customLabel && typeof customLabel === 'string' ? (
         <Typography variant={customLabelVariant}>{customLabel}</Typography>
+      ) : customLabel ? (
+        customLabel
+      ) : (
+        <></>
       )}
       {type !== 'password' ? (
         <TextField
@@ -56,11 +62,22 @@ const Index = ({
           {...defaultProps}
           {...props}
           sx={{
-            '& .MuiInputBase-root': { background: '#fff' },
-            '& .MuiOutlinedInput-root:hover': {
-              '& > fieldset': {
-                border: '1px solid #c4c4c4',
+            '& .MuiOutlinedInput-root': {
+              height: multiline ? 'auto' : customHeight,
+              borderRadius: '8px',
+              fontSize: customFontSize,
+              '& fieldset': {
+                border: '1px solid #F2F4F7',
               },
+              '&:hover fieldset': {
+                border: '2px solid #FF5D0A',
+              },
+              '&.Mui-focused fieldset': {
+                border: '2px solid #FF5D0A',
+              },
+            },
+            '& .MuiInputBase-root': {
+              bgcolor: 'transparent',
             },
           }}
         />
@@ -68,11 +85,23 @@ const Index = ({
         <TextField
           FormHelperTextProps={{ style: { background: 'transparent' } }}
           sx={{
-            '& .MuiInputBase-root': { background: '#fff' },
-            '& .MuiOutlinedInput-root:hover': {
-              '& > fieldset': {
-                border: '1px solid #c4c4c4',
+            '& .MuiOutlinedInput-root': {
+              height: '40px',
+              borderRadius: '8px',
+              fontSize: '14px',
+
+              '& fieldset': {
+                border: '1px solid #F2F4F7',
               },
+              '&:hover fieldset': {
+                border: '2px solid #FF5D0A',
+              },
+              '&.Mui-focused fieldset': {
+                border: '2px solid #FF5D0A',
+              },
+            },
+            '& .MuiInputBase-root': {
+              bgcolor: 'transparent',
             },
           }}
           {...defaultProps}
@@ -100,6 +129,6 @@ const Index = ({
       )}
     </Box>
   );
-};
+}
 
 export const FormInput = React.memo(Index);

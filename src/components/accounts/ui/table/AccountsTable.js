@@ -1,9 +1,17 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 import { Stack, Typography } from '@mui/material';
 
+import dynamic from 'next/dynamic';
+
+const DataGrid = dynamic(() =>
+  import('@mui/x-data-grid').then((e) => e.DataGrid),
+);
+
+const GridToolbar = dynamic(() =>
+  import('@mui/x-data-grid').then((e) => e.GridToolbar),
+);
 // const NoResultsOverlay = () => {
 //   return (
 //     <Stack height="100%" alignItems="center" justifyContent="center">
@@ -44,9 +52,9 @@ const Index = ({
     >
       <DataGrid
         autoHeight={autoHeight}
-        sx={{
+        sx={(theme) => ({
           '& .MuiDataGrid-columnHeaders': {
-            bgcolor: grey[50],
+            bgcolor: theme.palette.mode === 'dark' ? 'transparent' : grey[50],
           },
           '.MuiDataGrid-columnSeparator': {
             display: true ? 'none' : '',
@@ -61,7 +69,17 @@ const Index = ({
           '& .MuiDataGrid-cell:hover': {
             color: 'primary.main',
           },
-        }}
+
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-track': {
+            background: grey[300],
+          },
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb': {
+            backgroundColor: grey[500],
+          },
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb:hover': {
+            background: grey[500],
+          },
+        })}
         rowHeight={rowHeight}
         rows={rows}
         columns={columns}

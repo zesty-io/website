@@ -12,10 +12,12 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 600,
+  maxWidth: 800,
+  maxHeight: 800,
   bgcolor: 'background.paper',
   boxShadow: 2,
   p: 2,
-  borderRadius: 4,
+  borderRadius: 2,
 };
 
 export const SearchModal = ({ children, sx }) => {
@@ -39,6 +41,7 @@ export const SearchModal = ({ children, sx }) => {
   return (
     <div>
       <TextField
+        data-testid="algolia-search-trigger"
         placeholder="Search..."
         onClick={handleOpen}
         onChange={(e) => {

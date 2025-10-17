@@ -1,14 +1,14 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import CloudRoundedIcon from '@mui/icons-material/CloudRounded';
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
-import LockRoundedIcon from '@mui/icons-material/LockRounded';
-import HubRoundedIcon from '@mui/icons-material/HubRounded';
+import {
+  CloudRounded as CloudRoundedIcon,
+  CodeRounded as CodeRoundedIcon,
+  LockRounded as LockRoundedIcon,
+  HubRounded as HubRoundedIcon,
+} from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
-const contentStats =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/G2%20Zesty%20Rating.svg';
+const contentStats = 'https://kfg6bckb.media.zestyio.com/g2fall.png';
 
 const statsArray = [
   {
@@ -35,7 +35,7 @@ const statsArray = [
 
 const Stats = ({
   title = 'Why choose Zesty.io? ',
-  header = 'Zesty is named a High Performer for Winter 2023 by G2',
+  header = 'Zesty is named a High Performer for Fall 2023 by G2',
   subHeading = 'At Zesty, we are committed to creating best-in-class technology and our dedication to excellence has been recognized by G2, who have consistently named us a high performer.',
 }) => {
   const theme = useTheme();
@@ -47,10 +47,12 @@ const Stats = ({
     <Stack
       sx={(theme) => ({
         [theme.breakpoints.up('xs')]: {
+          display: 'none',
           py: 4,
           px: 2,
         },
         [theme.breakpoints.up('tablet')]: {
+          display: 'none',
           py: 6,
           px: 4,
         },
@@ -90,26 +92,12 @@ const Stats = ({
           }}
           margin="0 auto"
         >
-          <Box
-            component="img"
+          <img
             src={contentStats}
-            style={{ objectFit: 'contain' }}
-            sx={(theme) => ({
-              [theme.breakpoints.up('xs')]: {
-                margin: '0 auto',
-                width: '100%',
-                height: '100%',
-              },
-              [theme.breakpoints.up('tablet')]: {
-                width: '410.71px',
-                height: '317px',
-              },
-
-              [theme.breakpoints.up('md')]: {
-                width: '100%',
-                height: '100%',
-              },
-            })}
+            loading="lazy"
+            alt="Zesty Image"
+            width={505}
+            height={317}
           />
         </Box>
       </Stack>

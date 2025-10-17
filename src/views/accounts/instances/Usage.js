@@ -9,13 +9,14 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  AccountsHeader,
-  AccountsTable,
-  AccountsTableHead,
-} from 'components/accounts';
+import { AccountsHeader, AccountsTableHead } from 'components/accounts';
 import dayjs from 'dayjs';
 import LaunchIcon from '@mui/icons-material/Launch';
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const getMonthDates = ({ start = '', end = '' }) => {
   const FORMAT = 'YYYY-MM-DD';
@@ -62,7 +63,14 @@ const getMonthDates = ({ start = '', end = '' }) => {
 const ReportCard = ({ title = '', data = 0, type = '', _limit = 0 }) => {
   // console.log(limit);
   return (
-    <Card sx={{ py: 4, borderRadius: '20px' }}>
+    <Card
+      sx={{
+        py: 4,
+        borderRadius: '20px',
+        height: '100%',
+        overflowWrap: 'break-word',
+      }}
+    >
       <Typography variant="h4" textAlign={'center'} mb={2}>
         {title}
       </Typography>
@@ -125,10 +133,15 @@ const ThisMonthReport = ({ usage, loading }) => {
           <CircularProgress />
         </Stack>
       ) : (
-        <Grid container px={10} py={5} spacing={8}>
+        <Grid
+          container
+          py={5}
+          spacing={8}
+          sx={(theme) => ({ [theme.breakpoints.up('lg')]: { px: 10 } })}
+        >
           {arr.map((e) => {
             return (
-              <Grid item xs={6}>
+              <Grid item sm={6} xs={12}>
                 <ReportCard
                   title={e.title}
                   data={e.data}
@@ -248,6 +261,7 @@ const Main = ({ zuid, usage, loading }) => {
   const headerProps = {
     title: 'Usage',
     description: `View your usage`,
+    info: 'This page allows you to view the total number of requests you have made and the amount of data transferred, known as bandwidth. Additionally, you have the option to export this report for your team to review.',
   };
   const tableProps = {
     zuid,

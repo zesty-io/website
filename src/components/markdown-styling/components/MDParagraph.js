@@ -1,6 +1,10 @@
 import { Typography, Link, Box, Stack } from '@mui/material';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { MDImage } from './MDImage';
+import { MDStrong } from './MDStrong';
+import { MDItalic } from './MDItalic';
+import { MDVideo } from './MDVideo';
 
 const LinkComponent = ({ node }) => {
   return (
@@ -54,6 +58,8 @@ export const MDParagraph = ({
   const keywords = mainKeywords;
   const keywordRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'gi');
 
+  const isVideo = node?.children[0]?.properties?.href?.includes('youtube');
+
   const res = children.map((e) => {
     if (e.type === 'a') {
       const linkHtml = `<a href="${e.props.href}" title="${e.props.children[0]}">${e.props.children[0]}</a>`;
@@ -70,12 +76,25 @@ export const MDParagraph = ({
     }
   });
 
+  if (node.children.length === 1 && node.children[0].tagName === 'strong') {
+    return <MDStrong node={node} />;
+  }
+  if (node.children.length === 1 && node.children[0].tagName === 'em') {
+    return <MDItalic node={node} />;
+  }
   if (node.children.length === 1 && node.children[0].tagName === 'a') {
+    if (isVideo) {
+      return <MDVideo node={node} />;
+    }
     return <LinkComponent node={node} />;
   }
 
+  if (node?.children && node?.children[0]?.tagName === 'img') {
+    return <MDImage node={node?.children[0]} />;
+  }
   return (
     <p
+      data-testid="box-container"
       dangerouslySetInnerHTML={{
         __html: res.join(''),
       }}

@@ -34,7 +34,7 @@ const AuthorSection = ({
       <Stack mb={3}>
         <Link href={authorLink}>
           <Avatar
-            src={authorImage}
+            src={authorImage + '?quality=60'}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 width: 64,

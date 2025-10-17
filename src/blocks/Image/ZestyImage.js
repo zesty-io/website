@@ -41,10 +41,11 @@ const ZestyImage = ({
     src ? src : FillerContent.photos[0].src,
   );
 
+
   return (
     <img
-      width={width}
-      height={height}
+      width={width || '100%'}
+      height={height || 'auto'}
       {...attributes}
       src={imageUrl ? imageUrl : src}
       alt={alt}

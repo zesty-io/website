@@ -1,5 +1,7 @@
 import React from 'react';
-import NotFoundCover from 'views/NotFoundCover';
+import dynamic from 'next/dynamic';
+
+const NotFoundCover = dynamic(() => import('views/NotFoundCover'));
 
 const FourOFourPage = () => {
   return <NotFoundCover />;

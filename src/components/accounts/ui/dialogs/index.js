@@ -17,6 +17,9 @@ export const SuccessMsg = ({
     title,
     timer: 2500,
     confirmButtonColor: light.primary.main,
+    customClass: {
+      container: 'swal-zindex-override',
+    },
   }).then(() => action());
 };
 
@@ -24,6 +27,8 @@ export const ErrorMsg = ({
   title = 'Error',
   text = 'Something went wrong',
   html = '',
+  timerProgressBar = false,
+  timer = 2500,
 }) => {
   MySwal.fire({
     position: 'center',
@@ -32,7 +37,11 @@ export const ErrorMsg = ({
     html,
     text,
     confirmButtonColor: light.zesty.zestyRose,
-    //   footer: '<a href="">Why do I have this issue?</a>',
+    timer,
+    timerProgressBar,
+    customClass: {
+      container: 'swal-zindex-override',
+    },
   });
 };
 
@@ -82,6 +91,9 @@ export const DeleteMsg = ({
     confirmButtonText: 'Yes',
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
+    customClass: {
+      container: 'swal-zindex-override',
+    },
   }).then((result) => {
     if (result.isConfirmed) {
       action();

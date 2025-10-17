@@ -1,9 +1,6 @@
 import { Avatar, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-const image =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/zosh.svg';
-
 const sampleTestimonails = [
   {
     text: `Quis neque, eu et ipsum amet, vel et. Varius integer enim

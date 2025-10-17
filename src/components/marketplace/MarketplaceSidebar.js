@@ -32,6 +32,7 @@ const MarketplaceSidebar = ({
           <ListSubheader
             sx={{
               color: theme.palette.zesty.zestyZambezi,
+              fontWeight: 'bold',
             }}
             component="p"
           >
@@ -44,14 +45,16 @@ const MarketplaceSidebar = ({
             key={index}
             sx={{
               borderRadius: 1,
-              bgcolor: router.asPath.includes(list.uri) ? 'primary.main' : '',
+              bgcolor: router.asPath.includes(list.uri) ? 'secondary.main' : '',
             }}
           >
             <CustomLink underline="none" href={list.uri}>
               <ListItemText
                 primary={list.name}
                 sx={{
-                  color: router.asPath.includes(list.uri) ? 'white' : '',
+                  color: router.asPath.includes(list.uri)
+                    ? 'white'
+                    : 'secondary.main',
                 }}
               />
             </CustomLink>
@@ -61,21 +64,33 @@ const MarketplaceSidebar = ({
 
       <List
         sx={{ my: 3, px: 2 }}
-        subheader={<ListSubheader component="div">Tags</ListSubheader>}
+        subheader={
+          <ListSubheader
+            component="div"
+            sx={{
+              color: theme.palette.zesty.zestyZambezi,
+              fontWeight: 'bold',
+            }}
+          >
+            Tags
+          </ListSubheader>
+        }
       >
         {marketTags?.map((list, index) => (
           <ListItem
             key={index}
             sx={{
               borderRadius: 1,
-              bgcolor: router.asPath.includes(list.uri) ? 'primary.main' : '',
+              bgcolor: router.asPath.includes(list.uri) ? 'secondary.main' : '',
             }}
           >
             <CustomLink underline="none" href={list.uri}>
               <ListItemText
                 primary={list.name}
                 sx={{
-                  color: router.asPath.includes(list.uri) ? 'white' : '',
+                  color: router.asPath.includes(list.uri)
+                    ? 'white'
+                    : 'secondary.main',
                 }}
               />
             </CustomLink>
@@ -84,20 +99,32 @@ const MarketplaceSidebar = ({
       </List>
       <List
         sx={{ my: 3, px: 2 }}
-        subheader={<ListSubheader component="div">Manage</ListSubheader>}
+        subheader={
+          <ListSubheader
+            component="div"
+            sx={{
+              color: theme.palette.zesty.zestyZambezi,
+              fontWeight: 'bold',
+            }}
+          >
+            Manage
+          </ListSubheader>
+        }
       >
         {marketManage?.map((list, index) => (
           <ListItem
             key={index}
             sx={{
-              bgcolor: router.asPath.includes(list.uri) ? 'primary.main' : '',
+              bgcolor: router.asPath.includes(list.uri) ? 'secondary.main' : '',
             }}
           >
             <CustomLink underline="none" href={list.uri}>
               <ListItemText
                 primary={list.name}
                 sx={{
-                  color: router.asPath.includes(list.uri) ? 'white' : '',
+                  color: router.asPath.includes(list.uri)
+                    ? 'white'
+                    : 'secondary.main',
                 }}
               />
             </CustomLink>

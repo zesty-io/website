@@ -32,7 +32,7 @@ const SingleNavItem = ({ title, url, colorInvert = false }) => {
         color={linkColor}
         href={url}
         underline="none"
-        sx={(theme) => ({
+        sx={() => ({
           fontWeight: 600,
         })}
         title={title}

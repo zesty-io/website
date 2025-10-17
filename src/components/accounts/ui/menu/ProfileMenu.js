@@ -18,6 +18,9 @@ export const ProfileMenu = ({ profilePic, userInfo }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    if (!userInfo && !userInfo?.firstName) {
+      return;
+    }
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (pathname) => {
@@ -45,6 +48,7 @@ export const ProfileMenu = ({ profilePic, userInfo }) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        disablePortal
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}

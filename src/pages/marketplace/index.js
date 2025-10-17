@@ -24,7 +24,7 @@ import { getIsAuthenticated } from 'utils';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from '../../layouts/Main/Main';
 
-const MainWrapper = ({ nav, children }) => {
+export const MainWrapper = ({ nav, children }) => {
   const isLoggedIn = useIsLoggedIn();
   return isLoggedIn ? (
     <Main customRouting={nav.customRouting}>{children}</Main>

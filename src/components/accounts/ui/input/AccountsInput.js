@@ -20,9 +20,11 @@ export const AccountsInput = ({
     <TextField
       sx={(theme) => ({
         width,
-        bgcolor: theme.palette.mode === 'light' ? '' : '',
         borderRadius: '8px',
         '& fieldset': { border: `1px solid ${grey[200]}`, borderRadius: '8px' },
+        '& > .MuiInputBase-root': {
+          bgcolor: theme.palette.mode === 'dark' ? 'transparent' : '',
+        },
       })}
       size="small"
       placeholder={placeholder}

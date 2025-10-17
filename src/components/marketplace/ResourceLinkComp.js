@@ -14,7 +14,7 @@ export const ResourceLinkComp = ({ data }) => {
       sx={{ mt: 2 }}
       fullWidth
     >
-      {data?.name}
+      Get Started
     </Button>
   );
 };

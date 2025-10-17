@@ -78,8 +78,6 @@ const Main = ({
   const isLoggedIn = useIsLoggedIn();
   const pageNavColorRegex = new RegExp(/\bmindshare\b|article\b|category/gi);
   const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
-  const headerColorInvert =
-    model?.match(pageNavColorRegex) !== null ? true : false;
   const blogMain = new RegExp(/\bmindshare\b/gi);
   const isBlogHome = model?.match(blogMain) !== null ? true : false;
 
@@ -130,10 +128,7 @@ const Main = ({
 
   return (
     <>
-      {!isProductPage &&
-        isLoggedIn === false &&
-        !isLoginPage &&
-        !isDocsPage && <SiteBanner />}
+      {!isProductPage && isLoggedIn === false && !isLoginPage && <SiteBanner />}
 
       {isLoggedIn === false && (
         <Box
@@ -171,6 +166,7 @@ const Main = ({
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
           borderBottom: (isLoggedIn || isDocsPage) && `1px solid ${grey[200]}`,
+          zIndex: theme.zIndex.appBar,
         }}
         elevation={trigger ? 1 : 0}
       >
@@ -195,6 +191,7 @@ const Main = ({
                 isAuthenticated={isLoggedIn}
                 userInfo={userInfo?.data}
                 loading={loading}
+                cta={'Contact Sales'}
               />
             </Stack>
           )}
@@ -214,7 +211,11 @@ const Main = ({
           )}
         </Container>
 
-        {isDocsPage && !docsLanding && <DocsAppbar />}
+        {isDocsPage && !docsLanding && (
+          <>
+            <DocsAppbar />
+          </>
+        )}
       </AppBar>
       <Sidebar
         onClose={handleSidebarClose}

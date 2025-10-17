@@ -32,17 +32,32 @@ Cypress.Commands.add('loginTestUser', () => {
   cy.get("input[name='email']").should('exist').type(email);
   cy.get("input[name='password']").should('exist').type(password);
   cy.get("button[type='submit']").should('exist').click();
-  cy.wait(2000);
 
-  cy.clearCookies();
-  cy.reload();
-
-  cy.visit('/login/');
-  cy.get("input[name='email']").should('exist').type(email);
-  cy.get("input[name='password']").should('exist').type(password);
-  cy.get("button[type='submit']").should('exist').click();
-
+  cy.location().should((loc) => {
+    expect(loc.pathname).to.equal('/dashboard/');
+  });
   cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
     'exist',
   );
+});
+Cypress.Commands.add('algoliaNavigate', () => {
+  cy.get("[data-testid='algolia-search-trigger']", { timeout: 30000 })
+    .type('content')
+    .then(async () => {
+      await cy
+        .get("[data-testid='algolia-search-container']", {
+          timeout: 30000,
+        })
+        .should('exist');
+
+      await cy
+        .get("[data-testid='products-index']", { timeout: 30000 })
+        .should('exist');
+      await cy
+        .get("[data-testid='parsley-index']", { timeout: 30000 })
+        .should('exist');
+      await cy
+        .get("[data-testid='algolia-search']", { timeout: 30000 })
+        .should('exist');
+    });
 });

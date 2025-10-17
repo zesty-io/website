@@ -73,7 +73,6 @@ const Bottom = ({
                   width: '100%',
                   height: 'auto',
                   position: isLarge ? 'inherit' : 'absolute',
-                  zIndex: 99,
                   bottom: isLarge || !graphic ? 0 : graphicBottom,
                 }}
                 loading="lazy"

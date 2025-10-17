@@ -35,20 +35,22 @@ export async function githubFetch({
     Authorization: `bearer ${token}`,
   };
 
-  const query = `
-    query GitHubRoadmap(
-      $organization: String!
-      $repository: String!
-      $discussionCount: Int!
-      $projectNumber: Int!
-      $columnCount: Int!
-      $cardCount: Int!
-    ) {
-      organization(login: $organization) {
-        repository(name: $repository) {
-          discussions(last: $discussionCount) {
-            edges {
-              node {
+  const body = {
+    query: `
+      {
+        organization(login: ${settings.organization}) {
+          repository(name: "manager-ui") {
+            discussions(last: ${settings.discussions}) {
+              edges {
+                node {
+                  category {
+                    name,
+                    emojiHTML
+                  }
+                }
+              }
+              nodes {
+                id
                 category {
                   name
                   emojiHTML
@@ -72,18 +74,32 @@ export async function githubFetch({
               url
             }
           }
-        }
-        project(number: $projectNumber) {
-          name
-          columns(last: $columnCount) {
-            nodes {
-              name
-              cards(last: $cardCount) {
-                totalCount
-                nodes {
-                  id
-                  note
-                  url
+          project(number: ${settings.projectNumber}) {
+            name
+            columns(last: ${settings.columns}) {
+              nodes {
+                name,
+                cards(first: ${settings.cards} ) {
+                  totalCount
+                  nodes {
+                    id,
+                    note,
+                    url
+                    isArchived
+                    state
+                    content {
+								        ... on Issue {
+									  title
+									  bodyHTML
+									  labels(first: 10) {
+										nodes {
+											color
+											name
+									  	  }
+									    }
+							  	   }
+						    	  }
+                  }
                 }
               }
             }

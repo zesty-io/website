@@ -11,6 +11,7 @@ import { useFormik } from 'formik';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import { getCookie } from 'cookies-next';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { useRouter } from 'next/router';
 // export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const MySwal = withReactContent(Swal);
@@ -32,11 +33,8 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
       }
 
       await onSubmit(values);
-      // formik.resetForm();
     },
   });
-
-  console.log(file);
 
   return (
     <Box paddingY={4}>
@@ -93,10 +91,17 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
 };
 
 const CreateTicket = ({ getPageData, instanceZUID }) => {
+  const router = useRouter();
+  const { zuid } = router.query;
   const APP_SID = getCookie('APP_SID');
 
   const handleCreateInviteSuccess = () => {
-    SuccessMsg({ title: 'Ticket Successfully created' });
+    SuccessMsg({
+      title: 'Ticket Successfully created',
+      action: () => {
+        window.location.reload();
+      },
+    });
   };
   const handleCreateInviteErr = (res) => {
     ErrorMsg({ text: res.error });
@@ -124,6 +129,7 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${APP_SID}`,
+        WorkingInstance: zuid,
       },
     };
 

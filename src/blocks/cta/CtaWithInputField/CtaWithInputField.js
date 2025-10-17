@@ -43,7 +43,10 @@ const CtaWithInputField = ({ title, description, cta }) => {
         alignItems={{ xs: 'stretched', sm: 'flex-start' }}
         justifyContent={'center'}
       >
-        <SubscribeCTA text="" />
+        {/* <SubscribeCTA text="" /> */}
+        <Box sx={{width:'100%', display:'flex', justifyContent:'center',alignItems:'center'}}>
+              <iframe src="/zoho/forms/newsletter.html"  width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </Box>
       </Box>
     </Container>
   );

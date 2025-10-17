@@ -1,12 +1,10 @@
 import { Box, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
-const witnessImage =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Ben.webp',
+const witnessImage = 'https://kfg6bckb.media.zestyio.com/Ben.webp',
   witnessLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bluePixelLogo.svg';
+    'https://kfg6bckb.media.zestyio.com/bluePixelLogo.H1OTqyvkp.svg';
 
 const SingleTestimonial = ({
   witness = witnessImage,
@@ -75,9 +73,6 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
           }}
         >
           <Box
-            component="img"
-            src={witness}
-            borderRadius="50%"
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -94,14 +89,30 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
                 height: '363px',
               },
             })}
-          />
-          <Typography variant="h5" color="white" fontWeight={600}>
+          >
+            <img
+              style={{ borderRadius: '50%' }}
+              src={witness}
+              loading="lazy"
+              alt="zesty-image"
+              width={303}
+              height={280}
+            />
+          </Box>
+          <Typography variant="h5" component="p" color="white" fontWeight={600}>
             {name}
           </Typography>
           <Typography color="white" fontWeight={700} mb="20px">
             {role}
           </Typography>
-          <Box component="img" width="132.53px" height="48px" src={logo} />
+          <Box
+            component="img"
+            alt="zesty-image"
+            loading="lazy"
+            width="132.53px"
+            height="48px"
+            src={logo}
+          />
         </Stack>
 
         <Stack justifyContent={isLG ? 'center' : 'block'}>
@@ -119,13 +130,10 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
               variant={isTablet ? 'body1' : 'body2'}
               color="white"
               style={{ whiteSpace: 'pre-line' }}
-            >
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: quote,
-                }}
-              />
-            </Typography>
+              dangerouslySetInnerHTML={{
+                __html: quote,
+              }}
+            ></Typography>
           </Box>
         </Stack>
       </Stack>

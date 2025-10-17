@@ -73,6 +73,7 @@ function PartnerProgramLp({ content }) {
     isDarkMode,
     content,
     FillerContent,
+    ctaLink: content.watch_demo_cta_button_link?.data[0]?.meta.web.uri,
   };
 
   const heroProps = {
@@ -86,6 +87,7 @@ function PartnerProgramLp({ content }) {
   const testimonialProps = {
     title: content.testimonial_title,
     testimonialData: content.testimonial,
+    ctaLink: content.watch_demo_cta_button_link?.data[0]?.meta.web.uri,
   };
 
   const feature_data =

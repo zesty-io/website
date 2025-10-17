@@ -1,5 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable unused-imports/no-unused-vars */
 import axios from 'axios';
 import FillerContent from 'components/globals/FillerContent';
+import zestyConfig from '../../zesty.config.json';
+import {
+  flyoutNavigation,
+  navigationCustom,
+  navigationTree,
+} from 'components/globals/constants';
 
 const API_REQ_TIMEOUT = 30000;
 
@@ -82,10 +90,10 @@ export async function fetchPage(
   // fetch the navigation and append the navigation to the data
   if (getNavigation == true) {
     // not using this tree
-    data.navigationTree = await buildJSONTreeFromNavigation(zestyURL);
+    data.navigationTree = navigationTree;
     // custom nav tree building
-    data.navigationCustom = await customNavigation(zestyURL);
-    data.flyoutNavigation = await newNavigationWithFlyout(zestyURL);
+    data.navigationCustom = navigationCustom;
+    data.flyoutNavigation = flyoutNavigation;
   }
   return data;
 }
@@ -216,8 +224,6 @@ export async function newNavigationWithFlyout(zestyURL) {
   const flyoutNavigationJSON = zestyURL + '/-/flyoutnavigation.json';
 
   try {
-    // const resp = await fetch(flyoutNavigationJSON);
-    // const flyoutNavigationData = await resp.json();
     const flyoutNavigationData = await fetcher({
       url: flyoutNavigationJSON,
       fallback: FillerContent.flyoutNavigationData,
@@ -230,10 +236,8 @@ export async function newNavigationWithFlyout(zestyURL) {
   }
 }
 
-export const productsData = async () => {
-  return await axios
-    .get('https://www.zesty.io/-/gql/product.json?')
-    .then((e) => {
-      return e.data;
-    });
+export const fetchGqlData = async (isProd, endpoint) => {
+  const domain = isProd ? zestyConfig.production : zestyConfig.stage;
+  const url = `${domain}/-/gql/${endpoint}.json?`;
+  return await axios.get(url).then((e) => e.data);
 };

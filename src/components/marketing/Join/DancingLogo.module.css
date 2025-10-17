@@ -30,7 +30,10 @@
 }
 
 .party {
-  animation: sway 1s infinite, shake 1s infinite, bounce 1s infinite;
+  animation:
+    sway 1s infinite,
+    shake 1s infinite,
+    bounce 1s infinite;
 }
 
 .shake {
@@ -38,7 +41,9 @@
 }
 
 .enterScreen {
-  animation: fadein 2000ms ease-out, enterFromTop 1000ms linear;
+  animation:
+    fadein 2000ms ease-out,
+    enterFromTop 1000ms linear;
 }
 
 .hello {
@@ -54,13 +59,17 @@
   animation: bounce 1000ms infinite;
 }
 .rollIn {
-  animation: rollIn 1500ms ease-out, spin 1500ms ease-out;
+  animation:
+    rollIn 1500ms ease-out,
+    spin 1500ms ease-out;
 }
 .fadeIn {
   animation: fadein 1000ms ease-out;
 }
 .rollOut {
-  animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
+  animation:
+    spin 1000ms linear infinite,
+    moveLeftToRight 5s linear infinite;
 }
 
 .no {

@@ -74,13 +74,6 @@ function Pricing({ content }) {
     setCategories(cats);
   }, [pricingData]);
 
-  // const [active, setActive] = useState(false);
-  // const featuresHandler = () => {
-  //   setActive(!active);
-  // };
-
-  // const pricingCompareTableData = content.tiers.data;
-
   return (
     <>
       <PricingHero {...heroProps} />

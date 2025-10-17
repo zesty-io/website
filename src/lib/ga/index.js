@@ -12,3 +12,15 @@ export const event = ({ action, params }) => {
   console.log('fire gtag', action, params);
   //window.gtag('event', action, params)
 };
+
+export function pushDataLayer(data) {
+  if (typeof window.dataLayer !== 'undefined') {
+    window.dataLayer.push({
+      event: 'btn_click',
+      buttonText: data?.buttonText,
+      currentPage: window?.location.pathname,
+      targetPage: data?.path,
+      ...data,
+    });
+  }
+}

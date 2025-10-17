@@ -11,7 +11,15 @@ export const SettingsSelect = ({ value, options, handleAdd }) => {
 
   return (
     <Stack sx={{ width: 1 }}>
-      <FormControl fullWidth variant="outlined">
+      <FormControl
+        fullWidth
+        variant="outlined"
+        sx={(theme) => ({
+          '& > .MuiInputBase-root': {
+            bgcolor: theme.palette.mode === 'dark' ? 'transparent' : '',
+          },
+        })}
+      >
         <Select
           fullWidth
           labelId="demo-simple-select-label"

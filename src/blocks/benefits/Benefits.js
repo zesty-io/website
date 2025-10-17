@@ -37,10 +37,7 @@ const Benefits = ({
   const isDarkMode = theme.palette.mode === 'dark';
 
   return (
-    <Box
-      sx={{ mt: marginTop }}
-      component="section"
-    >
+    <Box sx={{ mt: marginTop }} component="section">
       <Box
         sx={{
           background:
@@ -137,6 +134,7 @@ const Benefits = ({
                 )}
                 <MuiMarkdown
                   options={{
+                    namedCodesToUnicode: { rsquo: "'" },
                     overrides: {
                       h2: {
                         component: Typography,

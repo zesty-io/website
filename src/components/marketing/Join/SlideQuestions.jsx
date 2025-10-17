@@ -1,20 +1,15 @@
 import React from 'react';
-import { Container, Stack, Button, Box, Typography } from '@mui/material';
+import { Container, Stack, Box, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
-
-function random_boolean(seed) {
-  return seed < 0.5;
-}
 
 function ActionAreaCard({
   question,
-  title = '',
+  _title = '',
   asset = '',
   storeValue,
-  animation,
+  _animation,
   answer,
   callback,
   cardStyles = {},

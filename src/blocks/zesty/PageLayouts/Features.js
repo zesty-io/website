@@ -112,7 +112,6 @@ const Features = ({
       paddingBottom={isMobile ? 10 : 15}
       sx={{
         position: 'relative',
-        zIndex: '20',
         mt: marginTop,
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
@@ -281,7 +280,6 @@ const Features = ({
             justifyContent: 'center',
             gap: '4rem',
             position: 'relative',
-            zIndex: '1000',
           }}
         >
           {data?.map((e, i) => {

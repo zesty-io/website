@@ -9,13 +9,31 @@ export const AccountsSingleNavItem = ({ title, url, colorInvert = false }) => {
   return (
     <Button
       size="large"
-      sx={{
+      sx={(theme) => ({
         color: colorInvert ? 'common.white' : 'text.secondary',
-        bgcolor: hasActiveLink && grey[300],
+        bgcolor: hasActiveLink
+          ? theme.palette.mode === 'light'
+            ? grey[300]
+            : `transparent`
+          : 'transparent',
+        border: hasActiveLink
+          ? theme.palette.mode === 'light'
+            ? `1px solid transparent`
+            : `1px solid ${grey[300]}`
+          : '1px solid transparent',
         '&:hover': {
-          bgcolor: grey[300],
+          bgcolor: hasActiveLink
+            ? theme.palette.mode === 'light'
+              ? grey[300]
+              : `transparent`
+            : 'transparent',
+          border: hasActiveLink
+            ? theme.palette.mode === 'light'
+              ? `1px solid transparent`
+              : `1px solid ${grey[300]}`
+            : `1px solid ${grey[300]}`,
         },
-      }}
+      })}
       href={url}
     >
       {title}

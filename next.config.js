@@ -1,17 +1,12 @@
-// const { fetchZestyRedirects } = require('./src/lib/zesty/fetchRedirects');
 const zestyConfig = require('./zesty.config.json');
+const { docsRedirects } = require('./src/config/redirects');
 
 module.exports = {
   trailingSlash: true,
-  // async redirects() {
-  //   return await fetchZestyRedirects(zestyConfig);
-  // },
   env: {
     zesty: zestyConfig,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+
   images: {
     domains: [
       'be93523bd41e2e475e74-e4edef19ad51123442eaceed55c78461.ssl.cf2.rackcdn.com',
@@ -20,4 +15,8 @@ module.exports = {
     ],
   },
   swcMinify: true,
+
+  async redirects() {
+    return [...docsRedirects];
+  },
 };

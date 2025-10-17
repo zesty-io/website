@@ -35,10 +35,10 @@ import Divider from '@mui/material/Divider';
 import Container from 'components/Container';
 // page specific
 import { CardsInSlider } from 'blocks/cards';
-import { SimpleHeader } from 'blocks/banners';
 // Filler content
 import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
+import { Typography } from '@mui/material';
 
 function SalesPeople({ content }) {
   const theme = useTheme();
@@ -59,16 +59,27 @@ function SalesPeople({ content }) {
             paddingTop: 13,
           }}
         >
-          <Container>
-            <SimpleHeader
+          <Container paddingY={{ xs: 4, sm: 6, md: 4 }}>
+            <Typography
+              variant="h2"
+              component="h1"
+              sx={{ textAlign: 'center', fontWeight: 'bold' }}
+            >
+              {content.title || FillerContent.headers}
+            </Typography>
+            <Typography sx={{ textAlign: 'center' }}>
+              {content.page_header_content || FillerContent.description}
+            </Typography>
+
+            {/* <SimpleHeader
               title={content.title || FillerContent.header}
               description={
                 content.page_header_content || FillerContent.description
               }
-            />
+            /> */}
           </Container>
         </Box>
-        <Container paddingBottom={'0 !important'}>
+        <Container paddingY={{ xs: 4, sm: 6, md: 0 }}>
           <Box dangerouslySetInnerHTML={{ __html: content.embed_code }} />
         </Container>
         <Container>

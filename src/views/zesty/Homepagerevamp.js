@@ -56,7 +56,6 @@ import TabsSection from 'revamp/ui/TabsSection';
 import revampTheme from 'theme/revampTheme';
 
 function Homepagerevamp({ content }) {
-  console.log({ content });
   return (
     <ThemeProvider theme={() => revampTheme('light')}>
       <Stack>

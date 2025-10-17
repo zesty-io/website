@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useTheme, useMediaQuery } from '@mui/material/';
 import Accordion from '@mui/material/Accordion';
@@ -15,11 +15,6 @@ const NavItem = ({ title, items, expanded, onChange }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [_activeLink, setActiveLink] = useState('');
-  useEffect(() => {
-    setActiveLink(window && window.location ? window.location.pathname : '');
-  }, []);
-
   return (
     <Box>
       <Accordion
@@ -35,12 +30,7 @@ const NavItem = ({ title, items, expanded, onChange }) => {
           id={title}
           sx={{ padding: 0 }}
         >
-          <Typography
-          // fontWeight={hasActiveLink() ? 600 : 400}
-          // color={hasActiveLink() ? 'primary' : 'text.primary'}
-          >
-            {title}
-          </Typography>
+          <Typography>{title}</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ padding: 0 }}>
           {/* Grid container that holds left and rigt column of the flyout navigation*/}

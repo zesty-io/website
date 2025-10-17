@@ -24,15 +24,28 @@ const ZMarketingAds = ({ marketingCards }) => {
         >
           <Stack
             direction="row"
-            justifyContent={card[1].read_all_url && 'space-between'}
+            justifyContent={
+              card[1].read_all_url ? 'space-between' : 'space-evenly'
+            }
             alignSelf={!card[1].read_all_url && 'center'}
-            spacing={1}
+            width="100%"
+            sx={(theme) => ({
+              [theme.breakpoints.up('sm')]: {
+                flexDirection: 'column',
+                gap: 1,
+              },
+              [theme.breakpoints.up('xl')]: {
+                flexDirection: 'row',
+                gap: 1,
+              },
+            })}
           >
             <Button
               sx={{ whiteSpace: 'nowrap' }}
               href={card[1].url}
               variant="contained"
               color="primary"
+              size="small"
             >
               {card[0] === 'marketing' ? card[1]?.cta_text : 'Read Article'}
             </Button>
@@ -42,6 +55,7 @@ const ZMarketingAds = ({ marketingCards }) => {
                 href={card[1].read_all_url}
                 variant="outlined"
                 color="primary"
+                size="small"
               >
                 Read All
               </Button>

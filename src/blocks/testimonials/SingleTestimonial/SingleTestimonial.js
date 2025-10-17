@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Card, Container, useTheme } from '@mui/material';
+import { Box, Typography, Card, Container, useTheme, Button, Stack } from '@mui/material';
 import Star from '../../../../public/assets/images/homepage/star.svg';
 
 /**
@@ -16,6 +16,8 @@ const SingleTestimonial = ({
   // isMedium,
   // isDarkMode,
   content,
+  ctaText = 'Discover our Partners',
+  ctaLink,
 }) => {
     const theme = useTheme();
 
@@ -87,6 +89,18 @@ const SingleTestimonial = ({
             >
               {testimonialData?.data[0]?.reviewer_title || FillerContent.description}
             </Typography>
+
+            <Stack justifyContent="center" alignItems="center">
+              {ctaLink && <Button
+              href={ctaLink}
+              component="a"
+              variant="contained"
+              color="secondary"
+              sx={{marginTop: 4}}
+            >
+              {ctaText}
+            </Button>}
+            </Stack>
           </Card>
         </Box>
       </Container>

@@ -5,16 +5,18 @@
 .next
 .vscode 
 .husky
-.github
 
 # testing
 /coverage
+cloudbuild-accounts.yaml
+cloudbuild.yaml
+cloudbuildProduction.yaml
+
 
 # production
 /build
 /public
 /src/blocks
-*.yaml
 
 # misc
 .DS_Store

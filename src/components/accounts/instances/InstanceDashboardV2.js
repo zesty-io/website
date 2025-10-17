@@ -53,7 +53,7 @@ const InstanceDashboardV2 = () => {
   const [isTogglingFavorites, setIsTogglingFavorites] = useState(false);
   const [search, setSearch] = useState('');
   const [view, setView] = useState('grid');
-  const [orderByValue, setOrderByValue, _reset] = useDropdown();
+  const [orderByValue, setOrderByValue] = useDropdown();
   const [ecosystem, setEcosystem] = useState([]);
   const [selectedEcosystem, setSelectedEcosystem] = useState(null);
   const debounceSearch = useDebounce(
@@ -210,7 +210,7 @@ const InstanceDashboardV2 = () => {
     if (res?.data.length === 0) {
       const invites = await getAllInvitedInstances();
       if (invites && invites.length == 0) {
-        router.push('/');
+        router.push('/dashboard/');
       }
     }
 
@@ -317,7 +317,7 @@ const InstanceDashboardV2 = () => {
         />
 
         <TextField
-          label="Search an instances"
+          placeholder="Search an instances"
           InputProps={{
             endAdornment: (
               <InputAdornment position="start">
@@ -333,6 +333,11 @@ const InstanceDashboardV2 = () => {
           onChange={(e) => {
             const value = e.target.value?.toLowerCase();
             setSearch(value);
+          }}
+          sx={{
+            '& .MuiInputBase-root': {
+              bgcolor: 'transparent',
+            },
           }}
         />
         <Stack direction="row" spacing={2} alignItems="stretch">

@@ -6,40 +6,54 @@ import {
   ThemeProvider,
   useTheme,
 } from '@mui/material';
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import Hero from 'revamp/ui/Hero';
-import BlackHero from 'revamp/ui/BlackHero';
-import Stats from 'revamp/ui/Stats';
-import SingleTestimonial from 'revamp/ui/SingleTestimonial';
-import TabsSection from 'revamp/ui/TabsSection';
-import GridFeature from 'revamp/ui/GridFeature';
-import FeatureTwoCTA from 'revamp/ui/FeatureTwoCTA';
-import FeatureStatistics from 'revamp/ui/FeatureStatistics';
-import FeatureTestimonial from 'revamp/ui/FeatureTestimonial';
-import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
-import LightHero from 'revamp/ui/LightHero';
-import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonials';
-import CaseStudyHero from 'revamp/ui/CaseStudyHero';
-import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
-import HomePage from 'revamp/ui/HomePage';
-import HomePage2 from 'revamp/ui/HomePage2';
-import BlogPage from 'revamp/ui/BlogPage';
-import SecurityFeature from 'revamp/ui/SecurityFeature';
-import AuthorSection from 'revamp/ui/AuthorSection';
-import BlogCard from 'revamp/ui/BlogCard';
-import GetDemoSection from 'revamp/ui/GetDemoSection';
-import HeroForm from 'revamp/ui/HeroForm';
-import BlogPageHeader from 'revamp/ui/BlogPageHeader';
-import ContentSectionOnlyText from 'revamp/ui/ContentSectionOnlyText';
-import FeatureSectionTopTextBottomImage from 'revamp/ui/FeatureSectionTopTextBottomImage';
-import HeroTextImageWithStatsBelow from 'revamp/ui/HeroTextImageWithStatsBelow';
-import Grid3Testimonials from 'revamp/ui/Grid3Testimonials';
-import GridFeatureList from 'revamp/ui/GridFeatureList';
-import GridCompetitorListing from 'revamp/ui/GridCompetitorListing';
-import ImageTransition from 'revamp/ui/ImageTransition';
-import MediaPage from 'revamp/ui/MediaPage';
-import CustomIFrame from 'revamp/ui/CustomIFrame';
+
+const Hero = dynamic(() => import('revamp/ui/Hero'));
+const BlackHero = dynamic(() => import('revamp/ui/BlackHero'));
+const Stats = dynamic(() => import('revamp/ui/Stats'));
+const SingleTestimonial = dynamic(() => import('revamp/ui/SingleTestimonial'));
+const TabsSection = dynamic(() => import('revamp/ui/TabsSection'));
+const GridFeature = dynamic(() => import('revamp/ui/GridFeature'));
+const FeatureTwoCTA = dynamic(() => import('revamp/ui/FeatureTwoCTA'));
+const FeatureStatistics = dynamic(() => import('revamp/ui/FeatureStatistics'));
+const FeatureTestimonial = dynamic(() =>
+  import('revamp/ui/FeatureTestimonial'),
+);
+const EnterpriseGrowth = dynamic(() => import('revamp/ui/EnterpriseGrowth'));
+const LightHero = dynamic(() => import('revamp/ui/LightHero'));
+const FeatureBulletWithTestimonials = dynamic(() =>
+  import('revamp/ui/FeatureBulletWithTestimonials'),
+);
+const CaseStudyHero = dynamic(() => import('revamp/ui/CaseStudyHero'));
+const BlogHero = dynamic(() => import('revamp/ui/BlogHero'));
+const HomePage = dynamic(() => import('revamp/ui/HomePage'));
+const HomePage2 = dynamic(() => import('revamp/ui/HomePage2'));
+const BlogPage = dynamic(() => import('revamp/ui/BlogPage'));
+const SecurityFeature = dynamic(() => import('revamp/ui/SecurityFeature'));
+const AuthorSection = dynamic(() => import('revamp/ui/AuthorSection'));
+const BlogCard = dynamic(() => import('revamp/ui/BlogCard'));
+const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'));
+const HeroForm = dynamic(() => import('revamp/ui/HeroForm'));
+const BlogPageHeader = dynamic(() => import('revamp/ui/BlogPageHeader'));
+const ContentSectionOnlyText = dynamic(() =>
+  import('revamp/ui/ContentSectionOnlyText'),
+);
+const FeatureSectionTopTextBottomImage = dynamic(() =>
+  import('revamp/ui/FeatureSectionTopTextBottomImage'),
+);
+const HeroTextImageWithStatsBelow = dynamic(() =>
+  import('revamp/ui/HeroTextImageWithStatsBelow'),
+);
+const Grid3Testimonials = dynamic(() => import('revamp/ui/Grid3Testimonials'));
+const GridFeatureList = dynamic(() => import('revamp/ui/GridFeatureList'));
+const GridCompetitorListing = dynamic(() =>
+  import('revamp/ui/GridCompetitorListing'),
+);
+const ImageTransition = dynamic(() => import('revamp/ui/ImageTransition'));
+const MediaPage = dynamic(() => import('revamp/ui/MediaPage'));
+const CustomIFrame = dynamic(() => import('revamp/ui/CustomIFrame'));
 
 const components = [
   'Hero | Stacked | Light',

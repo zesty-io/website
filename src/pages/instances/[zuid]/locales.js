@@ -7,13 +7,15 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import {
-  AccountsHeader,
-  AccountsTable,
-  AccountsTableHead,
-} from 'components/accounts';
+import { AccountsHeader, AccountsTableHead } from 'components/accounts';
 import dayjs from 'dayjs';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
+
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const MySwal = withReactContent(Swal);
 
@@ -189,6 +191,7 @@ export default function Locales() {
   const headerProps = {
     title: 'Locales',
     description: 'Manage your languages',
+    info: 'When a Zesty.io Content Instance is created, it uses English as the default language. It is possible to add more languages to a Zesty.io Content Instance. Multi-lang content is premium feature of Zesty.io, reach out to your account manager to learn more.',
   };
   return (
     <InstanceContainer>

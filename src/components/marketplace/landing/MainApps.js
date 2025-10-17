@@ -32,7 +32,10 @@ const MainApps = () => {
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
   return (
     <>
-      <Box sx={{ py: isLanding ? 10 : 3, px: 4 }} component="section">
+      <Box
+        sx={{ py: isLanding ? 10 : 3, px: isLanding ? 4 : 0 }}
+        component="section"
+      >
         <Box
           sx={{
             width: '100%',

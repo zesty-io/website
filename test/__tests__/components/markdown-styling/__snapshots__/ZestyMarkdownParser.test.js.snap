@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MDBlockquote should render the MDBlockquote component with correct content and styles 1`] = `
+<div
+  class="MuiBox-root css-hwyg59"
+  data-testid="blockquote-box"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+  />
+</div>
+`;
+
+exports[`MDH1 should render the MDH1 component with correct props and styling 1`] = `
+<div
+  class="MuiBox-root css-z6qf5z"
+  data-testid="box-container"
+>
+  <h1
+    class="MuiTypography-root MuiTypography-h4 css-9o07c9-MuiTypography-root"
+    id="heading-1-text"
+  >
+    Heading 1 Text
+  </h1>
+  <a
+    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ka6tax-MuiTypography-root-MuiLink-root"
+    href="#heading-1-text"
+  >
+    #
+  </a>
+</div>
+`;
+
+exports[`MDH1 should render the MDH1 component with correct props and styling 2`] = `
+<div
+  class="MuiBox-root css-z6qf5z"
+  data-testid="box-container"
+>
+  <h1
+    class="MuiTypography-root MuiTypography-h4 css-9o07c9-MuiTypography-root"
+    id="heading-1-text"
+  >
+    Heading 1 Text
+  </h1>
+  <a
+    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ka6tax-MuiTypography-root-MuiLink-root"
+    href="#heading-1-text"
+  >
+    #
+  </a>
+</div>
+`;
+
+exports[`MDH2 should render the MDH2 component with correct props and styling 1`] = `
+<div
+  class="MuiBox-root css-1ouodky"
+  data-testid="mdh2-container"
+>
+  <h2
+    class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+    id="heading-2-text"
+  >
+    Heading 2 Text
+  </h2>
+  <a
+    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-om9vyh-MuiTypography-root-MuiLink-root"
+    href="#heading-2-text"
+  >
+    #
+  </a>
+</div>
+`;
+
+exports[`MDH3 should render the MDH3 component with correct props 1`] = `
+<h3
+  class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+  data-testid="mdh3-container"
+  id="heading-3-text"
+>
+  Heading 3 Text
+</h3>
+`;
+
+exports[`MDImage should render MDSmallImage if node does not have title 1`] = `
+<div
+  class="MuiBox-root css-1ap5130"
+  data-testid="md-small-image"
+>
+  <div
+    class="MuiStack-root css-o6cat4-MuiStack-root"
+  >
+    <div>
+      <img
+        alt="Small Image"
+        src="image-small.jpg"
+        style="cursor: pointer; max-width: 100%; max-height: 100%;"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MDItalic renders the text with the correct fontStyle and fontWeight 1`] = `
+<div
+  class="MuiStack-root css-nen11g-MuiStack-root"
+  data-testid="MDItalic-component"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-c83ayk-MuiTypography-root"
+  >
+    Hello, World!
+  </p>
+</div>
+`;
+
+exports[`MDParagraph should render the MDParagraph component with correct content and links 1`] = `
+<p
+  data-testid="box-container"
+>
+  By using URL parameters, businesses can craft dyna… possibilities for enhancing the user experience.
+</p>
+`;
+
+exports[`MDStrong renders the text with the correct fontWeight 1`] = `
+<div
+  class="MuiStack-root css-nen11g-MuiStack-root"
+  data-testid="MDStrong-component"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-ndaqpv-MuiTypography-root"
+  >
+    Hello, World!
+  </p>
+</div>
+`;

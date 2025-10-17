@@ -28,13 +28,14 @@ const RightGridLinks = ({ route }) => {
     <>
       <Typography
         variant="caption"
-        component="p"
+        component="h6"
         sx={{
           mt: 2,
           color: theme.palette.zesty.zestyLightGrey,
           fontWeight: 'bold',
-          mb: 2,
+          mb: 4,
           height: 20,
+          fontSize: '16px',
         }}
       >
         {route?.column_three_title || ''}

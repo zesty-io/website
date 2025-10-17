@@ -12,9 +12,10 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { SearchModal } from 'views/Docs/SearchModal';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
+
+import { DocSearch } from '@docsearch/react';
+import '@docsearch/css';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -26,20 +27,17 @@ const DocsPage = (props) => {
   );
 
   React.useEffect(() => {
-    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
 
   return (
-    <>
+    <Box data-testid="docs-landing">
       <ZestyAccountsHead title={'Zesty.io - Documentation'} />
       <MainWrapper docsLanding customRouting={[]}>
         <Box
           sx={{
-            // background: `url('https://kfg6bckb.media.zestyio.com/radialgradient.png')`,
-            // backgroundRepeat: 'no-repeat',
-            // backgroundPosition: 'top center',
             backgroundSize: 'cover',
             height: 450,
             display: 'flex',
@@ -49,6 +47,7 @@ const DocsPage = (props) => {
             borderBottom: `1px solid ${theme.palette.zesty.whiteGray}`,
             gap: 2,
             position: 'relative',
+            zIndex: 1,
           }}
         >
           <Box
@@ -74,6 +73,7 @@ const DocsPage = (props) => {
               bottom: 10,
               right: -10,
               opacity: 0.2,
+              zIndex: -1,
             }}
           />
           <Typography
@@ -98,17 +98,14 @@ const DocsPage = (props) => {
             Explore guides, code samples, API references, and more to learn
             about Zesty
           </Typography>
-
-          <SearchModal sx={{ width: isMedium ? 300 : 500 }}>
-            <AlgoSearch />
-          </SearchModal>
+          <DocSearchModal {...props} />
         </Box>
 
         <Container sx={{ py: 10 }}>
           <Box>
             <Grid container spacing={2}>
               {cardData.map((item, index) => (
-                <Grid item sm={12} md={4} key={index}>
+                <Grid item sm={12} md={4} width="100%" key={index}>
                   <Card
                     variant="outlined"
                     sx={{
@@ -136,6 +133,7 @@ const DocsPage = (props) => {
                       {item.description}
                     </Typography>
                     <Button
+                      data-testid={`${item.title}-btn`}
                       component={'a'}
                       href={item.link}
                       variant="outlined"
@@ -156,7 +154,7 @@ const DocsPage = (props) => {
           </Box>
         </Container>
       </MainWrapper>
-    </>
+    </Box>
   );
 };
 
@@ -167,25 +165,25 @@ const cardData = [
     title: 'Instances API',
     description:
       'A collection of available REST endpoints scoped to your unique instance.',
-    link: '/docs/instances/api-reference/',
+    link: 'https://docs.zesty.io/reference/instances-api-reference',
   },
   {
     title: 'Authentication API',
     description:
       'Auth API is used to authenticate users with Zesty.io, which returns a token that grants to access services like Instances API, Accounts API, and Media API. Auth was setup as a stand alone service so it can connect to many services in our infrastructure.',
-    link: '/docs/authentication/api-reference/',
+    link: 'https://docs.zesty.io/reference/authentication-api-reference',
   },
   {
     title: 'Accounts API',
     description:
       'API used to control management of users, roles, instances, and teams.',
-    link: '/docs/accounts/api-reference/',
+    link: 'https://docs.zesty.io/reference/accounts-api-reference',
   },
   {
     title: 'Guides',
     description:
       'Zesty.org is the knowledge base for the Zesty.io CMS Platform. Learn the intricacies of Zesty.io content technology and how to implement websites, headless CMS apps, and marketing components.',
-    link: 'https://www.zesty.org',
+    link: '/docs/getting-started',
   },
   {
     title: 'Next.js',
@@ -196,6 +194,71 @@ const cardData = [
     title: 'Parsley',
     description:
       'Zesty’s in-house templating language, Parsley, provides powerful programming capabilities to manage your content.',
-    link: 'http://parsley.zesty.io/',
+    link: '/docs/parsley',
   },
 ];
+
+export function DocSearchModal() {
+  const {
+    algoliaApiKey: apiKey,
+    algoliaAppId: appId,
+    algoliaIndex: index,
+  } = useZestyStore((e) => e);
+
+  return (
+    <DocSearch
+      transformItems={(items) => {
+        /*
+         * Group items by hierarchy and remove items without hierarchy
+         */
+        const groupBy = items.reduce((acc, item) => {
+          if (!item.hierarchy) {
+            return acc;
+          }
+          const list = acc[item.hierarchy.lvl1] || [];
+
+          return {
+            ...acc,
+            [item.hierarchy.lvl1]: list.concat(item),
+          };
+        }, {});
+
+        /**
+         * Group based on parent page
+         */
+        const groups = Object.keys(groupBy).map((level) => ({
+          items: groupBy[level],
+        }));
+
+        const groupItems = groups?.[0]?.items || [];
+
+        /**
+         * Find the parent page from groupItems
+         */
+        const parent = groupItems?.find((item) => {
+          if (
+            item.hierarchy.lvl1 !== null &&
+            item.hierarchy.lvl2 == null &&
+            item.hierarchy.lvl3 == null &&
+            item.hierarchy.lvl4 == null &&
+            item.hierarchy.lvl5 == null &&
+            item.hierarchy.lvl6 == null
+          ) {
+            return item;
+          }
+        });
+
+        /**
+         * find the index of the parent from groupItems and put it in the first index
+         */
+        const parentIndex = groupItems?.indexOf(parent);
+        return groupItems.splice(parentIndex, 1).concat(groupItems.reverse());
+      }}
+      placeholder="Search docs..."
+      maxResultsPerGroup={100}
+      appId={appId}
+      indexName={index}
+      apiKey={apiKey}
+    />
+  );
+}

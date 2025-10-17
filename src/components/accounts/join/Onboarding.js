@@ -30,8 +30,23 @@ export const Onboarding = ({
     await window.location.reload();
   };
 
-  const postUserSummary = async () => {
-    const msg = `:rotating_light: *New User Summary* :rotating_light:
+  const newUserSummaryProps = {
+    instanceUrl,
+    loading,
+    userInfo,
+    role,
+    projectType,
+    projectName,
+    instance_zuid,
+    goal,
+    userType,
+    preferred_framework,
+    preferred_component_system,
+    zohoLeadLink,
+  };
+  React.useEffect(() => {
+    const postUserSummary = async () => {
+      const msg = `:rotating_light: *New User Summary* :rotating_light:
 ----- Basic Details ------
 Name: *${userInfo?.firstName}* *${userInfo?.lastName}*
 Email: ${userInfo?.email}
@@ -48,26 +63,10 @@ Favorite Component Sytem: *${preferred_component_system || '-'}*
 Manager Link: ${managerUrl}
 Zoho Lead: ${zohoLeadLink}`;
 
-    await slackNotify(msg);
-  };
-
-  const newUserSummaryProps = {
-    instanceUrl,
-    loading,
-    userInfo,
-    role,
-    projectType,
-    projectName,
-    instance_zuid,
-    goal,
-    userType,
-    preferred_framework,
-    preferred_component_system,
-    zohoLeadLink,
-  };
-  React.useEffect(async () => {
+      await slackNotify(msg);
+    };
     if (swiperSlide.isActive && zohoLeadLink) {
-      await postUserSummary();
+      postUserSummary();
     }
   }, [swiperSlide.isActive, zohoLeadLink]);
 

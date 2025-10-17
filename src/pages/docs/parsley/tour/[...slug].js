@@ -71,7 +71,6 @@ const CodeBlockCompLeft = ({
       basicSetup={{ lineNumbers: true, autocompletion: true }}
       value={getValue()}
       height={'300px'}
-      crosshairCursor={true}
       extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
       onChange={onChange}
       style={{ fontSize: '11px' }}
@@ -231,7 +230,6 @@ const CodeBlockCompRight = ({
             value={parsleyResult}
             placeholder={'Click Run to view the response'}
             height={'300px'}
-            crosshairCursor={true}
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             onChange={onChange}
             style={{ fontSize: '11px' }}
@@ -431,7 +429,6 @@ const Slug = (props) => {
   const [glossaryData, setglossaryData] = useState([]);
   const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
-  const [currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
   const [loading, setloading] = useState(false);
   const [textContent, settextContent] = useState('');
@@ -467,7 +464,6 @@ const Slug = (props) => {
     const url = `/docs/parsley/tour/${e.url}`;
     setparsleyResult('');
     settextContent('');
-    setcurrentTab('request');
     router.push(url);
   };
   const getRenderText = async () => {
@@ -553,7 +549,8 @@ const Slug = (props) => {
       console.log(error);
     }
   };
-  useEffect(async () => {
+
+  const asyncFn = async () => {
     if (glossaryData.length === 0) {
       await getGlossary();
     }
@@ -564,15 +561,16 @@ const Slug = (props) => {
     if (availableData.length === 0) {
       await getAvailableData();
     }
+  };
+
+  useEffect(() => {
+    asyncFn();
   }, [availableData, contentTab, glossaryData]);
 
   const pageTitle = `Zesty.io - ${title}`;
 
   useEffect(() => {
-    setcurrentTab('response');
-  }, [router.asPath]);
-
-  useEffect(() => {
+    setalgoliaApiKey(props.algolia.search_key);
     setalgoliaApiKey(props.algolia.apiKey);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);

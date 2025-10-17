@@ -62,6 +62,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                 width={150}
                 height={150}
                 alt="zesty.io logo"
+                loading="lazy"
                 src={
                   mode === 'light' && !colorInvert
                     ? 'https://brand.zesty.io/zesty-io-logo-vertical.svg'

@@ -22,7 +22,6 @@ import { useTheme } from '@mui/material/styles';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 const Index = ({ children }) => {
-  const [_loading, setloading] = useState(false);
   const theme = useTheme();
   let isLG = true;
   if (typeof window !== 'undefined') {
@@ -37,7 +36,7 @@ const Index = ({ children }) => {
     location?.pathname?.split('/').length > 2
       ? location?.pathname?.split('/')[3]
       : '';
-  const [tabValue, setTabValue] = useState(currentPage);
+  const [, setTabValue] = useState(currentPage);
   const router = useRouter();
   const { ZestyAPI, instance, setInstance } = useZestyStore((state) => state);
   const { zuid } = router.query;
@@ -63,10 +62,8 @@ const Index = ({ children }) => {
   };
 
   const getInstance = async () => {
-    setloading(true);
     const res = await ZestyAPI.getInstance(zuid);
     setInstance(res.data);
-    setloading(false);
   };
 
   useEffect(() => {
@@ -87,7 +84,12 @@ const Index = ({ children }) => {
     <Box>
       <ZestyAccountsHead title={title} />
       {isLG ? (
-        <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: '240px calc(100% - 240px)',
+          }}
+        >
           <Box
             sx={(theme) => ({
               position: 'sticky',
@@ -113,7 +115,7 @@ const Index = ({ children }) => {
         <Container>
           <InstanceHeader ZestyAPI={ZestyAPI} instance={instance} />
           <Tabs
-            value={tabValue}
+            value={currentPage}
             onChange={handleTabChange}
             aria-label="icon position tabs example"
             indicatorColor="primary"

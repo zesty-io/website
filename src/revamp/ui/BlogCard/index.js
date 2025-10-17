@@ -41,7 +41,8 @@ const BlogCard = ({
             component="img"
             width={{ xs: '100%', lg: isBig ? '695px' : '100%' }}
             height={{ xs: '100%', lg: isBig ? '391px' : '216px' }}
-            src={article}
+            src={article + '?width=695'}
+            loading="lazy"
             sx={{
               objectFit: 'cover',
               transition: 'transform 0.25s',
@@ -84,7 +85,7 @@ const BlogCard = ({
         </Stack>
         <Stack direction="row" alignItems="center" mt={isBig ? 0 : 'auto'}>
           <Avatar
-            src={authorImage}
+            src={authorImage + '?quality=60'}
             sx={{ width: 48, height: 48, mr: '12px' }}
           />
           <Stack>

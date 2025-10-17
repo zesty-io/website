@@ -29,12 +29,13 @@ const LeftGridLinks = ({ route }) => {
         {/* Header */}
         <Typography
           variant="caption"
-          component="p"
+          component="h6"
           sx={{
             color: theme.palette.zesty.zestyLightGrey,
             fontWeight: 'bold',
             mb: 2,
             height: 20,
+            fontSize: '16px',
           }}
         >
           {route?.column_one_title || ''}
@@ -42,7 +43,7 @@ const LeftGridLinks = ({ route }) => {
 
         <Box
           sx={{
-            mt: 4,
+            mt: 6,
             display: 'flex',
             flexDirection: 'column',
             gap: 4,
@@ -58,13 +59,14 @@ const LeftGridLinks = ({ route }) => {
         {(route?.column_two_title || !isSmall) && (
           <Typography
             variant="caption"
-            component="p"
+            component="h6"
             sx={{
               color: theme.palette.zesty.zestyLightGrey,
               fontWeight: 'bold',
               mt: isSmall && 5,
               mb: 2,
               height: 20,
+              fontSize: '16px',
             }}
           >
             {route?.column_two_title || ''}
@@ -73,7 +75,7 @@ const LeftGridLinks = ({ route }) => {
 
         <Box
           sx={{
-            mt: 4,
+            mt: 6,
             display: 'flex',
             flexDirection: 'column',
             gap: 4,

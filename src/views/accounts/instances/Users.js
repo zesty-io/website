@@ -7,7 +7,6 @@ import {
   DeleteMsg,
   SubmitBtn,
   FormSelect,
-  AccountsTable,
   AccountSelect,
   AccountsInput,
   AccountsTableHead,
@@ -26,6 +25,11 @@ import { AccountsHeader } from 'components/accounts/ui/header';
 import { AccountsPopover } from 'components/accounts/ui/popover';
 
 const MySwal = withReactContent(Swal);
+import dynamic from 'next/dynamic';
+
+const AccountsTable = dynamic(() =>
+  import('components/accounts').then((e) => e.AccountsTable),
+);
 
 const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
   switch (role) {
@@ -148,7 +152,9 @@ const CustomTable = ({
       editable: false,
       renderHeader: () => <AccountsTableHead>Last Active</AccountsTableHead>,
       renderCell: (params) => {
-        const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
+        const date = !dayjs(params.row.lastLogin).isValid()
+          ? ''
+          : dayjs(params.row.lastLogin).format('MMM DD, YYYY');
         return (
           <Typography variant="body2" color={'text.secondary'}>
             {date}
@@ -307,6 +313,7 @@ const Index = ({
   const headerProps = {
     title: 'Users',
     description: 'Manage your users and their permissions',
+    info: 'This page allows you to oversee and manage your users in the provided table if you have the necessary authorization, and you can view a list of all users in your instance.',
   };
 
   return (

@@ -11,6 +11,7 @@ export default function Support() {
   const router = useRouter();
   const { zuid } = router.query;
   const APP_SID = getCookie('APP_SID');
+
   const [search, setsearch] = useState('');
   const [instance, setinstance] = useState(null);
   const [isLoading, setloading] = useState(true);
@@ -33,6 +34,7 @@ export default function Support() {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${APP_SID}`,
+        WorkingInstance: zuid,
       },
     };
     await fetch(

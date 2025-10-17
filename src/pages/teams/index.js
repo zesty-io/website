@@ -1,5 +1,4 @@
 import { Box, Grid, Typography } from '@mui/material';
-import TeamsContainer from 'components/accounts/teams/TeamsContainer';
 import GroupsIcon from '@mui/icons-material/Groups';
 import React, { useEffect, useState } from 'react';
 import AddTeam from 'components/accounts/teams/AddTeam';
@@ -7,14 +6,22 @@ import ManageTeam from 'components/accounts/teams/ManageTeam';
 import { useZestyStore } from 'store';
 import TeamInvites from 'components/accounts/teams/TeamInvites';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
+import dynamic from 'next/dynamic';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
+const TeamsContainer = dynamic(() =>
+  import('components/accounts/teams/TeamsContainer'),
+);
+
 const Teams = () => {
+  const { ZestyAPI } = useZestyStore((state) => state);
+  const isLoggedIn = useIsLoggedIn();
   const {
-    ZestyAPI,
     verifySuccess: { userZuid },
-  } = useZestyStore((state) => state);
+  } = useFetchWrapper(isLoggedIn);
   const [teams, setTeams] = useState([]);
   const [invites, setInvites] = useState([]);
 
