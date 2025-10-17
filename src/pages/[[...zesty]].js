@@ -126,7 +126,9 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   };
 
   // This section holds data settings for fetching Github Data
-  if (req.url.includes('/roadmap/') && process.env.GITHUB_AUTH) {
+  console.log('gh auth', process.env.GITHUB_AUTH);
+  if (req.url.includes('roadmap') && process.env.GITHUB_AUTH) {
+    console.log('inside roadmap fetch');
     data.github_data = await githubFetch({
       organization: 'Zesty-io',
       projectNumber: data.project_number,
@@ -134,7 +136,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       cards: data.max_card,
       discussions: data.max_discussion,
     });
-    console.log(data.github_data);
+    console.log('github', data.github_data);
   }
 
   // generate a status 404 page

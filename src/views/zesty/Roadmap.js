@@ -40,38 +40,42 @@ import Link from '@mui/material/Link';
 import { Card, Modal } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 import CloseIcon from '@mui/icons-material/Close';
+import Alert from '@mui/material/Alert';
 function Roadmap({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const iconColor = ['action', 'info', 'success'];
 
-  console.log(content.github_data);
+  console.log('roadmap', content.github_data);
 
-  // Hold Discussions data
-  const discussions =
-    content?.github_data?.data?.organization.repository.discussions.nodes;
+  const githubData = content?.github_data;
+  const githubErrors = githubData?.errors ?? [];
 
-  // Hold Categories pulled from github active discussions
-  const categories = Array.from(
-    new Set(
-      content?.github_data?.data?.organization.repository.discussions.edges.map(
-        (category) => category.node.category.name,
-      ),
-    ),
-  );
+  const discussionsData =
+    githubData?.data?.organization?.repository?.discussions;
 
-  // Hold category icons from github categories
-  const categoryIcons = Array.from(
-    new Set(
-      content?.github_data?.data?.organization.repository.discussions.edges.map(
-        (category) => category.node.category.emojiHTML,
-      ),
-    ),
-  );
+  const discussions = discussionsData?.nodes ?? [];
+  const discussionEdges = discussionsData?.edges ?? [];
+
+  const categoryIconMap = new Map();
+  discussionEdges.forEach((edge) => {
+    const name = edge?.node?.category?.name;
+    const icon = edge?.node?.category?.emojiHTML;
+    if (name && !categoryIconMap.has(name)) {
+      categoryIconMap.set(name, icon);
+    }
+  });
+
+  const categories = Array.from(categoryIconMap.keys());
 
   // Hold content for projects cards
-  const projectData = content?.github_data?.data?.organization.project.columns;
+  const projectColumns =
+    githubData?.data?.organization?.project?.columns?.nodes ?? [];
+
+  const projectError = githubErrors.find((error) =>
+    error?.message?.toLowerCase().includes('projects (classic)'),
+  );
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeCard, setActiveCard] = useState();
@@ -83,7 +87,6 @@ function Roadmap({ content }) {
     }
   };
 
-  console.log(activeCard);
   return (
     <>
       <Container sx={{ py: 10 }}>
@@ -108,58 +111,82 @@ function Roadmap({ content }) {
         {/* Kanban Columns */}
 
         <Grid sx={{ mt: 6 }} container spacing={2}>
-          {projectData?.nodes.map((column, idx) => (
-            <Grid key={idx} item xs={12} md={4}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CircleIcon color={iconColor[idx]} />
-                <Typography variant="h6" component="h2">
-                  {column.name}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  borderRadius: 2,
-                  background: theme.palette.background.level2,
-                  height: 700,
-                  overflowY: 'scroll',
-                  mt: 2,
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 2,
-                  scrollbarWidth: 'thin', // For Firefox
-                  '&::-webkit-scrollbar': {
-                    width: '6px',
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    background: 'transparent', // Hide the scrollbar track
-                  },
-                  ' ::-webkit-scrollbar-thumb': {
-                    background: theme.palette.zesty.zestyLightText,
-                    borderRadius: '3px',
-                  },
-                }}
-                variant="outlined"
-              >
-                {column.cards.nodes.map((item) => {
-                  return (
-                    <>
-                      {/*
-                       * Hide all archived cards and redacted
-                       * Or if the card don't have content or title
-                       */}
-                      {!item.isArchived &&
-                        item.state !== 'REDACTED' &&
-                        (item.note || item.content?.title) && (
+          {projectColumns.length > 0 ? (
+            projectColumns
+              .filter((column) => {
+                const name = column?.name?.toLowerCase?.() || '';
+                return ![
+                  'archive',
+                  'project ideas',
+                  'being designed',
+                  'design complete',
+                ].includes(name);
+              })
+              .map((column, idx) => {
+                const rawName = column?.name || 'Untitled Column';
+                const normalized = rawName.toLowerCase();
+                let displayName = rawName;
+
+                if (normalized === 'upcoming design projects') {
+                  displayName = 'Upcoming';
+                } else if (normalized === 'being developed') {
+                  displayName = 'In Development';
+                } else if (normalized === 'development complete') {
+                  displayName = 'Recently Completed';
+                }
+
+                const columnCards = column?.cards?.nodes ?? [];
+                return (
+                  <Grid key={column?.id || idx} item xs={12} md={4}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <CircleIcon color={iconColor[idx]} />
+                      <Typography variant="h6" component="h2">
+                        {displayName}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        borderRadius: 2,
+                        background: theme.palette.background.level2,
+                        height: 700,
+                        overflowY: 'scroll',
+                        mt: 2,
+                        p: 2,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                        scrollbarWidth: 'thin', // For Firefox
+                        '&::-webkit-scrollbar': {
+                          width: '6px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                          background: 'transparent', // Hide the scrollbar track
+                        },
+                        ' ::-webkit-scrollbar-thumb': {
+                          background: theme.palette.zesty.zestyLightText,
+                          borderRadius: '3px',
+                        },
+                      }}
+                      variant="outlined"
+                    >
+                      {columnCards
+                        .filter(
+                          (item) =>
+                            !item?.isArchived &&
+                            item?.state !== 'REDACTED' &&
+                            (item?.note || item?.content?.title),
+                        )
+                        .map((item) => (
                           <Card
                             onClick={() =>
                               item?.content?.title && modalHandler(item)
                             }
-                            key={item.id}
+                            key={item?.id}
                             sx={{
                               overflow: 'unset',
-                              cursor: item?.content?.title && 'pointer',
-
+                              cursor: item?.content?.title
+                                ? 'pointer'
+                                : 'default',
                               display: 'flex',
                               alignItems: 'center',
                               p: 2,
@@ -169,13 +196,19 @@ function Roadmap({ content }) {
                               {item?.note || item?.content?.title}
                             </Typography>
                           </Card>
-                        )}
-                    </>
-                  );
-                })}
-              </Box>
+                        ))}
+                    </Box>
+                  </Grid>
+                );
+              })
+          ) : (
+            <Grid item xs={12}>
+              <Alert severity={projectError ? 'warning' : 'info'}>
+                {projectError?.message ||
+                  'Project board data is currently unavailable.'}
+              </Alert>
             </Grid>
-          ))}
+          )}
         </Grid>
 
         {/* Discussion Header Title */}
@@ -232,36 +265,42 @@ function Roadmap({ content }) {
         {/* Discussion Cards */}
 
         <Grid sx={{ mt: 6 }} container spacing={2}>
-          {categories.map((category, idx) => (
-            <Grid key={idx} item xs={12} md={4}>
-              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                {categoryIcons && (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: categoryIcons[idx],
-                    }}
-                  />
-                )}
-                <Typography variant="h6" component="h2">
-                  {category}
-                </Typography>
-              </Box>
-              <CardContent
-                sx={{
-                  borderRadius: 1,
-                  background: theme.palette.background.level2,
-                  mt: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 2,
-                }}
-                variant="outlined"
-              >
-                {discussions.map((discussion, idx) => {
-                  if (discussion.category.name === category) {
+          {categories.map((category) => {
+            const iconMarkup = categoryIconMap.get(category);
+            const categoryDiscussions = discussions.filter(
+              (discussion) => discussion?.category?.name === category,
+            );
+
+            return (
+              <Grid key={category} item xs={12} md={4}>
+                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                  {iconMarkup && (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: iconMarkup,
+                      }}
+                    />
+                  )}
+                  <Typography variant="h6" component="h2">
+                    {category}
+                  </Typography>
+                </Box>
+                <CardContent
+                  sx={{
+                    borderRadius: 1,
+                    background: theme.palette.background.level2,
+                    mt: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                  }}
+                  variant="outlined"
+                >
+                  {categoryDiscussions.map((discussion) => {
+                    const labels = discussion?.labels?.nodes ?? [];
                     return (
                       <Box
-                        key={idx}
+                        key={discussion?.id}
                         sx={{
                           display: 'flex',
                           gap: 1,
@@ -288,7 +327,7 @@ function Roadmap({ content }) {
                             sx={{ color: theme.palette.common.black }}
                             component="p"
                           >
-                            {discussion.upvoteCount}
+                            {discussion?.upvoteCount ?? 0}
                           </Typography>
                         </Box>
                         <Box>
@@ -296,22 +335,26 @@ function Roadmap({ content }) {
                             underline="hover"
                             color="inherit"
                             target="_blank"
-                            href={discussion.url}
+                            href={discussion?.url}
                           >
-                            {discussion.title}
+                            {discussion?.title || 'Untitled Discussion'}
                           </Link>
                           <Box
                             sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}
                           >
-                            {discussion.labels.nodes.map((label, idx) => (
+                            {labels.map((label) => (
                               <Box
-                                key={idx}
+                                key={label?.url || label?.name}
                                 sx={{
                                   borderRadius: 50,
                                   px: 1,
-                                  color: `#${label.color}`,
+                                  color: label?.color
+                                    ? `#${label.color}`
+                                    : 'inherit',
                                   fontSize: 10,
-                                  border: `1px solid #${label.color}`,
+                                  border: label?.color
+                                    ? `1px solid #${label.color}`
+                                    : `1px solid ${theme.palette.divider}`,
                                   display: 'block',
                                   width: 'max-content',
                                 }}
@@ -322,9 +365,9 @@ function Roadmap({ content }) {
                                   underline="none"
                                   color="inherit"
                                   target="_blank"
-                                  href={label.url}
+                                  href={label?.url}
                                 >
-                                  {label.name}
+                                  {label?.name}
                                 </Link>
                               </Box>
                             ))}
@@ -332,11 +375,11 @@ function Roadmap({ content }) {
                         </Box>
                       </Box>
                     );
-                  }
-                })}
-              </CardContent>
-            </Grid>
-          ))}
+                  })}
+                </CardContent>
+              </Grid>
+            );
+          })}
         </Grid>
 
         <Modal open={isOpen} onClose={modalHandler}>
