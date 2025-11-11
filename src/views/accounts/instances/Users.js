@@ -51,7 +51,7 @@ const CustomTable = ({
   handleUpdateRole,
   handleDeleteRole,
   instanceRoles,
-  isOwner,
+  canUpdateUsers,
   loading,
 }) => {
   const ROWS = data?.map((e) => {
@@ -120,7 +120,7 @@ const CustomTable = ({
           handleUpdateRole(val);
         };
 
-        const role = isOwner
+        const role = canUpdateUsers
           ? RoleSwitcher({
               role: e.role.name,
               handleOnChange,
@@ -189,7 +189,10 @@ const CustomTable = ({
           },
         ];
         const actionOwner = [
-          { title: 'Delete User', action: isOwner ? handleDeleteUser : null },
+          {
+            title: 'Delete User',
+            action: canUpdateUsers ? handleDeleteUser : null,
+          },
           {
             title: 'Email',
             action: () => window.open(`mailto:${params.row.email}`),
@@ -205,7 +208,7 @@ const CustomTable = ({
                 </Button>
               }
               id={'actions'}
-              items={isOwner ? actionOwner : action}
+              items={canUpdateUsers ? actionOwner : action}
               colorInvert={false}
             />
           </>
@@ -276,7 +279,7 @@ const Index = ({
   deleteUserRole,
   instanceRoles,
   createInvite,
-  isOwner,
+  canUpdateUsers,
   instanceZUID,
   loading,
   search,
@@ -347,7 +350,7 @@ const Index = ({
           handleUpdateRole={handleUpdateRole}
           handleDeleteRole={handleDeleteRole}
           instanceRoles={instanceRoles}
-          isOwner={isOwner}
+          canUpdateUsers={canUpdateUsers}
           loading={loading}
         />
       </Grid>
@@ -357,7 +360,7 @@ const Index = ({
           data={pendingUsers}
           instanceRoles={instanceRoles}
           respondToInvite={respondToInvite}
-          isOwner={isOwner}
+          canUpdateUsers={canUpdateUsers}
           loading={loading}
         />
       </Grid>
@@ -369,7 +372,7 @@ export const Users = React.memo(Index);
 const PendingTable = ({
   data,
   instanceRoles,
-  // isOwner,
+  // canUpdateUsers,
   loading,
   respondToInvite,
 }) => {
