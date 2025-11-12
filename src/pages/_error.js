@@ -3,6 +3,7 @@ import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import * as helper from 'utils';
+import * as Sentry from '@sentry/nextjs';
 
 import dynamic from 'next/dynamic';
 
@@ -124,8 +125,14 @@ const Error = ({ statusCode }) => {
   return <ErrorPage errorCode={statusCode} />;
 };
 
-Error.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+Error.getInitialProps = async (contextData) => {
+  await Sentry.captureUnderscoreErrorException(contextData);
+  const statusCode = contextData.res
+    ? contextData.res.statusCode
+    : contextData.err
+    ? contextData.err.statusCode
+    : 404;
+
   return { statusCode };
 };
 
