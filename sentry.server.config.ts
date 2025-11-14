@@ -16,4 +16,50 @@ Sentry.init({
 
   maxBreadcrumbs: 50,
   normalizeDepth: 10,
+  beforeBreadcrumb: (breadcrumb, hint) => {
+    if (
+      hint?.event?.target &&
+      (breadcrumb.category === 'ui.click' || breadcrumb.category === 'ui.input')
+    ) {
+      const target = hint.event.target;
+      const elementType = target.tagName.toLowerCase();
+      const dataCy = target.dataset?.cy;
+      const messages = [];
+
+      if (elementType) {
+        messages.push(`Tag name: "${elementType}"`);
+      }
+
+      if (dataCy) {
+        messages.push(`data-cy: "${dataCy}"`);
+      }
+
+      if (target.id) {
+        messages.push(`ID: "${target.id}"`);
+      }
+
+      if (target.name) {
+        messages.push(`Input Name: "${target.name}"`);
+      }
+
+      if (elementType === 'button' && target.textContent) {
+        messages.push(`Button Text: "${target.textContent.trim()}"`);
+      }
+
+      // Messages needs to be more than 1 since every interaction would have a tag name by default
+      // but if there are no other relevant attributes then only having the tag name info
+      // is not that helpful in determining what was exactly being interacted by the user
+      if (messages.length > 1) {
+        breadcrumb.message = messages.join('\n');
+
+        return breadcrumb;
+      }
+
+      // Return default breadcrumb data
+      return breadcrumb;
+    }
+
+    // Return default breadcrumb data if the event is not a click or input event
+    return breadcrumb;
+  },
 });
