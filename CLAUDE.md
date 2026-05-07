@@ -29,6 +29,10 @@ npm run sync             # Sync Zesty.io content models to Next.js
 npm run clear-all        # Clean node_modules and .next
 ```
 
+## Constraints
+
+- Do not handle deployments. This includes running deploy scripts, pushing to production, or any action that publishes code to a live environment.
+
 ## Architecture
 
 ### Routing
