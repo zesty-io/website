@@ -65,6 +65,7 @@ Material-UI v5 with Emotion for CSS-in-JS. The theme is in `src/theme/` with a c
 ### Environment
 
 Key env vars (set in `.env.local`):
+
 - `PRODUCTION` — toggles prod vs stage Zesty endpoints
 - `ZESTY_INSTANCE_ZUID` — CMS instance identifier
 - `GTM_ID` — Google Tag Manager

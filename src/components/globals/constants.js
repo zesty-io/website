@@ -11509,7 +11509,7 @@ export const navigationCustom = [
         title: 'Hybrid CMS',
         zuid: '7-f0bbf4b083-v2pnsn',
         children: [],
-      }
+      },
     ],
   },
   {
