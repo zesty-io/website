@@ -103,9 +103,9 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   }
 
   const sso = {
-    githubUrl: process.env.GITHUB_SSO_URL,
-    googleUrl: process.env.GOOGLE_SSO_URL,
-    msUrl: process.env.MS_SSO_URL,
+    githubUrl: process.env.GITHUB_SSO_URL || null,
+    googleUrl: process.env.GOOGLE_SSO_URL || null,
+    msUrl: process.env.MS_SSO_URL || null,
   };
 
   data = {
@@ -113,27 +113,30 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     zesty: {
       isAuthenticated,
       sso,
-      templateUrl: process.env.TEMPLATE_URL,
+      templateUrl: process.env.TEMPLATE_URL || null,
       products,
       productGlossary,
       docs,
     },
     algolia: {
-      apiKey: process.env.ALGOLIA_SEARCH_KEY,
-      appId: process.env.ALGOLIA_APPID,
-      index: process.env.ALGOLIA_INDEX,
+      apiKey: process.env.ALGOLIA_APIKEY || null,
+      appId: process.env.ALGOLIA_APPID || null,
+      index: process.env.ALGOLIA_INDEX || null,
     },
   };
 
   // This section holds data settings for fetching Github Data
-  if (req.url.includes('/roadmap/') && process.env.GITHUB_AUTH) {
+  console.log('gh auth', process.env.GITHUB_AUTH);
+  if (req.url.includes('roadmap') && process.env.GITHUB_AUTH) {
+    console.log('inside roadmap fetch');
     data.github_data = await githubFetch({
-      organization: `"Zesty-io"`,
+      organization: 'Zesty-io',
       projectNumber: data.project_number,
       columns: data.max_column,
       cards: data.max_card,
       discussions: data.max_discussion,
     });
+    console.log('github', data.github_data);
   }
 
   // generate a status 404 page
