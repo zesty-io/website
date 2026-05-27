@@ -4,7 +4,7 @@
 
 import * as Sentry from '@sentry/nextjs';
 
-export let onRouterTransitionStart = {};
+export let onRouterTransitionStart: typeof Sentry.captureRouterTransitionStart | undefined = undefined;
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({

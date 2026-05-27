@@ -42,12 +42,17 @@ export const useZestyStore = create((set) => {
     setloading: (data) => set(() => ({ loading: data })),
     userInfo: {},
     setuserInfo: (data) => {
-      // Set sentry user info here
-      Sentry.setUser({
-        email: data?.email,
-        id: data?.ZUID,
-        username: `${data?.firstName} ${data?.lastName}`,
-      });
+      if (data) {
+        Sentry.setUser({
+          email: data.email,
+          id: data.ZUID,
+          username:
+            `${data.firstName ?? ''} ${data.lastName ?? ''}`.trim() ||
+            undefined,
+        });
+      } else {
+        Sentry.setUser(null);
+      }
       set(() => ({ userInfo: data }));
     },
     prefs: {},

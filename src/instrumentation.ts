@@ -10,4 +10,7 @@ export async function register() {
   }
 }
 
-export const onRequestError = Sentry.captureRequestError;
+export const onRequestError =
+  process.env.NODE_ENV === 'production'
+    ? Sentry.captureRequestError
+    : undefined;
