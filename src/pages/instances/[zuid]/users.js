@@ -144,7 +144,9 @@ export default function UsersPage() {
 
     const updateUsersPermission = instanceUserWithRoles.find(
       (user) => user.ZUID === userInfo.ZUID,
-    )?.role.systemRole.grant;
+    const updateUsersPermission = instanceUserWithRoles.find(
+      (user) => user.ZUID === userInfo.ZUID,
+    )?.role?.systemRole?.grant;
 
     return updateUsersPermission || userInfo.staff;
   }, [instanceUserWithRoles, userInfo]);
