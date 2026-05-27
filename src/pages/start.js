@@ -105,15 +105,15 @@ export default function Start(props) {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
 
-      if (!sliderRef.current) {
-        return;
+      if (sliderRef.current) {
+        sliderRef.current.swiper.slidePrev();
       }
 
-      sliderRef.current.swiper.slidePrev();
+      return;
     }
 
     router.back();
-  }, [currentStep]);
+  }, [currentStep, router]);
 
   // moves user forward a slide in the onboard process
   const handleNext = useCallback(() => {
