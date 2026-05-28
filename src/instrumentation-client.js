@@ -26,6 +26,9 @@ if (process.env.NODE_ENV === 'production') {
           breadcrumb.category === 'ui.input')
       ) {
         const target = hint.event.target;
+        if (!(target instanceof Element)) {
+          return breadcrumb;
+        }
         const elementType = target.tagName.toLowerCase();
         const dataCy = target.dataset?.cy;
         const messages = [];

@@ -125,8 +125,8 @@ const Error = ({ statusCode }) => {
   return <ErrorPage errorCode={statusCode} />;
 };
 
-Error.getInitialProps = async (contextData) => {
-  await Sentry.captureUnderscoreErrorException(contextData);
+Error.getInitialProps = (contextData) => {
+  Sentry.captureUnderscoreErrorException(contextData);
   const statusCode = contextData.res
     ? contextData.res.statusCode
     : contextData.err
