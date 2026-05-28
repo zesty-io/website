@@ -19,26 +19,42 @@ describe('E2E docs page', () => {
 });
 
 describe('test for built in docs pages in app', () => {
-  const urls = [
+  // These URLs redirect to docs.zesty.io — verify the redirect without following it to avoid slow external requests in CI
+  const redirectedUrls = [
+    '/docs/accounts/api-reference/',
     '/docs/accounts/api-reference/instances/domains/',
+    '/docs/instances/api-reference/',
     '/docs/instances/api-reference/content/links/',
     '/docs/authentication/api-reference/',
-    '/docs/parsley/tour/hello-world/',
     '/docs/parsley/api-reference/',
-    '/docs/parsley/guides/',
-    '/docs/parsley/guides/each-loop-deep-dive/',
-    '/docs/accounts/api-reference/',
-    '/docs/instances/api-reference/',
-    '/docs/authentication/api-reference/',
     '/docs/media/api-reference/',
-    '/docs/accounts/api-reference/instances/domains/',
   ];
 
-  urls.forEach((url) => {
+  redirectedUrls.forEach((url) => {
+    it(`should redirect: ${url}`, () => {
+      cy.request({
+        url: Cypress.config().baseUrl + url,
+        failOnStatusCode: false, // Prevent Cypress from failing the test on non-2xx status codes
+        followRedirect: false,
+      }).then((response) => {
+        expect(response.status).to.be.oneOf([301, 302, 307, 308]); // Verify that the URL redirects
+      });
+    });
+  });
+
+  // These URLs serve content locally
+  const localUrls = [
+    '/docs/parsley/tour/hello-world/',
+    '/docs/parsley/guides/',
+    '/docs/parsley/guides/each-loop-deep-dive/',
+  ];
+
+  localUrls.forEach((url) => {
     it(`should load URL: ${url} without encountering 404`, () => {
       cy.request({
         url: Cypress.config().baseUrl + url,
         failOnStatusCode: false, // Prevent Cypress from failing the test on non-2xx status codes
+        timeout: 10000,
       }).then((response) => {
         expect(response.status).to.not.equal(404); // Verify that the status code is not 404
         expect(response.body).not.to.contain('404 Not Found'); // Verify that the page content does not contain the 404 message

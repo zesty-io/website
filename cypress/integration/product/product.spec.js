@@ -15,7 +15,8 @@ describe('E2E product page', () => {
     );
     cy.algoliaNavigate();
   });
-  it('test if product slug urls rendered ', () => {
+  // this url no longer exists
+  it.skip('test if product slug urls rendered ', () => {
     cy.visit('/product/content');
     cy.get("[data-testid='product-slug']", { timeout: 30000 }).should('exist');
     cy.get("[data-testid='navigation-tree']", { timeout: 30000 }).should(
@@ -27,7 +28,8 @@ describe('E2E product page', () => {
     // cy.algoliaNavigate();
   });
 
-  it('test if this image is rendered ', () => {
+  // url redirects to docs.zesty.io and is no longer valid
+  it.skip('test if this image is rendered ', () => {
     cy.visit('/product/search-engine-optimization/');
     cy.get('[alt="SEO Features in Zesty.io"]')
       .should('be.visible')
