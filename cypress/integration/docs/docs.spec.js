@@ -27,7 +27,13 @@ describe('test for built in docs pages in app', () => {
     '/docs/instances/api-reference/content/links/',
     '/docs/authentication/api-reference/',
     '/docs/parsley/api-reference/',
+    // media catch-all
     '/docs/media/api-reference/',
+    // media-specific rules — one URL each to catch destination regressions
+    '/docs/media/api-reference/manager/upload/',
+    '/docs/media/api-reference/storage/files/',
+    '/docs/media/api-reference/modify/resize/',
+    '/docs/media/api-reference/resolver/lookup/',
   ];
 
   redirectedUrls.forEach((url) => {

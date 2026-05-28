@@ -90,6 +90,6 @@ describe('E2E accounts: Navigate user', () => {
       .should('exist')
       .click({ force: true });
 
-    cy.get("[data-testid='signout-page']", { timeout: 30000 }).should('exist');
+    cy.url({ timeout: 30000 }).should('include', '/login/');
   });
 });

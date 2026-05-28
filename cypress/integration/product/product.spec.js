@@ -15,27 +15,24 @@ describe('E2E product page', () => {
     );
     cy.algoliaNavigate();
   });
-  // this url no longer exists
-  it.skip('test if product slug urls rendered ', () => {
-    cy.visit('/product/content');
-    cy.get("[data-testid='product-slug']", { timeout: 30000 }).should('exist');
-    cy.get("[data-testid='navigation-tree']", { timeout: 30000 }).should(
-      'exist',
-    );
-    cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
-      'exist',
-    );
-    // cy.algoliaNavigate();
+  it('should redirect /product/content', () => {
+    cy.request({
+      url: Cypress.config().baseUrl + '/product/content',
+      failOnStatusCode: false, // Prevent Cypress from failing the test on non-2xx status codes
+      followRedirect: false,
+    }).then((response) => {
+      expect(response.status).to.be.oneOf([301, 302, 307, 308]); // Verify that the URL redirects
+    });
   });
 
-  // url redirects to docs.zesty.io and is no longer valid
-  it.skip('test if this image is rendered ', () => {
-    cy.visit('/product/search-engine-optimization/');
-    cy.get('[alt="SEO Features in Zesty.io"]')
-      .should('be.visible')
-      .and(($img) => {
-        expect($img[0].naturalWidth).to.be.greaterThan(0);
-      });
+  it('should redirect /product/search-engine-optimization/', () => {
+    cy.request({
+      url: Cypress.config().baseUrl + '/product/search-engine-optimization/',
+      failOnStatusCode: false, // Prevent Cypress from failing the test on non-2xx status codes
+      followRedirect: false,
+    }).then((response) => {
+      expect(response.status).to.be.oneOf([301, 302, 307, 308]); // Verify that the URL redirects
+    });
   });
 });
 
