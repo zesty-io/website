@@ -70,11 +70,15 @@ describe('E2E accounts: Navigate user', () => {
     cy.wait(3000);
     cy.get("[data-testid='Profile']", { timeout: 30000 }).should('exist');
 
-    cy.get("[title='Security']", { timeout: 30000 }).should('exist').click({ force: true });
+    cy.get("[title='Security']", { timeout: 30000 })
+      .should('exist')
+      .click({ force: true });
 
     cy.get("[data-testid='Security']", { timeout: 30000 }).should('exist');
 
-    cy.get("[title='Preferences']", { timeout: 30000 }).should('exist').click({ force: true });
+    cy.get("[title='Preferences']", { timeout: 30000 })
+      .should('exist')
+      .click({ force: true });
 
     cy.get("[data-testid='Preference']", { timeout: 30000 }).should('exist');
 
