@@ -3,7 +3,6 @@ import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Users } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
-import * as helpers from 'utils';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
@@ -138,10 +137,17 @@ export default function UsersPage() {
     }
   }, [router.isReady]);
 
-  const isInstanceOwner = helpers.isInstanceOwner(
-    instanceUserWithRoles,
-    userInfo,
-  );
+  const canUpdateUsers = React.useMemo(() => {
+    if (!userInfo || !instanceUserWithRoles?.length) {
+      return false;
+    }
+
+    const updateUsersPermission = instanceUserWithRoles.find(
+      (user) => user.ZUID === userInfo.ZUID,
+    )?.role?.systemRole?.grant;
+
+    return updateUsersPermission || userInfo.staff;
+  }, [instanceUserWithRoles, userInfo]);
 
   const filteredUsers = instanceUserWithRoles?.filter((e) => {
     const name = `${e?.firstName?.toLowerCase() || '-'} ${
@@ -155,7 +161,7 @@ export default function UsersPage() {
     deleteUserRole,
     instanceRoles,
     createInvite,
-    isOwner: isInstanceOwner,
+    canUpdateUsers,
     instanceZUID: zuid,
     loading,
     search,
