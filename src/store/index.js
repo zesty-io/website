@@ -1,5 +1,6 @@
 import { getCookie } from 'cookies-next';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
+import * as Sentry from '@sentry/nextjs';
 import { create } from 'zustand';
 
 const getInstanceZUID = () => {
@@ -40,7 +41,22 @@ export const useZestyStore = create((set) => {
     loading: false,
     setloading: (data) => set(() => ({ loading: data })),
     userInfo: {},
-    setuserInfo: (data) => set(() => ({ userInfo: data })),
+    setuserInfo: (data) => {
+      if (process.env.NODE_ENV === 'production') {
+        if (data) {
+          Sentry.setUser({
+            email: data.email,
+            id: data.ZUID,
+            username:
+              `${data.firstName ?? ''} ${data.lastName ?? ''}`.trim() ||
+              undefined,
+          });
+        } else {
+          Sentry.setUser(null);
+        }
+      }
+      set(() => ({ userInfo: data }));
+    },
     prefs: {},
     setprefs: (data) => set(() => ({ prefs: data })),
     usage: {},

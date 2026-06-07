@@ -40,6 +40,8 @@ jobs:
         node-version: [20]
     runs-on: ${{ matrix.os }}
     needs: install-dependencies
+    env:
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
     steps:
       - name: ✅ Checkout code
