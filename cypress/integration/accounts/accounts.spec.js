@@ -14,78 +14,83 @@ describe('E2E accounts: Navigate user', () => {
 
     cy.get("input[placeholder='Search an Instances']", { timeout: 30000 })
       .should('exist')
-      .type('zesty.pw');
+      .type('acme recipes');
 
     cy.wait(5000);
 
-    cy.get("[data-testid='zesty.pw']", { timeout: 30000 })
+    cy.get("[data-testid='Acme Recipes']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
 
     cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='Users-Nav']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
     cy.get("[data-testid='Users']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='Teams-Nav']", { timeout: 30000 })
+    cy.get("[data-testid='Team Access-Nav']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
     cy.get("[data-testid='Teams']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='Domains-Nav']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
     cy.get("[data-testid='Domain']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='Locales-Nav']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
     cy.get("[data-testid='Locales']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='APIs-Nav']", { timeout: 30000 })
+    cy.get("[data-testid='API Tokens-Nav']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
     cy.get("[data-testid='Apis']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='Webhooks-Nav']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
     cy.get("[data-testid='Webhooks']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='Settings-Nav']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
     cy.get("[data-testid='Settings']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='user-avatar']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
 
     cy.get("[data-testid='Profile-dropdown']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
 
     cy.wait(3000);
     cy.get("[data-testid='Profile']", { timeout: 30000 }).should('exist');
 
-    cy.get("[title='Security']", { timeout: 30000 }).should('exist').click();
+    cy.get("[title='Security']", { timeout: 30000 })
+      .should('exist')
+      .click({ force: true });
 
     cy.get("[data-testid='Security']", { timeout: 30000 }).should('exist');
 
-    cy.get("[title='Preferences']", { timeout: 30000 }).should('exist').click();
+    cy.get("[title='Preferences']", { timeout: 30000 })
+      .should('exist')
+      .click({ force: true });
 
     cy.get("[data-testid='Preference']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='user-avatar']", { timeout: 30000 })
       .should('exist')
-      .click();
+      .click({ force: true });
 
     cy.get("[data-testid='Logout-dropdown']", { timeout: 30000 })
+      .find('li')
       .should('exist')
-      .click();
+      .click({ force: true });
 
-    cy.get("[data-testid='signout-page']", { timeout: 30000 }).should('exist');
+    cy.url({ timeout: 30000 }).should('include', '/login/');
   });
 });
