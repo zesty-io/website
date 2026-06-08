@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
 import {
   accountsValidations,
   FormInput,
@@ -12,6 +12,7 @@ import {
   AccountsTableHead,
 } from 'components/accounts';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { grey } from '@mui/material/colors';
 
 import AddIcon from '@mui/icons-material/Add';
 import { baseroles } from 'components/accounts/users/baseroles';
@@ -230,7 +231,9 @@ const CustomTable = ({
   );
 };
 
-const CustomForm = ({ onSubmit, options, instanceZUID }) => {
+const CustomForm = ({ onSubmit, options, instanceZUID, onCancel }) => {
+  const theme = useTheme();
+
   const formik = useFormik({
     validationSchema: accountsValidations.email,
     initialValues: {
@@ -265,7 +268,28 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
           formik={formik}
           options={newOptions}
         />
-        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        <Stack gap={1}>
+          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+          <Button
+            color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
+            variant="outlined"
+            fullWidth
+            disabled={formik.isSubmitting}
+            onClick={onCancel}
+            sx={(theme) => ({
+              textTransform: 'none',
+              border:
+                theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
+              bgcolor: theme.palette.mode === 'light' && 'white',
+              '&:hover': {
+                bgcolor: theme.palette.mode === 'light' && 'white',
+                color: theme.palette.mode === 'light' && 'black',
+              },
+            })}
+          >
+            Cancel
+          </Button>
+        </Stack>
       </form>
     </Box>
   );
@@ -299,6 +323,7 @@ const Index = ({
           onSubmit={createInvite}
           options={options}
           instanceZUID={instanceZUID}
+          onCancel={() => MySwal.close()}
         />
       ),
       showConfirmButton: false,
