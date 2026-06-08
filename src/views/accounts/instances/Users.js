@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import {
   accountsValidations,
   FormInput,
@@ -232,8 +232,6 @@ const CustomTable = ({
 };
 
 const CustomForm = ({ onSubmit, options, instanceZUID, onCancel }) => {
-  const theme = useTheme();
-
   const formik = useFormik({
     validationSchema: accountsValidations.email,
     initialValues: {
@@ -271,21 +269,20 @@ const CustomForm = ({ onSubmit, options, instanceZUID, onCancel }) => {
         <Stack gap={1}>
           <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
           <Button
-            color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
+            color="inherit"
             variant="outlined"
             fullWidth
             disabled={formik.isSubmitting}
             onClick={onCancel}
-            sx={(theme) => ({
+            sx={{
               textTransform: 'none',
-              border:
-                theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
-              bgcolor: theme.palette.mode === 'light' && 'white',
+              border: `1px solid ${grey[200]}`,
+              bgcolor: 'white',
               '&:hover': {
-                bgcolor: theme.palette.mode === 'light' && 'white',
-                color: theme.palette.mode === 'light' && 'black',
+                bgcolor: 'white',
+                color: 'black',
               },
-            })}
+            }}
           >
             Cancel
           </Button>
@@ -323,7 +320,7 @@ const Index = ({
           onSubmit={createInvite}
           options={options}
           instanceZUID={instanceZUID}
-          onCancel={() => MySwal.close()}
+          onCancel={MySwal.close}
         />
       ),
       showConfirmButton: false,
