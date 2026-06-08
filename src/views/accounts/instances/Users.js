@@ -269,6 +269,7 @@ const CustomForm = ({ onSubmit, options, instanceZUID, onCancel }) => {
         <Stack gap={1}>
           <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
           <Button
+            type="button"
             color="inherit"
             variant="outlined"
             fullWidth
