@@ -12,6 +12,7 @@ import {
   AccountsTableHead,
 } from 'components/accounts';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { grey } from '@mui/material/colors';
 
 import AddIcon from '@mui/icons-material/Add';
 import { baseroles } from 'components/accounts/users/baseroles';
@@ -230,7 +231,7 @@ const CustomTable = ({
   );
 };
 
-const CustomForm = ({ onSubmit, options, instanceZUID }) => {
+const CustomForm = ({ onSubmit, options, instanceZUID, onCancel }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.email,
     initialValues: {
@@ -265,7 +266,28 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
           formik={formik}
           options={newOptions}
         />
-        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        <Stack gap={1}>
+          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+          <Button
+            type="button"
+            color="inherit"
+            variant="outlined"
+            fullWidth
+            disabled={formik.isSubmitting}
+            onClick={onCancel}
+            sx={{
+              textTransform: 'none',
+              border: `1px solid ${grey[200]}`,
+              bgcolor: 'white',
+              '&:hover': {
+                bgcolor: 'white',
+                color: 'black',
+              },
+            }}
+          >
+            Cancel
+          </Button>
+        </Stack>
       </form>
     </Box>
   );
@@ -299,6 +321,7 @@ const Index = ({
           onSubmit={createInvite}
           options={options}
           instanceZUID={instanceZUID}
+          onCancel={MySwal.close}
         />
       ),
       showConfirmButton: false,
