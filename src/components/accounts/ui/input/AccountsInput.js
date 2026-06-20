@@ -1,21 +1,25 @@
 import { TextField } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import React from 'react';
+import React, { useDeferredValue, useState, useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
-export const AccountsInput = ({
-  search,
-  setsearch,
-  placeholder,
-  width = 200,
-}) => {
+export const AccountsInput = ({ setsearch, placeholder, width = 200 }) => {
+  const [internalSearch, setInternalSearch] = useState('');
+  const deferredSearch = useDeferredValue(internalSearch);
+
   const handleChange = (e) => {
-    setsearch(e.target.value);
+    setInternalSearch(e.target.value);
   };
+
   const clearInput = () => {
-    setsearch('');
+    setInternalSearch('');
   };
+
+  useEffect(() => {
+    setsearch(deferredSearch);
+  }, [deferredSearch, setsearch]);
+
   return (
     <TextField
       sx={(theme) => ({
@@ -28,11 +32,11 @@ export const AccountsInput = ({
       })}
       size="small"
       placeholder={placeholder}
-      value={search}
+      value={internalSearch}
       onChange={(e) => handleChange(e)}
       InputProps={{
         startAdornment: <SearchIcon color="disabled" />,
-        endAdornment: search && (
+        endAdornment: internalSearch && (
           <HighlightOffIcon
             fontSize="small"
             color="primary"

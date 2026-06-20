@@ -279,7 +279,6 @@ const Index = ({
   isOwner,
   instanceZUID,
   loading,
-  search,
   setsearch,
   respondToInvite,
   pendingUsers,
@@ -320,7 +319,6 @@ const Index = ({
     <Grid container>
       <AccountsHeader {...headerProps}>
         <AccountsInput
-          search={search}
           setsearch={setsearch}
           placeholder=" Search users"
           width={250}

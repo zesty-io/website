@@ -84,7 +84,6 @@ export default function Support() {
       <Grid container>
         <AccountsHeader {...headerProps}>
           <AccountsInput
-            search={search}
             setsearch={setsearch}
             placeholder=" Search subjects, ticket #"
             width={250}
