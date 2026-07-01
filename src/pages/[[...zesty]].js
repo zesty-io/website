@@ -75,17 +75,11 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // does not display with npm run dev
 
   res.setHeader('set-cookie', `PRODUCTION=${process.env.PRODUCTION}`);
-  isProd &&
-    res.setHeader(
-      'Cache-Control',
-      'public, max-age=3600, stale-while-revalidate=7200 ',
-    );
-  isProd && res.setHeader('Surrogate-Control', 'max-age=3600');
 
-  res.setHeader(
-    'Surrogate-Key',
-    `${process.env.zesty.instance_zuid}, zesty.io`,
-  );
+  // Default to non-cacheable; cache headers are set only on the 200 path below
+  // so 404s/redirects can't be pinned at the CDN edge and served to everyone.
+  res.setHeader('Cache-Control', 'private, no-store');
+
   // Fetch the page data using the cache function
   let data = await fetchPage(resolvedUrl);
   // attempt to get page data relative to zesty
@@ -158,6 +152,19 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
         permanent: false,
       },
     };
+  }
+
+  // Real 200 page: safe to cache and tag with the instance Surrogate-Key.
+  if (isProd) {
+    res.setHeader(
+      'Cache-Control',
+      'public, max-age=3600, stale-while-revalidate=7200',
+    );
+    res.setHeader('Surrogate-Control', 'max-age=3600');
+    res.setHeader(
+      'Surrogate-Key',
+      `${process.env.zesty.instance_zuid}, zesty.io`,
+    );
   }
 
   // Pass data to the page via props
