@@ -23,6 +23,14 @@ const instanceOptions = [
   { value: 'List', label: 'List' },
   { value: 'Grid', label: 'Grid' },
 ];
+const LOCALES = [
+  { value: 'en-US', label: 'EN-US' },
+  { value: 'es-ES', label: 'ES-ES' },
+  { value: 'hi-IN', label: 'HI-IN' },
+  { value: 'zh-CN', label: 'ZH-CN' },
+  { value: 'ru-RU', label: 'RU-RU' },
+  { value: 'nl-NL', label: 'NL-NL' },
+];
 
 function capitalize(s) {
   return s && s[0]?.toUpperCase() + s?.slice(1);
@@ -34,6 +42,7 @@ export const Preference = () => {
   const prefs = userInfo?.prefs && JSON.parse(userInfo?.prefs);
   const [teamOptions, setTeamOptions] = React.useState();
   const [instance_layout, setInstance_layout] = React.useState();
+  const [userLocale, setUserLocale] = React.useState('en-US');
 
   const handleSaveSuccess = () => {
     SuccessMsg({ title: 'Success' });
@@ -46,7 +55,12 @@ export const Preference = () => {
     const body = {
       firstName: userInfo?.firstName,
       lastName: userInfo?.lastName,
-      prefs: JSON.stringify({ ...prefs, teamOptions, instance_layout }),
+      prefs: JSON.stringify({
+        ...prefs,
+        teamOptions,
+        instance_layout,
+        locale: userLocale,
+      }),
     };
     const res = await ZestyAPI.updateUser(userZUID, body);
     !res.error && handleSaveSuccess(res);
@@ -77,6 +91,19 @@ export const Preference = () => {
           list={instanceOptions}
           setterFn={setInstance_layout}
           value={capitalize(instance_layout)}
+          setdirty={setdirty}
+        />
+      ),
+    },
+    {
+      id: 3,
+      name: 'App Language',
+      description: 'Set language for Manager-UI',
+      action: (
+        <AccountsSelect
+          list={LOCALES}
+          setterFn={setUserLocale}
+          value={userLocale}
           setdirty={setdirty}
         />
       ),
@@ -143,7 +170,8 @@ export const Preference = () => {
   React.useEffect(() => {
     setTeamOptions(prefs?.teamOptions);
     setInstance_layout(prefs?.instance_layout);
-  }, [prefs?.teamOptions, prefs?.instance_layout]);
+    setUserLocale(prefs?.locale || 'en-US');
+  }, [prefs?.teamOptions, prefs?.instance_layout, prefs?.locale]);
 
   const headerProps = {
     title: 'Preference',
