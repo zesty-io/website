@@ -1,6 +1,6 @@
 name: Claude Auto Review
 
-# Code-level review on every non-draft PR into dev: bugs, security, performance, and CLAUDE.md
+# Code-level review on every non-draft PR into stage: bugs, security, performance, and CLAUDE.md
 # "Review red flags" only. The Claude Change Verifier workflow owns "what does this change do"
 # and acceptance-criteria QA — this workflow must never duplicate that. Findings land as inline
 # comments; each run posts a fresh single-line verdict comment (deliberately NOT updated in
@@ -8,7 +8,7 @@ name: Claude Auto Review
 
 on:
   pull_request:
-    branches: [dev]
+    branches: [stage]
     types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
