@@ -5,12 +5,20 @@ import { fetchPage, fetcher } from 'lib/api';
 import Extension from 'views/marketplace/Extension';
 import CustomContainer from 'components/Container';
 import Head from 'next/head';
-import RegisterPage from 'components/marketplace/register';
-import InstalledPage from 'components/marketplace/installed';
+import dynamic from 'next/dynamic';
 import { setCookie } from 'cookies-next';
 import MainApps from 'components/marketplace/landing/MainApps';
-import { useEffect, useState } from 'react';
 import { getIsAuthenticated } from 'utils';
+
+// these read cookies directly during render (no SSR guard), so they must
+// stay client-only or their server output mismatches the client hydration
+const RegisterPage = dynamic(() => import('components/marketplace/register'), {
+  ssr: false,
+});
+const InstalledPage = dynamic(
+  () => import('components/marketplace/installed'),
+  { ssr: false },
+);
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -18,16 +26,17 @@ const ALTNAME = {
   EXTENSION: 'Extension',
 };
 
-const slug = ({ marketEntityTypes, marketTags, ...props }) => {
-  const [pathname, setPathname] = useState('');
+const slug = ({
+  marketEntityTypes,
+  marketTags,
+  isRegisterPage,
+  isInstalledPage,
+  ...props
+}) => {
   const seoTitle = props?.meta?.web?.seo_meta_title,
     seoDescription = props?.meta?.web?.seo_meta_description;
 
-  useEffect(() => {
-    setPathname(window.location.pathname);
-  }, []);
-
-  if (pathname === '/marketplace/register/') {
+  if (isRegisterPage) {
     return (
       <>
         <Head>
@@ -47,7 +56,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
     );
   }
 
-  if (pathname === '/marketplace/installed/') {
+  if (isInstalledPage) {
     return (
       <>
         <Head>
@@ -148,7 +157,7 @@ export const getMarketplaceData = async (url) => {
   return data;
 };
 
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps({ req, res, query }) {
   const isAuthenticated = getIsAuthenticated(res);
 
   res.setHeader(
@@ -180,9 +189,13 @@ export async function getServerSideProps({ req, res }) {
   const navigationCustom = (await fetchPage('/')).navigationCustom;
   const flyoutNavigation = (await fetchPage('/')).flyoutNavigation;
 
-  // partial fix for register page not rendering
-  const isRegisterPage = req.url === '/marketplace/register/';
-  const isInstalledPage = req.url === '/marketplace/installed/';
+  // resolved from the catch-all route params, not req.url, so it stays correct
+  // behind proxies/CDNs that may add query strings or rewrite the request URL
+  const slugSegments = query?.slug || [];
+  const isRegisterPage =
+    slugSegments.length === 1 && slugSegments[0] === 'register';
+  const isInstalledPage =
+    slugSegments.length === 1 && slugSegments[0] === 'installed';
   const extendedPages = isRegisterPage || isInstalledPage;
   // generate a status 404 page
   if (data?.error && !extendedPages) return { notFound: true };
@@ -197,6 +210,8 @@ export async function getServerSideProps({ req, res }) {
       marketTags: tags,
       navigationCustom: navigationCustom,
       flyoutNavigation: flyoutNavigation,
+      isRegisterPage,
+      isInstalledPage,
       zesty: {
         isAuthenticated,
         templateUrl: process.env.TEMPLATE_URL,

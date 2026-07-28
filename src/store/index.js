@@ -4,7 +4,8 @@ import { create } from 'zustand';
 
 const getInstanceZUID = () => {
   if (typeof window !== 'undefined') {
-    return window?.location?.pathname?.split('/')[2];
+    const segments = window.location.pathname.split('/');
+    return segments[1] === 'instances' ? segments[2] : undefined;
   }
 };
 const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || getInstanceZUID();

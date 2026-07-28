@@ -1,5 +1,4 @@
 import React from 'react';
-import { getCookie } from 'cookies-next';
 import BasicTable from './table';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import TransitionsModal from 'blocks/modal/modal';
@@ -20,7 +19,7 @@ const index = () => {
   const [success, setsucces] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const [installedApps, setinstalledApps] = React.useState([]);
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const instanceZUID = useZestyStore((state) => state.workingInstance);
 
   const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
   const getInstalledAppSuccess = (res) => {

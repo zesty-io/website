@@ -9,7 +9,6 @@ import {
 import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import { useFormik } from 'formik';
-import { getCookie } from 'cookies-next';
 import * as yup from 'yup';
 import TransitionsModal from '../../../blocks/modal/modal';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
@@ -191,11 +190,11 @@ const customContainer = {
 const RegisterPage = ({}) => {
   const theme = useTheme();
 
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getUserAppSID();
   const isLoggedIn = useIsLoggedIn();
 
   const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
+  const instanceZUID = useZestyStore((state) => state.workingInstance);
   const { verifySuccess, loading: verifyLoading } = useFetchWrapper(isLoggedIn);
   const FormProps = {
     ZestyAPI,
