@@ -71,12 +71,27 @@ const resourceOptions = [
 ];
 
 const developerDocs = [
-  { title: 'Guides and Docs', url: 'https://zesty.org/' },
+  {
+    title: 'Guides and Docs',
+    url: 'https://docs.zesty.io/docs/getting-started-with-zesty',
+  },
   { title: 'Node SDK', url: 'https://github.com/zesty-io/node-sdk' },
-  { title: 'Instance API', url: 'https://instances-api.zesty.org/' },
-  { title: 'Accounts API', url: 'https://accounts-api.zesty.org/' },
-  { title: 'Auth API', url: 'https://auth-api.zesty.org/' },
-  { title: 'Media API', url: 'https://media-api.zesty.org/' },
+  {
+    title: 'Instance API',
+    url: 'https://docs.zesty.io/reference/instances-api-reference',
+  },
+  {
+    title: 'Accounts API',
+    url: 'https://docs.zesty.io/reference/accounts-api-reference',
+  },
+  {
+    title: 'Auth API',
+    url: 'https://docs.zesty.io/reference/authentication-api-reference',
+  },
+  {
+    title: 'Media API',
+    url: 'https://docs.zesty.io/reference/media-api-reference',
+  },
   { title: 'Fetch Wrapper', url: 'https://github.com/zesty-io/fetch-wrapper' },
   { title: 'Status', url: 'https://status.zesty.io/' },
   { title: 'Parsley', url: 'https://github.com/zesty-io/parsley' },
