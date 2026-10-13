@@ -45,7 +45,7 @@ export default function DomainSettings({ settings, getSettings }) {
           <Typography variant="body2" pb={2}>
             After adding a domain, launch your site following this guide:{' '}
             <a
-              href="https://zesty.org/tools/guides/how-to-launch-an-instance"
+              href="https://docs.zesty.io/docs/zestyio-instance-domain-setup"
               target="_blank"
             >
               DNS configuration
