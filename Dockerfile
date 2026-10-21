@@ -1,10 +1,13 @@
-FROM node:18.18.2-alpine3.17
+FROM node:24.22.1-alpine3.24
+
+# The base image still ships ca-certificates-bundle 20260909, which trusts the compromised eMudhra intermediates
+RUN apk add --no-cache --upgrade ca-certificates-bundle
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN  npm ci --only=production --ignore-scripts && npm cache clean --force
+RUN  npm ci --omit=dev --ignore-scripts && npm cache clean --force
 
 COPY . ./
 
