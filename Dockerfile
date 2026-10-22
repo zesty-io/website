@@ -1,6 +1,7 @@
 FROM node:24.22.1-alpine3.24
 
-# The base image still ships ca-certificates-bundle 20260909, which trusts the compromised eMudhra intermediates
+# Workaround: node:24.22.1-alpine3.24 ships ca-certificates-bundle 20260909-r0, which still trusts the compromised eMudhra intermediates (https://blog.cloudflare.com/emudhra-certificate-compromise)
+# Remove once the upstream node:alpine image ships ca-certificates-bundle >= 20261020-r0
 RUN apk add --no-cache --upgrade ca-certificates-bundle
 
 WORKDIR /usr/src/app
